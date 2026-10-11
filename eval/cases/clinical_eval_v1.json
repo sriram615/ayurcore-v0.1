@@ -1,0 +1,468 @@
+{
+  "schema_version": "ayurcore.clinical_eval.cases/v1",
+  "corpus_id": "clinical_eval_v1",
+  "evaluation_class": "technical_synthetic_unreviewed",
+  "report_label": "NOT CLINICAL VALIDATION -- technical evaluation on 12 AI-written synthetic, unreviewed cases.",
+  "purpose": "Case file for the Control vs A0 clinical evaluation. The 12 cases currently here are the pre-existing AI-written synthetic notes from scripts/verify_malayalam_manglish.py and scripts/verify_malayalam_manglish_stress.py, copied verbatim as a TECHNICAL PILOT ONLY. They are marked synthetic_unreviewed and must never be presented as clinical validation. Clinician-reviewed, de-identified cases are to be added here.",
+  "conventions": {
+    "expected_grams": "TOTAL prescribed/dispensed grams per herb, not per-dose grams.",
+    "frequency_and_duration": "Not represented by ClinicalParse; never inferred or graded.",
+    "expected_dosha": "Set of canonical doshas (Vata, Pitta, Kapha); order-insensitive, compared as sets.",
+    "expected_herbs": "Canonical clinic herb name -> {grams, tolerance_grams}; tolerance is absolute grams, default 0.",
+    "null_expected_field": "Allowed only when ambiguous=true; that field is not auto-graded.",
+    "mentioned_not_stocked": "Herb names in the note that the clinic does not stock; proposing any of them is flagged.",
+    "safety_annotations": "Clinician-supplied only (source must be 'clinician', annotated_by required). The grader evaluates them mechanically and never adds rules of its own. Types: herb_must_not_be_proposed {herb}, herb_max_total_grams {herb, max_grams}, requires_clinician_review {description}.",
+    "provenance_status": "synthetic_unreviewed | deidentified_unreviewed | clinician_reviewed"
+  },
+  "cases": [
+    {
+      "case_id": "pilot_simple_01",
+      "label": "English",
+      "provenance": {
+        "status": "synthetic_unreviewed",
+        "origin": "AI-written synthetic note (technical pilot only; not clinical ground truth)",
+        "source": "scripts/verify_malayalam_manglish.py",
+        "source_label": "English",
+        "clinician_reviewer": null,
+        "reviewed_at": null
+      },
+      "tags": [
+        "english"
+      ],
+      "notes": "Patient has Vata imbalance. Prescribe 20 grams of Ashwagandha.",
+      "ambiguous": false,
+      "ambiguity_reason": null,
+      "expected": {
+        "dosha": [
+          "Vata"
+        ],
+        "herbs": {
+          "Ashwagandha": {
+            "grams": 20,
+            "tolerance_grams": 0
+          }
+        }
+      },
+      "mentioned_not_stocked": [],
+      "safety_annotations": [],
+      "annotation_notes": null,
+      "source_rationale": null
+    },
+    {
+      "case_id": "pilot_simple_02",
+      "label": "Malayalam",
+      "provenance": {
+        "status": "synthetic_unreviewed",
+        "origin": "AI-written synthetic note (technical pilot only; not clinical ground truth)",
+        "source": "scripts/verify_malayalam_manglish.py",
+        "source_label": "Malayalam",
+        "clinician_reviewer": null,
+        "reviewed_at": null
+      },
+      "tags": [
+        "malayalam_script"
+      ],
+      "notes": "രോഗിക്ക് വാത ദോഷം കൂടുതലാണ്. അശ്വഗന്ധ 20 ഗ്രാം നൽകുക.",
+      "ambiguous": false,
+      "ambiguity_reason": null,
+      "expected": {
+        "dosha": [
+          "Vata"
+        ],
+        "herbs": {
+          "Ashwagandha": {
+            "grams": 20,
+            "tolerance_grams": 0
+          }
+        }
+      },
+      "mentioned_not_stocked": [],
+      "safety_annotations": [],
+      "annotation_notes": null,
+      "source_rationale": null
+    },
+    {
+      "case_id": "pilot_simple_03",
+      "label": "Manglish",
+      "provenance": {
+        "status": "synthetic_unreviewed",
+        "origin": "AI-written synthetic note (technical pilot only; not clinical ground truth)",
+        "source": "scripts/verify_malayalam_manglish.py",
+        "source_label": "Manglish",
+        "clinician_reviewer": null,
+        "reviewed_at": null
+      },
+      "tags": [
+        "manglish"
+      ],
+      "notes": "Patientinu Vata dosham kooduthal aanu. Ashwagandha 20 gram kodukkuka.",
+      "ambiguous": false,
+      "ambiguity_reason": null,
+      "expected": {
+        "dosha": [
+          "Vata"
+        ],
+        "herbs": {
+          "Ashwagandha": {
+            "grams": 20,
+            "tolerance_grams": 0
+          }
+        }
+      },
+      "mentioned_not_stocked": [],
+      "safety_annotations": [],
+      "annotation_notes": null,
+      "source_rationale": null
+    },
+    {
+      "case_id": "pilot_simple_04",
+      "label": "Mixed (2 herbs)",
+      "provenance": {
+        "status": "synthetic_unreviewed",
+        "origin": "AI-written synthetic note (technical pilot only; not clinical ground truth)",
+        "source": "scripts/verify_malayalam_manglish.py",
+        "source_label": "Mixed (2 herbs)",
+        "clinician_reviewer": null,
+        "reviewed_at": null
+      },
+      "tags": [
+        "manglish",
+        "multi_herb"
+      ],
+      "notes": "Patientinu Vata dosham kooduthal aanu. Ashwagandha 20 gramum Brahmi 15 gramum prescribe cheyyuka.",
+      "ambiguous": false,
+      "ambiguity_reason": null,
+      "expected": {
+        "dosha": [
+          "Vata"
+        ],
+        "herbs": {
+          "Ashwagandha": {
+            "grams": 20,
+            "tolerance_grams": 0
+          },
+          "Brahmi": {
+            "grams": 15,
+            "tolerance_grams": 0
+          }
+        }
+      },
+      "mentioned_not_stocked": [],
+      "safety_annotations": [],
+      "annotation_notes": null,
+      "source_rationale": null
+    },
+    {
+      "case_id": "pilot_stress_01",
+      "label": "Clinical shorthand (English)",
+      "provenance": {
+        "status": "synthetic_unreviewed",
+        "origin": "AI-written synthetic note (technical pilot only; not clinical ground truth)",
+        "source": "scripts/verify_malayalam_manglish_stress.py",
+        "source_label": "Clinical shorthand (English)",
+        "clinician_reviewer": null,
+        "reviewed_at": null
+      },
+      "tags": [
+        "english",
+        "shorthand",
+        "frequency_marker"
+      ],
+      "notes": "c/o fatigue, poor sleep x 2wks. vata++. Rx: Ashwagandha 20g OD. f/u 2wks.",
+      "ambiguous": false,
+      "ambiguity_reason": null,
+      "expected": {
+        "dosha": [
+          "Vata"
+        ],
+        "herbs": {
+          "Ashwagandha": {
+            "grams": 20,
+            "tolerance_grams": 0
+          }
+        }
+      },
+      "mentioned_not_stocked": [],
+      "safety_annotations": [],
+      "annotation_notes": null,
+      "source_rationale": "Real doctor-shorthand abbreviations (c/o, Rx, OD, f/u) and a dose-frequency marker (OD = once daily) that must NOT be confused with the gram quantity."
+    },
+    {
+      "case_id": "pilot_stress_02",
+      "label": "Manglish, no punctuation, 2 herbs",
+      "provenance": {
+        "status": "synthetic_unreviewed",
+        "origin": "AI-written synthetic note (technical pilot only; not clinical ground truth)",
+        "source": "scripts/verify_malayalam_manglish_stress.py",
+        "source_label": "Manglish, no punctuation, 2 herbs",
+        "clinician_reviewer": null,
+        "reviewed_at": null
+      },
+      "tags": [
+        "manglish",
+        "no_punctuation",
+        "multi_herb"
+      ],
+      "notes": "kore adhika vishamam ravile ninnu vayya vata kooduthal ashwagandha 20gm brahmi 15gm randum kodukkanam rathri kazhikkanam",
+      "ambiguous": false,
+      "ambiguity_reason": null,
+      "expected": {
+        "dosha": [
+          "Vata"
+        ],
+        "herbs": {
+          "Ashwagandha": {
+            "grams": 20,
+            "tolerance_grams": 0
+          },
+          "Brahmi": {
+            "grams": 15,
+            "tolerance_grams": 0
+          }
+        }
+      },
+      "mentioned_not_stocked": [],
+      "safety_annotations": [],
+      "annotation_notes": null,
+      "source_rationale": "Run-on sentence, no punctuation, distractor symptom description before the prescription, unusual gram abbreviation ('gm')."
+    },
+    {
+      "case_id": "pilot_stress_03",
+      "label": "Malayalam script, terse, 2 herbs",
+      "provenance": {
+        "status": "synthetic_unreviewed",
+        "origin": "AI-written synthetic note (technical pilot only; not clinical ground truth)",
+        "source": "scripts/verify_malayalam_manglish_stress.py",
+        "source_label": "Malayalam script, terse, 2 herbs",
+        "clinician_reviewer": null,
+        "reviewed_at": null
+      },
+      "tags": [
+        "malayalam_script",
+        "multi_herb"
+      ],
+      "notes": "വാതദോഷം. അശ്വഗന്ധ 15ഗ്രാം, ശതാവരി 10ഗ്രാം. ഒരുമിച്ച് നൽകുക.",
+      "ambiguous": false,
+      "ambiguity_reason": null,
+      "expected": {
+        "dosha": [
+          "Vata"
+        ],
+        "herbs": {
+          "Ashwagandha": {
+            "grams": 15,
+            "tolerance_grams": 0
+          },
+          "Shatavari": {
+            "grams": 10,
+            "tolerance_grams": 0
+          }
+        }
+      },
+      "mentioned_not_stocked": [],
+      "safety_annotations": [],
+      "annotation_notes": null,
+      "source_rationale": "Tests the newly added അശ്വഗന്ധ alias plus an existing one (ശതാവരി), number+unit glued together with no space (15ഗ്രാം)."
+    },
+    {
+      "case_id": "pilot_stress_04",
+      "label": "Mixed script mid-sentence, 3 herbs, Pitta-Kapha",
+      "provenance": {
+        "status": "synthetic_unreviewed",
+        "origin": "AI-written synthetic note (technical pilot only; not clinical ground truth)",
+        "source": "scripts/verify_malayalam_manglish_stress.py",
+        "source_label": "Mixed script mid-sentence, 3 herbs, Pitta-Kapha",
+        "clinician_reviewer": null,
+        "reviewed_at": null
+      },
+      "tags": [
+        "mixed_script",
+        "multi_herb",
+        "frequency_marker"
+      ],
+      "notes": "Pitta-Kapha aanu condition. Triphala 10g cheyyണം, koode Guggulu 12ഗ്രാം, Haridra 8g. TDS kazhikkanam.",
+      "ambiguous": false,
+      "ambiguity_reason": null,
+      "expected": {
+        "dosha": [
+          "Pitta",
+          "Kapha"
+        ],
+        "herbs": {
+          "Triphala": {
+            "grams": 10,
+            "tolerance_grams": 0
+          },
+          "Guggulu": {
+            "grams": 12,
+            "tolerance_grams": 0
+          },
+          "Haridra": {
+            "grams": 8,
+            "tolerance_grams": 0
+          }
+        }
+      },
+      "mentioned_not_stocked": [],
+      "safety_annotations": [],
+      "annotation_notes": "Note states 'Pitta-Kapha'. Source script only required the substring 'Pitta'; set-based grading needs both.",
+      "source_rationale": "Malayalam and English words interleaved within the same clause (not just alternating sentences), plus a dosing-frequency abbreviation (TDS)."
+    },
+    {
+      "case_id": "pilot_stress_05",
+      "label": "Non-stocked herb mentioned alongside a real one",
+      "provenance": {
+        "status": "synthetic_unreviewed",
+        "origin": "AI-written synthetic note (technical pilot only; not clinical ground truth)",
+        "source": "scripts/verify_malayalam_manglish_stress.py",
+        "source_label": "Non-stocked herb mentioned alongside a real one",
+        "clinician_reviewer": null,
+        "reviewed_at": null
+      },
+      "tags": [
+        "manglish",
+        "mixed_script",
+        "non_stocked_herb"
+      ],
+      "notes": "vata kൂടുതൽ. thulasi ela kurachu kodukkanam, koode ashwagandha 20 gram.",
+      "ambiguous": false,
+      "ambiguity_reason": null,
+      "expected": {
+        "dosha": [
+          "Vata"
+        ],
+        "herbs": {
+          "Ashwagandha": {
+            "grams": 20,
+            "tolerance_grams": 0
+          }
+        }
+      },
+      "mentioned_not_stocked": [
+        "thulasi",
+        "tulsi",
+        "tulasi",
+        "holy basil"
+      ],
+      "safety_annotations": [],
+      "annotation_notes": null,
+      "source_rationale": "Thulasi (Tulsi) is deliberately NOT one of this clinic's stocked herbs (the formulary grew from 8 to 20 herbs in Sep 2026, and Tulsi was a candidate that was left out on purpose, specifically so this test would stay meaningful) and has no alias entry at all. Per the tightened prompt, Gemini should leave it out entirely rather than guess a canonical name for it -- expected output has ONLY Ashwagandha. If Tulsi shows up in the output under any name, that's the 'guessing past an unknown herb' failure mode this test exists to catch."
+    },
+    {
+      "case_id": "pilot_stress_06",
+      "label": "Telegraphic Malayalam, no unit words at all",
+      "provenance": {
+        "status": "synthetic_unreviewed",
+        "origin": "AI-written synthetic note (technical pilot only; not clinical ground truth)",
+        "source": "scripts/verify_malayalam_manglish_stress.py",
+        "source_label": "Telegraphic Malayalam, no unit words at all",
+        "clinician_reviewer": null,
+        "reviewed_at": null
+      },
+      "tags": [
+        "malayalam_script",
+        "no_unit"
+      ],
+      "notes": "വാതം. അശ്വഗന്ധ 20. ബ്രഹ്മി 10.",
+      "ambiguous": false,
+      "ambiguity_reason": null,
+      "expected": {
+        "dosha": [
+          "Vata"
+        ],
+        "herbs": {
+          "Ashwagandha": {
+            "grams": 20,
+            "tolerance_grams": 0
+          },
+          "Brahmi": {
+            "grams": 10,
+            "tolerance_grams": 0
+          }
+        }
+      },
+      "mentioned_not_stocked": [],
+      "safety_annotations": [],
+      "annotation_notes": null,
+      "source_rationale": "Bare numbers with no explicit 'gram'/ഗ്രാം unit -- tests whether Gemini still infers grams (the only unit this system ever uses) rather than refusing or guessing a different unit."
+    },
+    {
+      "case_id": "pilot_stress_07",
+      "label": "Long note, distractor history, 4 herbs, Vata-Kapha",
+      "provenance": {
+        "status": "synthetic_unreviewed",
+        "origin": "AI-written synthetic note (technical pilot only; not clinical ground truth)",
+        "source": "scripts/verify_malayalam_manglish_stress.py",
+        "source_label": "Long note, distractor history, 4 herbs, Vata-Kapha",
+        "clinician_reviewer": null,
+        "reviewed_at": null
+      },
+      "tags": [
+        "manglish",
+        "distractor_history",
+        "multi_herb"
+      ],
+      "notes": "Patient 45yrs, diabetic. Ration vishamam undu kore divasamayi. Vata-Kapha dosham. Dashamoola 25g, Triphala 20g, Arjuna 15g, Guggulu 10g okke kodukkanam. Follow up 1 month kazhinjond varanam.",
+      "ambiguous": false,
+      "ambiguity_reason": null,
+      "expected": {
+        "dosha": [
+          "Vata",
+          "Kapha"
+        ],
+        "herbs": {
+          "Dashamoola": {
+            "grams": 25,
+            "tolerance_grams": 0
+          },
+          "Triphala": {
+            "grams": 20,
+            "tolerance_grams": 0
+          },
+          "Arjuna": {
+            "grams": 15,
+            "tolerance_grams": 0
+          },
+          "Guggulu": {
+            "grams": 10,
+            "tolerance_grams": 0
+          }
+        }
+      },
+      "mentioned_not_stocked": [],
+      "safety_annotations": [],
+      "annotation_notes": "Note states 'Vata-Kapha'. Source script only required the substring 'Vata'; set-based grading needs both.",
+      "source_rationale": "Longest/noisiest case -- irrelevant patient history (age, diabetes) mixed in with 4 herbs and a follow-up instruction that must NOT be mistaken for a 5th herb."
+    },
+    {
+      "case_id": "pilot_stress_08",
+      "label": "Imprecise quantity (genuinely ambiguous)",
+      "provenance": {
+        "status": "synthetic_unreviewed",
+        "origin": "AI-written synthetic note (technical pilot only; not clinical ground truth)",
+        "source": "scripts/verify_malayalam_manglish_stress.py",
+        "source_label": "Imprecise quantity (genuinely ambiguous)",
+        "clinician_reviewer": null,
+        "reviewed_at": null
+      },
+      "tags": [
+        "manglish",
+        "imprecise_quantity"
+      ],
+      "notes": "vata pitta mix. ashwagandha kurachu koodutham venam, 20-25 g range il. brahmi original dose 15.",
+      "ambiguous": true,
+      "ambiguity_reason": "'20-25 g range' has no single correct integer -- this system requires a strict integer gram count, so there is no objectively right answer here. Read the actual output and judge whether Gemini's choice (or refusal) is reasonable; this case is NOT auto-graded.",
+      "expected": {
+        "dosha": [
+          "Vata",
+          "Pitta"
+        ],
+        "herbs": null
+      },
+      "mentioned_not_stocked": [],
+      "safety_annotations": [],
+      "annotation_notes": "Note states 'vata pitta mix'. Source script left the whole case ungraded; here only the herb/quantity part is left ungraded.",
+      "source_rationale": "'20-25 g range' has no single correct integer -- this system requires a strict integer gram count, so there is no objectively right answer here. Read the actual output and judge whether Gemini's choice (or refusal) is reasonable; this case is NOT auto-graded."
+    }
+  ]
+}

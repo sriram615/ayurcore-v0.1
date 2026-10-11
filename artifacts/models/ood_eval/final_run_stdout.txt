@@ -1,0 +1,86 @@
+{
+ "classification": "SYNTHETIC TECHNICAL RESULT -- NOT CLINICAL VALIDATION",
+ "dataset": "s1_ood_v1",
+ "cases": 62,
+ "t2": {
+  "outcomes": {
+   "PASS": 44,
+   "CLINICAL_MISS": 18,
+   "AMBIGUOUS_REVIEW": 0,
+   "PROVIDER_ERROR": 0,
+   "PARSE_ERROR": 0,
+   "HARNESS_ERROR": 0
+  },
+  "pass": 44,
+  "graded": 62,
+  "herb_precision": 0.959459,
+  "herb_recall": 0.8875,
+  "dosha_exact": 56,
+  "quantities_exact": 70,
+  "quantities_matched": 71,
+  "pass_by_category": {
+   "abstention": [
+    6,
+    7
+   ],
+   "alias": [
+    5,
+    6
+   ],
+   "clean": [
+    3,
+    5
+   ],
+   "distractor": [
+    3,
+    5
+   ],
+   "irrelevant_numbers": [
+    5,
+    5
+   ],
+   "malayalam_script": [
+    4,
+    5
+   ],
+   "manglish": [
+    3,
+    5
+   ],
+   "negation_replacement": [
+    6,
+    6
+   ],
+   "punctuation_order": [
+    3,
+    6
+   ],
+   "shared_correction": [
+    3,
+    6
+   ],
+   "units": [
+    3,
+    6
+   ]
+  }
+ },
+ "t3": {
+  "verified": 62,
+  "rejected_abstained": 0,
+  "violations_by_code": {}
+ },
+ "outcomes": {
+  "confident_error:missed_abstention": 1,
+  "confident_error:spurious_herb": 2,
+  "confident_error:wrong_quantity": 1,
+  "correct_abstention": 6,
+  "correct_dosha": 56,
+  "correct_fact": 70,
+  "dosha_omission": 6,
+  "omission": 9,
+  "confident_errors": 4,
+  "emitted_herb_facts": 74,
+  "confident_error_rate_per_emitted_fact": 0.05405405405405406
+ }
+}

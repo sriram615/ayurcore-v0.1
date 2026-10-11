@@ -1,0 +1,166 @@
+{
+ "classification": "SYNTHETIC TECHNICAL RESULT -- NOT CLINICAL VALIDATION",
+ "dataset": "s1_ood_v3",
+ "cases": 62,
+ "final": {
+  "exact": {
+   "count": 31,
+   "of": 62,
+   "rate": 0.5
+  },
+  "exact_herbs": {
+   "count": 41,
+   "of": 62,
+   "rate": 0.6612903225806451
+  },
+  "outcomes": {
+   "confident_error:missed_abstention": 4,
+   "confident_error:spurious_herb": 1,
+   "correct_abstention": 13,
+   "correct_dosha": 37,
+   "correct_fact": 35,
+   "dosha_omission": 25,
+   "omission": 19,
+   "confident_errors": 5,
+   "emitted_herb_facts": 40,
+   "confident_error_rate_per_emitted_fact": 0.125
+  }
+ },
+ "t3": {
+  "verified": 37,
+  "rejected": 25,
+  "rejection_effect": {
+   "catch": 21,
+   "false_rejection": 4
+  },
+  "by_rule": {
+   "R1": {
+    "rejections": 10,
+    "effect": {
+     "catch": 8,
+     "false_rejection": 2
+    },
+    "targeted_cases_rejected": 6,
+    "cases": [
+     "ood3-r1-01",
+     "ood3-r1-04",
+     "ood3-r1-05",
+     "ood3-r2-07",
+     "ood3-r3-04",
+     "ood3-r3-07",
+     "ood3-x-01",
+     "ood3-x-02",
+     "ood3-x-05",
+     "ood3-ml-07"
+    ]
+   },
+   "R2": {
+    "rejections": 7,
+    "effect": {
+     "catch": 7
+    },
+    "targeted_cases_rejected": 7,
+    "cases": [
+     "ood3-r2-01",
+     "ood3-r2-02",
+     "ood3-r2-05",
+     "ood3-r2-07",
+     "ood3-r2-08",
+     "ood3-x-05",
+     "ood3-ml-02"
+    ]
+   },
+   "R3": {
+    "rejections": 7,
+    "effect": {
+     "catch": 6,
+     "false_rejection": 1
+    },
+    "targeted_cases_rejected": 7,
+    "cases": [
+     "ood3-r3-01",
+     "ood3-r3-02",
+     "ood3-r3-03",
+     "ood3-r3-08",
+     "ood3-x-02",
+     "ood3-x-03",
+     "ood3-ml-06"
+    ]
+   },
+   "R4": {
+    "rejections": 6,
+    "effect": {
+     "catch": 5,
+     "false_rejection": 1
+    },
+    "targeted_cases_rejected": 5,
+    "cases": [
+     "ood3-r4-02",
+     "ood3-r4-05",
+     "ood3-r4-06",
+     "ood3-r4-07",
+     "ood3-x-01",
+     "ood3-x-03"
+    ]
+   },
+   "V1-V9": {
+    "rejections": 0,
+    "effect": {},
+    "targeted_cases_rejected": 0,
+    "cases": []
+   }
+  },
+  "confident_errors_prevented": 24,
+  "violation_codes": {
+   "conflicting_quantities": 8,
+   "alternative_quantities": 2,
+   "alternative_herbs": 7,
+   "historical_context": 10,
+   "negated_context": 3,
+   "contested_status": 3,
+   "foreign_quantity": 2
+  }
+ },
+ "r5": {
+  "cases_warned": 23,
+  "warnings": 25,
+  "gold_unaccounted_cases": 8,
+  "warned_on_gold_unaccounted": 8,
+  "warned_without_gold_unaccounted": [
+   "ood3-r1-01",
+   "ood3-r1-02",
+   "ood3-r1-03",
+   "ood3-r1-04",
+   "ood3-r1-05",
+   "ood3-r1-06",
+   "ood3-r1-07",
+   "ood3-r2-03",
+   "ood3-r2-07",
+   "ood3-r2-08",
+   "ood3-r3-03",
+   "ood3-r3-04",
+   "ood3-r3-07",
+   "ood3-x-02",
+   "ood3-x-05"
+  ]
+ },
+ "controls": {
+  "cases": 18,
+  "rejected": [
+   "ood3-r4-07"
+  ],
+  "false_rejections": [
+   "ood3-r4-07"
+  ],
+  "false_rejection_rate": {
+   "count": 1,
+   "of": 16,
+   "rate": 0.0625
+  },
+  "exact": {
+   "count": 15,
+   "of": 18,
+   "rate": 0.8333333333333334
+  }
+ }
+}

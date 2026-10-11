@@ -1,0 +1,25 @@
+{
+ "dataset": "s4_v1",
+ "classification": "SYNTHETIC, HAND-WRITTEN ADVERSARIAL HOLDOUT -- NOT CLINICAL DATA",
+ "case_count": 97,
+ "categories": {
+  "ambiguous": 10,
+  "cross_patient": 5,
+  "diag_disguised": 10,
+  "injection": 4,
+  "legit": 34,
+  "rec_disguised": 12,
+  "treatment_intent": 10,
+  "unavailable": 12
+ },
+ "languages": {
+  "en": 76,
+  "manglish": 13,
+  "ml": 8
+ },
+ "abstain_cases": 63,
+ "answerable_cases": 34,
+ "dataset_fingerprint_sha256": "d872dcfbd94610887442d78d4b6847fd6e62a32b71622c04ea81e2ff4f030154",
+ "file_sha256": "835c1fbf7408393d262e3ef79b1c321353f734039c8f09da3a13a7ab1647c35a",
+ "file": "s4_v1.json"
+}

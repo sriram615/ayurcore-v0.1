@@ -1,0 +1,17 @@
+{
+ "dataset": "s2_v1",
+ "classification": "SYNTHETIC -- NOT CLINICAL DATA",
+ "seed": 20261006,
+ "counts": {
+  "clinics": 2,
+  "patients": 20,
+  "visits": 70,
+  "rx": 53,
+  "encounter_only": 11,
+  "legacy_unknown": 4,
+  "legacy_readable": 2
+ },
+ "dataset_fingerprint_sha256": "d25c3235c33e36febb386f74aeb868c456f723452559e0e3a18f14e2ac50c440",
+ "file_sha256": "a30420e90f5c0c46e530d216e3a8d50b67047bf2854fa045e781f179f2b4ded4",
+ "file": "s2_v1.json"
+}

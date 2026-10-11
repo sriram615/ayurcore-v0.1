@@ -1,0 +1,221 @@
+{
+ "classification": "SYNTHETIC TECHNICAL RESULT -- NOT CLINICAL VALIDATION",
+ "dataset": "s1_ood_v1",
+ "dataset_fingerprint_sha256": "7415ffa2a6af22bc8dfeb4ffc0d0a9cb800cd759a0fb591efea0d44b4eb60311",
+ "final_run": true,
+ "generated_at_utc": "2026-10-05T14:44:05.329393+00:00",
+ "t1_weights_sha256": "e0dfaaee341b004b7c37b30309eac78e008b18bfcbd201556c07f94af2b834a0",
+ "cases": 62,
+ "t1": {
+  "spans_micro": {
+   "tp": 219,
+   "fp": 32,
+   "fn": 30,
+   "precision": 0.8725099601593626,
+   "recall": 0.8795180722891566,
+   "f1": 0.876
+  },
+  "spans_by_type": {
+   "HERB_RX": {
+    "tp": 80,
+    "fp": 9,
+    "fn": 7,
+    "precision": 0.898876404494382,
+    "recall": 0.9195402298850575,
+    "f1": 0.9090909090909091
+   },
+   "HERB_NEG": {
+    "tp": 3,
+    "fp": 4,
+    "fn": 2,
+    "precision": 0.42857142857142855,
+    "recall": 0.6,
+    "f1": 0.5
+   },
+   "HERB_HIST": {
+    "tp": 0,
+    "fp": 4,
+    "fn": 2,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "HERB_REPL": {
+    "tp": 0,
+    "fp": 1,
+    "fn": 2,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "UNSTOCKED": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 3,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null
+   },
+   "QTY": {
+    "tp": 79,
+    "fp": 9,
+    "fn": 3,
+    "precision": 0.8977272727272727,
+    "recall": 0.9634146341463414,
+    "f1": 0.9294117647058824
+   },
+   "QTY_OLD": {
+    "tp": 0,
+    "fp": 2,
+    "fn": 3,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "QTY_OTHER": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 3,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null
+   },
+   "DOSHA": {
+    "tp": 57,
+    "fp": 3,
+    "fn": 5,
+    "precision": 0.95,
+    "recall": 0.9193548387096774,
+    "f1": 0.9344262295081968
+   }
+  },
+  "cases_exact": 34,
+  "cases_exact_by_category": {
+   "abstention": [
+    1,
+    7
+   ],
+   "alias": [
+    4,
+    6
+   ],
+   "clean": [
+    3,
+    5
+   ],
+   "distractor": [
+    0,
+    5
+   ],
+   "irrelevant_numbers": [
+    4,
+    5
+   ],
+   "malayalam_script": [
+    4,
+    5
+   ],
+   "manglish": [
+    4,
+    5
+   ],
+   "negation_replacement": [
+    3,
+    6
+   ],
+   "punctuation_order": [
+    3,
+    6
+   ],
+   "shared_correction": [
+    2,
+    6
+   ],
+   "units": [
+    6,
+    6
+   ]
+  }
+ },
+ "t2": {
+  "outcomes": {
+   "PASS": 44,
+   "CLINICAL_MISS": 18,
+   "AMBIGUOUS_REVIEW": 0,
+   "PROVIDER_ERROR": 0,
+   "PARSE_ERROR": 0,
+   "HARNESS_ERROR": 0
+  },
+  "pass": 44,
+  "graded": 62,
+  "herb_precision": 0.959459,
+  "herb_recall": 0.8875,
+  "dosha_exact": 56,
+  "quantities_exact": 70,
+  "quantities_matched": 71,
+  "pass_by_category": {
+   "abstention": [
+    6,
+    7
+   ],
+   "alias": [
+    5,
+    6
+   ],
+   "clean": [
+    3,
+    5
+   ],
+   "distractor": [
+    3,
+    5
+   ],
+   "irrelevant_numbers": [
+    5,
+    5
+   ],
+   "malayalam_script": [
+    4,
+    5
+   ],
+   "manglish": [
+    3,
+    5
+   ],
+   "negation_replacement": [
+    6,
+    6
+   ],
+   "punctuation_order": [
+    3,
+    6
+   ],
+   "shared_correction": [
+    3,
+    6
+   ],
+   "units": [
+    3,
+    6
+   ]
+  }
+ },
+ "t3": {
+  "verified": 62,
+  "rejected_abstained": 0,
+  "violations_by_code": {}
+ },
+ "outcomes": {
+  "confident_error:missed_abstention": 1,
+  "confident_error:spurious_herb": 2,
+  "confident_error:wrong_quantity": 1,
+  "correct_abstention": 6,
+  "correct_dosha": 56,
+  "correct_fact": 70,
+  "dosha_omission": 6,
+  "omission": 9,
+  "confident_errors": 4,
+  "emitted_herb_facts": 74,
+  "confident_error_rate_per_emitted_fact": 0.05405405405405406
+ }
+}

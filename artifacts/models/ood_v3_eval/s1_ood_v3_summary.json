@@ -1,0 +1,384 @@
+{
+ "classification": "SYNTHETIC TECHNICAL RESULT -- NOT CLINICAL VALIDATION",
+ "dataset": "s1_ood_v3",
+ "official_one_shot": true,
+ "final_run": true,
+ "generated_at_utc": "2026-10-06T11:57:01.182415+00:00",
+ "dataset_fingerprint_sha256": "0d8e9f9ad2699c1ce4969bc6eef722f24c6036c2bb24b4b7a8c1fba9b38ed49e",
+ "cases": 62,
+ "t1_weights_sha256": "e0dfaaee341b004b7c37b30309eac78e008b18bfcbd201556c07f94af2b834a0",
+ "source_sha256": {
+  "extractor/labels.py": "d314b71eea3f552e0317868e289ed8b34bec6a14a0c882bff9da915d60079be8",
+  "extractor/features.py": "bd10fc13cd79a0f2a5313011709cf96b4ba11dfdffe5232272c3d98ef875dc1f",
+  "extractor/tagger.py": "6da3932ce26d880a240f5b1f6d0862c245a466f22f48d7ba3830a77a499b35d7",
+  "extractor/train.py": "d8ad2a61c652e7c0c62a8a1b3137c2190fb47e6863dcf0405c10b9a860d27bf5",
+  "extractor/pipeline.py": "bf61eabdac2314af2279444a80767c22ca4437c5b3cf7aec5ef0892ede0fa733",
+  "extractor/units.py": "6339ac018c77ecb62db8908143bcab88a40d418ebd19d18a3b54f0be4349f0d0",
+  "extractor/normalize.py": "4035a7ea46235c1c28df1e6016e6ba277cbe4704d7a64724c840f5907bd467d1",
+  "extractor/assemble.py": "7e494d416b5e3e0e233f57726d4f8bc6678a68284ebd8b52afb9f959f4c296f5",
+  "extractor/verify.py": "f5096345b772f5bc8c84b07af74e0a9d533f62e7facc17aa2b8c8e6a85514619",
+  "extractor/verify_context.py": "6856be825c17327078261082e0b2d250534543bf8e0ae3c7d9987f9b70181dd4",
+  "extractor/evaluate_ood.py": "92b8025b7e4edd94f095cdfb90179fe18b10bc87501554800bfb526d8567fb6e",
+  "extractor/evaluate_ood_v2.py": "ad66cc452486a7df570b61be7824f0bedb6dae04ee5a85a3423ab98b72cf2caa",
+  "scripts/clinical_eval_harness.py": "741c089db687682ec556c44afc2c8c1d4067d672eaaac31b5fd6fa112da0cf94",
+  "scripts/s1_ood_v2_dataset.py": "c3344ea48d13793133b5387ef5d5bc0fa90c9b519fff2f2d88894f5b09a55d8b",
+  "backend/herb_resolver.py": "ea2f6459572f84ca56c35f9bc3a334b2738aa13563f3ffdb71399f13d27ce899",
+  "backend/schemas.py": "9b50087be23de7f2b75793fef82a46d1ca26a03b8eb6dce387288fe43e769c33",
+  "extractor/evaluate_ood_v3.py": "0e9ef146fb27ed3ef8972d2829689395e16ca0750255ac360ca91fdcc5695ceb",
+  "scripts/s1_ood_v3_dataset.py": "389aea90d632b5dbd5e23cd6097c482ec63542b9ca8a99931da82fa28c12b647"
+ },
+ "definitions": {
+  "final_exact": "emitted herbs == expected herbs (name and grams) and emitted dosha set == gold dosha set",
+  "final_exact_herbs": "emitted herbs == expected herbs; a T3 rejection emits nothing",
+  "catch": "T3 rejected a parse holding a confident error (wrong quantity, spurious herb, missed abstention, wrong dosha)",
+  "false_rejection": "T3 rejected a parse whose herbs and dosha were exactly correct",
+  "incomplete": "T3 rejected a parse with no confident error that was not exactly correct"
+ },
+ "final": {
+  "exact": {
+   "count": 31,
+   "of": 62,
+   "rate": 0.5
+  },
+  "exact_herbs": {
+   "count": 41,
+   "of": 62,
+   "rate": 0.6612903225806451
+  },
+  "outcomes": {
+   "confident_error:missed_abstention": 4,
+   "confident_error:spurious_herb": 1,
+   "correct_abstention": 13,
+   "correct_dosha": 37,
+   "correct_fact": 35,
+   "dosha_omission": 25,
+   "omission": 19,
+   "confident_errors": 5,
+   "emitted_herb_facts": 40,
+   "confident_error_rate_per_emitted_fact": 0.125
+  }
+ },
+ "t1": {
+  "spans_micro": {
+   "tp": 214,
+   "fp": 65,
+   "fn": 63,
+   "precision": 0.7670250896057348,
+   "recall": 0.7725631768953068,
+   "f1": 0.7697841726618705
+  },
+  "spans_by_type": {
+   "HERB_RX": {
+    "tp": 73,
+    "fp": 24,
+    "fn": 1,
+    "precision": 0.7525773195876289,
+    "recall": 0.9864864864864865,
+    "f1": 0.8538011695906433
+   },
+   "HERB_NEG": {
+    "tp": 3,
+    "fp": 2,
+    "fn": 7,
+    "precision": 0.6,
+    "recall": 0.3,
+    "f1": 0.4
+   },
+   "HERB_HIST": {
+    "tp": 3,
+    "fp": 2,
+    "fn": 10,
+    "precision": 0.6,
+    "recall": 0.23076923076923078,
+    "f1": 0.33333333333333337
+   },
+   "HERB_REPL": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null
+   },
+   "UNSTOCKED": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 10,
+    "precision": null,
+    "recall": 0.0,
+    "f1": null
+   },
+   "QTY": {
+    "tp": 69,
+    "fp": 33,
+    "fn": 5,
+    "precision": 0.6764705882352942,
+    "recall": 0.9324324324324325,
+    "f1": 0.7840909090909092
+   },
+   "QTY_OLD": {
+    "tp": 1,
+    "fp": 4,
+    "fn": 5,
+    "precision": 0.2,
+    "recall": 0.16666666666666666,
+    "f1": 0.1818181818181818
+   },
+   "QTY_OTHER": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 24,
+    "precision": 1.0,
+    "recall": 0.1111111111111111,
+    "f1": 0.19999999999999998
+   },
+   "DOSHA": {
+    "tp": 62,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   }
+  },
+  "cases_exact": {
+   "count": 27,
+   "of": 62,
+   "rate": 0.43548387096774194
+  }
+ },
+ "t2": {
+  "exact_herbs": {
+   "count": 35,
+   "of": 62,
+   "rate": 0.5645161290322581
+  },
+  "grader_outcomes": {
+   "PASS": 35,
+   "CLINICAL_MISS": 27,
+   "AMBIGUOUS_REVIEW": 0,
+   "PROVIDER_ERROR": 0,
+   "PARSE_ERROR": 0,
+   "HARNESS_ERROR": 0
+  },
+  "grader_pass": 35,
+  "herb_precision": 0.68,
+  "herb_recall": 0.944444,
+  "dosha_exact": 62,
+  "outcomes_if_emitted": {
+   "confident_error:missed_abstention": 15,
+   "confident_error:spurious_herb": 9,
+   "confident_error:wrong_quantity": 5,
+   "correct_abstention": 2,
+   "correct_dosha": 62,
+   "correct_fact": 46,
+   "omission": 3,
+   "confident_errors": 29,
+   "emitted_herb_facts": 75,
+   "confident_error_rate_per_emitted_fact": 0.38666666666666666
+  }
+ },
+ "t3": {
+  "verified": 37,
+  "rejected": 25,
+  "rejection_effect": {
+   "catch": 21,
+   "false_rejection": 4
+  },
+  "by_rule": {
+   "R1": {
+    "rejections": 10,
+    "effect": {
+     "catch": 8,
+     "false_rejection": 2
+    },
+    "targeted_cases_rejected": 6,
+    "cases": [
+     "ood3-r1-01",
+     "ood3-r1-04",
+     "ood3-r1-05",
+     "ood3-r2-07",
+     "ood3-r3-04",
+     "ood3-r3-07",
+     "ood3-x-01",
+     "ood3-x-02",
+     "ood3-x-05",
+     "ood3-ml-07"
+    ]
+   },
+   "R2": {
+    "rejections": 7,
+    "effect": {
+     "catch": 7
+    },
+    "targeted_cases_rejected": 7,
+    "cases": [
+     "ood3-r2-01",
+     "ood3-r2-02",
+     "ood3-r2-05",
+     "ood3-r2-07",
+     "ood3-r2-08",
+     "ood3-x-05",
+     "ood3-ml-02"
+    ]
+   },
+   "R3": {
+    "rejections": 7,
+    "effect": {
+     "catch": 6,
+     "false_rejection": 1
+    },
+    "targeted_cases_rejected": 7,
+    "cases": [
+     "ood3-r3-01",
+     "ood3-r3-02",
+     "ood3-r3-03",
+     "ood3-r3-08",
+     "ood3-x-02",
+     "ood3-x-03",
+     "ood3-ml-06"
+    ]
+   },
+   "R4": {
+    "rejections": 6,
+    "effect": {
+     "catch": 5,
+     "false_rejection": 1
+    },
+    "targeted_cases_rejected": 5,
+    "cases": [
+     "ood3-r4-02",
+     "ood3-r4-05",
+     "ood3-r4-06",
+     "ood3-r4-07",
+     "ood3-x-01",
+     "ood3-x-03"
+    ]
+   },
+   "V1-V9": {
+    "rejections": 0,
+    "effect": {},
+    "targeted_cases_rejected": 0,
+    "cases": []
+   }
+  },
+  "confident_errors_prevented": 24,
+  "violation_codes": {
+   "conflicting_quantities": 8,
+   "alternative_quantities": 2,
+   "alternative_herbs": 7,
+   "historical_context": 10,
+   "negated_context": 3,
+   "contested_status": 3,
+   "foreign_quantity": 2
+  }
+ },
+ "r5": {
+  "cases_warned": 23,
+  "warnings": 25,
+  "gold_unaccounted_cases": 8,
+  "warned_on_gold_unaccounted": 8,
+  "warned_without_gold_unaccounted": [
+   "ood3-r1-01",
+   "ood3-r1-02",
+   "ood3-r1-03",
+   "ood3-r1-04",
+   "ood3-r1-05",
+   "ood3-r1-06",
+   "ood3-r1-07",
+   "ood3-r2-03",
+   "ood3-r2-07",
+   "ood3-r2-08",
+   "ood3-r3-03",
+   "ood3-r3-04",
+   "ood3-r3-07",
+   "ood3-x-02",
+   "ood3-x-05"
+  ]
+ },
+ "controls": {
+  "cases": 18,
+  "rejected": [
+   "ood3-r4-07"
+  ],
+  "false_rejections": [
+   "ood3-r4-07"
+  ],
+  "false_rejection_rate": {
+   "count": 1,
+   "of": 16,
+   "rate": 0.0625
+  },
+  "exact": {
+   "count": 15,
+   "of": 18,
+   "rate": 0.8333333333333334
+  }
+ },
+ "by_category": {
+  "r1_conflict": {
+   "cases": 7,
+   "final_exact": 2,
+   "t2_exact_herbs": 2,
+   "t1_exact": 3,
+   "rejected": 3,
+   "final_confident_errors": 2
+  },
+  "r2_alternative": {
+   "cases": 8,
+   "final_exact": 2,
+   "t2_exact_herbs": 2,
+   "t1_exact": 4,
+   "rejected": 5,
+   "final_confident_errors": 2
+  },
+  "r3_history": {
+   "cases": 8,
+   "final_exact": 2,
+   "t2_exact_herbs": 5,
+   "t1_exact": 2,
+   "rejected": 6,
+   "final_confident_errors": 0
+  },
+  "r4_negation_replacement": {
+   "cases": 8,
+   "final_exact": 3,
+   "t2_exact_herbs": 4,
+   "t1_exact": 3,
+   "rejected": 4,
+   "final_confident_errors": 1
+  },
+  "r5_unaccounted": {
+   "cases": 7,
+   "final_exact": 7,
+   "t2_exact_herbs": 7,
+   "t1_exact": 0,
+   "rejected": 0,
+   "final_confident_errors": 0
+  },
+  "cross_rule": {
+   "cases": 6,
+   "final_exact": 2,
+   "t2_exact_herbs": 2,
+   "t1_exact": 1,
+   "rejected": 4,
+   "final_confident_errors": 0
+  },
+  "clean_control": {
+   "cases": 10,
+   "final_exact": 9,
+   "t2_exact_herbs": 9,
+   "t1_exact": 9,
+   "rejected": 0,
+   "final_confident_errors": 0
+  },
+  "malayalam_manglish": {
+   "cases": 8,
+   "final_exact": 4,
+   "t2_exact_herbs": 4,
+   "t1_exact": 5,
+   "rejected": 3,
+   "final_confident_errors": 0
+  }
+ }
+}

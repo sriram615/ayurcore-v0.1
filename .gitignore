@@ -1,0 +1,98 @@
+# AyurCore OS -- never commit secrets, databases, patient data or local state.
+
+# --- Secrets and credentials ---------------------------------------------------
+.env
+.env.*
+# Templates with placeholder values only (never real values) may be committed.
+!.env.example
+*.pem
+*.key
+*.p12
+*.p8
+*.pfx
+id_rsa*
+id_ed25519*
+.streamlit/secrets.toml
+.npmrc
+.yarnrc.yml
+credentials*.json
+*service-account*.json
+*.secret
+# Browser-test login state files hold live session tokens.
+**/.auth/
+*storage-state*.json
+*storageState*.json
+
+# --- Databases, WAL/SHM, backups (contain patient data) ------------------------
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.db.enc
+*.enc
+backups/
+*backup*.db*
+# Audit anchor checkpoints (scripts/audit_anchor.py) belong off-host, not in Git.
+*anchor*.jsonl
+
+# --- Clinical data --------------------------------------------------------------
+# Clinician-reviewed / de-identified case files (docs/CLINICAL_EVAL_GROUND_TRUTH.md).
+# Only the synthetic v1 corpus and the empty v2 template are tracked.
+eval/cases/*
+!eval/cases/clinical_eval_v1.json
+!eval/cases/clinical_eval_v2_template.json
+
+# --- Generated evaluation output and local seed state ---------------------------
+artifacts/
+scripts/.demo_seed_manifest.json
+
+# --- Logs -----------------------------------------------------------------------
+*.log
+logs/
+
+# --- Python -----------------------------------------------------------------------
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Frontend dependencies and build output (any app, incl. apps/web/) ------------
+node_modules/
+.next/
+out/
+dist/
+build/
+coverage/
+.turbo/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+test-results/
+playwright-report/
+blob-report/
+# Legacy frontend/ (kept explicit; frontend/.gitignore covers the rest)
+frontend/tsconfig.tsbuildinfo
+frontend/next-env.d.ts
+frontend/test-results/
+frontend/playwright-report/
+frontend/blob-report/
+
+# --- Local tool and OS state ------------------------------------------------------
+.claude/settings.local.json
+.DS_Store
+.idea/
+.vscode/
+
+# Test sandbox marker written by scripts/run_isolated_tests.py inside its temporary
+# copy only; tests/conftest.py refuses to run pytest without it. Never commit it.
+db/.isolated_test_sandbox
+
+# --- Private business documents (kept locally, not shared) -----------------------
+AyurCore_SharkTank_Review_Script.md

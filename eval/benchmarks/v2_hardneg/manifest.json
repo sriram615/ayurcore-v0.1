@@ -1,0 +1,43 @@
+{
+ "dataset": "hardneg_v1",
+ "classification": "SYNTHETIC HARD-NEGATIVE DEVELOPMENT DATA -- NOT A HOLDOUT",
+ "case_count": 242,
+ "splits": {
+  "train": 172,
+  "dev": 70
+ },
+ "groups": {
+  "train": 31,
+  "dev": 15
+ },
+ "labels": {
+  "train": {
+   "CLINICAL": 45,
+   "IN_SCOPE_MEMORY": 46,
+   "OTHER_PATIENT": 32,
+   "UNAVAILABLE": 25,
+   "UNSUPPORTED_OOS": 24
+  },
+  "dev": {
+   "CLINICAL": 16,
+   "IN_SCOPE_MEMORY": 20,
+   "OTHER_PATIENT": 10,
+   "UNAVAILABLE": 12,
+   "UNSUPPORTED_OOS": 12
+  }
+ },
+ "languages": {
+  "train": {
+   "en": 112,
+   "manglish": 31,
+   "ml": 29
+  },
+  "dev": {
+   "en": 57,
+   "manglish": 6,
+   "ml": 7
+  }
+ },
+ "dataset_fingerprint_sha256": "3f6b3d95c8f4eda21c95a8602c764487368c33fc6cf3479feda37852679faccf",
+ "file_sha256": "cd7bec0f009b8c5848d986b708eed937d59dc05b76c55a679c4a93ae126fc9eb"
+}

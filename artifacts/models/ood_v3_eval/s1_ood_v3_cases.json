@@ -1,0 +1,5437 @@
+[
+ {
+  "case_id": "ood3-r1-01",
+  "category": "r1_conflict",
+  "target_rules": [
+   "R1"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    15,
+    "HERB_RX"
+   ],
+   [
+    16,
+    20,
+    "QTY"
+   ],
+   [
+    57,
+    66,
+    "HERB_RX"
+   ],
+   [
+    67,
+    71,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    16,
+    20,
+    "QTY_OLD"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    16,
+    20,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Bhringraj",
+     "grams": 35
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:wrong_quantity": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "conflicting_quantities",
+    "rule": "R1",
+    "where": "herb[0]",
+    "detail": "'Bhringraj' has amounts [35, 45] in the note; output 35 is not the last"
+   }
+  ],
+  "t3_rules": [
+   "R1"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[67,71)",
+    "detail": "'45 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r1-02",
+  "category": "r1_conflict",
+  "target_rules": [
+   "R1"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    18,
+    "HERB_RX"
+   ],
+   [
+    19,
+    23,
+    "QTY"
+   ],
+   [
+    49,
+    53,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Yashtimadhu",
+     "grams": 60
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:missed_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[19,23)",
+    "detail": "'40 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Yashtimadhu": 60
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "confident_error:missed_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r1-03",
+  "category": "r1_conflict",
+  "target_rules": [
+   "R1"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    16,
+    "HERB_RX"
+   ],
+   [
+    17,
+    21,
+    "QTY"
+   ],
+   [
+    31,
+    35,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    17,
+    21,
+    "QTY_OLD"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    17,
+    21,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Bibhitaki",
+     "grams": 35
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[17,21)",
+    "detail": "'15 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Bibhitaki": 35
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r1-04",
+  "category": "r1_conflict",
+  "target_rules": [
+   "R1"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    11,
+    "QTY"
+   ],
+   [
+    12,
+    23,
+    "HERB_RX"
+   ],
+   [
+    41,
+    45,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    6,
+    11,
+    "QTY_OLD"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    6,
+    11,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Ashwagandha",
+     "grams": 120
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:wrong_quantity": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "conflicting_quantities",
+    "rule": "R1",
+    "where": "herb[0]",
+    "detail": "'Ashwagandha' has amounts [120, 90] in the note; output 120 is not the last"
+   }
+  ],
+  "t3_rules": [
+   "R1"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[41,45)",
+    "detail": "'90 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r1-05",
+  "category": "r1_conflict",
+  "target_rules": [
+   "R1"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    12,
+    "HERB_RX"
+   ],
+   [
+    13,
+    17,
+    "QTY"
+   ],
+   [
+    22,
+    31,
+    "HERB_RX"
+   ],
+   [
+    32,
+    36,
+    "QTY"
+   ],
+   [
+    43,
+    48,
+    "HERB_RX"
+   ],
+   [
+    49,
+    53,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    13,
+    17,
+    "QTY_OLD"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    13,
+    17,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Kutki",
+     "grams": 10
+    },
+    {
+     "name": "Manjistha",
+     "grams": 70
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:wrong_quantity": 1,
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "conflicting_quantities",
+    "rule": "R1",
+    "where": "herb[0]",
+    "detail": "'Kutki' has amounts [10, 15] in the note; output 10 is not the last"
+   }
+  ],
+  "t3_rules": [
+   "R1"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[49,53)",
+    "detail": "'15 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 2,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r1-06",
+  "category": "r1_conflict",
+  "target_rules": [
+   "R1",
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    15,
+    "HERB_RX"
+   ],
+   [
+    16,
+    20,
+    "QTY"
+   ],
+   [
+    27,
+    31,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Haritaki",
+     "grams": 50
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[27,31)",
+    "detail": "'50 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Haritaki": 50
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r1-07",
+  "category": "r1_conflict",
+  "target_rules": [
+   "R1"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    15,
+    "HERB_RX"
+   ],
+   [
+    16,
+    20,
+    "QTY"
+   ],
+   [
+    42,
+    46,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Shatavari",
+     "grams": 85
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:missed_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[16,20)",
+    "detail": "'75 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Shatavari": 85
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "confident_error:missed_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r2-01",
+  "category": "r2_alternative",
+  "target_rules": [
+   "R2"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    14,
+    "HERB_RX"
+   ],
+   [
+    15,
+    19,
+    "QTY_OLD"
+   ],
+   [
+    51,
+    56,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    15,
+    19,
+    "QTY"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    15,
+    19,
+    "QTY_OLD"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Amalaki",
+     "grams": 100
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:missed_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "alternative_quantities",
+    "rule": "R2",
+    "where": "herb[0]",
+    "detail": "'100 g' is one of alternative amounts"
+   }
+  ],
+  "t3_rules": [
+   "R2"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": true,
+  "final_exact": false,
+  "final_outcomes": {
+   "correct_abstention": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r2-02",
+  "category": "r2_alternative",
+  "target_rules": [
+   "R2"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    13,
+    "HERB_RX"
+   ],
+   [
+    17,
+    25,
+    "HERB_RX"
+   ],
+   [
+    27,
+    31,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Haritaki",
+     "grams": 35
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:missed_abstention": 1,
+   "correct_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "alternative_herbs",
+    "rule": "R2",
+    "where": "herb[0]",
+    "detail": "'Haritaki' is one of alternative herbs"
+   }
+  ],
+  "t3_rules": [
+   "R2"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": true,
+  "final_exact": false,
+  "final_outcomes": {
+   "correct_abstention": 2,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r2-03",
+  "category": "r2_alternative",
+  "target_rules": [
+   "R2"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    15,
+    "HERB_RX"
+   ],
+   [
+    19,
+    23,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    16,
+    23,
+    "QTY"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    19,
+    23,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": []
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[19,23)",
+    "detail": "'60 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r2-04",
+  "category": "r2_alternative",
+  "target_rules": [
+   "R2"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    11,
+    "HERB_RX"
+   ],
+   [
+    12,
+    16,
+    "QTY"
+   ],
+   [
+    62,
+    71,
+    "HERB_RX"
+   ],
+   [
+    72,
+    76,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Neem",
+     "grams": 30
+    },
+    {
+     "name": "Manjistha",
+     "grams": 30
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:missed_abstention": 2,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Neem": 30,
+   "Manjistha": 30
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "confident_error:missed_abstention": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r2-05",
+  "category": "r2_alternative",
+  "target_rules": [
+   "R2"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    15,
+    "HERB_RX"
+   ],
+   [
+    16,
+    20,
+    "QTY"
+   ],
+   [
+    36,
+    45,
+    "HERB_RX"
+   ],
+   [
+    46,
+    50,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Triphala",
+     "grams": 60
+    },
+    {
+     "name": "Bibhitaki",
+     "grams": 60
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:missed_abstention": 2,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "alternative_herbs",
+    "rule": "R2",
+    "where": "herb[0]",
+    "detail": "'Triphala' is one of alternative herbs"
+   },
+   {
+    "code": "alternative_herbs",
+    "rule": "R2",
+    "where": "herb[1]",
+    "detail": "'Bibhitaki' is one of alternative herbs"
+   }
+  ],
+  "t3_rules": [
+   "R2"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": true,
+  "final_exact": false,
+  "final_outcomes": {
+   "correct_abstention": 2,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r2-06",
+  "category": "r2_alternative",
+  "target_rules": [
+   "R2",
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    17,
+    "HERB_RX"
+   ],
+   [
+    18,
+    22,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Ashwagandha",
+     "grams": 70
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Ashwagandha": 70
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r2-07",
+  "category": "r2_alternative",
+  "target_rules": [
+   "R2"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    12,
+    "HERB_RX"
+   ],
+   [
+    13,
+    17,
+    "QTY"
+   ],
+   [
+    20,
+    24,
+    "QTY"
+   ],
+   [
+    27,
+    31,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    13,
+    31,
+    "QTY"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    13,
+    17,
+    "QTY"
+   ],
+   [
+    20,
+    24,
+    "QTY"
+   ],
+   [
+    27,
+    31,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Kutki",
+     "grams": 15
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:missed_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "conflicting_quantities",
+    "rule": "R1",
+    "where": "herb[0]",
+    "detail": "'Kutki' has amounts [10, 15, 20] in the note; output 15 is not the last"
+   },
+   {
+    "code": "alternative_quantities",
+    "rule": "R2",
+    "where": "herb[0]",
+    "detail": "'15 g' is one of alternative amounts"
+   }
+  ],
+  "t3_rules": [
+   "R1",
+   "R2"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[13,17)",
+    "detail": "'10 g' is not used by any output fact or accounted for by a label"
+   },
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[27,31)",
+    "detail": "'20 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": true,
+  "final_exact": false,
+  "final_outcomes": {
+   "correct_abstention": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r2-08",
+  "category": "r2_alternative",
+  "target_rules": [
+   "R2",
+   "R5"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    10,
+    "HERB_RX"
+   ],
+   [
+    11,
+    15,
+    "QTY"
+   ],
+   [
+    19,
+    28,
+    "HERB_RX"
+   ],
+   [
+    29,
+    33,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    6,
+    10,
+    "UNSTOCKED"
+   ],
+   [
+    11,
+    15,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    6,
+    10,
+    "HERB_RX"
+   ],
+   [
+    11,
+    15,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Shatavari",
+     "grams": 40
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:missed_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "alternative_herbs",
+    "rule": "R2",
+    "where": "herb[0]",
+    "detail": "'Shatavari' is one of alternative herbs"
+   }
+  ],
+  "t3_rules": [
+   "R2"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[11,15)",
+    "detail": "'40 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": true,
+  "final_exact": false,
+  "final_outcomes": {
+   "correct_abstention": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r3-01",
+  "category": "r3_history",
+  "target_rules": [
+   "R3"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    12,
+    18,
+    "HERB_RX"
+   ],
+   [
+    19,
+    23,
+    "QTY"
+   ],
+   [
+    58,
+    65,
+    "HERB_RX"
+   ],
+   [
+    66,
+    70,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    12,
+    18,
+    "HERB_HIST"
+   ],
+   [
+    19,
+    23,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    12,
+    18,
+    "HERB_RX"
+   ],
+   [
+    19,
+    23,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Vasaka",
+     "grams": 45
+    },
+    {
+     "name": "Pippali",
+     "grams": 20
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:spurious_herb": 1,
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "historical_context",
+    "rule": "R3",
+    "where": "herb[0]",
+    "detail": "past-time cue 'Took' is associated with 'Vasaka'"
+   }
+  ],
+  "t3_rules": [
+   "R3"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r3-02",
+  "category": "r3_history",
+  "target_rules": [
+   "R3"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    25,
+    29,
+    "HERB_RX"
+   ],
+   [
+    30,
+    34,
+    "QTY"
+   ],
+   [
+    36,
+    41,
+    "HERB_RX"
+   ],
+   [
+    42,
+    46,
+    "QTY"
+   ],
+   [
+    54,
+    61,
+    "HERB_RX"
+   ],
+   [
+    62,
+    66,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    25,
+    29,
+    "HERB_HIST"
+   ],
+   [
+    30,
+    34,
+    "QTY_OTHER"
+   ],
+   [
+    36,
+    41,
+    "HERB_HIST"
+   ],
+   [
+    42,
+    46,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    25,
+    29,
+    "HERB_RX"
+   ],
+   [
+    30,
+    34,
+    "QTY"
+   ],
+   [
+    36,
+    41,
+    "HERB_RX"
+   ],
+   [
+    42,
+    46,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Neem",
+     "grams": 50
+    },
+    {
+     "name": "Kutki",
+     "grams": 10
+    },
+    {
+     "name": "Haridra",
+     "grams": 35
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:spurious_herb": 2,
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "historical_context",
+    "rule": "R3",
+    "where": "herb[0]",
+    "detail": "'Neem' is under a past-medication header"
+   },
+   {
+    "code": "historical_context",
+    "rule": "R3",
+    "where": "herb[1]",
+    "detail": "'Kutki' is under a past-medication header"
+   }
+  ],
+  "t3_rules": [
+   "R3"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r3-03",
+  "category": "r3_history",
+  "target_rules": [
+   "R3",
+   "R1"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    12,
+    "HERB_RX"
+   ],
+   [
+    13,
+    17,
+    "QTY"
+   ],
+   [
+    63,
+    69,
+    "HERB_RX"
+   ],
+   [
+    70,
+    74,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    6,
+    12,
+    "HERB_HIST"
+   ],
+   [
+    13,
+    17,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    6,
+    12,
+    "HERB_RX"
+   ],
+   [
+    13,
+    17,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Brahmi",
+     "grams": 30
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "historical_context",
+    "rule": "R3",
+    "where": "herb[0]",
+    "detail": "past-time cue 'had' is associated with 'Brahmi'"
+   }
+  ],
+  "t3_rules": [
+   "R3"
+  ],
+  "rejection_effect": "false_rejection",
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[70,74)",
+    "detail": "'30 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r3-04",
+  "category": "r3_history",
+  "target_rules": [
+   "R3",
+   "R1"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    15,
+    "HERB_RX"
+   ],
+   [
+    16,
+    20,
+    "QTY"
+   ],
+   [
+    39,
+    47,
+    "HERB_RX"
+   ],
+   [
+    48,
+    53,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    39,
+    47,
+    "HERB_HIST"
+   ],
+   [
+    48,
+    53,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    39,
+    47,
+    "HERB_RX"
+   ],
+   [
+    48,
+    53,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Triphala",
+     "grams": 90
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "conflicting_quantities",
+    "rule": "R1",
+    "where": "herb[0]",
+    "detail": "'Triphala' has amounts [90, 200] in the note; output 90 is not the last"
+   }
+  ],
+  "t3_rules": [
+   "R1"
+  ],
+  "rejection_effect": "false_rejection",
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[48,53)",
+    "detail": "'200 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r3-05",
+  "category": "r3_history",
+  "target_rules": [
+   "R3",
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    16,
+    23,
+    "HERB_RX"
+   ],
+   [
+    24,
+    29,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Amalaki",
+     "grams": 120
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Amalaki": 120
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r3-06",
+  "category": "r3_history",
+  "target_rules": [
+   "R3"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    16,
+    27,
+    "HERB_HIST"
+   ],
+   [
+    28,
+    32,
+    "QTY_OTHER"
+   ],
+   [
+    46,
+    55,
+    "HERB_RX"
+   ],
+   [
+    56,
+    60,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Shatavari",
+     "grams": 50
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Shatavari": 50
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r3-07",
+  "category": "r3_history",
+  "target_rules": [
+   "R3",
+   "R1"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    14,
+    "HERB_RX"
+   ],
+   [
+    15,
+    19,
+    "QTY"
+   ],
+   [
+    21,
+    28,
+    "HERB_RX"
+   ],
+   [
+    29,
+    33,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    21,
+    28,
+    "HERB_HIST"
+   ],
+   [
+    29,
+    33,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    21,
+    28,
+    "HERB_RX"
+   ],
+   [
+    29,
+    33,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Guggulu",
+     "grams": 40
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "conflicting_quantities",
+    "rule": "R1",
+    "where": "herb[0]",
+    "detail": "'Guggulu' has amounts [40, 25] in the note; output 40 is not the last"
+   }
+  ],
+  "t3_rules": [
+   "R1"
+  ],
+  "rejection_effect": "false_rejection",
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[29,33)",
+    "detail": "'25 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r3-08",
+  "category": "r3_history",
+  "target_rules": [
+   "R3"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    35,
+    42,
+    "HERB_RX"
+   ],
+   [
+    43,
+    47,
+    "QTY"
+   ],
+   [
+    65,
+    74,
+    "HERB_RX"
+   ],
+   [
+    75,
+    79,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    35,
+    42,
+    "HERB_HIST"
+   ],
+   [
+    43,
+    47,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    35,
+    42,
+    "HERB_RX"
+   ],
+   [
+    43,
+    47,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Haridra",
+     "grams": 20
+    },
+    {
+     "name": "Manjistha",
+     "grams": 40
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:spurious_herb": 1,
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "historical_context",
+    "rule": "R3",
+    "where": "herb[0]",
+    "detail": "past-time cue 'Prior' is associated with 'Haridra'"
+   },
+   {
+    "code": "historical_context",
+    "rule": "R3",
+    "where": "herb[0]",
+    "detail": "past-time cue 'used' is associated with 'Haridra'"
+   }
+  ],
+  "t3_rules": [
+   "R3"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r4-01",
+  "category": "r4_negation_replacement",
+  "target_rules": [
+   "R4"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    15,
+    "HERB_NEG"
+   ],
+   [
+    25,
+    31,
+    "HERB_RX"
+   ],
+   [
+    32,
+    36,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Brahmi",
+     "grams": 35
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Brahmi": 35
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r4-02",
+  "category": "r4_negation_replacement",
+  "target_rules": [
+   "R4"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    14,
+    "HERB_RX"
+   ],
+   [
+    15,
+    19,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    7,
+    14,
+    "HERB_NEG"
+   ],
+   [
+    15,
+    19,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    7,
+    14,
+    "HERB_RX"
+   ],
+   [
+    15,
+    19,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Pippali",
+     "grams": 25
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:spurious_herb": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "negated_context",
+    "rule": "R4",
+    "where": "herb[0]",
+    "detail": "negated action 'not dispense.' later in the sentence"
+   }
+  ],
+  "t3_rules": [
+   "R4"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": true,
+  "final_exact": false,
+  "final_outcomes": {
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r4-03",
+  "category": "r4_negation_replacement",
+  "target_rules": [
+   "R4"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    14,
+    "HERB_RX"
+   ],
+   [
+    15,
+    19,
+    "QTY"
+   ],
+   [
+    46,
+    53,
+    "HERB_HIST"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    7,
+    14,
+    "HERB_NEG"
+   ],
+   [
+    15,
+    19,
+    "QTY_OTHER"
+   ],
+   [
+    46,
+    53,
+    "HERB_NEG"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    7,
+    14,
+    "HERB_RX"
+   ],
+   [
+    15,
+    19,
+    "QTY"
+   ],
+   [
+    46,
+    53,
+    "HERB_HIST"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Haridra",
+     "grams": 40
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:spurious_herb": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Haridra": 40
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "confident_error:spurious_herb": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r4-04",
+  "category": "r4_negation_replacement",
+  "target_rules": [
+   "R4"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    11,
+    22,
+    "HERB_NEG"
+   ],
+   [
+    28,
+    37,
+    "HERB_RX"
+   ],
+   [
+    38,
+    42,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    11,
+    22,
+    "HERB_REPL"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    11,
+    22,
+    "HERB_NEG"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Shatavari",
+     "grams": 60
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Shatavari": 60
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r4-05",
+  "category": "r4_negation_replacement",
+  "target_rules": [
+   "R4"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    12,
+    18,
+    "HERB_RX"
+   ],
+   [
+    20,
+    26,
+    "HERB_RX"
+   ],
+   [
+    27,
+    31,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    12,
+    18,
+    "HERB_NEG"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    12,
+    18,
+    "HERB_RX"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Vasaka",
+     "grams": 30
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:missed_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "contested_status",
+    "rule": "R4",
+    "where": "herb[0]",
+    "detail": "'Vasaka' is also mentioned with negation ['Stop'] at 'Vasaka'"
+   }
+  ],
+  "t3_rules": [
+   "R4"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": true,
+  "final_exact": false,
+  "final_outcomes": {
+   "correct_abstention": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r4-06",
+  "category": "r4_negation_replacement",
+  "target_rules": [
+   "R4"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    12,
+    "HERB_RX"
+   ],
+   [
+    13,
+    17,
+    "QTY"
+   ],
+   [
+    48,
+    52,
+    "HERB_RX"
+   ],
+   [
+    53,
+    57,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    7,
+    12,
+    "HERB_NEG"
+   ],
+   [
+    13,
+    17,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    7,
+    12,
+    "HERB_RX"
+   ],
+   [
+    13,
+    17,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Kutki",
+     "grams": 15
+    },
+    {
+     "name": "Neem",
+     "grams": 40
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:spurious_herb": 1,
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "negated_context",
+    "rule": "R4",
+    "where": "herb[0]",
+    "detail": "'Kutki' is cancelled by a following reference"
+   }
+  ],
+  "t3_rules": [
+   "R4"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-r4-07",
+  "category": "r4_negation_replacement",
+  "target_rules": [
+   "R4",
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    12,
+    "HERB_RX"
+   ],
+   [
+    13,
+    17,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Brahmi",
+     "grams": 20
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "negated_context",
+    "rule": "R4",
+    "where": "herb[0]",
+    "detail": "negated action 'not to be' later in the sentence"
+   }
+  ],
+  "t3_rules": [
+   "R4"
+  ],
+  "rejection_effect": "false_rejection",
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r4-08",
+  "category": "r4_negation_replacement",
+  "target_rules": [
+   "R4",
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    39,
+    45,
+    "HERB_RX"
+   ],
+   [
+    46,
+    50,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Vasaka",
+     "grams": 45
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Vasaka": 45
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r5-01",
+  "category": "r5_unaccounted",
+  "target_rules": [
+   "R5"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    14,
+    "HERB_RX"
+   ],
+   [
+    15,
+    19,
+    "QTY"
+   ],
+   [
+    20,
+    23,
+    "HERB_RX"
+   ],
+   [
+    24,
+    30,
+    "HERB_RX"
+   ],
+   [
+    31,
+    35,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    24,
+    30,
+    "UNSTOCKED"
+   ],
+   [
+    31,
+    35,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    20,
+    23,
+    "HERB_RX"
+   ],
+   [
+    24,
+    30,
+    "HERB_RX"
+   ],
+   [
+    31,
+    35,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Amalaki",
+     "grams": 90
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[31,35)",
+    "detail": "'30 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [
+   [
+    "30 g",
+    0
+   ]
+  ],
+  "emitted": {
+   "Amalaki": 90
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r5-02",
+  "category": "r5_unaccounted",
+  "target_rules": [
+   "R5"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    17,
+    "HERB_RX"
+   ],
+   [
+    18,
+    23,
+    "QTY"
+   ],
+   [
+    25,
+    34,
+    "HERB_RX"
+   ],
+   [
+    35,
+    39,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    25,
+    34,
+    "UNSTOCKED"
+   ],
+   [
+    35,
+    39,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    25,
+    34,
+    "HERB_RX"
+   ],
+   [
+    35,
+    39,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Ashwagandha",
+     "grams": 100
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[35,39)",
+    "detail": "'15 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [
+   [
+    "15 g",
+    0
+   ]
+  ],
+  "emitted": {
+   "Ashwagandha": 100
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r5-03",
+  "category": "r5_unaccounted",
+  "target_rules": [
+   "R5"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    13,
+    "HERB_RX"
+   ],
+   [
+    14,
+    18,
+    "QTY"
+   ],
+   [
+    19,
+    23,
+    "HERB_RX"
+   ],
+   [
+    24,
+    28,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    24,
+    28,
+    "QTY_OTHER"
+   ],
+   [
+    32,
+    41,
+    "UNSTOCKED"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    19,
+    23,
+    "HERB_RX"
+   ],
+   [
+    24,
+    28,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Vasaka",
+     "grams": 60
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[24,28)",
+    "detail": "'20 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [
+   [
+    "20 g",
+    0
+   ]
+  ],
+  "emitted": {
+   "Vasaka": 60
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r5-04",
+  "category": "r5_unaccounted",
+  "target_rules": [
+   "R5"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    11,
+    "QTY"
+   ],
+   [
+    25,
+    29,
+    "HERB_RX"
+   ],
+   [
+    30,
+    34,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    7,
+    11,
+    "QTY_OTHER"
+   ],
+   [
+    12,
+    20,
+    "UNSTOCKED"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    7,
+    11,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Neem",
+     "grams": 30
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[7,11)",
+    "detail": "'10 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [
+   [
+    "10 g",
+    0
+   ]
+  ],
+  "emitted": {
+   "Neem": 30
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r5-05",
+  "category": "r5_unaccounted",
+  "target_rules": [
+   "R5"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    6,
+    "DOSHA"
+   ],
+   [
+    8,
+    17,
+    "HERB_RX"
+   ],
+   [
+    18,
+    22,
+    "QTY"
+   ],
+   [
+    24,
+    29,
+    "HERB_RX"
+   ],
+   [
+    30,
+    34,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    24,
+    29,
+    "UNSTOCKED"
+   ],
+   [
+    30,
+    34,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    24,
+    29,
+    "HERB_RX"
+   ],
+   [
+    30,
+    34,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Shatavari",
+     "grams": 50
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[30,34)",
+    "detail": "'20 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [
+   [
+    "20 g",
+    0
+   ]
+  ],
+  "emitted": {
+   "Shatavari": 50
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r5-06",
+  "category": "r5_unaccounted",
+  "target_rules": [
+   "R5",
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    12,
+    16,
+    "QTY"
+   ],
+   [
+    37,
+    45,
+    "HERB_RX"
+   ],
+   [
+    46,
+    50,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [],
+  "t1_spurious": [
+   [
+    12,
+    16,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Triphala",
+     "grams": 80
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Triphala": 80
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-r5-07",
+  "category": "r5_unaccounted",
+  "target_rules": [
+   "R5"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    16,
+    "HERB_RX"
+   ],
+   [
+    17,
+    21,
+    "QTY"
+   ],
+   [
+    23,
+    29,
+    "HERB_RX"
+   ],
+   [
+    30,
+    33,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    23,
+    29,
+    "UNSTOCKED"
+   ],
+   [
+    30,
+    33,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    23,
+    29,
+    "HERB_RX"
+   ],
+   [
+    30,
+    33,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Manjistha",
+     "grams": 50
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[30,33)",
+    "detail": "'5 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [
+   [
+    "5 g",
+    0
+   ]
+  ],
+  "emitted": {
+   "Manjistha": 50
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-x-01",
+  "category": "cross_rule",
+  "target_rules": [
+   "R1",
+   "R5"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    12,
+    "HERB_RX"
+   ],
+   [
+    13,
+    17,
+    "QTY"
+   ],
+   [
+    19,
+    28,
+    "HERB_RX"
+   ],
+   [
+    29,
+    33,
+    "QTY"
+   ],
+   [
+    35,
+    41,
+    "HERB_NEG"
+   ],
+   [
+    55,
+    59,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    13,
+    17,
+    "QTY_OLD"
+   ],
+   [
+    19,
+    28,
+    "UNSTOCKED"
+   ],
+   [
+    29,
+    33,
+    "QTY_OTHER"
+   ],
+   [
+    35,
+    41,
+    "HERB_RX"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    13,
+    17,
+    "QTY"
+   ],
+   [
+    19,
+    28,
+    "HERB_RX"
+   ],
+   [
+    29,
+    33,
+    "QTY"
+   ],
+   [
+    35,
+    41,
+    "HERB_NEG"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Brahmi",
+     "grams": 30
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:wrong_quantity": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "conflicting_quantities",
+    "rule": "R1",
+    "where": "herb[0]",
+    "detail": "'Brahmi' has amounts [30, 35] in the note; output 30 is not the last"
+   },
+   {
+    "code": "contested_status",
+    "rule": "R4",
+    "where": "herb[0]",
+    "detail": "'Brahmi' is also labelled HERB_NEG at 'Brahmi'"
+   }
+  ],
+  "t3_rules": [
+   "R1",
+   "R4"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[29,33)",
+    "detail": "'10 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [
+   [
+    "10 g",
+    0
+   ]
+  ],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-x-02",
+  "category": "cross_rule",
+  "target_rules": [
+   "R2",
+   "R3"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    17,
+    24,
+    "HERB_RX"
+   ],
+   [
+    25,
+    29,
+    "QTY"
+   ],
+   [
+    41,
+    48,
+    "HERB_RX"
+   ],
+   [
+    49,
+    53,
+    "QTY"
+   ],
+   [
+    54,
+    56,
+    "HERB_RX"
+   ],
+   [
+    57,
+    61,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    17,
+    24,
+    "HERB_HIST"
+   ],
+   [
+    25,
+    29,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    17,
+    24,
+    "HERB_RX"
+   ],
+   [
+    25,
+    29,
+    "QTY"
+   ],
+   [
+    54,
+    56,
+    "HERB_RX"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Pippali",
+     "grams": 20
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:missed_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "conflicting_quantities",
+    "rule": "R1",
+    "where": "herb[0]",
+    "detail": "'Pippali' has amounts [20, 30, 40] in the note; output 20 is not the last"
+   },
+   {
+    "code": "historical_context",
+    "rule": "R3",
+    "where": "herb[0]",
+    "detail": "past-time cue 'Last time' is associated with 'Pippali'"
+   }
+  ],
+  "t3_rules": [
+   "R1",
+   "R3"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[49,53)",
+    "detail": "'30 g' is not used by any output fact or accounted for by a label"
+   },
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[57,61)",
+    "detail": "'40 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": true,
+  "final_exact": false,
+  "final_outcomes": {
+   "correct_abstention": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-x-03",
+  "category": "cross_rule",
+  "target_rules": [
+   "R3",
+   "R4"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    11,
+    "HERB_RX"
+   ],
+   [
+    12,
+    16,
+    "QTY"
+   ],
+   [
+    56,
+    60,
+    "HERB_HIST"
+   ],
+   [
+    62,
+    69,
+    "HERB_RX"
+   ],
+   [
+    70,
+    74,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    7,
+    11,
+    "HERB_HIST"
+   ],
+   [
+    12,
+    16,
+    "QTY_OTHER"
+   ],
+   [
+    56,
+    60,
+    "HERB_NEG"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    7,
+    11,
+    "HERB_RX"
+   ],
+   [
+    12,
+    16,
+    "QTY"
+   ],
+   [
+    56,
+    60,
+    "HERB_HIST"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Neem",
+     "grams": 30
+    },
+    {
+     "name": "Haridra",
+     "grams": 40
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:spurious_herb": 1,
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "historical_context",
+    "rule": "R3",
+    "where": "herb[0]",
+    "detail": "past-time cue 'last month' is associated with 'Neem'"
+   },
+   {
+    "code": "contested_status",
+    "rule": "R4",
+    "where": "herb[0]",
+    "detail": "'Neem' is also mentioned with negation ['not'] at 'Neem'"
+   }
+  ],
+  "t3_rules": [
+   "R3",
+   "R4"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-x-04",
+  "category": "cross_rule",
+  "target_rules": [
+   "R1",
+   "R4"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    15,
+    "HERB_RX"
+   ],
+   [
+    16,
+    20,
+    "QTY_OLD"
+   ],
+   [
+    33,
+    42,
+    "HERB_NEG"
+   ],
+   [
+    53,
+    64,
+    "HERB_RX"
+   ],
+   [
+    65,
+    69,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    6,
+    15,
+    "HERB_NEG"
+   ],
+   [
+    16,
+    20,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    6,
+    15,
+    "HERB_RX"
+   ],
+   [
+    16,
+    20,
+    "QTY_OLD"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Ashwagandha",
+     "grams": 40
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Ashwagandha": 40
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-x-05",
+  "category": "cross_rule",
+  "target_rules": [
+   "R2",
+   "R5"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    12,
+    "HERB_RX"
+   ],
+   [
+    13,
+    17,
+    "QTY"
+   ],
+   [
+    29,
+    33,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    21,
+    28,
+    "UNSTOCKED"
+   ],
+   [
+    29,
+    33,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    29,
+    33,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Kutki",
+     "grams": 10
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:missed_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "foreign_quantity",
+    "rule": "R1",
+    "where": "herb[0]",
+    "detail": "'10 g' belongs to 'Kalmegh', not to 'Kutki'"
+   },
+   {
+    "code": "alternative_herbs",
+    "rule": "R2",
+    "where": "herb[0]",
+    "detail": "'Kutki' is one of alternative herbs"
+   }
+  ],
+  "t3_rules": [
+   "R1",
+   "R2"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[13,17)",
+    "detail": "'10 g' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": true,
+  "final_exact": false,
+  "final_outcomes": {
+   "correct_abstention": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-x-06",
+  "category": "cross_rule",
+  "target_rules": [
+   "R1",
+   "R3"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    6,
+    "DOSHA"
+   ],
+   [
+    14,
+    20,
+    "HERB_HIST"
+   ],
+   [
+    21,
+    25,
+    "QTY_OTHER"
+   ],
+   [
+    40,
+    46,
+    "HERB_RX"
+   ],
+   [
+    47,
+    51,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Vasaka",
+     "grams": 45
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Vasaka": 45
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-ctl-01",
+  "category": "clean_control",
+  "target_rules": [
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    15,
+    "HERB_RX"
+   ],
+   [
+    16,
+    20,
+    "QTY"
+   ],
+   [
+    22,
+    28,
+    "HERB_RX"
+   ],
+   [
+    29,
+    33,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Shatavari",
+     "grams": 70
+    },
+    {
+     "name": "Brahmi",
+     "grams": 25
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Shatavari": 70,
+   "Brahmi": 25
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-ctl-02",
+  "category": "clean_control",
+  "target_rules": [
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    14,
+    "HERB_RX"
+   ],
+   [
+    15,
+    23,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Amalaki",
+     "grams": 120
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Amalaki": 120
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-ctl-03",
+  "category": "clean_control",
+  "target_rules": [
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    13,
+    "HERB_RX"
+   ],
+   [
+    14,
+    18,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Vasaka",
+     "grams": 40
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Vasaka": 40
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-ctl-04",
+  "category": "clean_control",
+  "target_rules": [
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    12,
+    "HERB_RX"
+   ],
+   [
+    13,
+    17,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Brahmi",
+     "grams": 20
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Brahmi": 20
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-ctl-05",
+  "category": "clean_control",
+  "target_rules": [
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    11,
+    "HERB_RX"
+   ],
+   [
+    16,
+    25,
+    "HERB_RX"
+   ],
+   [
+    26,
+    30,
+    "QTY_OLD"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    26,
+    30,
+    "QTY"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    26,
+    30,
+    "QTY_OLD"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": []
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "omission": 2,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-ctl-06",
+  "category": "clean_control",
+  "target_rules": [
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    15,
+    "HERB_RX"
+   ],
+   [
+    16,
+    22,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Triphala",
+     "grams": 100
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Triphala": 100
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-ctl-07",
+  "category": "clean_control",
+  "target_rules": [
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    17,
+    "HERB_RX"
+   ],
+   [
+    18,
+    22,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Ashwagandha",
+     "grams": 50
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Ashwagandha": 50
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-ctl-08",
+  "category": "clean_control",
+  "target_rules": [
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    14,
+    "HERB_RX"
+   ],
+   [
+    15,
+    19,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Haridra",
+     "grams": 25
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Haridra": 25
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-ctl-09",
+  "category": "clean_control",
+  "target_rules": [
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    7,
+    14,
+    "HERB_RX"
+   ],
+   [
+    15,
+    19,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Pippali",
+     "grams": 15
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Pippali": 15
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-ctl-10",
+  "category": "clean_control",
+  "target_rules": [
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    15,
+    "HERB_RX"
+   ],
+   [
+    16,
+    20,
+    "QTY"
+   ],
+   [
+    22,
+    31,
+    "HERB_RX"
+   ],
+   [
+    32,
+    36,
+    "QTY"
+   ],
+   [
+    38,
+    50,
+    "HERB_RX"
+   ],
+   [
+    51,
+    55,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Bhringraj",
+     "grams": 30
+    },
+    {
+     "name": "Punarnava",
+     "grams": 45
+    },
+    {
+     "name": "Shankhpushpi",
+     "grams": 20
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 3,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Bhringraj": 30,
+   "Punarnava": 45,
+   "Shankhpushpi": 20
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 3,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-ml-01",
+  "category": "malayalam_manglish",
+  "target_rules": [
+   "R1"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    6,
+    "DOSHA"
+   ],
+   [
+    8,
+    15,
+    "HERB_RX"
+   ],
+   [
+    16,
+    20,
+    "QTY_OLD"
+   ],
+   [
+    27,
+    31,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Haridra",
+     "grams": 40
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Haridra": 40
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-ml-02",
+  "category": "malayalam_manglish",
+  "target_rules": [
+   "R2"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    6,
+    "DOSHA"
+   ],
+   [
+    8,
+    19,
+    "HERB_RX"
+   ],
+   [
+    20,
+    24,
+    "QTY"
+   ],
+   [
+    34,
+    43,
+    "HERB_RX"
+   ],
+   [
+    44,
+    48,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Ashwagandha",
+     "grams": 50
+    },
+    {
+     "name": "Shatavari",
+     "grams": 50
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:missed_abstention": 2,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "alternative_herbs",
+    "rule": "R2",
+    "where": "herb[0]",
+    "detail": "'Ashwagandha' is one of alternative herbs"
+   },
+   {
+    "code": "alternative_herbs",
+    "rule": "R2",
+    "where": "herb[1]",
+    "detail": "'Shatavari' is one of alternative herbs"
+   }
+  ],
+  "t3_rules": [
+   "R2"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": true,
+  "final_exact": false,
+  "final_outcomes": {
+   "correct_abstention": 2,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-ml-03",
+  "category": "malayalam_manglish",
+  "target_rules": [
+   "R3"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    6,
+    "DOSHA"
+   ],
+   [
+    25,
+    32,
+    "HERB_HIST"
+   ],
+   [
+    33,
+    37,
+    "QTY_OTHER"
+   ],
+   [
+    59,
+    67,
+    "HERB_RX"
+   ],
+   [
+    68,
+    72,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Triphala",
+     "grams": 80
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Triphala": 80
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-ml-04",
+  "category": "malayalam_manglish",
+  "target_rules": [
+   "R4"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    6,
+    "DOSHA"
+   ],
+   [
+    8,
+    12,
+    "HERB_NEG"
+   ],
+   [
+    24,
+    33,
+    "HERB_RX"
+   ],
+   [
+    34,
+    38,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Manjistha",
+     "grams": 45
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Manjistha": 45
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-ml-05",
+  "category": "malayalam_manglish",
+  "target_rules": [
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    4,
+    "DOSHA"
+   ],
+   [
+    6,
+    15,
+    "HERB_RX"
+   ],
+   [
+    16,
+    24,
+    "QTY"
+   ],
+   [
+    26,
+    32,
+    "HERB_RX"
+   ],
+   [
+    33,
+    41,
+    "QTY"
+   ]
+  ],
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Ashwagandha",
+     "grams": 60
+    },
+    {
+     "name": "Shatavari",
+     "grams": 40
+    }
+   ]
+  },
+  "t2_exact_herbs": true,
+  "t2_outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Ashwagandha": 60,
+   "Shatavari": 40
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "final_exact_herbs": true,
+  "final_exact": true,
+  "final_outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood3-ml-06",
+  "category": "malayalam_manglish",
+  "target_rules": [
+   "R3"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    3,
+    "DOSHA"
+   ],
+   [
+    12,
+    18,
+    "HERB_RX"
+   ],
+   [
+    19,
+    27,
+    "QTY"
+   ],
+   [
+    50,
+    57,
+    "HERB_RX"
+   ],
+   [
+    58,
+    66,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    12,
+    18,
+    "HERB_HIST"
+   ],
+   [
+    19,
+    27,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    12,
+    18,
+    "HERB_RX"
+   ],
+   [
+    19,
+    27,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Haritaki",
+     "grams": 30
+    },
+    {
+     "name": "Pippali",
+     "grams": 20
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:spurious_herb": 1,
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "historical_context",
+    "rule": "R3",
+    "where": "herb[0]",
+    "detail": "past-time cue 'മുമ്പ്' is associated with 'Haritaki'"
+   },
+   {
+    "code": "historical_context",
+    "rule": "R3",
+    "where": "herb[0]",
+    "detail": "past-time cue 'കഴിച്ചിരുന്നു' is associated with 'Haritaki'"
+   }
+  ],
+  "t3_rules": [
+   "R3"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-ml-07",
+  "category": "malayalam_manglish",
+  "target_rules": [
+   "R5"
+  ],
+  "control": false,
+  "t1_spans": [
+   [
+    0,
+    6,
+    "DOSHA"
+   ],
+   [
+    8,
+    14,
+    "HERB_RX"
+   ],
+   [
+    15,
+    23,
+    "QTY"
+   ],
+   [
+    33,
+    41,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    25,
+    32,
+    "UNSTOCKED"
+   ],
+   [
+    33,
+    41,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    33,
+    41,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Amalaki",
+     "grams": 20
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "confident_error:wrong_quantity": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "rejected",
+  "t3_violations": [
+   {
+    "code": "foreign_quantity",
+    "rule": "R1",
+    "where": "herb[0]",
+    "detail": "'20 ഗ്രാം' belongs to 'നന്നാറി', not to 'Amalaki'"
+   }
+  ],
+  "t3_rules": [
+   "R1"
+  ],
+  "rejection_effect": "catch",
+  "r5_warnings": [
+   {
+    "code": "unaccounted_quantity",
+    "rule": "R5",
+    "where": "amount[15,23)",
+    "detail": "'80 ഗ്രാം' is not used by any output fact or accounted for by a label"
+   }
+  ],
+  "gold_unaccounted": [
+   [
+    "20 ഗ്രാം",
+    0
+   ]
+  ],
+  "emitted": {},
+  "emitted_dosha": [],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "omission": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood3-ml-08",
+  "category": "malayalam_manglish",
+  "target_rules": [
+   "control"
+  ],
+  "control": true,
+  "t1_spans": [
+   [
+    0,
+    6,
+    "DOSHA"
+   ],
+   [
+    13,
+    19,
+    "HERB_RX"
+   ],
+   [
+    20,
+    24,
+    "QTY_OLD"
+   ],
+   [
+    36,
+    43,
+    "HERB_RX"
+   ],
+   [
+    44,
+    48,
+    "QTY"
+   ]
+  ],
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    20,
+    24,
+    "QTY"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    20,
+    24,
+    "QTY_OLD"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Pippali",
+     "grams": 15
+    }
+   ]
+  },
+  "t2_exact_herbs": false,
+  "t2_outcomes": {
+   "correct_fact": 1,
+   "omission": 1,
+   "correct_dosha": 1
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "t3_rules": [],
+  "rejection_effect": null,
+  "r5_warnings": [],
+  "gold_unaccounted": [],
+  "emitted": {
+   "Pippali": 15
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "final_exact_herbs": false,
+  "final_exact": false,
+  "final_outcomes": {
+   "correct_fact": 1,
+   "omission": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ }
+]

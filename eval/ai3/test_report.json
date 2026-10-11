@@ -1,0 +1,174 @@
+{
+ "classification": "SYNTHETIC DATA, SYNTHETIC SAME-AUTHOR GOLD; NOT CLINICAL VALIDATION",
+ "split": "test",
+ "one_shot": true,
+ "model_file_sha256": "4ac9b5a746ef48478bd11d67d3be36dccbda8ffe3e2defb43471fbaa00657126",
+ "weights_sha256": "18a0488393a4ffdec93d02bd4f04e1d18ce9358398ffb816c4b96aa9c76d7c9f",
+ "fingerprints": {
+  "test": "cf4b21317dbed8459dee9ee4dfa790f1dfca21114da1aa4a3ffbbca60471bba1"
+ },
+ "result": {
+  "k=3": {
+   "patients_with_facts": 988,
+   "k": 3,
+   "patients_with_critical_fact": 363,
+   "arms": {
+    "template": {
+     "recall": 0.7546,
+     "recall_ci95": [
+      0.7394,
+      0.7696
+     ],
+     "precision": 0.4445,
+     "precision_ci95": [
+      0.4324,
+      0.4556
+     ],
+     "critical_facts_present": 407,
+     "critical_facts_shown": 121,
+     "critical_miss_rate": 0.7027,
+     "shown_facts": 2908,
+     "unsupported_shown_facts": 0
+    },
+    "learned": {
+     "recall": 0.9956,
+     "recall_ci95": [
+      0.9933,
+      0.998
+     ],
+     "precision": 0.6385,
+     "precision_ci95": [
+      0.6216,
+      0.6542
+     ],
+     "critical_facts_present": 407,
+     "critical_facts_shown": 394,
+     "critical_miss_rate": 0.0319,
+     "shown_facts": 2908,
+     "unsupported_shown_facts": 0
+    },
+    "reference": {
+     "recall": 1.0,
+     "recall_ci95": [
+      1.0,
+      1.0
+     ],
+     "precision": 0.6429,
+     "precision_ci95": [
+      0.6258,
+      0.6596
+     ],
+     "critical_facts_present": 407,
+     "critical_facts_shown": 363,
+     "critical_miss_rate": 0.1081,
+     "shown_facts": 2908,
+     "unsupported_shown_facts": 0
+    }
+   },
+   "paired_learned_minus_template": {
+    "recall": {
+     "mean": 0.2411,
+     "ci95": [
+      0.2259,
+      0.2564
+     ]
+    },
+    "precision": {
+     "mean": 0.194,
+     "ci95": [
+      0.1818,
+      0.2061
+     ]
+    },
+    "critical_share_shown": {
+     "mean": 0.6928,
+     "ci95": [
+      0.6451,
+      0.7374
+     ]
+    }
+   }
+  },
+  "k=5": {
+   "patients_with_facts": 988,
+   "k": 5,
+   "patients_with_critical_fact": 363,
+   "arms": {
+    "template": {
+     "recall": 0.788,
+     "recall_ci95": [
+      0.772,
+      0.8032
+     ],
+     "precision": 0.3093,
+     "precision_ci95": [
+      0.3005,
+      0.318
+     ],
+     "critical_facts_present": 407,
+     "critical_facts_shown": 177,
+     "critical_miss_rate": 0.5651,
+     "shown_facts": 4590,
+     "unsupported_shown_facts": 0
+    },
+    "learned": {
+     "recall": 1.0,
+     "recall_ci95": [
+      1.0,
+      1.0
+     ],
+     "precision": 0.4215,
+     "precision_ci95": [
+      0.4097,
+      0.433
+     ],
+     "critical_facts_present": 407,
+     "critical_facts_shown": 407,
+     "critical_miss_rate": 0.0,
+     "shown_facts": 4590,
+     "unsupported_shown_facts": 0
+    },
+    "reference": {
+     "recall": 1.0,
+     "recall_ci95": [
+      1.0,
+      1.0
+     ],
+     "precision": 0.4215,
+     "precision_ci95": [
+      0.4092,
+      0.4326
+     ],
+     "critical_facts_present": 407,
+     "critical_facts_shown": 407,
+     "critical_miss_rate": 0.0,
+     "shown_facts": 4590,
+     "unsupported_shown_facts": 0
+    }
+   },
+   "paired_learned_minus_template": {
+    "recall": {
+     "mean": 0.212,
+     "ci95": [
+      0.1964,
+      0.2273
+     ]
+    },
+    "precision": {
+     "mean": 0.1121,
+     "ci95": [
+      0.1038,
+      0.1206
+     ]
+    },
+    "critical_share_shown": {
+     "mean": 0.5624,
+     "ci95": [
+      0.5161,
+      0.6102
+     ]
+    }
+   }
+  }
+ }
+}

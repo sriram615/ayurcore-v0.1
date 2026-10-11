@@ -1,0 +1,72 @@
+{
+ "dataset": "s3_v1",
+ "classification": "SYNTHETIC -- NOT CLINICAL DATA",
+ "seed": 20261007,
+ "s2_fingerprint": "d25c3235c33e36febb386f74aeb868c456f723452559e0e3a18f14e2ac50c440",
+ "split_sizes": {
+  "train": 1048,
+  "dev": 186,
+  "test": 210
+ },
+ "templates": {
+  "train": 131,
+  "dev": 31,
+  "test": 35
+ },
+ "frames": {
+  "AMBIGUOUS": 74,
+  "CMP_DOSHA_FIRST": 44,
+  "CMP_DOSHA_PREV": 44,
+  "CMP_HERB_FIRST": 44,
+  "CMP_HERB_PREV": 44,
+  "COUNT_DOSHA": 44,
+  "COUNT_ENC": 44,
+  "COUNT_HERB": 44,
+  "COUNT_HERB_N": 44,
+  "COUNT_RX": 44,
+  "COUNT_RX_N": 44,
+  "DIAGNOSIS": 58,
+  "DIFF_FIRST": 44,
+  "DIFF_PREV": 44,
+  "FIRST_DOSHA": 44,
+  "FIRST_ENC": 44,
+  "FIRST_HERB": 44,
+  "FIRST_RX": 44,
+  "LAST_DOSHA": 44,
+  "LAST_ENC": 44,
+  "LAST_HERB": 44,
+  "LAST_RX": 44,
+  "LIST_DOSHA": 44,
+  "LIST_ENC": 44,
+  "LIST_HERB": 44,
+  "LIST_HERB_N": 44,
+  "LIST_RX": 44,
+  "SUM_HERB": 44,
+  "SUM_HERB_N": 44,
+  "TREATMENT": 58,
+  "UNAVAILABLE": 66
+ },
+ "languages": {
+  "train": {
+   "en": 704,
+   "manglish": 216,
+   "ml": 128
+  },
+  "dev": {
+   "en": 144,
+   "manglish": 24,
+   "ml": 18
+  },
+  "test": {
+   "en": 138,
+   "manglish": 42,
+   "ml": 30
+  }
+ },
+ "dataset_fingerprint_sha256": "75efd5ab2b2221251cedb906b0e7c17e84c15c34d21f7ddaa3cc845d05316bd8",
+ "file_sha256": {
+  "s3_train.json": "0779b1475826c68869002ad46d879a79324cba15e610e1711147d56f27b32030",
+  "s3_dev.json": "66dc39cb5d26aaa950783977eda10809ee39fb1b290ba921d18337f1405103b9",
+  "s3_test.json": "adbe70f095dcca7c720846c66091313e7fba1fb94dedb81bc677df8dcb5340e0"
+ }
+}

@@ -1,0 +1,959 @@
+{
+ "schema": "ayurcore.s2.histories/v1",
+ "dataset_id": "s2_v1",
+ "seed": 20261006,
+ "classification": "SYNTHETIC -- NOT CLINICAL DATA",
+ "clinics": [
+  {
+   "clinic_id": "s2_clinic_a",
+   "patients": [
+    {
+     "key": "s2_clinic_a/P01",
+     "clinic_patient_id": "S2-P01",
+     "display_name": "S2 synthetic patient A01",
+     "visits": []
+    },
+    {
+     "key": "s2_clinic_a/P02",
+     "clinic_patient_id": "S2-P02",
+     "display_name": "S2 synthetic patient A02",
+     "visits": [
+      {
+       "kind": "rx",
+       "dosha": "Pitta-Kapha",
+       "herbs": [
+        [
+         "Dashamoola",
+         120
+        ],
+        [
+         "Vasaka",
+         25
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Pitta",
+       "herbs": [
+        [
+         "Bhringraj",
+         10
+        ]
+       ]
+      },
+      {
+       "kind": "encounter_only"
+      },
+      {
+       "kind": "legacy_unknown"
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata",
+       "herbs": [
+        [
+         "Bhringraj",
+         10
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_a/P03",
+     "clinic_patient_id": "S2-P03",
+     "display_name": "S2 synthetic patient A03",
+     "visits": [
+      {
+       "kind": "rx",
+       "dosha": "Vata-Kapha",
+       "herbs": [
+        [
+         "Arjuna",
+         10
+        ]
+       ]
+      },
+      {
+       "kind": "encounter_only"
+      },
+      {
+       "kind": "rx",
+       "dosha": "Kapha",
+       "herbs": [
+        [
+         "Arjuna",
+         50
+        ],
+        [
+         "Haridra",
+         20
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata",
+       "herbs": [
+        [
+         "Arjuna",
+         50
+        ],
+        [
+         "Haridra",
+         25
+        ]
+       ]
+      },
+      {
+       "kind": "legacy_readable",
+       "dosha": "Vata-Pitta",
+       "herbs": [
+        [
+         "Brahmi",
+         10
+        ]
+       ]
+      },
+      {
+       "kind": "legacy_unknown"
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_a/P04",
+     "clinic_patient_id": "S2-P04",
+     "display_name": "S2 synthetic patient A04",
+     "visits": [
+      {
+       "kind": "encounter_only"
+      },
+      {
+       "kind": "rx",
+       "dosha": "Kapha",
+       "herbs": [
+        [
+         "Kutki",
+         80
+        ],
+        [
+         "Arjuna",
+         30
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata",
+       "herbs": [
+        [
+         "Kutki",
+         80
+        ],
+        [
+         "Arjuna",
+         15
+        ],
+        [
+         "Ashwagandha",
+         75
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_a/P05",
+     "clinic_patient_id": "S2-P05",
+     "display_name": "S2 synthetic patient A05",
+     "visits": [
+      {
+       "kind": "rx",
+       "dosha": "Vata-Pitta",
+       "herbs": [
+        [
+         "Ashwagandha",
+         15
+        ],
+        [
+         "Bhringraj",
+         100
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Pitta-Kapha",
+       "herbs": [
+        [
+         "Ashwagandha",
+         15
+        ],
+        [
+         "Bhringraj",
+         100
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata-Pitta",
+       "herbs": [
+        [
+         "Ashwagandha",
+         15
+        ],
+        [
+         "Dashamoola",
+         10
+        ]
+       ]
+      },
+      {
+       "kind": "encounter_only"
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_a/P06",
+     "clinic_patient_id": "S2-P06",
+     "display_name": "S2 synthetic patient A06",
+     "visits": [
+      {
+       "kind": "rx",
+       "dosha": "Vata-Kapha",
+       "herbs": [
+        [
+         "Yashtimadhu",
+         15
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_a/P07",
+     "clinic_patient_id": "S2-P07",
+     "display_name": "S2 synthetic patient A07",
+     "visits": [
+      {
+       "kind": "rx",
+       "dosha": "Pitta-Kapha",
+       "herbs": [
+        [
+         "Pippali",
+         60
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Kapha",
+       "herbs": [
+        [
+         "Pippali",
+         60
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata-Pitta",
+       "herbs": [
+        [
+         "Pippali",
+         60
+        ],
+        [
+         "Vasaka",
+         75
+        ],
+        [
+         "Ashwagandha",
+         90
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata-Pitta",
+       "herbs": [
+        [
+         "Pippali",
+         60
+        ],
+        [
+         "Vasaka",
+         75
+        ],
+        [
+         "Ashwagandha",
+         60
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_a/P08",
+     "clinic_patient_id": "S2-P08",
+     "display_name": "S2 synthetic patient A08",
+     "visits": [
+      {
+       "kind": "rx",
+       "dosha": "Vata",
+       "herbs": [
+        [
+         "Brahmi",
+         30
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata-Kapha",
+       "herbs": [
+        [
+         "Brahmi",
+         30
+        ],
+        [
+         "Kutki",
+         75
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_a/P09",
+     "clinic_patient_id": "S2-P09",
+     "display_name": "S2 synthetic patient A09",
+     "visits": [
+      {
+       "kind": "rx",
+       "dosha": "Vata-Kapha",
+       "herbs": [
+        [
+         "Neem",
+         150
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata",
+       "herbs": [
+        [
+         "Pippali",
+         40
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Pitta-Kapha",
+       "herbs": [
+        [
+         "Pippali",
+         40
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata-Kapha",
+       "herbs": [
+        [
+         "Pippali",
+         40
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Pitta",
+       "herbs": [
+        [
+         "Pippali",
+         40
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_a/P10",
+     "clinic_patient_id": "S2-P10",
+     "display_name": "S2 synthetic patient A10",
+     "visits": [
+      {
+       "kind": "rx",
+       "dosha": "Kapha",
+       "herbs": [
+        [
+         "Pippali",
+         30
+        ],
+        [
+         "Ashwagandha",
+         50
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Kapha",
+       "herbs": [
+        [
+         "Pippali",
+         30
+        ],
+        [
+         "Ashwagandha",
+         50
+        ],
+        [
+         "Brahmi",
+         25
+        ],
+        [
+         "Guggulu",
+         60
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Kapha",
+       "herbs": [
+        [
+         "Pippali",
+         30
+        ],
+        [
+         "Ashwagandha",
+         50
+        ],
+        [
+         "Brahmi",
+         25
+        ],
+        [
+         "Guggulu",
+         60
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "clinic_id": "s2_clinic_b",
+   "patients": [
+    {
+     "key": "s2_clinic_b/P01",
+     "clinic_patient_id": "S2-P01",
+     "display_name": "S2 synthetic patient B01",
+     "visits": []
+    },
+    {
+     "key": "s2_clinic_b/P02",
+     "clinic_patient_id": "S2-P02",
+     "display_name": "S2 synthetic patient B02",
+     "visits": [
+      {
+       "kind": "rx",
+       "dosha": "Vata-Kapha",
+       "herbs": [
+        [
+         "Ashwagandha",
+         25
+        ],
+        [
+         "Triphala",
+         20
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata-Pitta",
+       "herbs": [
+        [
+         "Triphala",
+         10
+        ],
+        [
+         "Dashamoola",
+         25
+        ],
+        [
+         "Arjuna",
+         15
+        ]
+       ]
+      },
+      {
+       "kind": "encounter_only"
+      },
+      {
+       "kind": "legacy_unknown"
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata-Pitta",
+       "herbs": [
+        [
+         "Triphala",
+         60
+        ],
+        [
+         "Dashamoola",
+         25
+        ],
+        [
+         "Arjuna",
+         15
+        ],
+        [
+         "Haridra",
+         100
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_b/P03",
+     "clinic_patient_id": "S2-P03",
+     "display_name": "S2 synthetic patient B03",
+     "visits": [
+      {
+       "kind": "legacy_unknown"
+      },
+      {
+       "kind": "rx",
+       "dosha": "Kapha",
+       "herbs": [
+        [
+         "Amalaki",
+         75
+        ]
+       ]
+      },
+      {
+       "kind": "encounter_only"
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata-Kapha",
+       "herbs": [
+        [
+         "Guggulu",
+         25
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata",
+       "herbs": [
+        [
+         "Guggulu",
+         100
+        ]
+       ]
+      },
+      {
+       "kind": "legacy_readable",
+       "dosha": "Vata",
+       "herbs": [
+        [
+         "Kutki",
+         75
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_b/P04",
+     "clinic_patient_id": "S2-P04",
+     "display_name": "S2 synthetic patient B04",
+     "visits": [
+      {
+       "kind": "encounter_only"
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata-Pitta",
+       "herbs": [
+        [
+         "Ashwagandha",
+         150
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Kapha",
+       "herbs": [
+        [
+         "Shankhpushpi",
+         120
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_b/P05",
+     "clinic_patient_id": "S2-P05",
+     "display_name": "S2 synthetic patient B05",
+     "visits": [
+      {
+       "kind": "rx",
+       "dosha": "Vata",
+       "herbs": [
+        [
+         "Amalaki",
+         60
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata",
+       "herbs": [
+        [
+         "Bhringraj",
+         30
+        ],
+        [
+         "Brahmi",
+         75
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata-Kapha",
+       "herbs": [
+        [
+         "Guggulu",
+         50
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Pitta",
+       "herbs": [
+        [
+         "Guggulu",
+         50
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata",
+       "herbs": [
+        [
+         "Guggulu",
+         50
+        ],
+        [
+         "Kutki",
+         20
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Pitta-Kapha",
+       "herbs": [
+        [
+         "Guggulu",
+         50
+        ],
+        [
+         "Manjistha",
+         10
+        ],
+        [
+         "Dashamoola",
+         15
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_b/P06",
+     "clinic_patient_id": "S2-P06",
+     "display_name": "S2 synthetic patient B06",
+     "visits": [
+      {
+       "kind": "rx",
+       "dosha": "Kapha",
+       "herbs": [
+        [
+         "Arjuna",
+         40
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata-Kapha",
+       "herbs": [
+        [
+         "Arjuna",
+         40
+        ],
+        [
+         "Haridra",
+         40
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_b/P07",
+     "clinic_patient_id": "S2-P07",
+     "display_name": "S2 synthetic patient B07",
+     "visits": [
+      {
+       "kind": "rx",
+       "dosha": "Pitta-Kapha",
+       "herbs": [
+        [
+         "Triphala",
+         90
+        ],
+        [
+         "Neem",
+         20
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Kapha",
+       "herbs": [
+        [
+         "Triphala",
+         90
+        ],
+        [
+         "Neem",
+         20
+        ],
+        [
+         "Shatavari",
+         80
+        ],
+        [
+         "Bibhitaki",
+         15
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Kapha",
+       "herbs": [
+        [
+         "Neem",
+         20
+        ],
+        [
+         "Shatavari",
+         15
+        ],
+        [
+         "Bibhitaki",
+         15
+        ],
+        [
+         "Yashtimadhu",
+         10
+        ]
+       ]
+      },
+      {
+       "kind": "encounter_only"
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_b/P08",
+     "clinic_patient_id": "S2-P08",
+     "display_name": "S2 synthetic patient B08",
+     "visits": [
+      {
+       "kind": "encounter_only"
+      },
+      {
+       "kind": "rx",
+       "dosha": "Pitta",
+       "herbs": [
+        [
+         "Amalaki",
+         90
+        ],
+        [
+         "Guggulu",
+         10
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Vata",
+       "herbs": [
+        [
+         "Amalaki",
+         15
+        ],
+        [
+         "Brahmi",
+         50
+        ],
+        [
+         "Dashamoola",
+         20
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Pitta-Kapha",
+       "herbs": [
+        [
+         "Amalaki",
+         90
+        ],
+        [
+         "Brahmi",
+         50
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_b/P09",
+     "clinic_patient_id": "S2-P09",
+     "display_name": "S2 synthetic patient B09",
+     "visits": [
+      {
+       "kind": "encounter_only"
+      },
+      {
+       "kind": "rx",
+       "dosha": "Pitta-Kapha",
+       "herbs": [
+        [
+         "Yashtimadhu",
+         90
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "key": "s2_clinic_b/P10",
+     "clinic_patient_id": "S2-P10",
+     "display_name": "S2 synthetic patient B10",
+     "visits": [
+      {
+       "kind": "rx",
+       "dosha": "Vata-Kapha",
+       "herbs": [
+        [
+         "Haritaki",
+         150
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Kapha",
+       "herbs": [
+        [
+         "Haritaki",
+         20
+        ],
+        [
+         "Brahmi",
+         30
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Pitta",
+       "herbs": [
+        [
+         "Haritaki",
+         150
+        ],
+        [
+         "Brahmi",
+         30
+        ],
+        [
+         "Punarnava",
+         10
+        ],
+        [
+         "Pippali",
+         90
+        ]
+       ]
+      },
+      {
+       "kind": "rx",
+       "dosha": "Pitta-Kapha",
+       "herbs": [
+        [
+         "Haritaki",
+         150
+        ],
+        [
+         "Brahmi",
+         60
+        ],
+        [
+         "Punarnava",
+         80
+        ],
+        [
+         "Pippali",
+         90
+        ],
+        [
+         "Dashamoola",
+         90
+        ],
+        [
+         "Bhringraj",
+         120
+        ]
+       ]
+      },
+      {
+       "kind": "encounter_only"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

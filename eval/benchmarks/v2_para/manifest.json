@@ -1,0 +1,75 @@
+{
+ "dataset": "para_v1",
+ "classification": "SYNTHETIC BENCHMARK -- dev for building, accept frozen for one Block 4B decision; NOT CLINICAL DATA, NOT S7",
+ "case_count": 203,
+ "splits": {
+  "dev": 100,
+  "accept": 103
+ },
+ "groups": {
+  "dev": 15,
+  "accept": 15
+ },
+ "classes": {
+  "dev": {
+   "ambiguity": 9,
+   "control": 9,
+   "defect_count_noun": 9,
+   "defect_day": 9,
+   "defect_in_total": 3,
+   "defect_most_recent": 9,
+   "defect_on": 4,
+   "morph_malayalam": 9,
+   "morph_manglish": 12,
+   "slot": 9,
+   "synonym_change": 9,
+   "synonym_current": 3,
+   "synonym_recent": 3,
+   "synonym_rx": 3
+  },
+  "accept": {
+   "ambiguity": 9,
+   "control": 9,
+   "defect_count_noun": 9,
+   "defect_day": 9,
+   "defect_in_total": 9,
+   "defect_most_recent": 9,
+   "defect_on": 4,
+   "morph_malayalam": 9,
+   "morph_manglish": 12,
+   "slot": 6,
+   "synonym_change": 9,
+   "synonym_current": 3,
+   "synonym_recent": 3,
+   "synonym_rx": 3
+  }
+ },
+ "languages": {
+  "dev": {
+   "en": 61,
+   "manglish": 21,
+   "ml": 18
+  },
+  "accept": {
+   "en": 64,
+   "manglish": 21,
+   "ml": 18
+  }
+ },
+ "gold_kinds": {
+  "dev": {
+   "query": 58,
+   "ambiguous": 15,
+   "abstain": 27
+  },
+  "accept": {
+   "query": 62,
+   "ambiguous": 12,
+   "abstain": 29
+  }
+ },
+ "dataset_fingerprint_sha256": "29901a16541f33c4be9016d1cb7a89427909c6c04b6f762652a2435fe2a9237a",
+ "accept_fingerprint_sha256": "6d6345a593edbb9eabf9d09495b3a543c08dcf3719d5bbb04670664e9b33ea08",
+ "file_sha256": "0cee128a03bc082334093647c3da0145b0d5565b4ac946d4b3b8c0ec5cca851f",
+ "accept_rule": "evaluated once by Block 4B; no pipeline run on accept before that"
+}

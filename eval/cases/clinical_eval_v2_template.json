@@ -1,0 +1,84 @@
+{
+  "schema_version": "ayurcore.clinical_eval.cases/v1",
+  "corpus_id": "clinical_eval_v2",
+  "template_status": "TEMPLATE_NOT_FOR_EVALUATION",
+  "purpose": "Template for the 30-50 case clinician-reviewed evaluation set. Copy to eval/cases/clinical_eval_v2.json, fill one entry per case from the signed review forms (docs/CLINICAL_CASE_REVIEW_FORM.md), then freeze per docs/CLINICAL_EVAL_GROUND_TRUTH.md. This template contains NO clinical ground truth and cannot be run: its cases list is empty by design.",
+  "dataset": {
+    "dataset_version": "2.0.0",
+    "status": "DRAFT",
+    "frozen_at": null,
+    "frozen_by": null,
+    "cases_sha256": null,
+    "clinical_lead_sign_off": {
+      "signed_by": null,
+      "signed_at": null,
+      "statement": "I confirm that every entry in `cases` and `excluded_cases` matches a signed case review form, that all notes are de-identified, and that the expected values are clinician ground truth."
+    }
+  },
+  "conventions": {
+    "expected_grams": "TOTAL prescribed/dispensed grams per herb, not per-dose grams.",
+    "frequency_and_duration": "Not represented by ClinicalParse; never recorded as fields, never inferred, never graded.",
+    "expected_dosha": "Set of canonical doshas (Vata, Pitta, Kapha) documented by the treating clinician in the note, as confirmed by the reviewer; order-insensitive.",
+    "expected_herbs": "Canonical clinic herb name -> {grams, tolerance_grams}; tolerance is absolute grams, default 0, non-zero only when the reviewer explicitly accepts a range.",
+    "null_expected_field": "Allowed only when ambiguous=true (review.disposition=include_ambiguous); that field is not auto-graded.",
+    "mentioned_not_stocked": "Herb names in the note that the clinic does not stock; proposing any of them is flagged.",
+    "safety_annotations": "Clinician-supplied only (source must be 'clinician', annotated_by required). Types: herb_must_not_be_proposed {herb}, herb_max_total_grams {herb, max_grams}, requires_clinician_review {description}.",
+    "provenance_status": "Every entry in `cases` must be clinician_reviewed. synthetic_unreviewed / deidentified_unreviewed cases belong in v1 or a draft, never in this file.",
+    "dispositions": "include -> graded PASS/CLINICAL_MISS; include_ambiguous -> ambiguous=true, never PASS/FAIL; exclude -> listed in excluded_cases only, never run or graded."
+  },
+  "cases": [],
+  "excluded_cases": [],
+  "case_template": {
+    "case_id": "<FILL: cv2_NNN, unique, never reused>",
+    "label": "<FILL: short non-identifying description>",
+    "provenance": {
+      "status": "clinician_reviewed",
+      "origin": "<FILL: deidentified_real_consultation | clinician_authored_realistic>",
+      "source": "<FILL: site/batch code only, no patient or clinic-identifying detail>",
+      "source_label": null,
+      "clinician_reviewer": "<FILL: reviewer code, e.g. REV-01>",
+      "reviewed_at": "<FILL: YYYY-MM-DD>"
+    },
+    "deidentification": {
+      "performed_by": "<FILL: person code>",
+      "checked_by": "<FILL: person code, different from performed_by>",
+      "checked_at": "<FILL: YYYY-MM-DD>",
+      "direct_identifiers_removed": false,
+      "dates_and_locations_removed_or_generalized": false,
+      "free_text_rechecked": false
+    },
+    "tags": [],
+    "notes": "<FILL: de-identified note text, verbatim apart from de-identification edits>",
+    "ambiguous": false,
+    "ambiguity_reason": null,
+    "expected": {
+      "dosha": [],
+      "herbs": {}
+    },
+    "mentioned_not_stocked": [],
+    "safety_annotations": [],
+    "annotation_notes": null,
+    "review": {
+      "disposition": "<FILL: include | include_ambiguous | exclude>",
+      "exclusion_reason": null,
+      "primary_reviewer": "<FILL: reviewer code>",
+      "second_reviewer": null,
+      "disagreements_and_resolution": null,
+      "sign_off": {
+        "signed_by": "<FILL: reviewer code>",
+        "signed_at": "<FILL: YYYY-MM-DD>",
+        "review_form_ref": "<FILL: form id, e.g. FORM-cv2_NNN>"
+      }
+    }
+  },
+  "field_reference": {
+    "expected.herbs example shape (NOT data)": {
+      "<CanonicalHerbName>": {"grams": "<integer total grams>", "tolerance_grams": "<integer, default 0>"}
+    },
+    "safety_annotations example shapes (NOT data)": [
+      {"id": "<s1>", "type": "herb_must_not_be_proposed", "herb": "<name>", "severity": "<reviewer's label>", "rationale": "<reviewer's words>", "source": "clinician", "annotated_by": "<reviewer code>"},
+      {"id": "<s2>", "type": "herb_max_total_grams", "herb": "<CanonicalHerbName>", "max_grams": "<integer>", "rationale": "<reviewer's words>", "source": "clinician", "annotated_by": "<reviewer code>"},
+      {"id": "<s3>", "type": "requires_clinician_review", "description": "<reviewer's words>", "source": "clinician", "annotated_by": "<reviewer code>"}
+    ]
+  }
+}

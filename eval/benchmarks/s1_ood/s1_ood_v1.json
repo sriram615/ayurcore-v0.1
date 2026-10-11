@@ -1,0 +1,4116 @@
+{
+ "schema_version": "ayurcore.clinical_eval.cases/v1",
+ "corpus_id": "s1_ood_v1",
+ "evaluation_class": "technical_synthetic_unreviewed",
+ "report_label": "NOT CLINICAL VALIDATION -- S1-OOD v1: hand-authored synthetic out-of-distribution notes; technical evaluation of extraction only.",
+ "purpose": "Out-of-distribution evaluation of the T1->T2->T3 extractor: phrasing, aliases, scripts, quantity forms and orderings not produced by the S1 generator, plus cases that require abstention. Frozen; never used for tuning.",
+ "conventions": {
+  "expected_grams": "TOTAL grams per herb as written; never inferred from frequency, duration or vague wording.",
+  "expected_herbs": "Only herbs whose prescription and quantity are unambiguous. Herbs that must not be emitted are listed in ood.abstain.",
+  "ood.spans": "[text, type, occurrence, canonical]: token-aligned gold spans (T1 label set); herb spans carry the canonical herb (or the plant name for UNSTOCKED).",
+  "ood.abstain": "[{herb, reason}]: emitting any of these is a confident error; not emitting it is a correct abstention.",
+  "dosha": "Canonical set; an empty list means no dosha is stated."
+ },
+ "cases": [
+  {
+   "case_id": "ood-clean-01",
+   "label": "clean",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "clean",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "clean",
+    "english",
+    "word_between_herb_and_quantity"
+   ],
+   "notes": "Diagnosis: Vata predominance. Dispense Ashwagandha powder 100 grams and Shatavari powder 80 grams.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Ashwagandha": {
+      "grams": 100,
+      "tolerance_grams": 0
+     },
+     "Shatavari": {
+      "grams": 80,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "clean",
+    "phenomena": [
+     "english",
+     "word_between_herb_and_quantity"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Ashwagandha",
+      "HERB_RX",
+      0,
+      "Ashwagandha"
+     ],
+     [
+      "100 grams",
+      "QTY"
+     ],
+     [
+      "Shatavari",
+      "HERB_RX",
+      0,
+      "Shatavari"
+     ],
+     [
+      "80 grams",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-clean-02",
+   "label": "clean",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "clean",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "clean",
+    "english"
+   ],
+   "notes": "Kapha excess noted on examination. Plan: Triphala 150 g to be taken at night.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Triphala": {
+      "grams": 150,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "clean",
+    "phenomena": [
+     "english"
+    ],
+    "spans": [
+     [
+      "Kapha",
+      "DOSHA"
+     ],
+     [
+      "Triphala",
+      "HERB_RX",
+      0,
+      "Triphala"
+     ],
+     [
+      "150 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-clean-03",
+   "label": "clean",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "clean",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "clean",
+    "comma_list",
+    "english"
+   ],
+   "notes": "Assessment - Pitta. Medicines: Neem 60 g, Manjistha 90 g, Haridra 45 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Neem": {
+      "grams": 60,
+      "tolerance_grams": 0
+     },
+     "Manjistha": {
+      "grams": 90,
+      "tolerance_grams": 0
+     },
+     "Haridra": {
+      "grams": 45,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "clean",
+    "phenomena": [
+     "english",
+     "comma_list"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Neem",
+      "HERB_RX",
+      0,
+      "Neem"
+     ],
+     [
+      "60 g",
+      "QTY"
+     ],
+     [
+      "Manjistha",
+      "HERB_RX",
+      0,
+      "Manjistha"
+     ],
+     [
+      "90 g",
+      "QTY"
+     ],
+     [
+      "Haridra",
+      "HERB_RX",
+      0,
+      "Haridra"
+     ],
+     [
+      "45 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-clean-04",
+   "label": "clean",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "clean",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "clean",
+    "english",
+    "quantity_before_herb"
+   ],
+   "notes": "The patient presents with Vata and Pitta imbalance. We will dispense 120 g of Brahmi.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata",
+     "Pitta"
+    ],
+    "herbs": {
+     "Brahmi": {
+      "grams": 120,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "clean",
+    "phenomena": [
+     "english",
+     "quantity_before_herb"
+    ],
+    "spans": [
+     [
+      "Vata and Pitta",
+      "DOSHA"
+     ],
+     [
+      "120 g",
+      "QTY"
+     ],
+     [
+      "Brahmi",
+      "HERB_RX",
+      0,
+      "Brahmi"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-clean-05",
+   "label": "clean",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "clean",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "clean",
+    "english",
+    "semicolon_list"
+   ],
+   "notes": "Pitta imbalance confirmed. Herbal plan: Amalaki 200 g; Guggulu 75 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Amalaki": {
+      "grams": 200,
+      "tolerance_grams": 0
+     },
+     "Guggulu": {
+      "grams": 75,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "clean",
+    "phenomena": [
+     "english",
+     "semicolon_list"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Amalaki",
+      "HERB_RX",
+      0,
+      "Amalaki"
+     ],
+     [
+      "200 g",
+      "QTY"
+     ],
+     [
+      "Guggulu",
+      "HERB_RX",
+      0,
+      "Guggulu"
+     ],
+     [
+      "75 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-alias-01",
+   "label": "alias",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "alias",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "alias",
+    "common_name_alias",
+    "english"
+   ],
+   "notes": "Kapha type. Turmeric 50 g and Indian gooseberry 150 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Haridra": {
+      "grams": 50,
+      "tolerance_grams": 0
+     },
+     "Amalaki": {
+      "grams": 150,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "alias",
+    "phenomena": [
+     "english",
+     "common_name_alias"
+    ],
+    "spans": [
+     [
+      "Kapha",
+      "DOSHA"
+     ],
+     [
+      "Turmeric",
+      "HERB_RX",
+      0,
+      "Haridra"
+     ],
+     [
+      "50 g",
+      "QTY"
+     ],
+     [
+      "Indian gooseberry",
+      "HERB_RX",
+      0,
+      "Amalaki"
+     ],
+     [
+      "150 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-alias-02",
+   "label": "alias",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "alias",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "alias",
+    "botanical_alias",
+    "english",
+    "words_between"
+   ],
+   "notes": "Vata. Withania somnifera root powder, 90 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Ashwagandha": {
+      "grams": 90,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "alias",
+    "phenomena": [
+     "english",
+     "botanical_alias",
+     "words_between"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Withania somnifera",
+      "HERB_RX",
+      0,
+      "Ashwagandha"
+     ],
+     [
+      "90 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-alias-03",
+   "label": "alias",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "alias",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "alias",
+    "common_name_alias",
+    "english"
+   ],
+   "notes": "Pitta-Kapha. Licorice 40 g, long pepper 30 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta",
+     "Kapha"
+    ],
+    "herbs": {
+     "Yashtimadhu": {
+      "grams": 40,
+      "tolerance_grams": 0
+     },
+     "Pippali": {
+      "grams": 30,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "alias",
+    "phenomena": [
+     "english",
+     "common_name_alias"
+    ],
+    "spans": [
+     [
+      "Pitta-Kapha",
+      "DOSHA"
+     ],
+     [
+      "Licorice",
+      "HERB_RX",
+      0,
+      "Yashtimadhu"
+     ],
+     [
+      "40 g",
+      "QTY"
+     ],
+     [
+      "long pepper",
+      "HERB_RX",
+      0,
+      "Pippali"
+     ],
+     [
+      "30 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-alias-04",
+   "label": "alias",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "alias",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "alias",
+    "botanical_alias",
+    "english"
+   ],
+   "notes": "Pitta. Bacopa monnieri 70 g along with Eclipta alba 60 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Brahmi": {
+      "grams": 70,
+      "tolerance_grams": 0
+     },
+     "Bhringraj": {
+      "grams": 60,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "alias",
+    "phenomena": [
+     "english",
+     "botanical_alias"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Bacopa monnieri",
+      "HERB_RX",
+      0,
+      "Brahmi"
+     ],
+     [
+      "70 g",
+      "QTY"
+     ],
+     [
+      "Eclipta alba",
+      "HERB_RX",
+      0,
+      "Bhringraj"
+     ],
+     [
+      "60 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-alias-05",
+   "label": "alias",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "alias",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "alias",
+    "alias_not_in_formulary_table",
+    "english"
+   ],
+   "notes": "Vata imbalance. Mulethi 50 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Yashtimadhu": {
+      "grams": 50,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "alias",
+    "phenomena": [
+     "english",
+     "alias_not_in_formulary_table"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Mulethi",
+      "HERB_RX",
+      0,
+      "Yashtimadhu"
+     ],
+     [
+      "50 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-alias-06",
+   "label": "alias",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "alias",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "alias",
+    "english",
+    "upper_case"
+   ],
+   "notes": "Kapha. AMLA 120 G.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Amalaki": {
+      "grams": 120,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "alias",
+    "phenomena": [
+     "english",
+     "upper_case"
+    ],
+    "spans": [
+     [
+      "Kapha",
+      "DOSHA"
+     ],
+     [
+      "AMLA",
+      "HERB_RX",
+      0,
+      "Amalaki"
+     ],
+     [
+      "120 G",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-malayalam-01",
+   "label": "malayalam_script",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "malayalam_script",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "malayalam_script"
+   ],
+   "notes": "പിത്തം കൂടുതലാണ്. നെല്ലി 100 ഗ്രാം, മഞ്ഞൾ 50 ഗ്രാം.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Amalaki": {
+      "grams": 100,
+      "tolerance_grams": 0
+     },
+     "Haridra": {
+      "grams": 50,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "malayalam_script",
+    "phenomena": [
+     "malayalam_script"
+    ],
+    "spans": [
+     [
+      "പിത്തം",
+      "DOSHA"
+     ],
+     [
+      "നെല്ലി",
+      "HERB_RX",
+      0,
+      "Amalaki"
+     ],
+     [
+      "100 ഗ്രാം",
+      "QTY"
+     ],
+     [
+      "മഞ്ഞൾ",
+      "HERB_RX",
+      0,
+      "Haridra"
+     ],
+     [
+      "50 ഗ്രാം",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-malayalam-02",
+   "label": "malayalam_script",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "malayalam_script",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "malayalam_script"
+   ],
+   "notes": "കഫം. കടുക്ക 80 ഗ്രാം കൊടുക്കുക.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Haritaki": {
+      "grams": 80,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "malayalam_script",
+    "phenomena": [
+     "malayalam_script"
+    ],
+    "spans": [
+     [
+      "കഫം",
+      "DOSHA"
+     ],
+     [
+      "കടുക്ക",
+      "HERB_RX",
+      0,
+      "Haritaki"
+     ],
+     [
+      "80 ഗ്രാം",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-malayalam-03",
+   "label": "malayalam_script",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "malayalam_script",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "malayalam_script"
+   ],
+   "notes": "വാതം. ഇരട്ടിമധുരം 30 ഗ്രാം, ശതാവരി 60 ഗ്രാം.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Yashtimadhu": {
+      "grams": 30,
+      "tolerance_grams": 0
+     },
+     "Shatavari": {
+      "grams": 60,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "malayalam_script",
+    "phenomena": [
+     "malayalam_script"
+    ],
+    "spans": [
+     [
+      "വാതം",
+      "DOSHA"
+     ],
+     [
+      "ഇരട്ടിമധുരം",
+      "HERB_RX",
+      0,
+      "Yashtimadhu"
+     ],
+     [
+      "30 ഗ്രാം",
+      "QTY"
+     ],
+     [
+      "ശതാവരി",
+      "HERB_RX",
+      0,
+      "Shatavari"
+     ],
+     [
+      "60 ഗ്രാം",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-malayalam-04",
+   "label": "malayalam_script",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "malayalam_script",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "inflected_dosha",
+    "latin_unit",
+    "malayalam_script"
+   ],
+   "notes": "രോഗിക്ക് വാതവും പിത്തവും കൂടുതൽ. അമുക്കുരം 100 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata",
+     "Pitta"
+    ],
+    "herbs": {
+     "Ashwagandha": {
+      "grams": 100,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "malayalam_script",
+    "phenomena": [
+     "malayalam_script",
+     "inflected_dosha",
+     "latin_unit"
+    ],
+    "spans": [
+     [
+      "വാതവും പിത്തവും",
+      "DOSHA"
+     ],
+     [
+      "അമുക്കുരം",
+      "HERB_RX",
+      0,
+      "Ashwagandha"
+     ],
+     [
+      "100 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-malayalam-05",
+   "label": "malayalam_script",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "malayalam_script",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "malayalam_script"
+   ],
+   "notes": "കഫം കൂടുതൽ. ആടലോടകം 45 ഗ്രാം. തിപ്പലി 20 ഗ്രാം.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Vasaka": {
+      "grams": 45,
+      "tolerance_grams": 0
+     },
+     "Pippali": {
+      "grams": 20,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "malayalam_script",
+    "phenomena": [
+     "malayalam_script"
+    ],
+    "spans": [
+     [
+      "കഫം",
+      "DOSHA"
+     ],
+     [
+      "ആടലോടകം",
+      "HERB_RX",
+      0,
+      "Vasaka"
+     ],
+     [
+      "45 ഗ്രാം",
+      "QTY"
+     ],
+     [
+      "തിപ്പലി",
+      "HERB_RX",
+      0,
+      "Pippali"
+     ],
+     [
+      "20 ഗ്രാം",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-manglish-01",
+   "label": "manglish",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "manglish",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "dosha_spelling_variant",
+    "manglish",
+    "misspelling"
+   ],
+   "notes": "pittam kurachu kooduthal aanu. neem 50 gram kodukkam, manjishtha 40 gram.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Neem": {
+      "grams": 50,
+      "tolerance_grams": 0
+     },
+     "Manjistha": {
+      "grams": 40,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "manglish",
+    "phenomena": [
+     "manglish",
+     "dosha_spelling_variant",
+     "misspelling"
+    ],
+    "spans": [
+     [
+      "pittam",
+      "DOSHA"
+     ],
+     [
+      "neem",
+      "HERB_RX",
+      0,
+      "Neem"
+     ],
+     [
+      "50 gram",
+      "QTY"
+     ],
+     [
+      "manjishtha",
+      "HERB_RX",
+      0,
+      "Manjistha"
+     ],
+     [
+      "40 gram",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-manglish-02",
+   "label": "manglish",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "manglish",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "manglish",
+    "word_between_herb_and_quantity"
+   ],
+   "notes": "vaatham aanu prashnam. ashwagandha choornam 100 gm, brahmi 50 gm venam.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Ashwagandha": {
+      "grams": 100,
+      "tolerance_grams": 0
+     },
+     "Brahmi": {
+      "grams": 50,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "manglish",
+    "phenomena": [
+     "manglish",
+     "word_between_herb_and_quantity"
+    ],
+    "spans": [
+     [
+      "vaatham",
+      "DOSHA"
+     ],
+     [
+      "ashwagandha",
+      "HERB_RX",
+      0,
+      "Ashwagandha"
+     ],
+     [
+      "100 gm",
+      "QTY"
+     ],
+     [
+      "brahmi",
+      "HERB_RX",
+      0,
+      "Brahmi"
+     ],
+     [
+      "50 gm",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-manglish-03",
+   "label": "manglish",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "manglish",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "manglish",
+    "misspelling"
+   ],
+   "notes": "kapha dosham. triphla 150 gram raathri kazhikkan.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Triphala": {
+      "grams": 150,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "manglish",
+    "phenomena": [
+     "manglish",
+     "misspelling"
+    ],
+    "spans": [
+     [
+      "kapha",
+      "DOSHA"
+     ],
+     [
+      "triphla",
+      "HERB_RX",
+      0,
+      "Triphala"
+     ],
+     [
+      "150 gram",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-manglish-04",
+   "label": "manglish",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "manglish",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "manglish",
+    "misspelling",
+    "separate_um"
+   ],
+   "notes": "pitha vata koodi. shathavari 75 g um amalaki 100 g um kodukkanam.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata",
+     "Pitta"
+    ],
+    "herbs": {
+     "Shatavari": {
+      "grams": 75,
+      "tolerance_grams": 0
+     },
+     "Amalaki": {
+      "grams": 100,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "manglish",
+    "phenomena": [
+     "manglish",
+     "misspelling",
+     "separate_um"
+    ],
+    "spans": [
+     [
+      "pitha vata",
+      "DOSHA"
+     ],
+     [
+      "shathavari",
+      "HERB_RX",
+      0,
+      "Shatavari"
+     ],
+     [
+      "75 g",
+      "QTY"
+     ],
+     [
+      "amalaki",
+      "HERB_RX",
+      0,
+      "Amalaki"
+     ],
+     [
+      "100 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-manglish-05",
+   "label": "manglish",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "manglish",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "inflected_dosha",
+    "manglish"
+   ],
+   "notes": "kaphathinu vendi vasaka 60 g kodukkanam.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Vasaka": {
+      "grams": 60,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "manglish",
+    "phenomena": [
+     "manglish",
+     "inflected_dosha"
+    ],
+    "spans": [
+     [
+      "kaphathinu",
+      "DOSHA"
+     ],
+     [
+      "vasaka",
+      "HERB_RX",
+      0,
+      "Vasaka"
+     ],
+     [
+      "60 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-negation-01",
+   "label": "negation_replacement",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "negation_replacement",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "negation_replacement",
+    "negation_withhold"
+   ],
+   "notes": "Pitta. Withhold Guggulu for now. Continue Neem 40 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Neem": {
+      "grams": 40,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "negation_replacement",
+    "phenomena": [
+     "english",
+     "negation_withhold"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Guggulu",
+      "HERB_NEG",
+      0,
+      "Guggulu"
+     ],
+     [
+      "Neem",
+      "HERB_RX",
+      0,
+      "Neem"
+     ],
+     [
+      "40 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-negation-02",
+   "label": "negation_replacement",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "negation_replacement",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "negation_no_more",
+    "negation_replacement"
+   ],
+   "notes": "Vata. No more Brahmi. Shatavari 90 g instead.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Shatavari": {
+      "grams": 90,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "negation_replacement",
+    "phenomena": [
+     "english",
+     "negation_no_more"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Brahmi",
+      "HERB_NEG",
+      0,
+      "Brahmi"
+     ],
+     [
+      "Shatavari",
+      "HERB_RX",
+      0,
+      "Shatavari"
+     ],
+     [
+      "90 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-negation-03",
+   "label": "negation_replacement",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "negation_replacement",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "negation_replacement",
+    "replacement_swap"
+   ],
+   "notes": "Kapha. Swap Haritaki for Pippali, 30 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Pippali": {
+      "grams": 30,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "negation_replacement",
+    "phenomena": [
+     "english",
+     "replacement_swap"
+    ],
+    "spans": [
+     [
+      "Kapha",
+      "DOSHA"
+     ],
+     [
+      "Haritaki",
+      "HERB_REPL",
+      0,
+      "Haritaki"
+     ],
+     [
+      "Pippali",
+      "HERB_RX",
+      0,
+      "Pippali"
+     ],
+     [
+      "30 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-negation-04",
+   "label": "negation_replacement",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "negation_replacement",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "manglish",
+    "negation",
+    "negation_replacement"
+   ],
+   "notes": "pitham. kutki ippol nirthi, punarnava 80 gram tudangam.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Punarnava": {
+      "grams": 80,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "negation_replacement",
+    "phenomena": [
+     "manglish",
+     "negation"
+    ],
+    "spans": [
+     [
+      "pitham",
+      "DOSHA"
+     ],
+     [
+      "kutki",
+      "HERB_NEG",
+      0,
+      "Kutki"
+     ],
+     [
+      "punarnava",
+      "HERB_RX",
+      0,
+      "Punarnava"
+     ],
+     [
+      "80 gram",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-negation-05",
+   "label": "negation_replacement",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "negation_replacement",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "negation_caps",
+    "negation_replacement"
+   ],
+   "notes": "Vata-Kapha. Dashamoola 100 g. Do NOT dispense Vasaka.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata",
+     "Kapha"
+    ],
+    "herbs": {
+     "Dashamoola": {
+      "grams": 100,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "negation_replacement",
+    "phenomena": [
+     "english",
+     "negation_caps"
+    ],
+    "spans": [
+     [
+      "Vata-Kapha",
+      "DOSHA"
+     ],
+     [
+      "Dashamoola",
+      "HERB_RX",
+      0,
+      "Dashamoola"
+     ],
+     [
+      "100 g",
+      "QTY"
+     ],
+     [
+      "Vasaka",
+      "HERB_NEG",
+      0,
+      "Vasaka"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-negation-06",
+   "label": "negation_replacement",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "negation_replacement",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "negation_replacement",
+    "replacement_in_place_of"
+   ],
+   "notes": "Pitta. Manjistha 60 g in place of Neem.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Manjistha": {
+      "grams": 60,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "negation_replacement",
+    "phenomena": [
+     "english",
+     "replacement_in_place_of"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Manjistha",
+      "HERB_RX",
+      0,
+      "Manjistha"
+     ],
+     [
+      "60 g",
+      "QTY"
+     ],
+     [
+      "Neem",
+      "HERB_REPL",
+      0,
+      "Neem"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-distractor-01",
+   "label": "distractor",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "distractor",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "distractor",
+    "english",
+    "unstocked_mention"
+   ],
+   "notes": "Vata. Patient's mother uses Bala oil at home. Ashwagandha 80 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Ashwagandha": {
+      "grams": 80,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [
+    "Bala"
+   ],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "distractor",
+    "phenomena": [
+     "english",
+     "unstocked_mention"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Bala",
+      "UNSTOCKED",
+      0,
+      "Bala"
+     ],
+     [
+      "Ashwagandha",
+      "HERB_RX",
+      0,
+      "Ashwagandha"
+     ],
+     [
+      "80 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-distractor-02",
+   "label": "distractor",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "distractor",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "distractor",
+    "english",
+    "history_with_quantity"
+   ],
+   "notes": "Kapha. Took Triphala 100 g last winter with good effect. Now Pippali 25 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Pippali": {
+      "grams": 25,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "distractor",
+    "phenomena": [
+     "english",
+     "history_with_quantity"
+    ],
+    "spans": [
+     [
+      "Kapha",
+      "DOSHA"
+     ],
+     [
+      "Triphala",
+      "HERB_HIST",
+      0,
+      "Triphala"
+     ],
+     [
+      "100 g",
+      "QTY_OTHER"
+     ],
+     [
+      "Pippali",
+      "HERB_RX",
+      0,
+      "Pippali"
+     ],
+     [
+      "25 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-distractor-03",
+   "label": "distractor",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "distractor",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "distractor",
+    "english",
+    "unstocked_mention"
+   ],
+   "notes": "Pitta. Brother is on Guduchi tablets. Prescribed: Amalaki 150 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Amalaki": {
+      "grams": 150,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [
+    "Guduchi"
+   ],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "distractor",
+    "phenomena": [
+     "english",
+     "unstocked_mention"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Guduchi",
+      "UNSTOCKED",
+      0,
+      "Guduchi"
+     ],
+     [
+      "Amalaki",
+      "HERB_RX",
+      0,
+      "Amalaki"
+     ],
+     [
+      "150 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-distractor-04",
+   "label": "distractor",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "distractor",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "distractor",
+    "english",
+    "history_with_quantity",
+    "parentheses"
+   ],
+   "notes": "Pitta. Previous prescription (Neem 40 g) completed. Today: Haridra 60 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Haridra": {
+      "grams": 60,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "distractor",
+    "phenomena": [
+     "english",
+     "history_with_quantity",
+     "parentheses"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Neem",
+      "HERB_HIST",
+      0,
+      "Neem"
+     ],
+     [
+      "40 g",
+      "QTY_OTHER"
+     ],
+     [
+      "Haridra",
+      "HERB_RX",
+      0,
+      "Haridra"
+     ],
+     [
+      "60 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-distractor-05",
+   "label": "distractor",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "distractor",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "distractor",
+    "english",
+    "negation_after_mention"
+   ],
+   "notes": "Vata. Read about Ashwagandha online; not prescribing it. Brahmi 45 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Brahmi": {
+      "grams": 45,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "distractor",
+    "phenomena": [
+     "english",
+     "negation_after_mention"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Ashwagandha",
+      "HERB_NEG",
+      0,
+      "Ashwagandha"
+     ],
+     [
+      "Brahmi",
+      "HERB_RX",
+      0,
+      "Brahmi"
+     ],
+     [
+      "45 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-units-01",
+   "label": "units",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "units",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "decimal_kg",
+    "english",
+    "units"
+   ],
+   "notes": "Vata. Ashwagandha 0.25 kg.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Ashwagandha": {
+      "grams": 250,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "units",
+    "phenomena": [
+     "english",
+     "decimal_kg"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Ashwagandha",
+      "HERB_RX",
+      0,
+      "Ashwagandha"
+     ],
+     [
+      "0.25 kg",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-units-02",
+   "label": "units",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "units",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "fraction_word_unit",
+    "units"
+   ],
+   "notes": "Kapha. Triphala half kilo.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Triphala": {
+      "grams": 500,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "units",
+    "phenomena": [
+     "english",
+     "fraction_word_unit"
+    ],
+    "spans": [
+     [
+      "Kapha",
+      "DOSHA"
+     ],
+     [
+      "Triphala",
+      "HERB_RX",
+      0,
+      "Triphala"
+     ],
+     [
+      "half kilo",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-units-03",
+   "label": "units",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "units",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "packs_variant",
+    "units"
+   ],
+   "notes": "Pitta. Amalaki 2 packets x 100 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Amalaki": {
+      "grams": 200,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "units",
+    "phenomena": [
+     "english",
+     "packs_variant"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Amalaki",
+      "HERB_RX",
+      0,
+      "Amalaki"
+     ],
+     [
+      "2 packets x 100 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-units-04",
+   "label": "units",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "units",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "unit_case",
+    "units"
+   ],
+   "notes": "Pitta. Neem 40gms, Manjistha 35 Gms.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Neem": {
+      "grams": 40,
+      "tolerance_grams": 0
+     },
+     "Manjistha": {
+      "grams": 35,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "units",
+    "phenomena": [
+     "english",
+     "unit_case"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Neem",
+      "HERB_RX",
+      0,
+      "Neem"
+     ],
+     [
+      "40gms",
+      "QTY"
+     ],
+     [
+      "Manjistha",
+      "HERB_RX",
+      0,
+      "Manjistha"
+     ],
+     [
+      "35 Gms",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-units-05",
+   "label": "units",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "units",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "number_words",
+    "units"
+   ],
+   "notes": "Vata. Shatavari three hundred grams.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Shatavari": {
+      "grams": 300,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "units",
+    "phenomena": [
+     "english",
+     "number_words"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Shatavari",
+      "HERB_RX",
+      0,
+      "Shatavari"
+     ],
+     [
+      "three hundred grams",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-units-06",
+   "label": "units",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "units",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "compound_quantity",
+    "english",
+    "units"
+   ],
+   "notes": "Kapha. Guggulu 1 kg 200 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Guggulu": {
+      "grams": 1200,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "units",
+    "phenomena": [
+     "english",
+     "compound_quantity"
+    ],
+    "spans": [
+     [
+      "Kapha",
+      "DOSHA"
+     ],
+     [
+      "Guggulu",
+      "HERB_RX",
+      0,
+      "Guggulu"
+     ],
+     [
+      "1 kg 200 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-shared-01",
+   "label": "shared_correction",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "shared_correction",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "shared_correction",
+    "shared_three_herbs"
+   ],
+   "notes": "Vata. Ashwagandha, Shatavari and Brahmi - 50 g each.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Ashwagandha": {
+      "grams": 50,
+      "tolerance_grams": 0
+     },
+     "Shatavari": {
+      "grams": 50,
+      "tolerance_grams": 0
+     },
+     "Brahmi": {
+      "grams": 50,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "shared_correction",
+    "phenomena": [
+     "english",
+     "shared_three_herbs"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Ashwagandha",
+      "HERB_RX",
+      0,
+      "Ashwagandha"
+     ],
+     [
+      "Shatavari",
+      "HERB_RX",
+      0,
+      "Shatavari"
+     ],
+     [
+      "Brahmi",
+      "HERB_RX",
+      0,
+      "Brahmi"
+     ],
+     [
+      "50 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-shared-02",
+   "label": "shared_correction",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "shared_correction",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "shared_correction",
+    "shared_marker_before"
+   ],
+   "notes": "Pitta. Neem and Amalaki, each 60 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Neem": {
+      "grams": 60,
+      "tolerance_grams": 0
+     },
+     "Amalaki": {
+      "grams": 60,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "shared_correction",
+    "phenomena": [
+     "english",
+     "shared_marker_before"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Neem",
+      "HERB_RX",
+      0,
+      "Neem"
+     ],
+     [
+      "Amalaki",
+      "HERB_RX",
+      0,
+      "Amalaki"
+     ],
+     [
+      "60 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-shared-03",
+   "label": "shared_correction",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "shared_correction",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "self_correction",
+    "shared_correction"
+   ],
+   "notes": "Kapha. Pippali 20 g - correction - 30 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Pippali": {
+      "grams": 30,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "shared_correction",
+    "phenomena": [
+     "english",
+     "self_correction"
+    ],
+    "spans": [
+     [
+      "Kapha",
+      "DOSHA"
+     ],
+     [
+      "Pippali",
+      "HERB_RX",
+      0,
+      "Pippali"
+     ],
+     [
+      "20 g",
+      "QTY_OLD"
+     ],
+     [
+      "30 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-shared-04",
+   "label": "shared_correction",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "shared_correction",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "self_correction_across_sentences",
+    "shared_correction"
+   ],
+   "notes": "Vata. Brahmi 40 g. Sorry, Brahmi should be 45 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Brahmi": {
+      "grams": 45,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "shared_correction",
+    "phenomena": [
+     "english",
+     "self_correction_across_sentences"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Brahmi",
+      "HERB_RX",
+      0,
+      "Brahmi"
+     ],
+     [
+      "40 g",
+      "QTY_OLD"
+     ],
+     [
+      "Brahmi",
+      "HERB_RX",
+      1,
+      "Brahmi"
+     ],
+     [
+      "45 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-shared-05",
+   "label": "shared_correction",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "shared_correction",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "manglish",
+    "shared_correction",
+    "shared_separate_um"
+   ],
+   "notes": "pitham. neem um manjistha um 40 gram veetham.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Neem": {
+      "grams": 40,
+      "tolerance_grams": 0
+     },
+     "Manjistha": {
+      "grams": 40,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "shared_correction",
+    "phenomena": [
+     "manglish",
+     "shared_separate_um"
+    ],
+    "spans": [
+     [
+      "pitham",
+      "DOSHA"
+     ],
+     [
+      "neem",
+      "HERB_RX",
+      0,
+      "Neem"
+     ],
+     [
+      "manjistha",
+      "HERB_RX",
+      0,
+      "Manjistha"
+     ],
+     [
+      "40 gram",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-shared-06",
+   "label": "shared_correction",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "shared_correction",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "self_correction",
+    "shared_correction"
+   ],
+   "notes": "Kapha. Haritaki 50 g, oh wait, make that 70 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Haritaki": {
+      "grams": 70,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "shared_correction",
+    "phenomena": [
+     "english",
+     "self_correction"
+    ],
+    "spans": [
+     [
+      "Kapha",
+      "DOSHA"
+     ],
+     [
+      "Haritaki",
+      "HERB_RX",
+      0,
+      "Haritaki"
+     ],
+     [
+      "50 g",
+      "QTY_OLD"
+     ],
+     [
+      "70 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-numbers-01",
+   "label": "irrelevant_numbers",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "irrelevant_numbers",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "age_bmi",
+    "english",
+    "irrelevant_numbers"
+   ],
+   "notes": "Vata. 45 year old, BMI 27. Ashwagandha 60 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Ashwagandha": {
+      "grams": 60,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "irrelevant_numbers",
+    "phenomena": [
+     "english",
+     "age_bmi"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Ashwagandha",
+      "HERB_RX",
+      0,
+      "Ashwagandha"
+     ],
+     [
+      "60 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-numbers-02",
+   "label": "irrelevant_numbers",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "irrelevant_numbers",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "duration_bp",
+    "english",
+    "irrelevant_numbers"
+   ],
+   "notes": "Pitta. Symptoms since 3 months; BP 140/90. Neem 30 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Neem": {
+      "grams": 30,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "irrelevant_numbers",
+    "phenomena": [
+     "english",
+     "duration_bp"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Neem",
+      "HERB_RX",
+      0,
+      "Neem"
+     ],
+     [
+      "30 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-numbers-03",
+   "label": "irrelevant_numbers",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "irrelevant_numbers",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "body_weight_kg",
+    "english",
+    "irrelevant_numbers"
+   ],
+   "notes": "Kapha. Weight 72 kg, height 160 cm. Triphala 90 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Triphala": {
+      "grams": 90,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "irrelevant_numbers",
+    "phenomena": [
+     "english",
+     "body_weight_kg"
+    ],
+    "spans": [
+     [
+      "Kapha",
+      "DOSHA"
+     ],
+     [
+      "Triphala",
+      "HERB_RX",
+      0,
+      "Triphala"
+     ],
+     [
+      "90 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-numbers-04",
+   "label": "irrelevant_numbers",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "irrelevant_numbers",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "irrelevant_numbers",
+    "room_bed"
+   ],
+   "notes": "Vata. Room 12, bed 4. Brahmi 25 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Brahmi": {
+      "grams": 25,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "irrelevant_numbers",
+    "phenomena": [
+     "english",
+     "room_bed"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Brahmi",
+      "HERB_RX",
+      0,
+      "Brahmi"
+     ],
+     [
+      "25 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-numbers-05",
+   "label": "irrelevant_numbers",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "irrelevant_numbers",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "date_followup",
+    "english",
+    "irrelevant_numbers"
+   ],
+   "notes": "Pitta. Phone follow-up on 10/11. Haridra 40 g, review after 2 weeks.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Haridra": {
+      "grams": 40,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "irrelevant_numbers",
+    "phenomena": [
+     "english",
+     "date_followup"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Haridra",
+      "HERB_RX",
+      0,
+      "Haridra"
+     ],
+     [
+      "40 g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-format-01",
+   "label": "punctuation_order",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "punctuation_order",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "dosha_last",
+    "english",
+    "newline_list",
+    "punctuation_order"
+   ],
+   "notes": "Rx\n- Neem 40 g\n- Brahmi 30 g\nDosha: Pitta",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Neem": {
+      "grams": 40,
+      "tolerance_grams": 0
+     },
+     "Brahmi": {
+      "grams": 30,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "punctuation_order",
+    "phenomena": [
+     "english",
+     "newline_list",
+     "dosha_last"
+    ],
+    "spans": [
+     [
+      "Neem",
+      "HERB_RX",
+      0,
+      "Neem"
+     ],
+     [
+      "40 g",
+      "QTY"
+     ],
+     [
+      "Brahmi",
+      "HERB_RX",
+      0,
+      "Brahmi"
+     ],
+     [
+      "30 g",
+      "QTY"
+     ],
+     [
+      "Pitta",
+      "DOSHA"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-format-02",
+   "label": "punctuation_order",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "punctuation_order",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "hyphen_joined",
+    "no_spaces",
+    "punctuation_order"
+   ],
+   "notes": "Pitta;Neem-40g;Manjistha-35g",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Neem": {
+      "grams": 40,
+      "tolerance_grams": 0
+     },
+     "Manjistha": {
+      "grams": 35,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "punctuation_order",
+    "phenomena": [
+     "english",
+     "no_spaces",
+     "hyphen_joined"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Neem",
+      "HERB_RX",
+      0,
+      "Neem"
+     ],
+     [
+      "40g",
+      "QTY"
+     ],
+     [
+      "Manjistha",
+      "HERB_RX",
+      0,
+      "Manjistha"
+     ],
+     [
+      "35g",
+      "QTY"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-format-03",
+   "label": "punctuation_order",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "punctuation_order",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "dosha_last",
+    "english",
+    "numbered_list",
+    "parentheses",
+    "punctuation_order"
+   ],
+   "notes": "1) Ashwagandha (100 g) 2) Shatavari (50 g) - Vata",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {
+     "Ashwagandha": {
+      "grams": 100,
+      "tolerance_grams": 0
+     },
+     "Shatavari": {
+      "grams": 50,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "punctuation_order",
+    "phenomena": [
+     "english",
+     "numbered_list",
+     "parentheses",
+     "dosha_last"
+    ],
+    "spans": [
+     [
+      "Ashwagandha",
+      "HERB_RX",
+      0,
+      "Ashwagandha"
+     ],
+     [
+      "100 g",
+      "QTY"
+     ],
+     [
+      "Shatavari",
+      "HERB_RX",
+      0,
+      "Shatavari"
+     ],
+     [
+      "50 g",
+      "QTY"
+     ],
+     [
+      "Vata",
+      "DOSHA"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-format-04",
+   "label": "punctuation_order",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "punctuation_order",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "dosha_last",
+    "english",
+    "no_punctuation",
+    "punctuation_order",
+    "upper_case"
+   ],
+   "notes": "NEEM 40G BRAHMI 25G PITTA",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {
+     "Neem": {
+      "grams": 40,
+      "tolerance_grams": 0
+     },
+     "Brahmi": {
+      "grams": 25,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "punctuation_order",
+    "phenomena": [
+     "english",
+     "upper_case",
+     "no_punctuation",
+     "dosha_last"
+    ],
+    "spans": [
+     [
+      "NEEM",
+      "HERB_RX",
+      0,
+      "Neem"
+     ],
+     [
+      "40G",
+      "QTY"
+     ],
+     [
+      "BRAHMI",
+      "HERB_RX",
+      0,
+      "Brahmi"
+     ],
+     [
+      "25G",
+      "QTY"
+     ],
+     [
+      "PITTA",
+      "DOSHA"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-format-05",
+   "label": "punctuation_order",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "punctuation_order",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "english",
+    "punctuation_order",
+    "quantity_before_herb"
+   ],
+   "notes": "For Kapha: 70 g Pippali, 40 g Vasaka",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Pippali": {
+      "grams": 70,
+      "tolerance_grams": 0
+     },
+     "Vasaka": {
+      "grams": 40,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "punctuation_order",
+    "phenomena": [
+     "english",
+     "quantity_before_herb"
+    ],
+    "spans": [
+     [
+      "Kapha",
+      "DOSHA"
+     ],
+     [
+      "70 g",
+      "QTY"
+     ],
+     [
+      "Pippali",
+      "HERB_RX",
+      0,
+      "Pippali"
+     ],
+     [
+      "40 g",
+      "QTY"
+     ],
+     [
+      "Vasaka",
+      "HERB_RX",
+      0,
+      "Vasaka"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-format-06",
+   "label": "punctuation_order",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "punctuation_order",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "dosha_last",
+    "english",
+    "punctuation_order"
+   ],
+   "notes": "Vasaka 50 g, Dashamoola 100 g. kapha.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Vasaka": {
+      "grams": 50,
+      "tolerance_grams": 0
+     },
+     "Dashamoola": {
+      "grams": 100,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "punctuation_order",
+    "phenomena": [
+     "english",
+     "dosha_last"
+    ],
+    "spans": [
+     [
+      "Vasaka",
+      "HERB_RX",
+      0,
+      "Vasaka"
+     ],
+     [
+      "50 g",
+      "QTY"
+     ],
+     [
+      "Dashamoola",
+      "HERB_RX",
+      0,
+      "Dashamoola"
+     ],
+     [
+      "100 g",
+      "QTY"
+     ],
+     [
+      "kapha",
+      "DOSHA"
+     ]
+    ],
+    "abstain": []
+   }
+  },
+  {
+   "case_id": "ood-abstain-01",
+   "label": "abstention",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "abstention",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "abstention",
+    "english",
+    "range"
+   ],
+   "notes": "Vata. Ashwagandha 20-30 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {}
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "abstention",
+    "phenomena": [
+     "english",
+     "range"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Ashwagandha",
+      "HERB_RX",
+      0,
+      "Ashwagandha"
+     ],
+     [
+      "20-30 g",
+      "QTY"
+     ]
+    ],
+    "abstain": [
+     {
+      "herb": "Ashwagandha",
+      "reason": "range"
+     }
+    ]
+   }
+  },
+  {
+   "case_id": "ood-abstain-02",
+   "label": "abstention",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "abstention",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "abstention",
+    "english",
+    "unitless"
+   ],
+   "notes": "Pitta. Neem 40.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {}
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "abstention",
+    "phenomena": [
+     "english",
+     "unitless"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Neem",
+      "HERB_RX",
+      0,
+      "Neem"
+     ],
+     [
+      "40",
+      "QTY"
+     ]
+    ],
+    "abstain": [
+     {
+      "herb": "Neem",
+      "reason": "unitless"
+     }
+    ]
+   }
+  },
+  {
+   "case_id": "ood-abstain-03",
+   "label": "abstention",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "abstention",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "abstention",
+    "english",
+    "no_quantity"
+   ],
+   "notes": "Kapha. Triphala as before.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {}
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "abstention",
+    "phenomena": [
+     "english",
+     "no_quantity"
+    ],
+    "spans": [
+     [
+      "Kapha",
+      "DOSHA"
+     ],
+     [
+      "Triphala",
+      "HERB_RX",
+      0,
+      "Triphala"
+     ]
+    ],
+    "abstain": [
+     {
+      "herb": "Triphala",
+      "reason": "no_quantity"
+     }
+    ]
+   }
+  },
+  {
+   "case_id": "ood-abstain-04",
+   "label": "abstention",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "abstention",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "abstention",
+    "english",
+    "non_gram_unit"
+   ],
+   "notes": "Vata. Brahmi 2 spoons.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {}
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "abstention",
+    "phenomena": [
+     "english",
+     "non_gram_unit"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Brahmi",
+      "HERB_RX",
+      0,
+      "Brahmi"
+     ],
+     [
+      "2 spoons",
+      "QTY"
+     ]
+    ],
+    "abstain": [
+     {
+      "herb": "Brahmi",
+      "reason": "non_gram_unit"
+     }
+    ]
+   }
+  },
+  {
+   "case_id": "ood-abstain-05",
+   "label": "abstention",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "abstention",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "abstention",
+    "english",
+    "unknown_herb"
+   ],
+   "notes": "Pitta. Kanchanara 30 g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Pitta"
+    ],
+    "herbs": {}
+   },
+   "mentioned_not_stocked": [
+    "Kanchanara"
+   ],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "abstention",
+    "phenomena": [
+     "english",
+     "unknown_herb"
+    ],
+    "spans": [
+     [
+      "Pitta",
+      "DOSHA"
+     ],
+     [
+      "Kanchanara",
+      "UNSTOCKED",
+      0,
+      "Kanchanara"
+     ],
+     [
+      "30 g",
+      "QTY_OTHER"
+     ]
+    ],
+    "abstain": [
+     {
+      "herb": "Kanchanara",
+      "reason": "not_in_formulary"
+     }
+    ]
+   }
+  },
+  {
+   "case_id": "ood-abstain-06",
+   "label": "abstention",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "abstention",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "abstention",
+    "alternative_quantities",
+    "english"
+   ],
+   "notes": "Vata. Shatavari 40 g or 60 g, whichever is available.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Vata"
+    ],
+    "herbs": {}
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "abstention",
+    "phenomena": [
+     "english",
+     "alternative_quantities"
+    ],
+    "spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Shatavari",
+      "HERB_RX",
+      0,
+      "Shatavari"
+     ],
+     [
+      "40 g",
+      "QTY"
+     ],
+     [
+      "60 g",
+      "QTY"
+     ]
+    ],
+    "abstain": [
+     {
+      "herb": "Shatavari",
+      "reason": "alternative_quantities"
+     }
+    ]
+   }
+  },
+  {
+   "case_id": "ood-abstain-07",
+   "label": "abstention",
+   "provenance": {
+    "status": "synthetic_unreviewed",
+    "origin": "Hand-authored out-of-distribution synthetic note (S1-OOD v1); written without the S1 generator or its templates; not clinical ground truth",
+    "source": "eval/benchmarks/s1_ood (hand-authored)",
+    "source_label": "abstention",
+    "clinician_reviewer": null,
+    "reviewed_at": null
+   },
+   "tags": [
+    "abstention",
+    "english",
+    "partial_abstention",
+    "vague_quantity"
+   ],
+   "notes": "Kapha. Guggulu 30 g. Amalaki about 50-ish g.",
+   "ambiguous": false,
+   "ambiguity_reason": null,
+   "expected": {
+    "dosha": [
+     "Kapha"
+    ],
+    "herbs": {
+     "Guggulu": {
+      "grams": 30,
+      "tolerance_grams": 0
+     }
+    }
+   },
+   "mentioned_not_stocked": [],
+   "safety_annotations": [],
+   "annotation_notes": null,
+   "source_rationale": null,
+   "ood": {
+    "category": "abstention",
+    "phenomena": [
+     "english",
+     "vague_quantity",
+     "partial_abstention"
+    ],
+    "spans": [
+     [
+      "Kapha",
+      "DOSHA"
+     ],
+     [
+      "Guggulu",
+      "HERB_RX",
+      0,
+      "Guggulu"
+     ],
+     [
+      "30 g",
+      "QTY"
+     ],
+     [
+      "Amalaki",
+      "HERB_RX",
+      0,
+      "Amalaki"
+     ],
+     [
+      "50-ish g",
+      "QTY"
+     ]
+    ],
+    "abstain": [
+     {
+      "herb": "Amalaki",
+      "reason": "vague_quantity"
+     }
+    ]
+   }
+  }
+ ]
+}

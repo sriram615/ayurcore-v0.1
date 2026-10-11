@@ -1,0 +1,25 @@
+{
+ "dataset": "s5_v1",
+ "classification": "SYNTHETIC, HAND-WRITTEN INTERPRETATION HOLDOUT -- NOT CLINICAL DATA",
+ "case_count": 119,
+ "categories": {
+  "agg_vs_count": 16,
+  "comparison_direction": 12,
+  "control": 20,
+  "first_last_previous": 14,
+  "legit_ambiguous": 14,
+  "quantity_unit": 14,
+  "selector_confusion": 14,
+  "target_confusion": 15
+ },
+ "languages": {
+  "en": 88,
+  "manglish": 17,
+  "ml": 14
+ },
+ "abstain_cases": 19,
+ "answerable_cases": 100,
+ "dataset_fingerprint_sha256": "540b922258d89f79319dcf2b3b1cea0d537f6c51298550a22cce6882bef2b71b",
+ "file_sha256": "45596c36cd4cadb8302fbea86615a32fa0b7124c768b6504b48cbb66ce3a88fe",
+ "file": "s5_v1.json"
+}

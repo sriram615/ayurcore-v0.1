@@ -1,0 +1,181 @@
+{
+ "classification": "SYNTHETIC DATA, SYNTHETIC SAME-AUTHOR GOLD; NOT CLINICAL VALIDATION",
+ "split": "dev",
+ "hyper": {
+  "epochs": 60,
+  "lr": 0.5,
+  "l2": 0.0001,
+  "seed": 20261010,
+  "label_noise": 0.1
+ },
+ "fingerprints": {
+  "train": "b4c28142ecfe87f33519e05aa4fe7ba69995c63ca61c1224064e7b51deda5df7",
+  "dev": "522a076522c1ed230be34d7cc1fe2aed39054926f75c79acffd67386edd084a9"
+ },
+ "weights_sha256": "18a0488393a4ffdec93d02bd4f04e1d18ce9358398ffb816c4b96aa9c76d7c9f",
+ "result": {
+  "k=3": {
+   "patients_with_facts": 596,
+   "k": 3,
+   "patients_with_critical_fact": 218,
+   "arms": {
+    "template": {
+     "recall": 0.7598,
+     "recall_ci95": [
+      0.7391,
+      0.7791
+     ],
+     "precision": 0.443,
+     "precision_ci95": [
+      0.4279,
+      0.4589
+     ],
+     "critical_facts_present": 247,
+     "critical_facts_shown": 69,
+     "critical_miss_rate": 0.7206,
+     "shown_facts": 1750,
+     "unsupported_shown_facts": 0
+    },
+    "learned": {
+     "recall": 0.995,
+     "recall_ci95": [
+      0.9916,
+      0.9983
+     ],
+     "precision": 0.6365,
+     "precision_ci95": [
+      0.6158,
+      0.6588
+     ],
+     "critical_facts_present": 247,
+     "critical_facts_shown": 238,
+     "critical_miss_rate": 0.0364,
+     "shown_facts": 1750,
+     "unsupported_shown_facts": 0
+    },
+    "reference": {
+     "recall": 1.0,
+     "recall_ci95": [
+      1.0,
+      1.0
+     ],
+     "precision": 0.6415,
+     "precision_ci95": [
+      0.6188,
+      0.6647
+     ],
+     "critical_facts_present": 247,
+     "critical_facts_shown": 218,
+     "critical_miss_rate": 0.1174,
+     "shown_facts": 1750,
+     "unsupported_shown_facts": 0
+    }
+   },
+   "paired_learned_minus_template": {
+    "recall": {
+     "mean": 0.2352,
+     "ci95": [
+      0.2148,
+      0.2562
+     ]
+    },
+    "precision": {
+     "mean": 0.1935,
+     "ci95": [
+      0.1762,
+      0.2109
+     ]
+    },
+    "critical_share_shown": {
+     "mean": 0.7156,
+     "ci95": [
+      0.6583,
+      0.7706
+     ]
+    }
+   }
+  },
+  "k=5": {
+   "patients_with_facts": 596,
+   "k": 5,
+   "patients_with_critical_fact": 218,
+   "arms": {
+    "template": {
+     "recall": 0.806,
+     "recall_ci95": [
+      0.7862,
+      0.825
+     ],
+     "precision": 0.3151,
+     "precision_ci95": [
+      0.3026,
+      0.3271
+     ],
+     "critical_facts_present": 247,
+     "critical_facts_shown": 118,
+     "critical_miss_rate": 0.5223,
+     "shown_facts": 2771,
+     "unsupported_shown_facts": 0
+    },
+    "learned": {
+     "recall": 1.0,
+     "recall_ci95": [
+      1.0,
+      1.0
+     ],
+     "precision": 0.4204,
+     "precision_ci95": [
+      0.4055,
+      0.4358
+     ],
+     "critical_facts_present": 247,
+     "critical_facts_shown": 247,
+     "critical_miss_rate": 0.0,
+     "shown_facts": 2771,
+     "unsupported_shown_facts": 0
+    },
+    "reference": {
+     "recall": 1.0,
+     "recall_ci95": [
+      1.0,
+      1.0
+     ],
+     "precision": 0.4204,
+     "precision_ci95": [
+      0.4052,
+      0.4357
+     ],
+     "critical_facts_present": 247,
+     "critical_facts_shown": 247,
+     "critical_miss_rate": 0.0,
+     "shown_facts": 2771,
+     "unsupported_shown_facts": 0
+    }
+   },
+   "paired_learned_minus_template": {
+    "recall": {
+     "mean": 0.194,
+     "ci95": [
+      0.1739,
+      0.2137
+     ]
+    },
+    "precision": {
+     "mean": 0.1054,
+     "ci95": [
+      0.0943,
+      0.1168
+     ]
+    },
+    "critical_share_shown": {
+     "mean": 0.5367,
+     "ci95": [
+      0.4748,
+      0.6009
+     ]
+    }
+   }
+  }
+ },
+ "history": "a first dev run without label noise and with k=5 only reached the reference ceiling (recall 1.0, no critical misses); label noise and k=3 were added before the test split was ever evaluated"
+}

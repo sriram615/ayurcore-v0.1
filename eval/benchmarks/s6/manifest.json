@@ -1,0 +1,41 @@
+{
+ "dataset": "s6_v1",
+ "classification": "SYNTHETIC, HAND-WRITTEN FINAL HOLDOUT -- NOT CLINICAL DATA",
+ "case_count": 161,
+ "categories": {
+  "agg_count": 10,
+  "ambiguous": 12,
+  "clinical_request": 14,
+  "comparison_direction": 8,
+  "cross_patient": 12,
+  "evidence_status": 10,
+  "first_last_previous": 10,
+  "injection": 10,
+  "malformed": 11,
+  "normal": 20,
+  "quantity_unit": 10,
+  "target_selector": 12,
+  "unavailable": 10,
+  "wrong_plan_trap": 12
+ },
+ "languages": {
+  "en": 118,
+  "manglish": 19,
+  "ml": 15,
+  "none": 9
+ },
+ "callers": {
+  "admin_b": 3,
+  "auditor": 1,
+  "doc_a": 93,
+  "doc_b": 64
+ },
+ "gold_kinds": {
+  "query": 83,
+  "abstain": 71,
+  "deny": 7
+ },
+ "dataset_fingerprint_sha256": "530f942b33e2c7d5f9e9a75cd7b4efa427a7c21269122d28c562cfca138bdb6f",
+ "file_sha256": "d148eb62255b9f14dc25314914215faee7ea835f1d40cc8fe858db903775b37c",
+ "file": "s6_v1.json"
+}

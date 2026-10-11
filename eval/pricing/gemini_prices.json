@@ -1,0 +1,15 @@
+{
+ "currency": "USD",
+ "unit": "per 1M tokens",
+ "notes": "Used only by scripts/eval_cost.py. Intentionally EMPTY: no price is assumed. To enable cost, add an entry under models keyed by the exact configured model name (agents/copilot.py GEMINI_MODEL / agents/a0/orchestrator.py GEMINI_MODEL, as recorded in the run's settings), with prices copied from the official Gemini API pricing page, its source_url and the retrieved_on date. Until then every live run reports cost_status 'unavailable'.",
+ "entry_shape": {
+  "input_usd_per_1m_tokens": "number",
+  "output_usd_per_1m_tokens": "number",
+  "cached_input_usd_per_1m_tokens": "number or null",
+  "thoughts_billed_as_output": "true/false (as stated by the pricing page)",
+  "tool_use_prompt_billed_as_input": "true/false",
+  "source_url": "official pricing page URL",
+  "retrieved_on": "YYYY-MM-DD"
+ },
+ "models": {}
+}

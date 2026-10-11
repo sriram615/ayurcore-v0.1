@@ -1,0 +1,51 @@
+{
+ "classification": "SYNTHETIC TECHNICAL RESULT -- NOT CLINICAL VALIDATION",
+ "run": "FIRST AND ONLY official S1-OOD v1 evaluation (one-shot holdout, final=True)",
+ "command": "cd <ayurcore-v0.1-checkout> && <clinic-checkout>/venv/bin/python -m extractor.evaluate_ood --final",
+ "exit_code": 0,
+ "started_utc": "2026-10-05T14:43:57Z (pre-run checks); summary generated_at_utc in s1_ood_v1_summary.json",
+ "git_head": "2ec7644a91099d7fe698bacea42ae39f5f4416e6 (v0.1; extractor/, eval/benchmarks/, scripts/s1_ood_dataset.py untracked -- identified by hash below)",
+ "environment": {
+  "python": "3.14.3 (Clang 14.0.3)",
+  "numpy": "2.5.3",
+  "pydantic": "2.13.5",
+  "platform": "macOS-13.7.8-x86_64",
+  "interpreter": "<clinic-checkout>/venv/bin/python (clinic venv, interpreter only; no clinic files or databases used)"
+ },
+ "pre_run_checks": [
+  "scripts/s1_ood_dataset.py verify: OK",
+  "scripts/s1_generator.py verify: OK"
+ ],
+ "source_and_data_sha256_before_run": {
+  "extractor/__init__.py": "a7a14606acbfc909cf1a5e0bc63b711a43af6a6e2b0be85a896c51a0c8594853",
+  "extractor/assemble.py": "7e494d416b5e3e0e233f57726d4f8bc6678a68284ebd8b52afb9f959f4c296f5",
+  "extractor/evaluate_ood.py": "92b8025b7e4edd94f095cdfb90179fe18b10bc87501554800bfb526d8567fb6e",
+  "extractor/evaluate_t2.py": "080ff8acc453b6ea36534e488a96e52cc86ac80801e665a15529cf13c07542b1",
+  "extractor/evaluate_t3.py": "2feb0df9e1a5aa746745484dfce81bee8a3722cd7a19745f01e6e36e9a68ef64",
+  "extractor/features.py": "bd10fc13cd79a0f2a5313011709cf96b4ba11dfdffe5232272c3d98ef875dc1f",
+  "extractor/labels.py": "d314b71eea3f552e0317868e289ed8b34bec6a14a0c882bff9da915d60079be8",
+  "extractor/normalize.py": "4035a7ea46235c1c28df1e6016e6ba277cbe4704d7a64724c840f5907bd467d1",
+  "extractor/pipeline.py": "bf61eabdac2314af2279444a80767c22ca4437c5b3cf7aec5ef0892ede0fa733",
+  "extractor/tagger.py": "6da3932ce26d880a240f5b1f6d0862c245a466f22f48d7ba3830a77a499b35d7",
+  "extractor/train.py": "d8ad2a61c652e7c0c62a8a1b3137c2190fb47e6863dcf0405c10b9a860d27bf5",
+  "extractor/units.py": "6339ac018c77ecb62db8908143bcab88a40d418ebd19d18a3b54f0be4349f0d0",
+  "extractor/verify.py": "0942b9bbf94e45005fd30af812dc96bfddcc19f1b4ea1d3ae562e3ad9a6a38e0",
+  "artifacts/models/t1_tagger/model.json": "2048eb5049205aaf603304b7292bee79012a8769d4c0bcf1443460f20593bec2",
+  "artifacts/models/t1_tagger/report.json": "9a0df86566aa84b0fa12bbd8de4b8f6c9c8cb5c479ba9e9fb2227d93a63ed88a",
+  "eval/benchmarks/s1_ood/README.md": "e9cf4d8f1a534a69da1c618e328e710c45a983e5969ff3729d2caee1117094c7",
+  "eval/benchmarks/s1_ood/manifest.json": "c7db78b1b1600969c796772412629b50a020fb2d449baa569dd9a9588bcb5235",
+  "eval/benchmarks/s1_ood/s1_ood_v1.json": "0b81096edcc303314f70a48c7e406445ecc8339df761f8b84a20dab0cbb10701",
+  "eval/benchmarks/s1/README.md": "b49da86f8b6668ab00b5f150de76aeac9fae223efaae1757c31929d1b08e8e77",
+  "eval/benchmarks/s1/manifest.json": "1f09f407266d5b133ad84a3b3cacef7cef0ad0ad4d73ff642a7786f4f715dc7d",
+  "eval/benchmarks/s1/s1_dev.json": "1f00017fa3dd9aacf6249fe37418b4310f9af09d7f4f7f1fb9aec0e699c92028",
+  "eval/benchmarks/s1/s1_test.json": "f30015c9e3a0c36076707de26cdf65331b791a3e8c4f24aefb20462f328fdc16",
+  "eval/benchmarks/s1/s1_train.json": "3ddb4d24da573376ceaecc8eb1fc88fe595227ad251fcff7952be4a1a14e73f6",
+  "scripts/s1_ood_dataset.py": "c9bc950f9bf6e9c88cd0c6c8601b5156e6acd45b696ee13f3b6b2dee2f758729",
+  "scripts/clinical_eval_harness.py": "741c089db687682ec556c44afc2c8c1d4067d672eaaac31b5fd6fa112da0cf94",
+  "backend/herb_resolver.py": "ea2f6459572f84ca56c35f9bc3a334b2738aa13563f3ffdb71399f13d27ce899",
+  "backend/schemas.py": "9b50087be23de7f2b75793fef82a46d1ca26a03b8eb6dce387288fe43e769c33",
+  "eval/cases/clinical_eval_v1.json": "5ef6175f59a6bea65bbbd1755f419935bcd8fb45acb42c3682ab989d112705b5"
+ },
+ "source_and_data_unchanged_after_run": true,
+ "external_calls": "none (no Gemini, no paid APIs, no network)"
+}

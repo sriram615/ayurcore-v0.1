@@ -1,0 +1,53 @@
+{
+ "dataset": "devcal_v1",
+ "classification": "SYNTHETIC DEVELOPMENT / CALIBRATION DATA -- NOT A HOLDOUT",
+ "case_count": 244,
+ "splits": {
+  "cal": 84,
+  "dev": 160
+ },
+ "templates": {
+  "dev": 60,
+  "cal": 30
+ },
+ "categories": {
+  "dev": {
+   "ambiguous": 22,
+   "answerable": 72,
+   "clinical": 14,
+   "injection": 2,
+   "malformed": 12,
+   "other_patient": 10,
+   "paraphrase": 14,
+   "unavailable": 6,
+   "unsupported": 8
+  },
+  "cal": {
+   "ambiguous": 10,
+   "answerable": 44,
+   "clinical": 4,
+   "injection": 2,
+   "malformed": 6,
+   "other_patient": 2,
+   "paraphrase": 8,
+   "unavailable": 4,
+   "unsupported": 4
+  }
+ },
+ "languages": {
+  "dev": {
+   "en": 114,
+   "manglish": 28,
+   "ml": 10,
+   "none": 8
+  },
+  "cal": {
+   "en": 56,
+   "manglish": 12,
+   "ml": 14,
+   "none": 2
+  }
+ },
+ "dataset_fingerprint_sha256": "53ad5afdb370e05a7cbaf9dee13fbb89c94cc081db038b0c8b2e500019c2e632",
+ "file_sha256": "4fb34f0c64cbbbda1a5bae1d816cd5731c1a80ab2aebf410b79b21492a3834b9"
+}

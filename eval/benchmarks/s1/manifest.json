@@ -1,0 +1,51 @@
+{
+ "benchmark": "S1 synthetic Notes -> Structured Prescription",
+ "classification": "NOT CLINICAL VALIDATION -- S1 synthetic benchmark: programmatically generated notes with gold labels by construction. A technical evaluation of extraction only.",
+ "generator_version": "s1-gen/1",
+ "seed": 20261004,
+ "dataset_fingerprint_sha256": "b6ccaca65013a4b32ff3dc3827a8cdaf58ba29671072fd84c126edd4eee7dd19",
+ "herb_resolver_sha256": "ea2f6459572f84ca56c35f9bc3a334b2738aa13563f3ffdb71399f13d27ce899",
+ "total_cases": 600,
+ "split_counts": {
+  "train": 360,
+  "dev": 120,
+  "test": 120
+ },
+ "split_category_counts": {
+  "train": {
+   "clean": 45,
+   "alias": 45,
+   "malayalam_script": 45,
+   "manglish": 45,
+   "negation": 45,
+   "distractor": 45,
+   "units": 45,
+   "mixed_hard": 45
+  },
+  "dev": {
+   "clean": 15,
+   "alias": 15,
+   "malayalam_script": 15,
+   "manglish": 15,
+   "negation": 15,
+   "distractor": 15,
+   "units": 15,
+   "mixed_hard": 15
+  },
+  "test": {
+   "clean": 15,
+   "alias": 15,
+   "malayalam_script": 15,
+   "manglish": 15,
+   "negation": 15,
+   "distractor": 15,
+   "units": 15,
+   "mixed_hard": 15
+  }
+ },
+ "split_file_sha256": {
+  "s1_train.json": "3ddb4d24da573376ceaecc8eb1fc88fe595227ad251fcff7952be4a1a14e73f6",
+  "s1_dev.json": "1f00017fa3dd9aacf6249fe37418b4310f9af09d7f4f7f1fb9aec0e699c92028",
+  "s1_test.json": "f30015c9e3a0c36076707de26cdf65331b791a3e8c4f24aefb20462f328fdc16"
+ }
+}

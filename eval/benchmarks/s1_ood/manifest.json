@@ -1,0 +1,22 @@
+{
+ "dataset": "s1_ood_v1",
+ "classification": "SYNTHETIC, HAND-AUTHORED OUT-OF-DISTRIBUTION SET -- NOT CLINICAL VALIDATION",
+ "case_count": 62,
+ "category_counts": {
+  "clean": 5,
+  "alias": 6,
+  "malayalam_script": 5,
+  "manglish": 5,
+  "negation_replacement": 6,
+  "distractor": 5,
+  "units": 6,
+  "shared_correction": 6,
+  "irrelevant_numbers": 5,
+  "punctuation_order": 6,
+  "abstention": 7
+ },
+ "abstain_items": 7,
+ "dataset_fingerprint_sha256": "7415ffa2a6af22bc8dfeb4ffc0d0a9cb800cd759a0fb591efea0d44b4eb60311",
+ "file_sha256": "0b81096edcc303314f70a48c7e406445ecc8339df761f8b84a20dab0cbb10701",
+ "file": "s1_ood_v1.json"
+}

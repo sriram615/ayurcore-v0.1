@@ -1,0 +1,5630 @@
+{
+ "schema": "ayurcore.s3.questions/v1",
+ "dataset_id": "s3_v1",
+ "seed": 20261007,
+ "s2_fingerprint": "d25c3235c33e36febb386f74aeb868c456f723452559e0e3a18f14e2ac50c440",
+ "split": "dev",
+ "questions": [
+  {
+   "id": "s3-00025",
+   "question": "Which herbs were on the earliest prescription?",
+   "language": "en",
+   "frame": "FIRST_RX",
+   "template": "FIRST_RX#3",
+   "patient": "s2_clinic_a/P09",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:22",
+     "created_at": "2026-01-01 09:10:00",
+     "dosha": "Vata-Kapha",
+     "herbs": [
+      [
+       "Neem",
+       150
+      ]
+     ]
+    },
+    "sources": [
+     "rx:22"
+    ]
+   }
+  },
+  {
+   "id": "s3-00026",
+   "question": "Which herbs were on the earliest prescription?",
+   "language": "en",
+   "frame": "FIRST_RX",
+   "template": "FIRST_RX#3",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:1",
+     "created_at": "2026-01-01 09:10:00",
+     "dosha": "Pitta-Kapha",
+     "herbs": [
+      [
+       "Dashamoola",
+       120
+      ],
+      [
+       "Vasaka",
+       25
+      ]
+     ]
+    },
+    "sources": [
+     "rx:1"
+    ]
+   }
+  },
+  {
+   "id": "s3-00027",
+   "question": "Which herbs were on the earliest prescription?",
+   "language": "en",
+   "frame": "FIRST_RX",
+   "template": "FIRST_RX#3",
+   "patient": "s2_clinic_b/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:52",
+     "created_at": "2026-01-02 09:10:00",
+     "dosha": "Pitta",
+     "herbs": [
+      [
+       "Amalaki",
+       90
+      ],
+      [
+       "Guggulu",
+       10
+      ]
+     ]
+    },
+    "sources": [
+     "rx:52"
+    ]
+   }
+  },
+  {
+   "id": "s3-00028",
+   "question": "Which herbs were on the earliest prescription?",
+   "language": "en",
+   "frame": "FIRST_RX",
+   "template": "FIRST_RX#3",
+   "patient": "s2_clinic_b/P05",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:41",
+     "created_at": "2026-01-01 09:10:00",
+     "dosha": "Vata",
+     "herbs": [
+      [
+       "Amalaki",
+       60
+      ]
+     ]
+    },
+    "sources": [
+     "rx:41"
+    ]
+   }
+  },
+  {
+   "id": "s3-00029",
+   "question": "Which herbs were on the earliest prescription?",
+   "language": "en",
+   "frame": "FIRST_RX",
+   "template": "FIRST_RX#3",
+   "patient": "s2_clinic_b/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:39",
+     "created_at": "2026-01-02 09:10:00",
+     "dosha": "Vata-Pitta",
+     "herbs": [
+      [
+       "Ashwagandha",
+       150
+      ]
+     ]
+    },
+    "sources": [
+     "rx:39"
+    ]
+   }
+  },
+  {
+   "id": "s3-00030",
+   "question": "Which herbs were on the earliest prescription?",
+   "language": "en",
+   "frame": "FIRST_RX",
+   "template": "FIRST_RX#3",
+   "patient": "s2_clinic_b/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:49",
+     "created_at": "2026-01-01 09:10:00",
+     "dosha": "Pitta-Kapha",
+     "herbs": [
+      [
+       "Triphala",
+       90
+      ],
+      [
+       "Neem",
+       20
+      ]
+     ]
+    },
+    "sources": [
+     "rx:49"
+    ]
+   }
+  },
+  {
+   "id": "s3-00077",
+   "question": "avasanathe prescription enthaanu?",
+   "language": "manglish",
+   "frame": "LAST_RX",
+   "template": "LAST_RX#4",
+   "patient": "s2_clinic_a/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:11",
+     "created_at": "2026-01-03 09:10:00",
+     "dosha": "Vata",
+     "herbs": [
+      [
+       "Kutki",
+       80
+      ],
+      [
+       "Arjuna",
+       15
+      ],
+      [
+       "Ashwagandha",
+       75
+      ]
+     ]
+    },
+    "sources": [
+     "rx:11"
+    ]
+   }
+  },
+  {
+   "id": "s3-00078",
+   "question": "avasanathe prescription enthaanu?",
+   "language": "manglish",
+   "frame": "LAST_RX",
+   "template": "LAST_RX#4",
+   "patient": "s2_clinic_b/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:40",
+     "created_at": "2026-01-03 09:10:00",
+     "dosha": "Kapha",
+     "herbs": [
+      [
+       "Shankhpushpi",
+       120
+      ]
+     ]
+    },
+    "sources": [
+     "rx:40"
+    ]
+   }
+  },
+  {
+   "id": "s3-00079",
+   "question": "avasanathe prescription enthaanu?",
+   "language": "manglish",
+   "frame": "LAST_RX",
+   "template": "LAST_RX#4",
+   "patient": "s2_clinic_a/P09",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:26",
+     "created_at": "2026-01-05 09:10:00",
+     "dosha": "Pitta",
+     "herbs": [
+      [
+       "Pippali",
+       40
+      ]
+     ]
+    },
+    "sources": [
+     "rx:26"
+    ]
+   }
+  },
+  {
+   "id": "s3-00080",
+   "question": "avasanathe prescription enthaanu?",
+   "language": "manglish",
+   "frame": "LAST_RX",
+   "template": "LAST_RX#4",
+   "patient": "s2_clinic_b/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:33",
+     "created_at": "2026-01-05 09:10:00",
+     "dosha": "Vata-Pitta",
+     "herbs": [
+      [
+       "Triphala",
+       60
+      ],
+      [
+       "Dashamoola",
+       25
+      ],
+      [
+       "Arjuna",
+       15
+      ],
+      [
+       "Haridra",
+       100
+      ]
+     ]
+    },
+    "sources": [
+     "rx:33"
+    ]
+   }
+  },
+  {
+   "id": "s3-00081",
+   "question": "avasanathe prescription enthaanu?",
+   "language": "manglish",
+   "frame": "LAST_RX",
+   "template": "LAST_RX#4",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:48",
+     "created_at": "2026-01-02 09:10:00",
+     "dosha": "Vata-Kapha",
+     "herbs": [
+      [
+       "Arjuna",
+       40
+      ],
+      [
+       "Haridra",
+       40
+      ]
+     ]
+    },
+    "sources": [
+     "rx:48"
+    ]
+   }
+  },
+  {
+   "id": "s3-00082",
+   "question": "avasanathe prescription enthaanu?",
+   "language": "manglish",
+   "frame": "LAST_RX",
+   "template": "LAST_RX#4",
+   "patient": "s2_clinic_b/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:59",
+     "created_at": "2026-01-04 09:10:00",
+     "dosha": "Pitta-Kapha",
+     "herbs": [
+      [
+       "Haritaki",
+       150
+      ],
+      [
+       "Brahmi",
+       60
+      ],
+      [
+       "Punarnava",
+       80
+      ],
+      [
+       "Pippali",
+       90
+      ],
+      [
+       "Dashamoola",
+       90
+      ],
+      [
+       "Bhringraj",
+       120
+      ]
+     ]
+    },
+    "sources": [
+     "rx:59"
+    ]
+   }
+  },
+  {
+   "id": "s3-00113",
+   "question": "First time Kutki was given?",
+   "language": "en",
+   "frame": "FIRST_HERB",
+   "template": "FIRST_HERB#3",
+   "patient": "s2_clinic_a/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "herb",
+     "herb": "Kutki",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:21",
+     "created_at": "2026-01-02 09:10:00",
+     "grams": 75
+    },
+    "sources": [
+     "rx:21"
+    ]
+   }
+  },
+  {
+   "id": "s3-00114",
+   "question": "First time Brahmi was given?",
+   "language": "en",
+   "frame": "FIRST_HERB",
+   "template": "FIRST_HERB#3",
+   "patient": "s2_clinic_b/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "herb",
+     "herb": "Brahmi",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:53",
+     "created_at": "2026-01-03 09:10:00",
+     "grams": 50
+    },
+    "sources": [
+     "rx:53"
+    ]
+   }
+  },
+  {
+   "id": "s3-00115",
+   "question": "First time Brahmi was given?",
+   "language": "en",
+   "frame": "FIRST_HERB",
+   "template": "FIRST_HERB#3",
+   "patient": "s2_clinic_b/P05",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "herb",
+     "herb": "Brahmi",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:42",
+     "created_at": "2026-01-02 09:10:00",
+     "grams": 75
+    },
+    "sources": [
+     "rx:42"
+    ]
+   }
+  },
+  {
+   "id": "s3-00116",
+   "question": "First time Ashwagandha was given?",
+   "language": "en",
+   "frame": "FIRST_HERB",
+   "template": "FIRST_HERB#3",
+   "patient": "s2_clinic_a/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "herb",
+     "herb": "Ashwagandha",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:18",
+     "created_at": "2026-01-03 09:10:00",
+     "grams": 90
+    },
+    "sources": [
+     "rx:18"
+    ]
+   }
+  },
+  {
+   "id": "s3-00117",
+   "question": "First time withania somnifera was given?",
+   "language": "en",
+   "frame": "FIRST_HERB",
+   "template": "FIRST_HERB#3",
+   "patient": "s2_clinic_a/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "herb",
+     "herb": "Ashwagandha",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:11",
+     "created_at": "2026-01-03 09:10:00",
+     "grams": 75
+    },
+    "sources": [
+     "rx:11"
+    ]
+   }
+  },
+  {
+   "id": "s3-00118",
+   "question": "First time Brahmi was given?",
+   "language": "en",
+   "frame": "FIRST_HERB",
+   "template": "FIRST_HERB#3",
+   "patient": "s2_clinic_b/P05",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "herb",
+     "herb": "Brahmi",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:42",
+     "created_at": "2026-01-02 09:10:00",
+     "grams": 75
+    },
+    "sources": [
+     "rx:42"
+    ]
+   }
+  },
+  {
+   "id": "s3-00165",
+   "question": "vasaka avasanam eppozhaanu koduthathu?",
+   "language": "manglish",
+   "frame": "LAST_HERB",
+   "template": "LAST_HERB#4",
+   "patient": "s2_clinic_a/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "herb",
+     "herb": "Vasaka",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:19",
+     "created_at": "2026-01-04 09:10:00",
+     "grams": 75
+    },
+    "sources": [
+     "rx:19"
+    ]
+   }
+  },
+  {
+   "id": "s3-00166",
+   "question": "vasaka avasanam eppozhaanu koduthathu?",
+   "language": "manglish",
+   "frame": "LAST_HERB",
+   "template": "LAST_HERB#4",
+   "patient": "s2_clinic_b/P03",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "herb",
+     "herb": "Vasaka",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "unknown",
+    "value": null,
+    "sources": [
+     "rx:34"
+    ]
+   }
+  },
+  {
+   "id": "s3-00167",
+   "question": "manjistha avasanam eppozhaanu koduthathu?",
+   "language": "manglish",
+   "frame": "LAST_HERB",
+   "template": "LAST_HERB#4",
+   "patient": "s2_clinic_b/P05",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "herb",
+     "herb": "Manjistha",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:46",
+     "created_at": "2026-01-06 09:10:00",
+     "grams": 10
+    },
+    "sources": [
+     "rx:46"
+    ]
+   }
+  },
+  {
+   "id": "s3-00168",
+   "question": "neem avasanam eppozhaanu koduthathu?",
+   "language": "manglish",
+   "frame": "LAST_HERB",
+   "template": "LAST_HERB#4",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "herb",
+     "herb": "Neem",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "unknown",
+    "value": null,
+    "sources": [
+     "rx:3"
+    ]
+   }
+  },
+  {
+   "id": "s3-00169",
+   "question": "ashwagandha avasanam eppozhaanu koduthathu?",
+   "language": "manglish",
+   "frame": "LAST_HERB",
+   "template": "LAST_HERB#4",
+   "patient": "s2_clinic_a/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "herb",
+     "herb": "Ashwagandha",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:29",
+     "created_at": "2026-01-03 09:10:00",
+     "grams": 50
+    },
+    "sources": [
+     "rx:29"
+    ]
+   }
+  },
+  {
+   "id": "s3-00170",
+   "question": "brahmi avasanam eppozhaanu koduthathu?",
+   "language": "manglish",
+   "frame": "LAST_HERB",
+   "template": "LAST_HERB#4",
+   "patient": "s2_clinic_a/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "herb",
+     "herb": "Brahmi",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:29",
+     "created_at": "2026-01-03 09:10:00",
+     "grams": 25
+    },
+    "sources": [
+     "rx:29"
+    ]
+   }
+  },
+  {
+   "id": "s3-00215",
+   "question": "ആദ്യ സന്ദർശനത്തിലെ ദോഷം ഏതായിരുന്നു?",
+   "language": "ml",
+   "frame": "FIRST_DOSHA",
+   "template": "FIRST_DOSHA#5",
+   "patient": "s2_clinic_b/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:30",
+     "dosha": "Vata-Kapha"
+    },
+    "sources": [
+     "rx:30"
+    ]
+   }
+  },
+  {
+   "id": "s3-00216",
+   "question": "ആദ്യ സന്ദർശനത്തിലെ ദോഷം ഏതായിരുന്നു?",
+   "language": "ml",
+   "frame": "FIRST_DOSHA",
+   "template": "FIRST_DOSHA#5",
+   "patient": "s2_clinic_b/P03",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "unknown",
+    "value": null,
+    "sources": [
+     "rx:34"
+    ]
+   }
+  },
+  {
+   "id": "s3-00217",
+   "question": "ആദ്യ സന്ദർശനത്തിലെ ദോഷം ഏതായിരുന്നു?",
+   "language": "ml",
+   "frame": "FIRST_DOSHA",
+   "template": "FIRST_DOSHA#5",
+   "patient": "s2_clinic_a/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:16",
+     "dosha": "Pitta-Kapha"
+    },
+    "sources": [
+     "rx:16"
+    ]
+   }
+  },
+  {
+   "id": "s3-00218",
+   "question": "ആദ്യ സന്ദർശനത്തിലെ ദോഷം ഏതായിരുന്നു?",
+   "language": "ml",
+   "frame": "FIRST_DOSHA",
+   "template": "FIRST_DOSHA#5",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:1",
+     "dosha": "Pitta-Kapha"
+    },
+    "sources": [
+     "rx:1"
+    ]
+   }
+  },
+  {
+   "id": "s3-00219",
+   "question": "ആദ്യ സന്ദർശനത്തിലെ ദോഷം ഏതായിരുന്നു?",
+   "language": "ml",
+   "frame": "FIRST_DOSHA",
+   "template": "FIRST_DOSHA#5",
+   "patient": "s2_clinic_a/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:20",
+     "dosha": "Vata"
+    },
+    "sources": [
+     "rx:20"
+    ]
+   }
+  },
+  {
+   "id": "s3-00220",
+   "question": "ആദ്യ സന്ദർശനത്തിലെ ദോഷം ഏതായിരുന്നു?",
+   "language": "ml",
+   "frame": "FIRST_DOSHA",
+   "template": "FIRST_DOSHA#5",
+   "patient": "s2_clinic_b/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:52",
+     "dosha": "Pitta"
+    },
+    "sources": [
+     "rx:52"
+    ]
+   }
+  },
+  {
+   "id": "s3-00221",
+   "question": "What is the current dosha?",
+   "language": "en",
+   "frame": "LAST_DOSHA",
+   "template": "LAST_DOSHA#0",
+   "patient": "s2_clinic_b/P03",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:38",
+     "dosha": "Vata"
+    },
+    "sources": [
+     "rx:38"
+    ]
+   }
+  },
+  {
+   "id": "s3-00222",
+   "question": "What is the current dosha?",
+   "language": "en",
+   "frame": "LAST_DOSHA",
+   "template": "LAST_DOSHA#0",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:4",
+     "dosha": "Vata"
+    },
+    "sources": [
+     "rx:4"
+    ]
+   }
+  },
+  {
+   "id": "s3-00223",
+   "question": "What is the current dosha?",
+   "language": "en",
+   "frame": "LAST_DOSHA",
+   "template": "LAST_DOSHA#0",
+   "patient": "s2_clinic_b/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:59",
+     "dosha": "Pitta-Kapha"
+    },
+    "sources": [
+     "rx:59"
+    ]
+   }
+  },
+  {
+   "id": "s3-00224",
+   "question": "What is the current dosha?",
+   "language": "en",
+   "frame": "LAST_DOSHA",
+   "template": "LAST_DOSHA#0",
+   "patient": "s2_clinic_a/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:11",
+     "dosha": "Vata"
+    },
+    "sources": [
+     "rx:11"
+    ]
+   }
+  },
+  {
+   "id": "s3-00225",
+   "question": "What is the current dosha?",
+   "language": "en",
+   "frame": "LAST_DOSHA",
+   "template": "LAST_DOSHA#0",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:4",
+     "dosha": "Vata"
+    },
+    "sources": [
+     "rx:4"
+    ]
+   }
+  },
+  {
+   "id": "s3-00226",
+   "question": "What is the current dosha?",
+   "language": "en",
+   "frame": "LAST_DOSHA",
+   "template": "LAST_DOSHA#0",
+   "patient": "s2_clinic_a/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "prescription": "rx:21",
+     "dosha": "Vata-Kapha"
+    },
+    "sources": [
+     "rx:21"
+    ]
+   }
+  },
+  {
+   "id": "s3-00281",
+   "question": "Date of the earliest encounter?",
+   "language": "en",
+   "frame": "FIRST_ENC",
+   "template": "FIRST_ENC#2",
+   "patient": "s2_clinic_b/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "encounter": "enc:s2e39",
+     "opened_at": "2026-01-01 09:00:00",
+     "closed_at": "2026-01-01 09:20:00"
+    },
+    "sources": [
+     "enc:s2e39"
+    ]
+   }
+  },
+  {
+   "id": "s3-00282",
+   "question": "Date of the earliest encounter?",
+   "language": "en",
+   "frame": "FIRST_ENC",
+   "template": "FIRST_ENC#2",
+   "patient": "s2_clinic_a/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "encounter": "enc:s2e9",
+     "opened_at": "2026-01-01 09:00:00",
+     "closed_at": "2026-01-01 09:20:00"
+    },
+    "sources": [
+     "enc:s2e9"
+    ]
+   }
+  },
+  {
+   "id": "s3-00283",
+   "question": "Date of the earliest encounter?",
+   "language": "en",
+   "frame": "FIRST_ENC",
+   "template": "FIRST_ENC#2",
+   "patient": "s2_clinic_b/P03",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "encounter": "enc:s2e35",
+     "opened_at": "2026-01-02 09:00:00",
+     "closed_at": "2026-01-02 09:20:00"
+    },
+    "sources": [
+     "enc:s2e35"
+    ]
+   }
+  },
+  {
+   "id": "s3-00284",
+   "question": "Date of the earliest encounter?",
+   "language": "en",
+   "frame": "FIRST_ENC",
+   "template": "FIRST_ENC#2",
+   "patient": "s2_clinic_b/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "encounter": "enc:s2e31",
+     "opened_at": "2026-01-01 09:00:00",
+     "closed_at": "2026-01-01 09:20:00"
+    },
+    "sources": [
+     "enc:s2e31"
+    ]
+   }
+  },
+  {
+   "id": "s3-00285",
+   "question": "Date of the earliest encounter?",
+   "language": "en",
+   "frame": "FIRST_ENC",
+   "template": "FIRST_ENC#2",
+   "patient": "s2_clinic_a/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "encounter": "enc:s2e28",
+     "opened_at": "2026-01-01 09:00:00",
+     "closed_at": "2026-01-01 09:20:00"
+    },
+    "sources": [
+     "enc:s2e28"
+    ]
+   }
+  },
+  {
+   "id": "s3-00286",
+   "question": "Date of the earliest encounter?",
+   "language": "en",
+   "frame": "FIRST_ENC",
+   "template": "FIRST_ENC#2",
+   "patient": "s2_clinic_a/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "first",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "encounter": "enc:s2e9",
+     "opened_at": "2026-01-01 09:00:00",
+     "closed_at": "2026-01-01 09:20:00"
+    },
+    "sources": [
+     "enc:s2e9"
+    ]
+   }
+  },
+  {
+   "id": "s3-00331",
+   "question": "When was the latest consultation?",
+   "language": "en",
+   "frame": "LAST_ENC",
+   "template": "LAST_ENC#3",
+   "patient": "s2_clinic_a/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "encounter": "enc:s2e30",
+     "opened_at": "2026-01-03 09:00:00",
+     "closed_at": "2026-01-03 09:20:00"
+    },
+    "sources": [
+     "enc:s2e30"
+    ]
+   }
+  },
+  {
+   "id": "s3-00332",
+   "question": "When was the latest consultation?",
+   "language": "en",
+   "frame": "LAST_ENC",
+   "template": "LAST_ENC#3",
+   "patient": "s2_clinic_b/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "encounter": "enc:s2e41",
+     "opened_at": "2026-01-03 09:00:00",
+     "closed_at": "2026-01-03 09:20:00"
+    },
+    "sources": [
+     "enc:s2e41"
+    ]
+   }
+  },
+  {
+   "id": "s3-00333",
+   "question": "When was the latest consultation?",
+   "language": "en",
+   "frame": "LAST_ENC",
+   "template": "LAST_ENC#3",
+   "patient": "s2_clinic_b/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "encounter": "enc:s2e57",
+     "opened_at": "2026-01-04 09:00:00",
+     "closed_at": "2026-01-04 09:20:00"
+    },
+    "sources": [
+     "enc:s2e57"
+    ]
+   }
+  },
+  {
+   "id": "s3-00334",
+   "question": "When was the latest consultation?",
+   "language": "en",
+   "frame": "LAST_ENC",
+   "template": "LAST_ENC#3",
+   "patient": "s2_clinic_a/P09",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "encounter": "enc:s2e27",
+     "opened_at": "2026-01-05 09:00:00",
+     "closed_at": "2026-01-05 09:20:00"
+    },
+    "sources": [
+     "enc:s2e27"
+    ]
+   }
+  },
+  {
+   "id": "s3-00335",
+   "question": "When was the latest consultation?",
+   "language": "en",
+   "frame": "LAST_ENC",
+   "template": "LAST_ENC#3",
+   "patient": "s2_clinic_a/P09",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "encounter": "enc:s2e27",
+     "opened_at": "2026-01-05 09:00:00",
+     "closed_at": "2026-01-05 09:20:00"
+    },
+    "sources": [
+     "enc:s2e27"
+    ]
+   }
+  },
+  {
+   "id": "s3-00336",
+   "question": "When was the latest consultation?",
+   "language": "en",
+   "frame": "LAST_ENC",
+   "template": "LAST_ENC#3",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "last",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "encounter": "enc:s2e4",
+     "opened_at": "2026-01-05 09:00:00",
+     "closed_at": "2026-01-05 09:20:00"
+    },
+    "sources": [
+     "enc:s2e4"
+    ]
+   }
+  },
+  {
+   "id": "s3-00361",
+   "question": "How many times have we prescribed for him?",
+   "language": "en",
+   "frame": "COUNT_RX",
+   "template": "COUNT_RX#1",
+   "patient": "s2_clinic_b/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 4,
+    "sources": [
+     "rx:56",
+     "rx:57",
+     "rx:58",
+     "rx:59"
+    ]
+   }
+  },
+  {
+   "id": "s3-00362",
+   "question": "How many times have we prescribed for him?",
+   "language": "en",
+   "frame": "COUNT_RX",
+   "template": "COUNT_RX#1",
+   "patient": "s2_clinic_a/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 2,
+    "sources": [
+     "rx:20",
+     "rx:21"
+    ]
+   }
+  },
+  {
+   "id": "s3-00363",
+   "question": "How many times have we prescribed for him?",
+   "language": "en",
+   "frame": "COUNT_RX",
+   "template": "COUNT_RX#1",
+   "patient": "s2_clinic_b/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 4,
+    "sources": [
+     "rx:30",
+     "rx:31",
+     "rx:32",
+     "rx:33"
+    ]
+   }
+  },
+  {
+   "id": "s3-00364",
+   "question": "How many times have we prescribed for him?",
+   "language": "en",
+   "frame": "COUNT_RX",
+   "template": "COUNT_RX#1",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 2,
+    "sources": [
+     "rx:47",
+     "rx:48"
+    ]
+   }
+  },
+  {
+   "id": "s3-00365",
+   "question": "How many times have we prescribed for him?",
+   "language": "en",
+   "frame": "COUNT_RX",
+   "template": "COUNT_RX#1",
+   "patient": "s2_clinic_b/P05",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 6,
+    "sources": [
+     "rx:41",
+     "rx:42",
+     "rx:43",
+     "rx:44",
+     "rx:45",
+     "rx:46"
+    ]
+   }
+  },
+  {
+   "id": "s3-00366",
+   "question": "How many times have we prescribed for him?",
+   "language": "en",
+   "frame": "COUNT_RX",
+   "template": "COUNT_RX#1",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 2,
+    "sources": [
+     "rx:47",
+     "rx:48"
+    ]
+   }
+  },
+  {
+   "id": "s3-00405",
+   "question": "Count prescriptions among the latest two.",
+   "language": "en",
+   "frame": "COUNT_RX_N",
+   "template": "COUNT_RX_N#1",
+   "patient": "s2_clinic_a/P09",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": 2,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 2,
+    "sources": [
+     "rx:25",
+     "rx:26"
+    ]
+   }
+  },
+  {
+   "id": "s3-00406",
+   "question": "Count prescriptions among the latest 3.",
+   "language": "en",
+   "frame": "COUNT_RX_N",
+   "template": "COUNT_RX_N#1",
+   "patient": "s2_clinic_b/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": 3,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 3,
+    "sources": [
+     "rx:31",
+     "rx:32",
+     "rx:33"
+    ]
+   }
+  },
+  {
+   "id": "s3-00407",
+   "question": "Count prescriptions among the latest three.",
+   "language": "en",
+   "frame": "COUNT_RX_N",
+   "template": "COUNT_RX_N#1",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": 3,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 2,
+    "sources": [
+     "rx:47",
+     "rx:48"
+    ]
+   }
+  },
+  {
+   "id": "s3-00408",
+   "question": "Count prescriptions among the latest 4.",
+   "language": "en",
+   "frame": "COUNT_RX_N",
+   "template": "COUNT_RX_N#1",
+   "patient": "s2_clinic_a/P06",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": 4,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 1,
+    "sources": [
+     "rx:15"
+    ]
+   }
+  },
+  {
+   "id": "s3-00409",
+   "question": "Count prescriptions among the latest 4.",
+   "language": "en",
+   "frame": "COUNT_RX_N",
+   "template": "COUNT_RX_N#1",
+   "patient": "s2_clinic_b/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": 4,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 3,
+    "sources": [
+     "rx:49",
+     "rx:50",
+     "rx:51"
+    ]
+   }
+  },
+  {
+   "id": "s3-00410",
+   "question": "Count prescriptions among the latest 2.",
+   "language": "en",
+   "frame": "COUNT_RX_N",
+   "template": "COUNT_RX_N#1",
+   "patient": "s2_clinic_a/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": 2,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 2,
+    "sources": [
+     "rx:28",
+     "rx:29"
+    ]
+   }
+  },
+  {
+   "id": "s3-00479",
+   "question": "എത്ര തവണ വന്നു?",
+   "language": "ml",
+   "frame": "COUNT_ENC",
+   "template": "COUNT_ENC#5",
+   "patient": "s2_clinic_b/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 4,
+    "sources": [
+     "enc:s2e31",
+     "enc:s2e32",
+     "enc:s2e33",
+     "enc:s2e34"
+    ]
+   }
+  },
+  {
+   "id": "s3-00480",
+   "question": "എത്ര തവണ വന്നു?",
+   "language": "ml",
+   "frame": "COUNT_ENC",
+   "template": "COUNT_ENC#5",
+   "patient": "s2_clinic_a/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 3,
+    "sources": [
+     "enc:s2e28",
+     "enc:s2e29",
+     "enc:s2e30"
+    ]
+   }
+  },
+  {
+   "id": "s3-00481",
+   "question": "എത്ര തവണ വന്നു?",
+   "language": "ml",
+   "frame": "COUNT_ENC",
+   "template": "COUNT_ENC#5",
+   "patient": "s2_clinic_a/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 4,
+    "sources": [
+     "enc:s2e17",
+     "enc:s2e18",
+     "enc:s2e19",
+     "enc:s2e20"
+    ]
+   }
+  },
+  {
+   "id": "s3-00482",
+   "question": "എത്ര തവണ വന്നു?",
+   "language": "ml",
+   "frame": "COUNT_ENC",
+   "template": "COUNT_ENC#5",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 2,
+    "sources": [
+     "enc:s2e48",
+     "enc:s2e49"
+    ]
+   }
+  },
+  {
+   "id": "s3-00483",
+   "question": "എത്ര തവണ വന്നു?",
+   "language": "ml",
+   "frame": "COUNT_ENC",
+   "template": "COUNT_ENC#5",
+   "patient": "s2_clinic_a/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 3,
+    "sources": [
+     "enc:s2e28",
+     "enc:s2e29",
+     "enc:s2e30"
+    ]
+   }
+  },
+  {
+   "id": "s3-00484",
+   "question": "എത്ര തവണ വന്നു?",
+   "language": "ml",
+   "frame": "COUNT_ENC",
+   "template": "COUNT_ENC#5",
+   "patient": "s2_clinic_a/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 3,
+    "sources": [
+     "enc:s2e28",
+     "enc:s2e29",
+     "enc:s2e30"
+    ]
+   }
+  },
+  {
+   "id": "s3-00485",
+   "question": "How many times was Triphala prescribed?",
+   "language": "en",
+   "frame": "COUNT_HERB",
+   "template": "COUNT_HERB#0",
+   "patient": "s2_clinic_b/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "herb",
+     "herb": "Triphala",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 2,
+    "sources": [
+     "rx:49",
+     "rx:50"
+    ]
+   }
+  },
+  {
+   "id": "s3-00486",
+   "question": "How many times was adhatoda vasica prescribed?",
+   "language": "en",
+   "frame": "COUNT_HERB",
+   "template": "COUNT_HERB#0",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "herb",
+     "herb": "Vasaka",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "incomplete",
+    "value": 1,
+    "sources": [
+     "rx:1",
+     "rx:3"
+    ]
+   }
+  },
+  {
+   "id": "s3-00487",
+   "question": "How many times was Guggulu prescribed?",
+   "language": "en",
+   "frame": "COUNT_HERB",
+   "template": "COUNT_HERB#0",
+   "patient": "s2_clinic_b/P05",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "herb",
+     "herb": "Guggulu",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 4,
+    "sources": [
+     "rx:43",
+     "rx:44",
+     "rx:45",
+     "rx:46"
+    ]
+   }
+  },
+  {
+   "id": "s3-00488",
+   "question": "How many times was Dashamoola prescribed?",
+   "language": "en",
+   "frame": "COUNT_HERB",
+   "template": "COUNT_HERB#0",
+   "patient": "s2_clinic_b/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "herb",
+     "herb": "Dashamoola",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 1,
+    "sources": [
+     "rx:53"
+    ]
+   }
+  },
+  {
+   "id": "s3-00489",
+   "question": "How many times was Bhringraj prescribed?",
+   "language": "en",
+   "frame": "COUNT_HERB",
+   "template": "COUNT_HERB#0",
+   "patient": "s2_clinic_b/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "herb",
+     "herb": "Bhringraj",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 1,
+    "sources": [
+     "rx:59"
+    ]
+   }
+  },
+  {
+   "id": "s3-00490",
+   "question": "How many times was Arjuna prescribed?",
+   "language": "en",
+   "frame": "COUNT_HERB",
+   "template": "COUNT_HERB#0",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "herb",
+     "herb": "Arjuna",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 2,
+    "sources": [
+     "rx:47",
+     "rx:48"
+    ]
+   }
+  },
+  {
+   "id": "s3-00537",
+   "question": "In the latest three visits, how often was Ashwagandha given?",
+   "language": "en",
+   "frame": "COUNT_HERB_N",
+   "template": "COUNT_HERB_N#1",
+   "patient": "s2_clinic_b/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "herb",
+     "herb": "Ashwagandha",
+     "dosha": null,
+     "last_n": 3,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "incomplete",
+    "value": 0,
+    "sources": [
+     "rx:32"
+    ]
+   }
+  },
+  {
+   "id": "s3-00538",
+   "question": "In the latest 3 visits, how often was Haridra given?",
+   "language": "en",
+   "frame": "COUNT_HERB_N",
+   "template": "COUNT_HERB_N#1",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "herb",
+     "herb": "Haridra",
+     "dosha": null,
+     "last_n": 3,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 1,
+    "sources": [
+     "rx:48"
+    ]
+   }
+  },
+  {
+   "id": "s3-00539",
+   "question": "In the latest two visits, how often was Guggulu given?",
+   "language": "en",
+   "frame": "COUNT_HERB_N",
+   "template": "COUNT_HERB_N#1",
+   "patient": "s2_clinic_a/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "herb",
+     "herb": "Guggulu",
+     "dosha": null,
+     "last_n": 2,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 0,
+    "sources": []
+   }
+  },
+  {
+   "id": "s3-00540",
+   "question": "In the latest two visits, how often was bacopa monnieri given?",
+   "language": "en",
+   "frame": "COUNT_HERB_N",
+   "template": "COUNT_HERB_N#1",
+   "patient": "s2_clinic_b/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "herb",
+     "herb": "Brahmi",
+     "dosha": null,
+     "last_n": 2,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 2,
+    "sources": [
+     "rx:53",
+     "rx:54"
+    ]
+   }
+  },
+  {
+   "id": "s3-00541",
+   "question": "In the latest 2 visits, how often was Amalaki given?",
+   "language": "en",
+   "frame": "COUNT_HERB_N",
+   "template": "COUNT_HERB_N#1",
+   "patient": "s2_clinic_b/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "herb",
+     "herb": "Amalaki",
+     "dosha": null,
+     "last_n": 2,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 2,
+    "sources": [
+     "rx:53",
+     "rx:54"
+    ]
+   }
+  },
+  {
+   "id": "s3-00542",
+   "question": "In the latest 4 visits, how often was Bhringraj given?",
+   "language": "en",
+   "frame": "COUNT_HERB_N",
+   "template": "COUNT_HERB_N#1",
+   "patient": "s2_clinic_b/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "herb",
+     "herb": "Bhringraj",
+     "dosha": null,
+     "last_n": 4,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 1,
+    "sources": [
+     "rx:59"
+    ]
+   }
+  },
+  {
+   "id": "s3-00573",
+   "question": "How many times was Pitta-Kapha recorded?",
+   "language": "en",
+   "frame": "COUNT_DOSHA",
+   "template": "COUNT_DOSHA#0",
+   "patient": "s2_clinic_b/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "dosha",
+     "herb": null,
+     "dosha": "Pitta-Kapha",
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 1,
+    "sources": [
+     "rx:54"
+    ]
+   }
+  },
+  {
+   "id": "s3-00574",
+   "question": "How many times was Vata-Pitta recorded?",
+   "language": "en",
+   "frame": "COUNT_DOSHA",
+   "template": "COUNT_DOSHA#0",
+   "patient": "s2_clinic_b/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "dosha",
+     "herb": null,
+     "dosha": "Vata-Pitta",
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "incomplete",
+    "value": 2,
+    "sources": [
+     "rx:31",
+     "rx:32",
+     "rx:33"
+    ]
+   }
+  },
+  {
+   "id": "s3-00575",
+   "question": "How many times was Pitta-Kapha recorded?",
+   "language": "en",
+   "frame": "COUNT_DOSHA",
+   "template": "COUNT_DOSHA#0",
+   "patient": "s2_clinic_b/P01",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "dosha",
+     "herb": null,
+     "dosha": "Pitta-Kapha",
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 0,
+    "sources": []
+   }
+  },
+  {
+   "id": "s3-00576",
+   "question": "How many times was Kapha recorded?",
+   "language": "en",
+   "frame": "COUNT_DOSHA",
+   "template": "COUNT_DOSHA#0",
+   "patient": "s2_clinic_b/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "dosha",
+     "herb": null,
+     "dosha": "Kapha",
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 2,
+    "sources": [
+     "rx:50",
+     "rx:51"
+    ]
+   }
+  },
+  {
+   "id": "s3-00577",
+   "question": "How many times was Pitta recorded?",
+   "language": "en",
+   "frame": "COUNT_DOSHA",
+   "template": "COUNT_DOSHA#0",
+   "patient": "s2_clinic_b/P05",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "dosha",
+     "herb": null,
+     "dosha": "Pitta",
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 1,
+    "sources": [
+     "rx:44"
+    ]
+   }
+  },
+  {
+   "id": "s3-00578",
+   "question": "How many times was Pitta-Kapha recorded?",
+   "language": "en",
+   "frame": "COUNT_DOSHA",
+   "template": "COUNT_DOSHA#0",
+   "patient": "s2_clinic_a/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "count",
+     "target": "dosha",
+     "herb": null,
+     "dosha": "Pitta-Kapha",
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 1,
+    "sources": [
+     "rx:16"
+    ]
+   }
+  },
+  {
+   "id": "s3-00617",
+   "question": "How much Haridra has she received in total?",
+   "language": "en",
+   "frame": "SUM_HERB",
+   "template": "SUM_HERB#0",
+   "patient": "s2_clinic_a/P03",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "sum",
+     "target": "herb",
+     "herb": "Haridra",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "incomplete",
+    "value": 45,
+    "sources": [
+     "rx:6",
+     "rx:7",
+     "rx:9"
+    ]
+   }
+  },
+  {
+   "id": "s3-00618",
+   "question": "How much Arjuna has she received in total?",
+   "language": "en",
+   "frame": "SUM_HERB",
+   "template": "SUM_HERB#0",
+   "patient": "s2_clinic_b/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "sum",
+     "target": "herb",
+     "herb": "Arjuna",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "incomplete",
+    "value": 30,
+    "sources": [
+     "rx:31",
+     "rx:32",
+     "rx:33"
+    ]
+   }
+  },
+  {
+   "id": "s3-00619",
+   "question": "How much terminalia arjuna has she received in total?",
+   "language": "en",
+   "frame": "SUM_HERB",
+   "template": "SUM_HERB#0",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "sum",
+     "target": "herb",
+     "herb": "Arjuna",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 80,
+    "sources": [
+     "rx:47",
+     "rx:48"
+    ]
+   }
+  },
+  {
+   "id": "s3-00620",
+   "question": "How much Ashwagandha has she received in total?",
+   "language": "en",
+   "frame": "SUM_HERB",
+   "template": "SUM_HERB#0",
+   "patient": "s2_clinic_b/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "sum",
+     "target": "herb",
+     "herb": "Ashwagandha",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 150,
+    "sources": [
+     "rx:39"
+    ]
+   }
+  },
+  {
+   "id": "s3-00621",
+   "question": "How much Haridra has she received in total?",
+   "language": "en",
+   "frame": "SUM_HERB",
+   "template": "SUM_HERB#0",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "sum",
+     "target": "herb",
+     "herb": "Haridra",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 40,
+    "sources": [
+     "rx:48"
+    ]
+   }
+  },
+  {
+   "id": "s3-00622",
+   "question": "How much Shatavari has she received in total?",
+   "language": "en",
+   "frame": "SUM_HERB",
+   "template": "SUM_HERB#0",
+   "patient": "s2_clinic_b/P03",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "sum",
+     "target": "herb",
+     "herb": "Shatavari",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "incomplete",
+    "value": 0,
+    "sources": [
+     "rx:34"
+    ]
+   }
+  },
+  {
+   "id": "s3-00675",
+   "question": "Sum the picrorhiza kurroa grams across the most recent 3.",
+   "language": "en",
+   "frame": "SUM_HERB_N",
+   "template": "SUM_HERB_N#2",
+   "patient": "s2_clinic_a/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "sum",
+     "target": "herb",
+     "herb": "Kutki",
+     "dosha": null,
+     "last_n": 3,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 160,
+    "sources": [
+     "rx:10",
+     "rx:11"
+    ]
+   }
+  },
+  {
+   "id": "s3-00676",
+   "question": "Sum the Brahmi grams across the most recent 2.",
+   "language": "en",
+   "frame": "SUM_HERB_N",
+   "template": "SUM_HERB_N#2",
+   "patient": "s2_clinic_a/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "sum",
+     "target": "herb",
+     "herb": "Brahmi",
+     "dosha": null,
+     "last_n": 2,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 60,
+    "sources": [
+     "rx:20",
+     "rx:21"
+    ]
+   }
+  },
+  {
+   "id": "s3-00677",
+   "question": "Sum the Pippali grams across the most recent 3.",
+   "language": "en",
+   "frame": "SUM_HERB_N",
+   "template": "SUM_HERB_N#2",
+   "patient": "s2_clinic_b/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "sum",
+     "target": "herb",
+     "herb": "Pippali",
+     "dosha": null,
+     "last_n": 3,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 180,
+    "sources": [
+     "rx:58",
+     "rx:59"
+    ]
+   }
+  },
+  {
+   "id": "s3-00678",
+   "question": "Sum the Dashamoola grams across the most recent 2.",
+   "language": "en",
+   "frame": "SUM_HERB_N",
+   "template": "SUM_HERB_N#2",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "sum",
+     "target": "herb",
+     "herb": "Dashamoola",
+     "dosha": null,
+     "last_n": 2,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "incomplete",
+    "value": 0,
+    "sources": [
+     "rx:3"
+    ]
+   }
+  },
+  {
+   "id": "s3-00679",
+   "question": "Sum the Amalaki grams across the most recent 3.",
+   "language": "en",
+   "frame": "SUM_HERB_N",
+   "template": "SUM_HERB_N#2",
+   "patient": "s2_clinic_b/P05",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "sum",
+     "target": "herb",
+     "herb": "Amalaki",
+     "dosha": null,
+     "last_n": 3,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "not_recorded",
+    "value": null,
+    "sources": []
+   }
+  },
+  {
+   "id": "s3-00680",
+   "question": "Sum the Kutki grams across the most recent 4.",
+   "language": "en",
+   "frame": "SUM_HERB_N",
+   "template": "SUM_HERB_N#2",
+   "patient": "s2_clinic_b/P03",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "sum",
+     "target": "herb",
+     "herb": "Kutki",
+     "dosha": null,
+     "last_n": 4,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": 75,
+    "sources": [
+     "rx:38"
+    ]
+   }
+  },
+  {
+   "id": "s3-00719",
+   "question": "Which prescriptions does she have?",
+   "language": "en",
+   "frame": "LIST_RX",
+   "template": "LIST_RX#2",
+   "patient": "s2_clinic_a/P03",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "rx:5",
+     "rx:6",
+     "rx:7",
+     "rx:8",
+     "rx:9"
+    ],
+    "sources": [
+     "rx:5",
+     "rx:6",
+     "rx:7",
+     "rx:8",
+     "rx:9"
+    ]
+   }
+  },
+  {
+   "id": "s3-00720",
+   "question": "Which prescriptions does she have?",
+   "language": "en",
+   "frame": "LIST_RX",
+   "template": "LIST_RX#2",
+   "patient": "s2_clinic_a/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "rx:10",
+     "rx:11"
+    ],
+    "sources": [
+     "rx:10",
+     "rx:11"
+    ]
+   }
+  },
+  {
+   "id": "s3-00721",
+   "question": "Which prescriptions does she have?",
+   "language": "en",
+   "frame": "LIST_RX",
+   "template": "LIST_RX#2",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "rx:47",
+     "rx:48"
+    ],
+    "sources": [
+     "rx:47",
+     "rx:48"
+    ]
+   }
+  },
+  {
+   "id": "s3-00722",
+   "question": "Which prescriptions does she have?",
+   "language": "en",
+   "frame": "LIST_RX",
+   "template": "LIST_RX#2",
+   "patient": "s2_clinic_a/P05",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "rx:12",
+     "rx:13",
+     "rx:14"
+    ],
+    "sources": [
+     "rx:12",
+     "rx:13",
+     "rx:14"
+    ]
+   }
+  },
+  {
+   "id": "s3-00723",
+   "question": "Which prescriptions does she have?",
+   "language": "en",
+   "frame": "LIST_RX",
+   "template": "LIST_RX#2",
+   "patient": "s2_clinic_a/P09",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "rx:22",
+     "rx:23",
+     "rx:24",
+     "rx:25",
+     "rx:26"
+    ],
+    "sources": [
+     "rx:22",
+     "rx:23",
+     "rx:24",
+     "rx:25",
+     "rx:26"
+    ]
+   }
+  },
+  {
+   "id": "s3-00724",
+   "question": "Which prescriptions does she have?",
+   "language": "en",
+   "frame": "LIST_RX",
+   "template": "LIST_RX#2",
+   "patient": "s2_clinic_b/P09",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "rx:55"
+    ],
+    "sources": [
+     "rx:55"
+    ]
+   }
+  },
+  {
+   "id": "s3-00749",
+   "question": "List all visits.",
+   "language": "en",
+   "frame": "LIST_ENC",
+   "template": "LIST_ENC#0",
+   "patient": "s2_clinic_b/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "enc:s2e54",
+     "enc:s2e55",
+     "enc:s2e56",
+     "enc:s2e57"
+    ],
+    "sources": [
+     "enc:s2e54",
+     "enc:s2e55",
+     "enc:s2e56",
+     "enc:s2e57"
+    ]
+   }
+  },
+  {
+   "id": "s3-00750",
+   "question": "List all visits.",
+   "language": "en",
+   "frame": "LIST_ENC",
+   "template": "LIST_ENC#0",
+   "patient": "s2_clinic_a/P09",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "enc:s2e23",
+     "enc:s2e24",
+     "enc:s2e25",
+     "enc:s2e26",
+     "enc:s2e27"
+    ],
+    "sources": [
+     "enc:s2e23",
+     "enc:s2e24",
+     "enc:s2e25",
+     "enc:s2e26",
+     "enc:s2e27"
+    ]
+   }
+  },
+  {
+   "id": "s3-00751",
+   "question": "List all visits.",
+   "language": "en",
+   "frame": "LIST_ENC",
+   "template": "LIST_ENC#0",
+   "patient": "s2_clinic_b/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "enc:s2e39",
+     "enc:s2e40",
+     "enc:s2e41"
+    ],
+    "sources": [
+     "enc:s2e39",
+     "enc:s2e40",
+     "enc:s2e41"
+    ]
+   }
+  },
+  {
+   "id": "s3-00752",
+   "question": "List all visits.",
+   "language": "en",
+   "frame": "LIST_ENC",
+   "template": "LIST_ENC#0",
+   "patient": "s2_clinic_a/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "enc:s2e28",
+     "enc:s2e29",
+     "enc:s2e30"
+    ],
+    "sources": [
+     "enc:s2e28",
+     "enc:s2e29",
+     "enc:s2e30"
+    ]
+   }
+  },
+  {
+   "id": "s3-00753",
+   "question": "List all visits.",
+   "language": "en",
+   "frame": "LIST_ENC",
+   "template": "LIST_ENC#0",
+   "patient": "s2_clinic_a/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "enc:s2e17",
+     "enc:s2e18",
+     "enc:s2e19",
+     "enc:s2e20"
+    ],
+    "sources": [
+     "enc:s2e17",
+     "enc:s2e18",
+     "enc:s2e19",
+     "enc:s2e20"
+    ]
+   }
+  },
+  {
+   "id": "s3-00754",
+   "question": "List all visits.",
+   "language": "en",
+   "frame": "LIST_ENC",
+   "template": "LIST_ENC#0",
+   "patient": "s2_clinic_a/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "encounter",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "enc:s2e17",
+     "enc:s2e18",
+     "enc:s2e19",
+     "enc:s2e20"
+    ],
+    "sources": [
+     "enc:s2e17",
+     "enc:s2e18",
+     "enc:s2e19",
+     "enc:s2e20"
+    ]
+   }
+  },
+  {
+   "id": "s3-00801",
+   "question": "List every herb prescribed so far.",
+   "language": "en",
+   "frame": "LIST_HERB",
+   "template": "LIST_HERB#1",
+   "patient": "s2_clinic_a/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "herb",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "Kutki",
+     "Arjuna",
+     "Ashwagandha"
+    ],
+    "sources": [
+     "rx:10",
+     "rx:11"
+    ]
+   }
+  },
+  {
+   "id": "s3-00802",
+   "question": "List every herb prescribed so far.",
+   "language": "en",
+   "frame": "LIST_HERB",
+   "template": "LIST_HERB#1",
+   "patient": "s2_clinic_a/P05",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "herb",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "Ashwagandha",
+     "Bhringraj",
+     "Dashamoola"
+    ],
+    "sources": [
+     "rx:12",
+     "rx:14"
+    ]
+   }
+  },
+  {
+   "id": "s3-00803",
+   "question": "List every herb prescribed so far.",
+   "language": "en",
+   "frame": "LIST_HERB",
+   "template": "LIST_HERB#1",
+   "patient": "s2_clinic_a/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "herb",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "Brahmi",
+     "Kutki"
+    ],
+    "sources": [
+     "rx:20",
+     "rx:21"
+    ]
+   }
+  },
+  {
+   "id": "s3-00804",
+   "question": "List every herb prescribed so far.",
+   "language": "en",
+   "frame": "LIST_HERB",
+   "template": "LIST_HERB#1",
+   "patient": "s2_clinic_a/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "herb",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "Pippali",
+     "Vasaka",
+     "Ashwagandha"
+    ],
+    "sources": [
+     "rx:16",
+     "rx:18"
+    ]
+   }
+  },
+  {
+   "id": "s3-00805",
+   "question": "List every herb prescribed so far.",
+   "language": "en",
+   "frame": "LIST_HERB",
+   "template": "LIST_HERB#1",
+   "patient": "s2_clinic_a/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "herb",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "Brahmi",
+     "Kutki"
+    ],
+    "sources": [
+     "rx:20",
+     "rx:21"
+    ]
+   }
+  },
+  {
+   "id": "s3-00806",
+   "question": "List every herb prescribed so far.",
+   "language": "en",
+   "frame": "LIST_HERB",
+   "template": "LIST_HERB#1",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "herb",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "incomplete",
+    "value": [
+     "Dashamoola",
+     "Vasaka",
+     "Bhringraj"
+    ],
+    "sources": [
+     "rx:1",
+     "rx:2",
+     "rx:3"
+    ]
+   }
+  },
+  {
+   "id": "s3-00867",
+   "question": "avasanathe moonu visitil ethokke marunnu?",
+   "language": "manglish",
+   "frame": "LIST_HERB_N",
+   "template": "LIST_HERB_N#4",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "herb",
+     "herb": null,
+     "dosha": null,
+     "last_n": 3,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "incomplete",
+    "value": [
+     "Bhringraj"
+    ],
+    "sources": [
+     "rx:2",
+     "rx:3"
+    ]
+   }
+  },
+  {
+   "id": "s3-00868",
+   "question": "avasanathe naalu visitil ethokke marunnu?",
+   "language": "manglish",
+   "frame": "LIST_HERB_N",
+   "template": "LIST_HERB_N#4",
+   "patient": "s2_clinic_a/P09",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "herb",
+     "herb": null,
+     "dosha": null,
+     "last_n": 4,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "Pippali"
+    ],
+    "sources": [
+     "rx:23"
+    ]
+   }
+  },
+  {
+   "id": "s3-00869",
+   "question": "avasanathe 3 visitil ethokke marunnu?",
+   "language": "manglish",
+   "frame": "LIST_HERB_N",
+   "template": "LIST_HERB_N#4",
+   "patient": "s2_clinic_b/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "herb",
+     "herb": null,
+     "dosha": null,
+     "last_n": 3,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "Amalaki",
+     "Guggulu",
+     "Brahmi",
+     "Dashamoola"
+    ],
+    "sources": [
+     "rx:52",
+     "rx:53"
+    ]
+   }
+  },
+  {
+   "id": "s3-00870",
+   "question": "avasanathe 2 visitil ethokke marunnu?",
+   "language": "manglish",
+   "frame": "LIST_HERB_N",
+   "template": "LIST_HERB_N#4",
+   "patient": "s2_clinic_a/P09",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "herb",
+     "herb": null,
+     "dosha": null,
+     "last_n": 2,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "Pippali"
+    ],
+    "sources": [
+     "rx:25"
+    ]
+   }
+  },
+  {
+   "id": "s3-00871",
+   "question": "avasanathe randu visitil ethokke marunnu?",
+   "language": "manglish",
+   "frame": "LIST_HERB_N",
+   "template": "LIST_HERB_N#4",
+   "patient": "s2_clinic_b/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "herb",
+     "herb": null,
+     "dosha": null,
+     "last_n": 2,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     "Haritaki",
+     "Brahmi",
+     "Punarnava",
+     "Pippali",
+     "Dashamoola",
+     "Bhringraj"
+    ],
+    "sources": [
+     "rx:58",
+     "rx:59"
+    ]
+   }
+  },
+  {
+   "id": "s3-00872",
+   "question": "avasanathe 3 visitil ethokke marunnu?",
+   "language": "manglish",
+   "frame": "LIST_HERB_N",
+   "template": "LIST_HERB_N#4",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "herb",
+     "herb": null,
+     "dosha": null,
+     "last_n": 3,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "incomplete",
+    "value": [
+     "Bhringraj"
+    ],
+    "sources": [
+     "rx:2",
+     "rx:3"
+    ]
+   }
+  },
+  {
+   "id": "s3-00905",
+   "question": "How has the dosha been noted across prescriptions?",
+   "language": "en",
+   "frame": "LIST_DOSHA",
+   "template": "LIST_DOSHA#3",
+   "patient": "s2_clinic_b/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     {
+      "prescription": "rx:49",
+      "dosha": "Pitta-Kapha"
+     },
+     {
+      "prescription": "rx:50",
+      "dosha": "Kapha"
+     },
+     {
+      "prescription": "rx:51",
+      "dosha": "Kapha"
+     }
+    ],
+    "sources": [
+     "rx:49",
+     "rx:50",
+     "rx:51"
+    ]
+   }
+  },
+  {
+   "id": "s3-00906",
+   "question": "How has the dosha been noted across prescriptions?",
+   "language": "en",
+   "frame": "LIST_DOSHA",
+   "template": "LIST_DOSHA#3",
+   "patient": "s2_clinic_a/P05",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     {
+      "prescription": "rx:12",
+      "dosha": "Vata-Pitta"
+     },
+     {
+      "prescription": "rx:13",
+      "dosha": "Pitta-Kapha"
+     },
+     {
+      "prescription": "rx:14",
+      "dosha": "Vata-Pitta"
+     }
+    ],
+    "sources": [
+     "rx:12",
+     "rx:13",
+     "rx:14"
+    ]
+   }
+  },
+  {
+   "id": "s3-00907",
+   "question": "How has the dosha been noted across prescriptions?",
+   "language": "en",
+   "frame": "LIST_DOSHA",
+   "template": "LIST_DOSHA#3",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "incomplete",
+    "value": [
+     {
+      "prescription": "rx:1",
+      "dosha": "Pitta-Kapha"
+     },
+     {
+      "prescription": "rx:2",
+      "dosha": "Pitta"
+     },
+     {
+      "prescription": "rx:4",
+      "dosha": "Vata"
+     }
+    ],
+    "sources": [
+     "rx:1",
+     "rx:2",
+     "rx:3",
+     "rx:4"
+    ]
+   }
+  },
+  {
+   "id": "s3-00908",
+   "question": "How has the dosha been noted across prescriptions?",
+   "language": "en",
+   "frame": "LIST_DOSHA",
+   "template": "LIST_DOSHA#3",
+   "patient": "s2_clinic_a/P09",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     {
+      "prescription": "rx:22",
+      "dosha": "Vata-Kapha"
+     },
+     {
+      "prescription": "rx:23",
+      "dosha": "Vata"
+     },
+     {
+      "prescription": "rx:24",
+      "dosha": "Pitta-Kapha"
+     },
+     {
+      "prescription": "rx:25",
+      "dosha": "Vata-Kapha"
+     },
+     {
+      "prescription": "rx:26",
+      "dosha": "Pitta"
+     }
+    ],
+    "sources": [
+     "rx:22",
+     "rx:23",
+     "rx:24",
+     "rx:25",
+     "rx:26"
+    ]
+   }
+  },
+  {
+   "id": "s3-00909",
+   "question": "How has the dosha been noted across prescriptions?",
+   "language": "en",
+   "frame": "LIST_DOSHA",
+   "template": "LIST_DOSHA#3",
+   "patient": "s2_clinic_a/P03",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "incomplete",
+    "value": [
+     {
+      "prescription": "rx:5",
+      "dosha": "Vata-Kapha"
+     },
+     {
+      "prescription": "rx:6",
+      "dosha": "Kapha"
+     },
+     {
+      "prescription": "rx:7",
+      "dosha": "Vata"
+     },
+     {
+      "prescription": "rx:8",
+      "dosha": "Vata-Pitta"
+     }
+    ],
+    "sources": [
+     "rx:5",
+     "rx:6",
+     "rx:7",
+     "rx:8",
+     "rx:9"
+    ]
+   }
+  },
+  {
+   "id": "s3-00910",
+   "question": "How has the dosha been noted across prescriptions?",
+   "language": "en",
+   "frame": "LIST_DOSHA",
+   "template": "LIST_DOSHA#3",
+   "patient": "s2_clinic_b/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "list",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": [
+     {
+      "prescription": "rx:49",
+      "dosha": "Pitta-Kapha"
+     },
+     {
+      "prescription": "rx:50",
+      "dosha": "Kapha"
+     },
+     {
+      "prescription": "rx:51",
+      "dosha": "Kapha"
+     }
+    ],
+    "sources": [
+     "rx:49",
+     "rx:50",
+     "rx:51"
+    ]
+   }
+  },
+  {
+   "id": "s3-00947",
+   "question": "Differences between the last two prescriptions?",
+   "language": "en",
+   "frame": "DIFF_PREV",
+   "template": "DIFF_PREV#3",
+   "patient": "s2_clinic_b/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "diff",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:53",
+     "b": "rx:54",
+     "added": [],
+     "removed": [
+      [
+       "Dashamoola",
+       20
+      ]
+     ],
+     "changed": [
+      [
+       "Amalaki",
+       15,
+       90
+      ]
+     ],
+     "dosha_a": "Vata",
+     "dosha_b": "Pitta-Kapha",
+     "dosha_changed": true
+    },
+    "sources": [
+     "rx:53",
+     "rx:54"
+    ]
+   }
+  },
+  {
+   "id": "s3-00948",
+   "question": "Differences between the last two prescriptions?",
+   "language": "en",
+   "frame": "DIFF_PREV",
+   "template": "DIFF_PREV#3",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "diff",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "incomplete",
+    "value": {
+     "a": "rx:3",
+     "b": "rx:4",
+     "added": null,
+     "removed": null,
+     "changed": null,
+     "dosha_a": null,
+     "dosha_b": "Vata",
+     "dosha_changed": null
+    },
+    "sources": [
+     "rx:3",
+     "rx:4"
+    ]
+   }
+  },
+  {
+   "id": "s3-00949",
+   "question": "Differences between the last two prescriptions?",
+   "language": "en",
+   "frame": "DIFF_PREV",
+   "template": "DIFF_PREV#3",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "diff",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "incomplete",
+    "value": {
+     "a": "rx:3",
+     "b": "rx:4",
+     "added": null,
+     "removed": null,
+     "changed": null,
+     "dosha_a": null,
+     "dosha_b": "Vata",
+     "dosha_changed": null
+    },
+    "sources": [
+     "rx:3",
+     "rx:4"
+    ]
+   }
+  },
+  {
+   "id": "s3-00950",
+   "question": "Differences between the last two prescriptions?",
+   "language": "en",
+   "frame": "DIFF_PREV",
+   "template": "DIFF_PREV#3",
+   "patient": "s2_clinic_b/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "diff",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:39",
+     "b": "rx:40",
+     "added": [
+      [
+       "Shankhpushpi",
+       120
+      ]
+     ],
+     "removed": [
+      [
+       "Ashwagandha",
+       150
+      ]
+     ],
+     "changed": [],
+     "dosha_a": "Vata-Pitta",
+     "dosha_b": "Kapha",
+     "dosha_changed": true
+    },
+    "sources": [
+     "rx:39",
+     "rx:40"
+    ]
+   }
+  },
+  {
+   "id": "s3-00951",
+   "question": "Differences between the last two prescriptions?",
+   "language": "en",
+   "frame": "DIFF_PREV",
+   "template": "DIFF_PREV#3",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "diff",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:47",
+     "b": "rx:48",
+     "added": [
+      [
+       "Haridra",
+       40
+      ]
+     ],
+     "removed": [],
+     "changed": [],
+     "dosha_a": "Kapha",
+     "dosha_b": "Vata-Kapha",
+     "dosha_changed": true
+    },
+    "sources": [
+     "rx:47",
+     "rx:48"
+    ]
+   }
+  },
+  {
+   "id": "s3-00952",
+   "question": "Differences between the last two prescriptions?",
+   "language": "en",
+   "frame": "DIFF_PREV",
+   "template": "DIFF_PREV#3",
+   "patient": "s2_clinic_a/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "diff",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:28",
+     "b": "rx:29",
+     "added": [],
+     "removed": [],
+     "changed": [],
+     "dosha_a": "Kapha",
+     "dosha_b": "Kapha",
+     "dosha_changed": false
+    },
+    "sources": [
+     "rx:28",
+     "rx:29"
+    ]
+   }
+  },
+  {
+   "id": "s3-00993",
+   "question": "Differences between the first visit and now?",
+   "language": "en",
+   "frame": "DIFF_FIRST",
+   "template": "DIFF_FIRST#3",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "diff",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:1",
+     "b": "rx:4",
+     "added": [
+      [
+       "Bhringraj",
+       10
+      ]
+     ],
+     "removed": [
+      [
+       "Dashamoola",
+       120
+      ],
+      [
+       "Vasaka",
+       25
+      ]
+     ],
+     "changed": [],
+     "dosha_a": "Pitta-Kapha",
+     "dosha_b": "Vata",
+     "dosha_changed": true
+    },
+    "sources": [
+     "rx:1",
+     "rx:4"
+    ]
+   }
+  },
+  {
+   "id": "s3-00994",
+   "question": "Differences between the first visit and now?",
+   "language": "en",
+   "frame": "DIFF_FIRST",
+   "template": "DIFF_FIRST#3",
+   "patient": "s2_clinic_a/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "diff",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:16",
+     "b": "rx:19",
+     "added": [
+      [
+       "Ashwagandha",
+       60
+      ],
+      [
+       "Vasaka",
+       75
+      ]
+     ],
+     "removed": [],
+     "changed": [],
+     "dosha_a": "Pitta-Kapha",
+     "dosha_b": "Vata-Pitta",
+     "dosha_changed": true
+    },
+    "sources": [
+     "rx:16",
+     "rx:19"
+    ]
+   }
+  },
+  {
+   "id": "s3-00995",
+   "question": "Differences between the first visit and now?",
+   "language": "en",
+   "frame": "DIFF_FIRST",
+   "template": "DIFF_FIRST#3",
+   "patient": "s2_clinic_a/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "diff",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:27",
+     "b": "rx:29",
+     "added": [
+      [
+       "Brahmi",
+       25
+      ],
+      [
+       "Guggulu",
+       60
+      ]
+     ],
+     "removed": [],
+     "changed": [],
+     "dosha_a": "Kapha",
+     "dosha_b": "Kapha",
+     "dosha_changed": false
+    },
+    "sources": [
+     "rx:27",
+     "rx:29"
+    ]
+   }
+  },
+  {
+   "id": "s3-00996",
+   "question": "Differences between the first visit and now?",
+   "language": "en",
+   "frame": "DIFF_FIRST",
+   "template": "DIFF_FIRST#3",
+   "patient": "s2_clinic_a/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "diff",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:27",
+     "b": "rx:29",
+     "added": [
+      [
+       "Brahmi",
+       25
+      ],
+      [
+       "Guggulu",
+       60
+      ]
+     ],
+     "removed": [],
+     "changed": [],
+     "dosha_a": "Kapha",
+     "dosha_b": "Kapha",
+     "dosha_changed": false
+    },
+    "sources": [
+     "rx:27",
+     "rx:29"
+    ]
+   }
+  },
+  {
+   "id": "s3-00997",
+   "question": "Differences between the first visit and now?",
+   "language": "en",
+   "frame": "DIFF_FIRST",
+   "template": "DIFF_FIRST#3",
+   "patient": "s2_clinic_a/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "diff",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:16",
+     "b": "rx:19",
+     "added": [
+      [
+       "Ashwagandha",
+       60
+      ],
+      [
+       "Vasaka",
+       75
+      ]
+     ],
+     "removed": [],
+     "changed": [],
+     "dosha_a": "Pitta-Kapha",
+     "dosha_b": "Vata-Pitta",
+     "dosha_changed": true
+    },
+    "sources": [
+     "rx:16",
+     "rx:19"
+    ]
+   }
+  },
+  {
+   "id": "s3-00998",
+   "question": "Differences between the first visit and now?",
+   "language": "en",
+   "frame": "DIFF_FIRST",
+   "template": "DIFF_FIRST#3",
+   "patient": "s2_clinic_b/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "diff",
+     "target": "prescription",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:30",
+     "b": "rx:33",
+     "added": [
+      [
+       "Arjuna",
+       15
+      ],
+      [
+       "Dashamoola",
+       25
+      ],
+      [
+       "Haridra",
+       100
+      ]
+     ],
+     "removed": [
+      [
+       "Ashwagandha",
+       25
+      ]
+     ],
+     "changed": [
+      [
+       "Triphala",
+       20,
+       60
+      ]
+     ],
+     "dosha_a": "Vata-Kapha",
+     "dosha_b": "Vata-Pitta",
+     "dosha_changed": true
+    },
+    "sources": [
+     "rx:30",
+     "rx:33"
+    ]
+   }
+  },
+  {
+   "id": "s3-01027",
+   "question": "Compare Brahmi between the last two prescriptions.",
+   "language": "en",
+   "frame": "CMP_HERB_PREV",
+   "template": "CMP_HERB_PREV#2",
+   "patient": "s2_clinic_b/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "herb",
+     "herb": "Brahmi",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:53",
+     "b": "rx:54",
+     "grams_a": 50,
+     "grams_b": 50,
+     "delta": 0
+    },
+    "sources": [
+     "rx:53",
+     "rx:54"
+    ]
+   }
+  },
+  {
+   "id": "s3-01028",
+   "question": "Compare Bibhitaki between the last two prescriptions.",
+   "language": "en",
+   "frame": "CMP_HERB_PREV",
+   "template": "CMP_HERB_PREV#2",
+   "patient": "s2_clinic_a/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "herb",
+     "herb": "Bibhitaki",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "not_recorded",
+    "value": null,
+    "sources": []
+   }
+  },
+  {
+   "id": "s3-01029",
+   "question": "Compare bacopa monnieri between the last two prescriptions.",
+   "language": "en",
+   "frame": "CMP_HERB_PREV",
+   "template": "CMP_HERB_PREV#2",
+   "patient": "s2_clinic_a/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "herb",
+     "herb": "Brahmi",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:20",
+     "b": "rx:21",
+     "grams_a": 30,
+     "grams_b": 30,
+     "delta": 0
+    },
+    "sources": [
+     "rx:20",
+     "rx:21"
+    ]
+   }
+  },
+  {
+   "id": "s3-01030",
+   "question": "Compare Ashwagandha between the last two prescriptions.",
+   "language": "en",
+   "frame": "CMP_HERB_PREV",
+   "template": "CMP_HERB_PREV#2",
+   "patient": "s2_clinic_b/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "herb",
+     "herb": "Ashwagandha",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:39",
+     "b": "rx:40",
+     "grams_a": 150,
+     "grams_b": 0,
+     "delta": -150
+    },
+    "sources": [
+     "rx:39",
+     "rx:40"
+    ]
+   }
+  },
+  {
+   "id": "s3-01031",
+   "question": "Compare Kutki between the last two prescriptions.",
+   "language": "en",
+   "frame": "CMP_HERB_PREV",
+   "template": "CMP_HERB_PREV#2",
+   "patient": "s2_clinic_a/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "herb",
+     "herb": "Kutki",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:10",
+     "b": "rx:11",
+     "grams_a": 80,
+     "grams_b": 80,
+     "delta": 0
+    },
+    "sources": [
+     "rx:10",
+     "rx:11"
+    ]
+   }
+  },
+  {
+   "id": "s3-01032",
+   "question": "Compare Pippali between the last two prescriptions.",
+   "language": "en",
+   "frame": "CMP_HERB_PREV",
+   "template": "CMP_HERB_PREV#2",
+   "patient": "s2_clinic_b/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "herb",
+     "herb": "Pippali",
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:58",
+     "b": "rx:59",
+     "grams_a": 90,
+     "grams_b": 90,
+     "delta": 0
+    },
+    "sources": [
+     "rx:58",
+     "rx:59"
+    ]
+   }
+  },
+  {
+   "id": "s3-01095",
+   "question": "aadyam muthal guggulu ethra maari?",
+   "language": "manglish",
+   "frame": "CMP_HERB_FIRST",
+   "template": "CMP_HERB_FIRST#5",
+   "patient": "s2_clinic_a/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "herb",
+     "herb": "Guggulu",
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:27",
+     "b": "rx:29",
+     "grams_a": 0,
+     "grams_b": 60,
+     "delta": 60
+    },
+    "sources": [
+     "rx:27",
+     "rx:29"
+    ]
+   }
+  },
+  {
+   "id": "s3-01096",
+   "question": "aadyam muthal yashtimadhu ethra maari?",
+   "language": "manglish",
+   "frame": "CMP_HERB_FIRST",
+   "template": "CMP_HERB_FIRST#5",
+   "patient": "s2_clinic_b/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "herb",
+     "herb": "Yashtimadhu",
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:49",
+     "b": "rx:51",
+     "grams_a": 0,
+     "grams_b": 10,
+     "delta": 10
+    },
+    "sources": [
+     "rx:49",
+     "rx:51"
+    ]
+   }
+  },
+  {
+   "id": "s3-01097",
+   "question": "aadyam muthal triphala ethra maari?",
+   "language": "manglish",
+   "frame": "CMP_HERB_FIRST",
+   "template": "CMP_HERB_FIRST#5",
+   "patient": "s2_clinic_b/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "herb",
+     "herb": "Triphala",
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:49",
+     "b": "rx:51",
+     "grams_a": 90,
+     "grams_b": 0,
+     "delta": -90
+    },
+    "sources": [
+     "rx:49",
+     "rx:51"
+    ]
+   }
+  },
+  {
+   "id": "s3-01098",
+   "question": "aadyam muthal bibhitaki ethra maari?",
+   "language": "manglish",
+   "frame": "CMP_HERB_FIRST",
+   "template": "CMP_HERB_FIRST#5",
+   "patient": "s2_clinic_b/P07",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "herb",
+     "herb": "Bibhitaki",
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:49",
+     "b": "rx:51",
+     "grams_a": 0,
+     "grams_b": 15,
+     "delta": 15
+    },
+    "sources": [
+     "rx:49",
+     "rx:51"
+    ]
+   }
+  },
+  {
+   "id": "s3-01099",
+   "question": "aadyam muthal arjuna ethra maari?",
+   "language": "manglish",
+   "frame": "CMP_HERB_FIRST",
+   "template": "CMP_HERB_FIRST#5",
+   "patient": "s2_clinic_a/P03",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "herb",
+     "herb": "Arjuna",
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "unknown",
+    "value": null,
+    "sources": [
+     "rx:9"
+    ]
+   }
+  },
+  {
+   "id": "s3-01100",
+   "question": "aadyam muthal haridra ethra maari?",
+   "language": "manglish",
+   "frame": "CMP_HERB_FIRST",
+   "template": "CMP_HERB_FIRST#5",
+   "patient": "s2_clinic_b/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "herb",
+     "herb": "Haridra",
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:30",
+     "b": "rx:33",
+     "grams_a": 0,
+     "grams_b": 100,
+     "delta": 100
+    },
+    "sources": [
+     "rx:30",
+     "rx:33"
+    ]
+   }
+  },
+  {
+   "id": "s3-01139",
+   "question": "ദോഷം കഴിഞ്ഞ തവണത്തേക്കാൾ മാറിയോ?",
+   "language": "ml",
+   "frame": "CMP_DOSHA_PREV",
+   "template": "CMP_DOSHA_PREV#5",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "unknown",
+    "value": null,
+    "sources": [
+     "rx:3"
+    ]
+   }
+  },
+  {
+   "id": "s3-01140",
+   "question": "ദോഷം കഴിഞ്ഞ തവണത്തേക്കാൾ മാറിയോ?",
+   "language": "ml",
+   "frame": "CMP_DOSHA_PREV",
+   "template": "CMP_DOSHA_PREV#5",
+   "patient": "s2_clinic_a/P05",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:13",
+     "b": "rx:14",
+     "dosha_a": "Pitta-Kapha",
+     "dosha_b": "Vata-Pitta",
+     "changed": true
+    },
+    "sources": [
+     "rx:13",
+     "rx:14"
+    ]
+   }
+  },
+  {
+   "id": "s3-01141",
+   "question": "ദോഷം കഴിഞ്ഞ തവണത്തേക്കാൾ മാറിയോ?",
+   "language": "ml",
+   "frame": "CMP_DOSHA_PREV",
+   "template": "CMP_DOSHA_PREV#5",
+   "patient": "s2_clinic_b/P10",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:58",
+     "b": "rx:59",
+     "dosha_a": "Pitta",
+     "dosha_b": "Pitta-Kapha",
+     "changed": true
+    },
+    "sources": [
+     "rx:58",
+     "rx:59"
+    ]
+   }
+  },
+  {
+   "id": "s3-01142",
+   "question": "ദോഷം കഴിഞ്ഞ തവണത്തേക്കാൾ മാറിയോ?",
+   "language": "ml",
+   "frame": "CMP_DOSHA_PREV",
+   "template": "CMP_DOSHA_PREV#5",
+   "patient": "s2_clinic_b/P04",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:39",
+     "b": "rx:40",
+     "dosha_a": "Vata-Pitta",
+     "dosha_b": "Kapha",
+     "changed": true
+    },
+    "sources": [
+     "rx:39",
+     "rx:40"
+    ]
+   }
+  },
+  {
+   "id": "s3-01143",
+   "question": "ദോഷം കഴിഞ്ഞ തവണത്തേക്കാൾ മാറിയോ?",
+   "language": "ml",
+   "frame": "CMP_DOSHA_PREV",
+   "template": "CMP_DOSHA_PREV#5",
+   "patient": "s2_clinic_a/P06",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "not_recorded",
+    "value": null,
+    "sources": []
+   }
+  },
+  {
+   "id": "s3-01144",
+   "question": "ദോഷം കഴിഞ്ഞ തവണത്തേക്കാൾ മാറിയോ?",
+   "language": "ml",
+   "frame": "CMP_DOSHA_PREV",
+   "template": "CMP_DOSHA_PREV#5",
+   "patient": "s2_clinic_b/P03",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "previous",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:37",
+     "b": "rx:38",
+     "dosha_a": "Vata",
+     "dosha_b": "Vata",
+     "changed": false
+    },
+    "sources": [
+     "rx:37",
+     "rx:38"
+    ]
+   }
+  },
+  {
+   "id": "s3-01145",
+   "question": "Has the dosha changed since the first visit?",
+   "language": "en",
+   "frame": "CMP_DOSHA_FIRST",
+   "template": "CMP_DOSHA_FIRST#0",
+   "patient": "s2_clinic_b/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:52",
+     "b": "rx:54",
+     "dosha_a": "Pitta",
+     "dosha_b": "Pitta-Kapha",
+     "changed": true
+    },
+    "sources": [
+     "rx:52",
+     "rx:54"
+    ]
+   }
+  },
+  {
+   "id": "s3-01146",
+   "question": "Has the dosha changed since the first visit?",
+   "language": "en",
+   "frame": "CMP_DOSHA_FIRST",
+   "template": "CMP_DOSHA_FIRST#0",
+   "patient": "s2_clinic_a/P03",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "unknown",
+    "value": null,
+    "sources": [
+     "rx:9"
+    ]
+   }
+  },
+  {
+   "id": "s3-01147",
+   "question": "Has the dosha changed since the first visit?",
+   "language": "en",
+   "frame": "CMP_DOSHA_FIRST",
+   "template": "CMP_DOSHA_FIRST#0",
+   "patient": "s2_clinic_b/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:30",
+     "b": "rx:33",
+     "dosha_a": "Vata-Kapha",
+     "dosha_b": "Vata-Pitta",
+     "changed": true
+    },
+    "sources": [
+     "rx:30",
+     "rx:33"
+    ]
+   }
+  },
+  {
+   "id": "s3-01148",
+   "question": "Has the dosha changed since the first visit?",
+   "language": "en",
+   "frame": "CMP_DOSHA_FIRST",
+   "template": "CMP_DOSHA_FIRST#0",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:47",
+     "b": "rx:48",
+     "dosha_a": "Kapha",
+     "dosha_b": "Vata-Kapha",
+     "changed": true
+    },
+    "sources": [
+     "rx:47",
+     "rx:48"
+    ]
+   }
+  },
+  {
+   "id": "s3-01149",
+   "question": "Has the dosha changed since the first visit?",
+   "language": "en",
+   "frame": "CMP_DOSHA_FIRST",
+   "template": "CMP_DOSHA_FIRST#0",
+   "patient": "s2_clinic_b/P08",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:52",
+     "b": "rx:54",
+     "dosha_a": "Pitta",
+     "dosha_b": "Pitta-Kapha",
+     "changed": true
+    },
+    "sources": [
+     "rx:52",
+     "rx:54"
+    ]
+   }
+  },
+  {
+   "id": "s3-01150",
+   "question": "Has the dosha changed since the first visit?",
+   "language": "en",
+   "frame": "CMP_DOSHA_FIRST",
+   "template": "CMP_DOSHA_FIRST#0",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "query",
+    "query": {
+     "op": "compare",
+     "target": "dosha",
+     "herb": null,
+     "dosha": null,
+     "last_n": null,
+     "a": "first",
+     "b": "last"
+    }
+   },
+   "gold_answer": {
+    "status": "ok",
+    "value": {
+     "a": "rx:1",
+     "b": "rx:4",
+     "dosha_a": "Pitta-Kapha",
+     "dosha_b": "Vata",
+     "changed": true
+    },
+    "sources": [
+     "rx:1",
+     "rx:4"
+    ]
+   }
+  },
+  {
+   "id": "s3-01211",
+   "question": "Does she have diabetes?",
+   "language": "en",
+   "frame": "DIAGNOSIS",
+   "template": "DIAGNOSIS#3",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "DIAGNOSIS"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01212",
+   "question": "Does she have diabetes?",
+   "language": "en",
+   "frame": "DIAGNOSIS",
+   "template": "DIAGNOSIS#3",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "DIAGNOSIS"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01213",
+   "question": "Does she have diabetes?",
+   "language": "en",
+   "frame": "DIAGNOSIS",
+   "template": "DIAGNOSIS#3",
+   "patient": "s2_clinic_b/P03",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "DIAGNOSIS"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01214",
+   "question": "Does she have diabetes?",
+   "language": "en",
+   "frame": "DIAGNOSIS",
+   "template": "DIAGNOSIS#3",
+   "patient": "s2_clinic_b/P07",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "DIAGNOSIS"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01215",
+   "question": "Does she have diabetes?",
+   "language": "en",
+   "frame": "DIAGNOSIS",
+   "template": "DIAGNOSIS#3",
+   "patient": "s2_clinic_a/P05",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "DIAGNOSIS"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01216",
+   "question": "Does she have diabetes?",
+   "language": "en",
+   "frame": "DIAGNOSIS",
+   "template": "DIAGNOSIS#3",
+   "patient": "s2_clinic_a/P07",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "DIAGNOSIS"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01261",
+   "question": "Is Pippali safe for her?",
+   "language": "en",
+   "frame": "TREATMENT",
+   "template": "TREATMENT#2",
+   "patient": "s2_clinic_a/P09",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "TREATMENT"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01262",
+   "question": "Is curcuma longa safe for her?",
+   "language": "en",
+   "frame": "TREATMENT",
+   "template": "TREATMENT#2",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "TREATMENT"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01263",
+   "question": "Is Ashwagandha safe for her?",
+   "language": "en",
+   "frame": "TREATMENT",
+   "template": "TREATMENT#2",
+   "patient": "s2_clinic_a/P07",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "TREATMENT"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01264",
+   "question": "Is Bhringraj safe for her?",
+   "language": "en",
+   "frame": "TREATMENT",
+   "template": "TREATMENT#2",
+   "patient": "s2_clinic_a/P02",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "TREATMENT"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01265",
+   "question": "Is convolvulus pluricaulis safe for her?",
+   "language": "en",
+   "frame": "TREATMENT",
+   "template": "TREATMENT#2",
+   "patient": "s2_clinic_b/P04",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "TREATMENT"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01266",
+   "question": "Is Ashwagandha safe for her?",
+   "language": "en",
+   "frame": "TREATMENT",
+   "template": "TREATMENT#2",
+   "patient": "s2_clinic_a/P05",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "TREATMENT"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01305",
+   "question": "What was her blood pressure?",
+   "language": "en",
+   "frame": "UNAVAILABLE",
+   "template": "UNAVAILABLE#0",
+   "patient": "s2_clinic_b/P05",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "UNAVAILABLE"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01306",
+   "question": "What was her blood pressure?",
+   "language": "en",
+   "frame": "UNAVAILABLE",
+   "template": "UNAVAILABLE#0",
+   "patient": "s2_clinic_a/P05",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "UNAVAILABLE"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01307",
+   "question": "What was her blood pressure?",
+   "language": "en",
+   "frame": "UNAVAILABLE",
+   "template": "UNAVAILABLE#0",
+   "patient": "s2_clinic_a/P04",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "UNAVAILABLE"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01308",
+   "question": "What was her blood pressure?",
+   "language": "en",
+   "frame": "UNAVAILABLE",
+   "template": "UNAVAILABLE#0",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "UNAVAILABLE"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01309",
+   "question": "What was her blood pressure?",
+   "language": "en",
+   "frame": "UNAVAILABLE",
+   "template": "UNAVAILABLE#0",
+   "patient": "s2_clinic_a/P04",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "UNAVAILABLE"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01310",
+   "question": "What was her blood pressure?",
+   "language": "en",
+   "frame": "UNAVAILABLE",
+   "template": "UNAVAILABLE#0",
+   "patient": "s2_clinic_b/P04",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "UNAVAILABLE"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01417",
+   "question": "asdf qwerty?",
+   "language": "en",
+   "frame": "AMBIGUOUS",
+   "template": "AMBIGUOUS#6",
+   "patient": "s2_clinic_b/P10",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "AMBIGUOUS"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01418",
+   "question": "asdf qwerty?",
+   "language": "en",
+   "frame": "AMBIGUOUS",
+   "template": "AMBIGUOUS#6",
+   "patient": "s2_clinic_a/P04",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "AMBIGUOUS"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01419",
+   "question": "asdf qwerty?",
+   "language": "en",
+   "frame": "AMBIGUOUS",
+   "template": "AMBIGUOUS#6",
+   "patient": "s2_clinic_b/P01",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "AMBIGUOUS"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01420",
+   "question": "asdf qwerty?",
+   "language": "en",
+   "frame": "AMBIGUOUS",
+   "template": "AMBIGUOUS#6",
+   "patient": "s2_clinic_a/P10",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "AMBIGUOUS"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01421",
+   "question": "asdf qwerty?",
+   "language": "en",
+   "frame": "AMBIGUOUS",
+   "template": "AMBIGUOUS#6",
+   "patient": "s2_clinic_b/P02",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "AMBIGUOUS"
+   },
+   "gold_answer": null
+  },
+  {
+   "id": "s3-01422",
+   "question": "asdf qwerty?",
+   "language": "en",
+   "frame": "AMBIGUOUS",
+   "template": "AMBIGUOUS#6",
+   "patient": "s2_clinic_b/P06",
+   "gold_plan": {
+    "kind": "abstain",
+    "reason": "AMBIGUOUS"
+   },
+   "gold_answer": null
+  }
+ ]
+}

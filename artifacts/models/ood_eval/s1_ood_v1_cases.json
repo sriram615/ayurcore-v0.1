@@ -1,0 +1,2195 @@
+[
+ {
+  "case_id": "ood-clean-01",
+  "category": "clean",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    39,
+    50,
+    "HERB_RX"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    39,
+    50,
+    "HERB_NEG"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Shatavari",
+     "grams": 80
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Shatavari": 80
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "omission": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-clean-02",
+  "category": "clean",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Triphala",
+     "grams": 150
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Triphala": 150
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-clean-03",
+  "category": "clean",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    13,
+    18,
+    "DOSHA"
+   ]
+  ],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "",
+   "prescribed_herbs": [
+    {
+     "name": "Neem",
+     "grams": 60
+    },
+    {
+     "name": "Manjistha",
+     "grams": 90
+    },
+    {
+     "name": "Haridra",
+     "grams": 45
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Neem": 60,
+   "Manjistha": 90,
+   "Haridra": 45
+  },
+  "emitted_dosha": [],
+  "outcomes": {
+   "correct_fact": 3,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-clean-04",
+  "category": "clean",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata-Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Brahmi",
+     "grams": 120
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Brahmi": 120
+  },
+  "emitted_dosha": [
+   "Vata",
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-clean-05",
+  "category": "clean",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Amalaki",
+     "grams": 200
+    },
+    {
+     "name": "Guggulu",
+     "grams": 75
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Amalaki": 200,
+   "Guggulu": 75
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-alias-01",
+  "category": "alias",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Haridra",
+     "grams": 50
+    },
+    {
+     "name": "Amalaki",
+     "grams": 150
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Haridra": 50,
+   "Amalaki": 150
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-alias-02",
+  "category": "alias",
+  "t1_exact": false,
+  "t1_missed": [],
+  "t1_spurious": [
+   [
+    25,
+    29,
+    "QTY_OLD"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Ashwagandha",
+     "grams": 90
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Ashwagandha": 90
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-alias-03",
+  "category": "alias",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta-Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Yashtimadhu",
+     "grams": 40
+    },
+    {
+     "name": "Pippali",
+     "grams": 30
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Yashtimadhu": 40,
+   "Pippali": 30
+  },
+  "emitted_dosha": [
+   "Pitta",
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-alias-04",
+  "category": "alias",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Brahmi",
+     "grams": 70
+    },
+    {
+     "name": "Bhringraj",
+     "grams": 60
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Brahmi": 70,
+   "Bhringraj": 60
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-alias-05",
+  "category": "alias",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    16,
+    23,
+    "HERB_RX"
+   ]
+  ],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": []
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {},
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "omission": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-alias-06",
+  "category": "alias",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Amalaki",
+     "grams": 120
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Amalaki": 120
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-malayalam-01",
+  "category": "malayalam_script",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Amalaki",
+     "grams": 100
+    },
+    {
+     "name": "Haridra",
+     "grams": 50
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Amalaki": 100,
+   "Haridra": 50
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-malayalam-02",
+  "category": "malayalam_script",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Haritaki",
+     "grams": 80
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Haritaki": 80
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-malayalam-03",
+  "category": "malayalam_script",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Yashtimadhu",
+     "grams": 30
+    },
+    {
+     "name": "Shatavari",
+     "grams": 60
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Yashtimadhu": 30,
+   "Shatavari": 60
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-malayalam-04",
+  "category": "malayalam_script",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    9,
+    24,
+    "DOSHA"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    0,
+    24,
+    "DOSHA"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "",
+   "prescribed_herbs": [
+    {
+     "name": "Ashwagandha",
+     "grams": 100
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Ashwagandha": 100
+  },
+  "emitted_dosha": [],
+  "outcomes": {
+   "correct_fact": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-malayalam-05",
+  "category": "malayalam_script",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Vasaka",
+     "grams": 45
+    },
+    {
+     "name": "Pippali",
+     "grams": 20
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Vasaka": 45,
+   "Pippali": 20
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-manglish-01",
+  "category": "manglish",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "",
+   "prescribed_herbs": [
+    {
+     "name": "Neem",
+     "grams": 50
+    },
+    {
+     "name": "Manjistha",
+     "grams": 40
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Neem": 50,
+   "Manjistha": 40
+  },
+  "emitted_dosha": [],
+  "outcomes": {
+   "correct_fact": 2,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-manglish-02",
+  "category": "manglish",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Ashwagandha",
+     "grams": 100
+    },
+    {
+     "name": "Brahmi",
+     "grams": 50
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Ashwagandha": 100,
+   "Brahmi": 50
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-manglish-03",
+  "category": "manglish",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Triphala",
+     "grams": 150
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Triphala": 150
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-manglish-04",
+  "category": "manglish",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    0,
+    10,
+    "DOSHA"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    0,
+    5,
+    "DOSHA"
+   ],
+   [
+    6,
+    10,
+    "DOSHA"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata-Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Shatavari",
+     "grams": 75
+    },
+    {
+     "name": "Amalaki",
+     "grams": 100
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Shatavari": 75,
+   "Amalaki": 100
+  },
+  "emitted_dosha": [
+   "Vata",
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-manglish-05",
+  "category": "manglish",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "",
+   "prescribed_herbs": [
+    {
+     "name": "Vasaka",
+     "grams": 60
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Vasaka": 60
+  },
+  "emitted_dosha": [],
+  "outcomes": {
+   "correct_fact": 1,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-negation-01",
+  "category": "negation_replacement",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Neem",
+     "grams": 40
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Neem": 40
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-negation-02",
+  "category": "negation_replacement",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    14,
+    20,
+    "HERB_NEG"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    14,
+    20,
+    "HERB_HIST"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Shatavari",
+     "grams": 90
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Shatavari": 90
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-negation-03",
+  "category": "negation_replacement",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    12,
+    20,
+    "HERB_REPL"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    12,
+    20,
+    "HERB_RX"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Pippali",
+     "grams": 30
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Pippali": 30
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-negation-04",
+  "category": "negation_replacement",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Punarnava",
+     "grams": 80
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Punarnava": 80
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-negation-05",
+  "category": "negation_replacement",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata-Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Dashamoola",
+     "grams": 100
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Dashamoola": 100
+  },
+  "emitted_dosha": [
+   "Vata",
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-negation-06",
+  "category": "negation_replacement",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    34,
+    38,
+    "HERB_REPL"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    34,
+    38,
+    "HERB_HIST"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Manjistha",
+     "grams": 60
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Manjistha": 60
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-distractor-01",
+  "category": "distractor",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    28,
+    32,
+    "UNSTOCKED"
+   ]
+  ],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Ashwagandha",
+     "grams": 80
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Ashwagandha": 80
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-distractor-02",
+  "category": "distractor",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    12,
+    20,
+    "HERB_HIST"
+   ],
+   [
+    21,
+    26,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    12,
+    20,
+    "HERB_RX"
+   ],
+   [
+    21,
+    26,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Triphala",
+     "grams": 100
+    },
+    {
+     "name": "Pippali",
+     "grams": 25
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Triphala": 100,
+   "Pippali": 25
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "confident_error:spurious_herb": 1,
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-distractor-03",
+  "category": "distractor",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    21,
+    28,
+    "UNSTOCKED"
+   ]
+  ],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Amalaki",
+     "grams": 150
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Amalaki": 150
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-distractor-04",
+  "category": "distractor",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    30,
+    34,
+    "HERB_HIST"
+   ],
+   [
+    35,
+    39,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    29,
+    30,
+    "HERB_HIST"
+   ],
+   [
+    30,
+    34,
+    "HERB_RX"
+   ],
+   [
+    35,
+    39,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Neem",
+     "grams": 40
+    },
+    {
+     "name": "Haridra",
+     "grams": 60
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Neem": 40,
+   "Haridra": 60
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "confident_error:spurious_herb": 1,
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-distractor-05",
+  "category": "distractor",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    17,
+    28,
+    "HERB_NEG"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    17,
+    28,
+    "HERB_HIST"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Brahmi",
+     "grams": 45
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Brahmi": 45
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-units-01",
+  "category": "units",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Ashwagandha",
+     "grams": 250
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Ashwagandha": 250
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-units-02",
+  "category": "units",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": []
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {},
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "omission": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-units-03",
+  "category": "units",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": []
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {},
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "omission": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-units-04",
+  "category": "units",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Neem",
+     "grams": 40
+    },
+    {
+     "name": "Manjistha",
+     "grams": 35
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Neem": 40,
+   "Manjistha": 35
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-units-05",
+  "category": "units",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Shatavari",
+     "grams": 300
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Shatavari": 300
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-units-06",
+  "category": "units",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": []
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {},
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "omission": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-shared-01",
+  "category": "shared_correction",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Ashwagandha",
+     "grams": 50
+    },
+    {
+     "name": "Shatavari",
+     "grams": 50
+    },
+    {
+     "name": "Brahmi",
+     "grams": 50
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Ashwagandha": 50,
+   "Shatavari": 50,
+   "Brahmi": 50
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "correct_fact": 3,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-shared-02",
+  "category": "shared_correction",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Amalaki",
+     "grams": 60
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Amalaki": 60
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "omission": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-shared-03",
+  "category": "shared_correction",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    15,
+    19,
+    "QTY_OLD"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    15,
+    19,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Pippali",
+     "grams": 30
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Pippali": 30
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-shared-04",
+  "category": "shared_correction",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    13,
+    17,
+    "QTY_OLD"
+   ],
+   [
+    26,
+    32,
+    "HERB_RX"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    13,
+    17,
+    "QTY"
+   ],
+   [
+    26,
+    32,
+    "HERB_NEG"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Brahmi",
+     "grams": 40
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Brahmi": 40
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "confident_error:wrong_quantity": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-shared-05",
+  "category": "shared_correction",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    16,
+    25,
+    "HERB_RX"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    16,
+    25,
+    "HERB_NEG"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Neem",
+     "grams": 40
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Neem": 40
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "omission": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-shared-06",
+  "category": "shared_correction",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    16,
+    20,
+    "QTY_OLD"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    16,
+    20,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Haritaki",
+     "grams": 70
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Haritaki": 70
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-numbers-01",
+  "category": "irrelevant_numbers",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Ashwagandha",
+     "grams": 60
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Ashwagandha": 60
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-numbers-02",
+  "category": "irrelevant_numbers",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Neem",
+     "grams": 30
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Neem": 30
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-numbers-03",
+  "category": "irrelevant_numbers",
+  "t1_exact": false,
+  "t1_missed": [],
+  "t1_spurious": [
+   [
+    17,
+    19,
+    "QTY_OLD"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Triphala",
+     "grams": 90
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Triphala": 90
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-numbers-04",
+  "category": "irrelevant_numbers",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Brahmi",
+     "grams": 25
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Brahmi": 25
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-numbers-05",
+  "category": "irrelevant_numbers",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Haridra",
+     "grams": 40
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Haridra": 40
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-format-01",
+  "category": "punctuation_order",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Neem",
+     "grams": 40
+    },
+    {
+     "name": "Brahmi",
+     "grams": 30
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Neem": 40,
+   "Brahmi": 30
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-format-02",
+  "category": "punctuation_order",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": [
+    {
+     "name": "Neem",
+     "grams": 40
+    },
+    {
+     "name": "Manjistha",
+     "grams": 35
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Neem": 40,
+   "Manjistha": 35
+  },
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-format-03",
+  "category": "punctuation_order",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    3,
+    14,
+    "HERB_RX"
+   ],
+   [
+    26,
+    35,
+    "HERB_RX"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    1,
+    16,
+    "HERB_RX"
+   ],
+   [
+    21,
+    22,
+    "HERB_RX"
+   ],
+   [
+    23,
+    24,
+    "QTY"
+   ],
+   [
+    24,
+    25,
+    "HERB_REPL"
+   ],
+   [
+    26,
+    37,
+    "HERB_RX"
+   ],
+   [
+    41,
+    42,
+    "HERB_RX"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": []
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {},
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "omission": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-format-04",
+  "category": "punctuation_order",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    20,
+    25,
+    "DOSHA"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    20,
+    25,
+    "HERB_RX"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "",
+   "prescribed_herbs": [
+    {
+     "name": "Neem",
+     "grams": 40
+    },
+    {
+     "name": "Brahmi",
+     "grams": 25
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Neem": 40,
+   "Brahmi": 25
+  },
+  "emitted_dosha": [],
+  "outcomes": {
+   "correct_fact": 2,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-format-05",
+  "category": "punctuation_order",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Pippali",
+     "grams": 70
+    },
+    {
+     "name": "Vasaka",
+     "grams": 40
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Pippali": 70,
+   "Vasaka": 40
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_fact": 2,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-format-06",
+  "category": "punctuation_order",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    31,
+    36,
+    "DOSHA"
+   ]
+  ],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "",
+   "prescribed_herbs": [
+    {
+     "name": "Vasaka",
+     "grams": 50
+    },
+    {
+     "name": "Dashamoola",
+     "grams": 100
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Vasaka": 50,
+   "Dashamoola": 100
+  },
+  "emitted_dosha": [],
+  "outcomes": {
+   "correct_fact": 2,
+   "dosha_omission": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-abstain-01",
+  "category": "abstention",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    18,
+    25,
+    "QTY"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    21,
+    25,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": []
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {},
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "correct_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-abstain-02",
+  "category": "abstention",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    12,
+    14,
+    "QTY"
+   ]
+  ],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": []
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {},
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-abstain-03",
+  "category": "abstention",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    7,
+    15,
+    "HERB_RX"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    7,
+    15,
+    "HERB_NEG"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": []
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {},
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-abstain-04",
+  "category": "abstention",
+  "t1_exact": true,
+  "t1_missed": [],
+  "t1_spurious": [],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": []
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {},
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "correct_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-abstain-05",
+  "category": "abstention",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    7,
+    17,
+    "UNSTOCKED"
+   ],
+   [
+    18,
+    22,
+    "QTY_OTHER"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    18,
+    22,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Pitta",
+   "prescribed_herbs": []
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {},
+  "emitted_dosha": [
+   "Pitta"
+  ],
+  "outcomes": {
+   "correct_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ },
+ {
+  "case_id": "ood-abstain-06",
+  "category": "abstention",
+  "t1_exact": false,
+  "t1_missed": [],
+  "t1_spurious": [
+   [
+    21,
+    23,
+    "HERB_RX"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Vata",
+   "prescribed_herbs": [
+    {
+     "name": "Shatavari",
+     "grams": 40
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Shatavari": 40
+  },
+  "emitted_dosha": [
+   "Vata"
+  ],
+  "outcomes": {
+   "confident_error:missed_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "CLINICAL_MISS"
+ },
+ {
+  "case_id": "ood-abstain-07",
+  "category": "abstention",
+  "t1_exact": false,
+  "t1_missed": [
+   [
+    35,
+    43,
+    "QTY"
+   ]
+  ],
+  "t1_spurious": [
+   [
+    38,
+    43,
+    "QTY"
+   ]
+  ],
+  "t2_parse": {
+   "dosha_imbalance": "Kapha",
+   "prescribed_herbs": [
+    {
+     "name": "Guggulu",
+     "grams": 30
+    }
+   ]
+  },
+  "t3_verdict": "verified",
+  "t3_violations": [],
+  "emitted": {
+   "Guggulu": 30
+  },
+  "emitted_dosha": [
+   "Kapha"
+  ],
+  "outcomes": {
+   "correct_fact": 1,
+   "correct_abstention": 1,
+   "correct_dosha": 1
+  },
+  "t2_grader_outcome": "PASS"
+ }
+]

@@ -1,0 +1,34 @@
+{
+ "dataset": "s1_ood_v3",
+ "classification": "SYNTHETIC, HAND-AUTHORED FINAL SAFETY BENCHMARK FOR T3 v3 -- NOT CLINICAL VALIDATION",
+ "case_count": 62,
+ "category_counts": {
+  "r1_conflict": 7,
+  "r2_alternative": 8,
+  "r3_history": 8,
+  "r4_negation_replacement": 8,
+  "r5_unaccounted": 7,
+  "cross_rule": 6,
+  "clean_control": 10,
+  "malayalam_manglish": 8
+ },
+ "target_rule_counts": {
+  "R1": 14,
+  "R2": 11,
+  "R3": 13,
+  "R4": 11,
+  "R5": 11,
+  "control": 18
+ },
+ "control_cases": 18,
+ "abstain_items": 17,
+ "unaccounted_items": 8,
+ "language_counts": {
+  "english": 52,
+  "manglish": 7,
+  "malayalam_script": 3
+ },
+ "dataset_fingerprint_sha256": "0d8e9f9ad2699c1ce4969bc6eef722f24c6036c2bb24b4b7a8c1fba9b38ed49e",
+ "file_sha256": "09b3781223485080b7949debce3987f156eb0eddb166b3aed7973805ab8206a8",
+ "file": "s1_ood_v3.json"
+}

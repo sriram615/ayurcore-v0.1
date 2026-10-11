@@ -1,0 +1,984 @@
+{
+ "classification": "SYNTHETIC TECHNICAL RESULT -- NOT CLINICAL VALIDATION",
+ "provenance": {
+  "classification": "SYNTHETIC TECHNICAL RESULT -- NOT CLINICAL VALIDATION",
+  "block": "AI-1 T1 span tagger",
+  "model": "averaged structured perceptron, first-order, Viterbi (numpy)",
+  "trained_at_utc": "2026-10-05T13:40:19.830222+00:00",
+  "s1_dataset_fingerprint": "b6ccaca65013a4b32ff3dc3827a8cdaf58ba29671072fd84c126edd4eee7dd19",
+  "train_file_sha256": "3ddb4d24da573376ceaecc8eb1fc88fe595227ad251fcff7952be4a1a14e73f6",
+  "dev_file_sha256": "1f00017fa3dd9aacf6249fe37418b4310f9af09d7f4f7f1fb9aec0e699c92028",
+  "train_cases_used": 360,
+  "dev_cases_used": 120,
+  "alignment_errors": {
+   "train": [],
+   "dev": []
+  },
+  "epochs": 10,
+  "seed": 20261005,
+  "tags": [
+   "O",
+   "B-HERB_RX",
+   "I-HERB_RX",
+   "B-HERB_NEG",
+   "I-HERB_NEG",
+   "B-HERB_HIST",
+   "I-HERB_HIST",
+   "B-HERB_REPL",
+   "I-HERB_REPL",
+   "B-UNSTOCKED",
+   "I-UNSTOCKED",
+   "B-QTY",
+   "I-QTY",
+   "B-QTY_OLD",
+   "I-QTY_OLD",
+   "B-QTY_OTHER",
+   "I-QTY_OTHER",
+   "B-DOSHA",
+   "I-DOSHA"
+  ],
+  "code_sha256": "3160950a0316c5713064ff5ca42bc482e2c3c5dee25ff67620f36c0340babd82",
+  "numpy_version": "2.5.3",
+  "python_version": "3.14.3",
+  "holdout": "s1_test.json not read"
+ },
+ "weights_sha256": "e0dfaaee341b004b7c37b30309eac78e008b18bfcbd201556c07f94af2b834a0",
+ "features_kept": 2047,
+ "training_history": [
+  {
+   "epoch": 1,
+   "sentences_with_mistakes": 168
+  },
+  {
+   "epoch": 2,
+   "sentences_with_mistakes": 44
+  },
+  {
+   "epoch": 3,
+   "sentences_with_mistakes": 15
+  },
+  {
+   "epoch": 4,
+   "sentences_with_mistakes": 7
+  },
+  {
+   "epoch": 5,
+   "sentences_with_mistakes": 10
+  },
+  {
+   "epoch": 6,
+   "sentences_with_mistakes": 3
+  },
+  {
+   "epoch": 7,
+   "sentences_with_mistakes": 1
+  },
+  {
+   "epoch": 8,
+   "sentences_with_mistakes": 2
+  },
+  {
+   "epoch": 9,
+   "sentences_with_mistakes": 0
+  },
+  {
+   "epoch": 10,
+   "sentences_with_mistakes": 0
+  }
+ ],
+ "train": {
+  "spans_micro": {
+   "tp": 2437,
+   "fp": 0,
+   "fn": 0,
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0
+  },
+  "spans_by_type": {
+   "HERB_RX": {
+    "tp": 904,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "HERB_NEG": {
+    "tp": 63,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "HERB_HIST": {
+    "tp": 66,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "HERB_REPL": {
+    "tp": 31,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "UNSTOCKED": {
+    "tp": 63,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "QTY": {
+    "tp": 885,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "QTY_OLD": {
+    "tp": 23,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "QTY_OTHER": {
+    "tp": 42,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "DOSHA": {
+    "tp": 360,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   }
+  },
+  "token_accuracy": 1.0,
+  "cases_exact": {
+   "cases": 360,
+   "exact": 360,
+   "exact_rate": 1.0
+  },
+  "cases_exact_by_category": {
+   "alias": {
+    "cases": 45,
+    "exact": 45,
+    "exact_rate": 1.0
+   },
+   "clean": {
+    "cases": 45,
+    "exact": 45,
+    "exact_rate": 1.0
+   },
+   "distractor": {
+    "cases": 45,
+    "exact": 45,
+    "exact_rate": 1.0
+   },
+   "malayalam_script": {
+    "cases": 45,
+    "exact": 45,
+    "exact_rate": 1.0
+   },
+   "manglish": {
+    "cases": 45,
+    "exact": 45,
+    "exact_rate": 1.0
+   },
+   "mixed_hard": {
+    "cases": 45,
+    "exact": 45,
+    "exact_rate": 1.0
+   },
+   "negation": {
+    "cases": 45,
+    "exact": 45,
+    "exact_rate": 1.0
+   },
+   "units": {
+    "cases": 45,
+    "exact": 45,
+    "exact_rate": 1.0
+   }
+  },
+  "cases_exact_by_hard_tag": {
+   "negation": {
+    "cases": 54,
+    "exact": 54,
+    "exact_rate": 1.0
+   },
+   "self_correction": {
+    "cases": 23,
+    "exact": 23,
+    "exact_rate": 1.0
+   },
+   "instead_of": {
+    "cases": 31,
+    "exact": 31,
+    "exact_rate": 1.0
+   },
+   "shared_quantity": {
+    "cases": 19,
+    "exact": 19,
+    "exact_rate": 1.0
+   },
+   "history_mention": {
+    "cases": 66,
+    "exact": 66,
+    "exact_rate": 1.0
+   },
+   "unstocked_mention": {
+    "cases": 63,
+    "exact": 63,
+    "exact_rate": 1.0
+   },
+   "no_punctuation": {
+    "cases": 26,
+    "exact": 26,
+    "exact_rate": 1.0
+   },
+   "misspelling": {
+    "cases": 38,
+    "exact": 38,
+    "exact_rate": 1.0
+   },
+   "inflection": {
+    "cases": 39,
+    "exact": 39,
+    "exact_rate": 1.0
+   },
+   "malayalam_script": {
+    "cases": 57,
+    "exact": 57,
+    "exact_rate": 1.0
+   }
+  }
+ },
+ "dev": {
+  "spans_micro": {
+   "tp": 820,
+   "fp": 5,
+   "fn": 3,
+   "precision": 0.9939393939393939,
+   "recall": 0.9963547995139733,
+   "f1": 0.9951456310679612
+  },
+  "spans_by_type": {
+   "HERB_RX": {
+    "tp": 310,
+    "fp": 2,
+    "fn": 0,
+    "precision": 0.9935897435897436,
+    "recall": 1.0,
+    "f1": 0.9967845659163987
+   },
+   "HERB_NEG": {
+    "tp": 18,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.9473684210526315,
+    "f1": 0.972972972972973
+   },
+   "HERB_HIST": {
+    "tp": 22,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "HERB_REPL": {
+    "tp": 5,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.8333333333333334,
+    "f1": 0.9090909090909091
+   },
+   "UNSTOCKED": {
+    "tp": 19,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "QTY": {
+    "tp": 306,
+    "fp": 3,
+    "fn": 0,
+    "precision": 0.9902912621359223,
+    "recall": 1.0,
+    "f1": 0.9951219512195122
+   },
+   "QTY_OLD": {
+    "tp": 8,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.8888888888888888,
+    "f1": 0.9411764705882353
+   },
+   "QTY_OTHER": {
+    "tp": 12,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "DOSHA": {
+    "tp": 120,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   }
+  },
+  "token_accuracy": 0.997143877186719,
+  "cases_exact": {
+   "cases": 120,
+   "exact": 115,
+   "exact_rate": 0.9583333333333334
+  },
+  "cases_exact_by_category": {
+   "alias": {
+    "cases": 15,
+    "exact": 15,
+    "exact_rate": 1.0
+   },
+   "clean": {
+    "cases": 15,
+    "exact": 15,
+    "exact_rate": 1.0
+   },
+   "distractor": {
+    "cases": 15,
+    "exact": 13,
+    "exact_rate": 0.8666666666666667
+   },
+   "malayalam_script": {
+    "cases": 15,
+    "exact": 15,
+    "exact_rate": 1.0
+   },
+   "manglish": {
+    "cases": 15,
+    "exact": 15,
+    "exact_rate": 1.0
+   },
+   "mixed_hard": {
+    "cases": 15,
+    "exact": 14,
+    "exact_rate": 0.9333333333333333
+   },
+   "negation": {
+    "cases": 15,
+    "exact": 13,
+    "exact_rate": 0.8666666666666667
+   },
+   "units": {
+    "cases": 15,
+    "exact": 15,
+    "exact_rate": 1.0
+   }
+  },
+  "cases_exact_by_hard_tag": {
+   "negation": {
+    "cases": 16,
+    "exact": 14,
+    "exact_rate": 0.875
+   },
+   "self_correction": {
+    "cases": 9,
+    "exact": 8,
+    "exact_rate": 0.8888888888888888
+   },
+   "instead_of": {
+    "cases": 6,
+    "exact": 5,
+    "exact_rate": 0.8333333333333334
+   },
+   "shared_quantity": {
+    "cases": 4,
+    "exact": 4,
+    "exact_rate": 1.0
+   },
+   "history_mention": {
+    "cases": 22,
+    "exact": 20,
+    "exact_rate": 0.9090909090909091
+   },
+   "unstocked_mention": {
+    "cases": 19,
+    "exact": 17,
+    "exact_rate": 0.8947368421052632
+   },
+   "no_punctuation": {
+    "cases": 9,
+    "exact": 9,
+    "exact_rate": 1.0
+   },
+   "misspelling": {
+    "cases": 15,
+    "exact": 15,
+    "exact_rate": 1.0
+   },
+   "inflection": {
+    "cases": 17,
+    "exact": 16,
+    "exact_rate": 0.9411764705882353
+   },
+   "malayalam_script": {
+    "cases": 17,
+    "exact": 17,
+    "exact_rate": 1.0
+   }
+  },
+  "errors": [
+   {
+    "case_id": "s1-negation-003",
+    "label": "negation",
+    "case_tags": [
+     "english",
+     "negation",
+     "unit_grams"
+    ],
+    "exact": false,
+    "missed": [
+     [
+      79,
+      90,
+      "HERB_NEG"
+     ]
+    ],
+    "spurious": [
+     [
+      79,
+      90,
+      "HERB_RX"
+     ]
+    ]
+   },
+   {
+    "case_id": "s1-negation-053",
+    "label": "negation",
+    "case_tags": [
+     "english",
+     "multi_herb",
+     "self_correction",
+     "unit_grams"
+    ],
+    "exact": false,
+    "missed": [
+     [
+      40,
+      44,
+      "QTY_OLD"
+     ]
+    ],
+    "spurious": [
+     [
+      40,
+      44,
+      "QTY"
+     ]
+    ]
+   },
+   {
+    "case_id": "s1-distractor-024",
+    "label": "distractor",
+    "case_tags": [
+     "english",
+     "history_mention",
+     "multi_herb",
+     "numeric_distractor",
+     "unit_grams",
+     "unstocked_mention"
+    ],
+    "exact": false,
+    "missed": [],
+    "spurious": [
+     [
+      192,
+      197,
+      "QTY"
+     ]
+    ]
+   },
+   {
+    "case_id": "s1-distractor-031",
+    "label": "distractor",
+    "case_tags": [
+     "english",
+     "history_mention",
+     "multi_herb",
+     "numeric_distractor",
+     "unit_grams",
+     "unstocked_mention"
+    ],
+    "exact": false,
+    "missed": [],
+    "spurious": [
+     [
+      69,
+      74,
+      "QTY"
+     ]
+    ]
+   },
+   {
+    "case_id": "s1-mixed_hard-052",
+    "label": "mixed_hard",
+    "case_tags": [
+     "inflection",
+     "instead_of",
+     "manglish",
+     "multi_herb",
+     "negation",
+     "numeric_distractor",
+     "unit_grams",
+     "unit_kg"
+    ],
+    "exact": false,
+    "missed": [
+     [
+      49,
+      58,
+      "HERB_REPL"
+     ]
+    ],
+    "spurious": [
+     [
+      49,
+      58,
+      "HERB_RX"
+     ]
+    ]
+   }
+  ]
+ },
+ "v1_ood_check": {
+  "note": "weak OOD check: herb-level only, exact alias lookup, 12 notes",
+  "herbs": {
+   "tp": 19,
+   "fp": 0,
+   "fn": 1,
+   "precision": 1.0,
+   "recall": 0.95,
+   "f1": 0.9743589743589743
+  },
+  "cases": [
+   {
+    "case_id": "pilot_simple_01",
+    "expected_herbs": [
+     "Ashwagandha"
+    ],
+    "herb_rx_spans": [
+     "Ashwagandha"
+    ],
+    "resolved": [
+     "Ashwagandha"
+    ],
+    "predicted_spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "20 grams",
+      "QTY"
+     ],
+     [
+      "Ashwagandha",
+      "HERB_RX"
+     ]
+    ]
+   },
+   {
+    "case_id": "pilot_simple_02",
+    "expected_herbs": [
+     "Ashwagandha"
+    ],
+    "herb_rx_spans": [
+     "അശ്വഗന്ധ"
+    ],
+    "resolved": [
+     "Ashwagandha"
+    ],
+    "predicted_spans": [
+     [
+      "രോഗിക്ക് വാത",
+      "DOSHA"
+     ],
+     [
+      "അശ്വഗന്ധ",
+      "HERB_RX"
+     ],
+     [
+      "20 ഗ്രാം",
+      "QTY"
+     ]
+    ]
+   },
+   {
+    "case_id": "pilot_simple_03",
+    "expected_herbs": [
+     "Ashwagandha"
+    ],
+    "herb_rx_spans": [
+     "Ashwagandha"
+    ],
+    "resolved": [
+     "Ashwagandha"
+    ],
+    "predicted_spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Ashwagandha",
+      "HERB_RX"
+     ],
+     [
+      "20 gram",
+      "QTY"
+     ]
+    ]
+   },
+   {
+    "case_id": "pilot_simple_04",
+    "expected_herbs": [
+     "Ashwagandha",
+     "Brahmi"
+    ],
+    "herb_rx_spans": [
+     "Ashwagandha",
+     "Brahmi"
+    ],
+    "resolved": [
+     "Ashwagandha",
+     "Brahmi"
+    ],
+    "predicted_spans": [
+     [
+      "Vata",
+      "DOSHA"
+     ],
+     [
+      "Ashwagandha",
+      "HERB_RX"
+     ],
+     [
+      "20 gramum",
+      "QTY"
+     ],
+     [
+      "Brahmi",
+      "HERB_RX"
+     ],
+     [
+      "15 gramum",
+      "QTY"
+     ]
+    ]
+   },
+   {
+    "case_id": "pilot_stress_01",
+    "expected_herbs": [
+     "Ashwagandha"
+    ],
+    "herb_rx_spans": [
+     "Ashwagandha"
+    ],
+    "resolved": [
+     "Ashwagandha"
+    ],
+    "predicted_spans": [
+     [
+      "Ashwagandha",
+      "HERB_RX"
+     ],
+     [
+      "20g",
+      "QTY"
+     ]
+    ]
+   },
+   {
+    "case_id": "pilot_stress_02",
+    "expected_herbs": [
+     "Ashwagandha",
+     "Brahmi"
+    ],
+    "herb_rx_spans": [
+     "ashwagandha",
+     "brahmi"
+    ],
+    "resolved": [
+     "Ashwagandha",
+     "Brahmi"
+    ],
+    "predicted_spans": [
+     [
+      "vata",
+      "DOSHA"
+     ],
+     [
+      "ashwagandha",
+      "HERB_RX"
+     ],
+     [
+      "20gm",
+      "QTY"
+     ],
+     [
+      "brahmi",
+      "HERB_RX"
+     ],
+     [
+      "15gm",
+      "QTY"
+     ]
+    ]
+   },
+   {
+    "case_id": "pilot_stress_03",
+    "expected_herbs": [
+     "Ashwagandha",
+     "Shatavari"
+    ],
+    "herb_rx_spans": [
+     "അശ്വഗന്ധ",
+     "ശതാവരി"
+    ],
+    "resolved": [
+     "Ashwagandha",
+     "Shatavari"
+    ],
+    "predicted_spans": [
+     [
+      "അശ്വഗന്ധ",
+      "HERB_RX"
+     ],
+     [
+      "15ഗ്രാം",
+      "QTY"
+     ],
+     [
+      "ശതാവരി",
+      "HERB_RX"
+     ],
+     [
+      "10ഗ്രാം",
+      "QTY"
+     ]
+    ]
+   },
+   {
+    "case_id": "pilot_stress_04",
+    "expected_herbs": [
+     "Guggulu",
+     "Haridra",
+     "Triphala"
+    ],
+    "herb_rx_spans": [
+     "Triphala",
+     "Guggulu",
+     "Haridra"
+    ],
+    "resolved": [
+     "Guggulu",
+     "Haridra",
+     "Triphala"
+    ],
+    "predicted_spans": [
+     [
+      "Pitta-Kapha",
+      "DOSHA"
+     ],
+     [
+      "Triphala",
+      "HERB_RX"
+     ],
+     [
+      "10g",
+      "QTY"
+     ],
+     [
+      "Guggulu",
+      "HERB_RX"
+     ],
+     [
+      "12ഗ്രാം",
+      "QTY"
+     ],
+     [
+      "Haridra",
+      "HERB_RX"
+     ],
+     [
+      "8g",
+      "QTY"
+     ]
+    ]
+   },
+   {
+    "case_id": "pilot_stress_05",
+    "expected_herbs": [
+     "Ashwagandha"
+    ],
+    "herb_rx_spans": [
+     "ashwagandha"
+    ],
+    "resolved": [
+     "Ashwagandha"
+    ],
+    "predicted_spans": [
+     [
+      "vata",
+      "DOSHA"
+     ],
+     [
+      "ashwagandha",
+      "HERB_RX"
+     ],
+     [
+      "20 gram",
+      "QTY"
+     ]
+    ]
+   },
+   {
+    "case_id": "pilot_stress_06",
+    "expected_herbs": [
+     "Ashwagandha",
+     "Brahmi"
+    ],
+    "herb_rx_spans": [
+     "അശ്വഗന്ധ",
+     "ബ്രഹ്മി 10"
+    ],
+    "resolved": [
+     "Ashwagandha"
+    ],
+    "predicted_spans": [
+     [
+      "വാതം",
+      "DOSHA"
+     ],
+     [
+      "അശ്വഗന്ധ",
+      "HERB_RX"
+     ],
+     [
+      "ബ്രഹ്മി 10",
+      "HERB_RX"
+     ]
+    ]
+   },
+   {
+    "case_id": "pilot_stress_07",
+    "expected_herbs": [
+     "Arjuna",
+     "Dashamoola",
+     "Guggulu",
+     "Triphala"
+    ],
+    "herb_rx_spans": [
+     "Dashamoola",
+     "Triphala",
+     "Arjuna",
+     "Guggulu"
+    ],
+    "resolved": [
+     "Arjuna",
+     "Dashamoola",
+     "Guggulu",
+     "Triphala"
+    ],
+    "predicted_spans": [
+     [
+      "Vata-Kapha",
+      "DOSHA"
+     ],
+     [
+      "Dashamoola",
+      "HERB_RX"
+     ],
+     [
+      "25g",
+      "QTY"
+     ],
+     [
+      "Triphala",
+      "HERB_RX"
+     ],
+     [
+      "20g",
+      "QTY"
+     ],
+     [
+      "Arjuna",
+      "HERB_RX"
+     ],
+     [
+      "15g",
+      "QTY"
+     ],
+     [
+      "Guggulu",
+      "HERB_RX"
+     ],
+     [
+      "10g",
+      "QTY"
+     ]
+    ]
+   },
+   {
+    "case_id": "pilot_stress_08",
+    "expected_herbs": [],
+    "herb_rx_spans": [],
+    "resolved": [],
+    "predicted_spans": [
+     [
+      "vata pitta",
+      "DOSHA"
+     ],
+     [
+      "ashwagandha",
+      "HERB_NEG"
+     ],
+     [
+      "25 g",
+      "QTY"
+     ],
+     [
+      "brahmi",
+      "HERB_NEG"
+     ]
+    ]
+   }
+  ]
+ }
+}

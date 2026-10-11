@@ -1,0 +1,94 @@
+{
+ "purpose": "Each production module derives from an accepted evaluation module. Transform = import rewrite only (memory.X -> ai2.X, memory.v2 -> ai2.interpretation, backend.herb_resolver import -> ai2.vocabulary, memory.retrieval._answer -> ai2.answering._answer), except where an edit is listed.",
+ "composition": "Block 2A baseline + Fix 1 (safety/reference) + Fix 4 (Malayalam scope) + Fix 8a (vocabulary/coverage) + Fix 8b (ambiguity filter) + Fix 6 (C10); accepted as system fix8b_c10, dev-run-09",
+ "modules": {
+  "ai2/normalize.py": {
+   "source": "memory/systems/baseline_2a/normalize.py",
+   "source_sha256": "a2eda3a09ffaacb5ac4f2e69f50e3c8cf07370ab2c355ce3a576887fd2e99106",
+   "edits": null
+  },
+  "ai2/confidence.py": {
+   "source": "memory/systems/baseline_2a/confidence.py",
+   "source_sha256": "aa0b7d4fb2a59a192d565f9f3e4a09df63456f055335a111cc69880068ef5f6b",
+   "edits": null
+  },
+  "ai2/scope.py": {
+   "source": "memory/systems/fix4/scope.py",
+   "source_sha256": "0a3b037cccaa49a8e2d664a529b65308e57adeacc56e7a210759d90a6d23da90",
+   "edits": null
+  },
+  "ai2/reference.py": {
+   "source": "memory/systems/fix1/reference.py",
+   "source_sha256": "082ba8e56b72f7a0f0882d6f48ec1b020366f264af7fa36db2f7bfb2790fc99b",
+   "edits": null
+  },
+  "ai2/coverage.py": {
+   "source": "memory/systems/fix8a/coverage.py",
+   "source_sha256": "6d0bf85858137ee1ce44cb3128e9a39ce1eec0e59324274a5cfab2f0587086d9",
+   "edits": null
+  },
+  "ai2/interpret.py": {
+   "source": "memory/systems/fix8b/interpret.py",
+   "source_sha256": "aca3ee2bd2b7ba6e4898d403a61243a0cb75204af15bdcdfd2d856a4b613b66f",
+   "edits": null
+  },
+  "ai2/interpretation.py": {
+   "source": "memory/systems/baseline_2a/v2.py",
+   "source_sha256": "10b0b655c9cbf00e94ce0f67c75fa0a753893cb5ae46274008fae8cea13c4349",
+   "edits": "removed: optional learned-detector hook, confidence gate, session entry point answer_for_session_v2 (all off or unused in the accepted composition); renamed _interpret_block1 -> interpret"
+  },
+  "ai2/c10.py": {
+   "source": "memory/systems/fix6/c10.py",
+   "source_sha256": "84a970dbb627b5f8fac439afc81b2b220a45ca2c4b6934733ff93a799464d6dd",
+   "edits": null
+  },
+  "ai2/planner.py": {
+   "source": "memory/planner.py",
+   "source_sha256": "35097dc346770bddb7af40b052ea2c16beab445aea30b6e775a68b920f88994e",
+   "edits": "removed: training and saving code (_train_factor, Planner.train, Planner.save, the random import); the production service only loads the packaged model. Scoring, planning, features and Planner.load are unchanged"
+  },
+  "ai2/executor.py": {
+   "source": "memory/executor.py",
+   "source_sha256": "186082c6354f4171d43a8ad8aacf96c5a12ccf7a2bad5cda1fa5e0d4039ef712",
+   "edits": null
+  },
+  "ai2/verifier.py": {
+   "source": "memory/verifier.py",
+   "source_sha256": "8b301cbc938e0983cc27348cd00699f4cfc8f9cb4d3daa6db93b5686b8efbade",
+   "edits": null
+  },
+  "ai2/answer.py": {
+   "source": "memory/answer.py",
+   "source_sha256": "d861a86b423130c423f7fff1fc6f9f3d9b8372878d8048ff3cc04efc4a69ecb7",
+   "edits": null
+  },
+  "ai2/snapshot.py": {
+   "source": "memory/snapshot.py",
+   "source_sha256": "f8c58140563343dec08176d102513bec2c7247ea23907c4615aa8122b804f712",
+   "edits": "removed: build_snapshot (moved to ai2.adapters.clinic_stores) and the PAGE constant; added: SnapshotUnavailable and require_unique_records (a repeated prescription or encounter is refused, never deduplicated), called from snapshot_from_records"
+  }
+ },
+ "new_modules": {
+  "ai2/answering.py": "memory/retrieval.py (_out, _answer) without the session and planning entry points",
+  "ai2/adapters/clinic_stores.py": "memory/snapshot.py build_snapshot; same reads and ordering, but on ONE connection inside ONE read-only transaction (backend.patient_store.read_snapshot) so the snapshot is a single point in time; read failures raise SnapshotUnavailable",
+  "ai2/vocabulary.py": "single import point of backend.herb_resolver.HERB_ALIASES",
+  "ai2/ports.py": "new",
+  "ai2/result.py": "new (category names, evidence lookup)",
+  "ai2/service.py": "new (public interface; refuses a snapshot that lists a record twice before anything is executed or verified)"
+ },
+ "planner_model": {
+  "file": "ai2/data/planner_model.json",
+  "sha256": "8e8161b56d60d8823d21f5ef588abb0b03c52183076c2eb1977085914f650b77",
+  "source": "artifacts/models/planner/model.json (same bytes)"
+ },
+ "removed_from_production": [
+  "memory.oos (learned out-of-scope detector)",
+  "memory.semantic / evaluate_v3_semantic (E5 semantic arm, numpy)",
+  "memory.cue_tagger",
+  "memory.morph (Block 4B morphology splitter)",
+  "memory.timeline",
+  "memory.pipeline",
+  "every evaluate_* runner and s2_* builder",
+  "Block 4B edits to interpret / coverage / v2 / scope / reference"
+ ]
+}
