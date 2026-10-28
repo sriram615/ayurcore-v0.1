@@ -444,7 +444,8 @@ def test_confirm_response_and_idempotency_behavior_unchanged():
         check("confirm succeeds", first.status_code == 200, first.text)
         check("response has exactly the locked fields",
               set(first.json()) == {"patient_name", "dosha_imbalance", "prescribed_herbs", "prescription_id", "created_at",
-                                    "proposal_source"},
+                                    "payment_status", "payment_amount_cents", "payment_method", "payment_reference",
+                                    "dispensed_at", "dispensed_by_user_id", "invoice_number", "proposal_source"},
               set(first.json()))
         replay = _confirm(client, doctor, pid, key=key)
         check("replay returns the byte-identical original body", replay.status_code == 200 and replay.content == first.content)

@@ -319,7 +319,9 @@ def test_manual_preview_links_patient_and_confirm_copies_from_stored_preview():
                            headers=headers)
         check("confirm succeeds", conf.status_code == 200, conf.text)
         check("confirm response shape is unchanged (locked contract)",
-              set(conf.json()) == {"patient_name", "dosha_imbalance", "prescribed_herbs", "prescription_id", "created_at", "proposal_source"},
+              set(conf.json()) == {"patient_name", "dosha_imbalance", "prescribed_herbs", "prescription_id", "created_at",
+                                   "payment_status", "payment_amount_cents", "payment_method", "payment_reference",
+                                   "dispensed_at", "dispensed_by_user_id", "invoice_number", "proposal_source"},
               conf.json())
         rx = _query("SELECT clinic_id, patient_pk, patient_name FROM prescriptions WHERE id = ?",
                     (conf.json()["prescription_id"],))[0]
