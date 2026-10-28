@@ -135,12 +135,99 @@ class ConfirmRequest(BaseModel):
     prescribed_herbs: Optional[List[PrescribedHerb]] = Field(default=None, min_length=1, max_length=50)
 
 
+# Prescription payment status — only three valid values.
+PaymentStatus = Annotated[
+    Optional[str],
+    Field(default=None, description="paid, partial, or unpaid"),
+]
+
+# Payment method — only three valid values.
+PaymentMethod = Annotated[
+    Optional[str],
+    Field(default=None, description="cash, upi, or card"),
+]
+
+
 class PrescriptionResponse(BaseModel):
     patient_name: str
     dosha_imbalance: str
     prescribed_herbs: List[PrescribedHerb]
     prescription_id: int
     created_at: datetime
+    # Migration 018: dispensing + payment fields.
+    payment_status: PaymentStatus = None
+    payment_amount_cents: Optional[int] = Field(default=None, ge=0, le=1000000)
+    payment_method: PaymentMethod = None
+    payment_reference: Optional[str] = Field(default=None, max_length=100)
+    dispensed_at: Optional[str] = None
+    dispensed_by_user_id: Optional[int] = Field(default=None, gt=0)
+    invoice_number: Optional[str] = Field(default=None, max_length=64)
+
+
+# --- Dispense / Payment / Invoice (clinic workflow, migration 018) ----------
+
+class DispenseRequest(BaseModel):
+    """Request body for POST /prescriptions/{prescription_pk}/dispense.
+
+    Marks a confirmed prescription as physically dispensed. The dispenser
+    and timestamp come from the authenticated session -- nothing in this
+    body is patient identity or clinic-scoping data (both come from the
+    session)."""
+    model_config = ConfigDict(extra="forbid")
+
+    notes: Optional[str] = Field(default=None, max_length=500, description="Dispensing notes")
+
+
+class DispenseResponse(BaseModel):
+    """Response for POST /prescriptions/{prescription_pk}/dispense."""
+    prescription_id: int
+    dispensed_at: str
+    dispensed_by_user_id: int
+    status: str  # "dispensed"
+
+
+class PaymentRequest(BaseModel):
+    """Request body for POST /prescriptions/{prescription_pk}/payment.
+
+    Records payment against a confirmed prescription. `payment_amount_cents`
+    must not exceed the outstanding amount (validated server-side)."""
+    model_config = ConfigDict(extra="forbid")
+
+    payment_status: PaymentStatus
+    payment_amount_cents: Optional[int] = Field(default=None, ge=0, le=1000000)
+    payment_method: PaymentMethod
+    payment_reference: Optional[str] = Field(default=None, max_length=100)
+
+
+class PaymentResponse(BaseModel):
+    """Response for POST /prescriptions/{prescription_pk}/payment."""
+    prescription_id: int
+    payment_status: str
+    payment_amount_cents: Optional[int] = None
+    payment_method: Optional[str] = None
+    payment_reference: Optional[str] = None
+    invoice_number: Optional[str] = None
+
+
+class InvoiceResponse(BaseModel):
+    """Response for GET /prescriptions/{prescription_pk}/invoice.
+
+    A receipt-like summary for the doctor/dispenser. Deliberately contains
+    no patient identity beyond the registry key (clinic_patient_id) -- see
+    PII minimization rules."""
+    prescription_id: int
+    clinic_id: str
+    patient_clinic_patient_id: str
+    patient_display_name: str
+    dosha_imbalance: Optional[str]
+    prescribed_herbs: List[PrescribedHerb]
+    total_amount_cents: int
+    payment_status: str
+    payment_method: Optional[str] = None
+    payment_reference: Optional[str] = None
+    invoice_number: Optional[str] = None
+    dispensed_at: Optional[str] = None
+    created_at: str
 
 
 class AuditRecord(BaseModel):
@@ -262,6 +349,41 @@ ClinicPatientId = Annotated[
 ]
 
 
+# --- Patient demographics validation (migration 018) -------------------------
+
+# prakriti: Ayurvedic constitution — only the four accepted values.
+Prakriti = Annotated[
+    Optional[str],
+    Field(
+        default=None,
+        description="Patient's prakriti: Vata, Pitta, Kapha, or Tridosha",
+    ),
+]
+
+# Gender — free text but bounded to reasonable values.
+Gender = Annotated[
+    Optional[str],
+    Field(default=None, max_length=32, description="Patient's gender"),
+]
+
+# Pincode: Indian-style 6-digit postal code, stored as text to preserve
+# leading zeros.
+Pincode = Annotated[
+    Optional[str],
+    Field(
+        default=None,
+        max_length=10,
+        description="Synthetic Indian-style pincode (6 digits, stored as text)",
+    ),
+]
+
+# Allergies: free text, bounded.
+Allergies = Annotated[
+    Optional[str],
+    Field(default=None, max_length=500, description="Recorded patient allergies"),
+]
+
+
 class PatientCreateRequest(BaseModel):
     """Request body for POST /patients. There is deliberately no clinic_id
     field: the patient is always registered in the caller's authenticated
@@ -272,6 +394,17 @@ class PatientCreateRequest(BaseModel):
     clinic_patient_id: ClinicPatientId
     display_name: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=200)]
     phone: Optional[Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=32)]] = None
+    # Migration 018: clinic-enriched demographics (all optional so existing
+    # callers are not broken).
+    date_of_birth: Optional[str] = Field(default=None, max_length=16, description="YYYY-MM-DD")
+    gender: Gender = None
+    address_line: Optional[str] = Field(default=None, max_length=200)
+    city: Optional[str] = Field(default=None, max_length=100)
+    state: Optional[str] = Field(default=None, max_length=100)
+    pincode: Pincode = None
+    prakriti: Prakriti = None
+    allergies: Allergies = None
+    registered_at: Optional[str] = Field(default=None, max_length=32, description="YYYY-MM-DD HH:MM:SS")
 
 
 class PatientResponse(BaseModel):
@@ -280,6 +413,16 @@ class PatientResponse(BaseModel):
     display_name: str
     phone: Optional[str] = None
     created_at: str
+    # Migration 018: clinic-enriched demographics.
+    date_of_birth: Optional[str] = None
+    gender: Optional[str] = None
+    address_line: Optional[str] = None
+    city: Optional[str] = None
+    state: Optional[str] = None
+    pincode: Optional[str] = None
+    prakriti: Optional[str] = None
+    allergies: Optional[str] = None
+    registered_at: Optional[str] = None
 
 
 # --- v0.1: read-only inventory -------------------------------------------------
@@ -287,11 +430,17 @@ class PatientResponse(BaseModel):
 class InventoryItem(BaseModel):
     herb_name: str
     stock_grams: int
+    # Migration 018: batch / expiry realism.
+    batch_code: Optional[str] = Field(default=None, max_length=64)
+    expiry_date: Optional[str] = Field(default=None, max_length=16, description="YYYY-MM-DD")
+    supplier: Optional[str] = Field(default=None, max_length=200)
+    reorder_level_grams: Optional[int] = Field(default=None, ge=0)
+    potency_score: Optional[int] = Field(default=None, ge=0, le=100)
 
 
 class InventoryResponse(BaseModel):
     """GET /inventory: the caller's own clinic's current stock, sorted by
-    herb name. Deliberately no clinic_id, batch or potency data."""
+    herb name. Deliberately no clinic_id."""
     items: List[InventoryItem]
 
 
@@ -328,6 +477,14 @@ class PatientPrescriptionRecord(BaseModel):
     # writes -- reported as unknown rather than guessed.
     dosha_imbalance: Optional[str] = None
     prescribed_herbs: Optional[List[HistoryHerb]] = None
+    # Migration 018: dispensing + payment fields.
+    payment_status: Optional[str] = None
+    payment_amount_cents: Optional[int] = Field(default=None, ge=0, le=1000000)
+    payment_method: Optional[str] = None
+    payment_reference: Optional[str] = None
+    dispensed_at: Optional[str] = None
+    dispensed_by_user_id: Optional[int] = None
+    invoice_number: Optional[str] = None
 
 
 class PatientHistoryResponse(BaseModel):
@@ -340,12 +497,31 @@ class PatientHistoryResponse(BaseModel):
 
 # --- Encounter foundation Phase 1A (migration 010) -----------------------------
 
+# Encounter visit type — only two valid values.
+VisitType = Annotated[
+    Optional[str],
+    Field(default=None, description="FIRST_VISIT or FOLLOW_UP"),
+]
+
+
 class EncounterCreateRequest(BaseModel):
-    """Optional body for POST /patients/{patient_pk}/encounters. It has no
-    fields on purpose: the clinic, the patient's identity and the creator all
-    come from the authenticated session and the path. Any field sent
-    (clinic_id included) is rejected with 422 rather than silently ignored."""
+    """Optional body for POST /patients/{patient_pk}/encounters. The clinic,
+    the patient's identity and the creator all come from the authenticated
+    session and the path. Any field sent (clinic_id included) is rejected
+    with 422 rather than silently ignored.
+
+    Migration 018: optional encounter-enrichment fields for a realistic
+    clinic consultation (visit_type, chief_complaint, vitals, follow_up).
+    All optional -- a plain encounter open still works with no body.
+    """
     model_config = ConfigDict(extra="forbid")
+
+    visit_type: VisitType = None
+    chief_complaint: Optional[str] = Field(default=None, max_length=500)
+    vitals_bp: Optional[str] = Field(default=None, max_length=16, description="e.g. 120/80")
+    vitals_weight_kg: Optional[float] = Field(default=None, gt=0, le=300)
+    vitals_temperature_c: Optional[float] = Field(default=None, gt=30, le=45)
+    follow_up_date: Optional[str] = Field(default=None, max_length=16, description="YYYY-MM-DD")
 
 
 class EncounterResponse(BaseModel):
@@ -360,6 +536,13 @@ class EncounterResponse(BaseModel):
     # audit events carry, so an ADMIN can match an audit event to an
     # encounter without the audit trail exposing the sequential encounter_pk.
     encounter_ref: str
+    # Migration 018: encounter enrichment.
+    visit_type: Optional[str] = None
+    chief_complaint: Optional[str] = None
+    vitals_bp: Optional[str] = None
+    vitals_weight_kg: Optional[float] = None
+    vitals_temperature_c: Optional[float] = None
+    follow_up_date: Optional[str] = None
 
 
 class EncounterListResponse(BaseModel):

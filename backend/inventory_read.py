@@ -19,13 +19,14 @@ reach deduct_and_prescribe, even transitively -- which would not be
 provable by inspection if this function lived inside inventory_service.py
 next to it.
 """
+from typing import Optional
 from db.database import get_connection
 
 
 def list_stock(clinic_id: str) -> dict[str, int]:
     """All current stock levels for one clinic: canonical herb name ->
     stock_grams. Read-only (a single SELECT, no write) and PII-free (herb
-    names and integers only)."""
+    names and integers only). Backward-compatible: unchanged return type."""
     conn = get_connection()
     try:
         rows = conn.execute(
@@ -33,5 +34,37 @@ def list_stock(clinic_id: str) -> dict[str, int]:
             (clinic_id,),
         ).fetchall()
         return {row["herb_name"]: row["stock_grams"] for row in rows}
+    finally:
+        conn.close()
+
+
+def list_stock_detailed(clinic_id: str) -> list[dict]:
+    """All current stock for one clinic: one dict per herb with batch,
+    expiry, supplier and reorder level (migration 018). Read-only (a single
+    SELECT, no write) and PII-free (herb names and integers only). Used by
+    GET /inventory for the enriched clinic-like stock view."""
+    conn = get_connection()
+    try:
+        rows = conn.execute(
+            """
+            SELECT herb_name, stock_grams, batch_code, potency_score,
+                   expiry_date, supplier, reorder_level_grams
+            FROM inventory WHERE clinic_id = ?
+            ORDER BY herb_name
+            """,
+            (clinic_id,),
+        ).fetchall()
+        return [
+            {
+                "herb_name": row["herb_name"],
+                "stock_grams": row["stock_grams"],
+                "batch_code": row["batch_code"],
+                "potency_score": row["potency_score"],
+                "expiry_date": row["expiry_date"],
+                "supplier": row["supplier"],
+                "reorder_level_grams": row["reorder_level_grams"],
+            }
+            for row in rows
+        ]
     finally:
         conn.close()
