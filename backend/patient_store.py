@@ -78,7 +78,7 @@ def create_patient(
                 INSERT INTO patients (clinic_id, clinic_patient_id, display_name, phone, created_by_user_id, created_at,
                                       date_of_birth, gender, address_line, city, state, pincode, prakriti, allergies,
                                       registered_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     clinic_id, clinic_patient_id, display_name, phone, created_by_user_id, _now(),
