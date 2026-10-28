@@ -1,5 +1,5 @@
 """
-Guardrail shadow recording (Phase 3A.4, docs/PHASE_3_PLAN.md) -- best-effort,
+Guardrail shadow recording (Phase 3A.4, documentation/docs/PHASE_3_PLAN.md) -- best-effort,
 evaluation-only.
 
 After a draft is stored, record_preview() evaluates it with the in-code

@@ -1,6 +1,6 @@
 """
 Live verification of the three things the existing 87-check test suite
-explicitly could NOT prove (see docs/archive/AyurCore_Test_Verification_Report.md,
+explicitly could NOT prove (see documentation/docs/archive/AyurCore_Test_Verification_Report.md,
 "What 87/87 does not prove"):
 
   Step 1: does Gemini's real automatic function-calling actually invoke

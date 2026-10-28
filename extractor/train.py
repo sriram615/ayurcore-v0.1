@@ -6,7 +6,7 @@ out-of-distribution check on the 12 independent v1 notes).
     ./venv/bin/python -m extractor.train [--out artifacts/models/t1_tagger] [--epochs 10] [--seed 20261005]
 
 Writes <out>/model.json (weights + provenance) and <out>/report.json.
-s1_test.json is the frozen holdout (eval/benchmarks/s1/README.md): it is
+s1_test.json is the frozen holdout (documentation/eval/benchmarks/s1/README.md): it is
 never opened here, and `load_cases` refuses it.
 
 SYNTHETIC TECHNICAL RESULT, NOT CLINICAL VALIDATION. The tagger is trained on

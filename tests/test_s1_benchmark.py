@@ -264,7 +264,7 @@ class BaselineTests(unittest.TestCase):
     def test_easy_slices_are_fully_solved(self):
         # Sanity check of baseline and grader together: clean/alias/Malayalam/distractor cases
         # contain nothing the rules cannot handle. Uses dev: no test reads results on the
-        # s1_test.json holdout (eval/benchmarks/s1/README.md).
+        # s1_test.json holdout (documentation/eval/benchmarks/s1/README.md).
         with tempfile.TemporaryDirectory() as tmp:
             graded = base.run(BENCH / "s1_dev.json", tmp)
             table = base.compare(BENCH / "s1_dev.json", [graded["_paths"]["graded"]])["baseline"]

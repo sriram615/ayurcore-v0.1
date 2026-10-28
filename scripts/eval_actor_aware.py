@@ -12,7 +12,7 @@ printed or stored, tokens from POST /auth/login on the in-process TestClient, no
 
 --policy chooses what the ADMIN-clinic-A control must do:
     v1_1  protocol v1.1 as registered: ADMIN asking about an own-clinic patient must NOT be denied
-    v1_2  proposed v1.2 (docs/PROPOSED_PROTOCOL_v1_2_A6_ADMIN_CONTROL.md): ADMIN must be forbidden (/ask is DOCTOR-only)
+    v1_2  proposed v1.2 (documentation/docs/PROPOSED_PROTOCOL_v1_2_A6_ADMIN_CONTROL.md): ADMIN must be forbidden (/ask is DOCTOR-only)
 Against the shipping route, v1_1 is expected to FAIL (ADMIN gets 403) until the owner decides D-02; the failure is reported, not hidden.
 """
 from __future__ import annotations

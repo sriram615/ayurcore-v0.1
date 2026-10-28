@@ -4,7 +4,7 @@ database.
 
 Most test files open db/ayurcore.db of the checkout they run from, so the
 only safe way to run them is from a COPY of the checkout with its own fresh
-database. This script automates the procedure documented in CLAUDE.md:
+database. This script automates the procedure documented in documentation/CLAUDE.md:
 
   1. copies the files Git knows about (tracked + untracked-but-not-ignored)
      into a new temporary directory. Git-ignored files -- *.db, .env, venv/,

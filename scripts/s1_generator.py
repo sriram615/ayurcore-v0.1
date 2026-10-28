@@ -35,7 +35,7 @@ Categories (75 cases each; every case also carries fine-grained tags):
   distractor       unstocked herbs, past medication, numbers that are not doses
   units            kg, packs (n x m g), number words, gm/gms; one quantity for two herbs ("... each")
   mixed_hard       three or more of the above in one note
-Gold conventions (CLAUDE.md, docs/CLINICAL_EVAL_GROUND_TRUTH.md): grams are
+Gold conventions (documentation/CLAUDE.md, docs/CLINICAL_EVAL_GROUND_TRUTH.md): grams are
 TOTAL dispensed grams (a pack line "3 x 50 g" is 150 g); frequency/duration
 never appear and are never inferred; dosha is a set; negated and historical
 herbs are not prescribed; unstocked herbs are listed in mentioned_not_stocked.

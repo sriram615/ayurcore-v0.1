@@ -17,7 +17,7 @@ mirror checks the system already makes; they encode no clinical judgement.
 A CLINICAL rule cannot be registered without a recorded approval
 (`approved_by` and `source`), so clinical content cannot enter the registry
 by accident. No clinical rule is defined anywhere -- every clinical category
-awaits clinician input and explicit approval (docs/PHASE_3_PLAN.md §3).
+awaits clinician input and explicit approval (documentation/docs/PHASE_3_PLAN.md §3).
 """
 from __future__ import annotations
 
@@ -192,6 +192,6 @@ ENG_QUANTITY = register_rule(Rule(
 ENG_STRUCTURED = register_rule(Rule(
     "ENG-STRUCTURED", 1, RuleCategory.ENGINEERING,
     "Structured dosha and herb values are present. A data-quality flag, not the "
-    "clinical treatment of legacy history (docs/PHASE_3_PLAN.md §5 D7).",
+    "clinical treatment of legacy history (documentation/docs/PHASE_3_PLAN.md §5 D7).",
     "Phase 2 structured-data authority (migrations 015-016).",
     _structured))

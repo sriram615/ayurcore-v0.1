@@ -11,7 +11,7 @@ candidate that is not a Candidate, or a rule set that was not built here.
 
 Phase 3A is evaluation-only. Nothing in the request path calls this module:
 preview, confirm, manual fallback, inventory, audit and every API response
-are unchanged. Wiring it in is Phase 3B (docs/PHASE_3_PLAN.md §4).
+are unchanged. Wiring it in is Phase 3B (documentation/docs/PHASE_3_PLAN.md §4).
 """
 from __future__ import annotations
 

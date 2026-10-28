@@ -1,0 +1,10 @@
+# LEGACY Streamlit UI (ui/app.py) and its tests only -- owned by the frontend
+# (Member 2) and due to be retired; not needed to run or test the backend API.
+# The backend test suite still includes 5 legacy-UI test files that import
+# ui/app.py, so a complete `pytest tests/` run needs this file too.
+#   pip install -r requirements-dev.txt -r requirements-legacy-ui.txt
+-r requirements.txt
+-c constraints.txt
+
+streamlit==1.63.0
+requests==2.34.2

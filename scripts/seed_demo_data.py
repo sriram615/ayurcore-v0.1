@@ -92,7 +92,7 @@ data and are never an audit_events.actor_user_id). For demo_doctor and
 demo_doctor_b, once real demo history exists, --reset reports (does not
 hide) that their user rows and their confirmed prescription/audit history
 are being kept in place, exactly as the application's own append-only
-design intends for every clinic's data, demo or not. See docs/DEMO_DATA.md,
+design intends for every clinic's data, demo or not. See documentation/docs/DEMO_DATA.md,
 section "Restoring the clean demo state", for what this means in practice.
 
 IDEMPOTENCY
@@ -174,9 +174,9 @@ DEMO_CLINIC_B_INVENTORY = [
 # Demo "patients". This schema has NO patient table and NO age/sex fields
 # anywhere (PreviewRequest/ManualPreviewRequest carry only patient_name,
 # patient_phone, patient_id -- see backend/schemas.py) -- age/sex below are
-# narrative-only, recorded in the manifest and docs/DEMO_DATA.md for the
+# narrative-only, recorded in the manifest and documentation/docs/DEMO_DATA.md for the
 # demo script's own storytelling, and are NEVER sent to the API (there is
-# nowhere for the API to put them). See docs/DEMO_DATA.md's "Limitations"
+# nowhere for the API to put them). See documentation/docs/DEMO_DATA.md's "Limitations"
 # section and this script's own final report.
 # ---------------------------------------------------------------------------
 DEMO_PATIENTS_DEFAULT_CLINIC = [

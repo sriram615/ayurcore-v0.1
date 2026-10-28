@@ -2,7 +2,7 @@
 Clinical evaluation v2 -- template and ground-truth protocol checks.
 
 Validates eval/cases/clinical_eval_v2_template.json against
-docs/CLINICAL_EVAL_GROUND_TRUTH.md, and -- whenever the real dataset
+documentation/docs/CLINICAL_EVAL_GROUND_TRUTH.md, and -- whenever the real dataset
 eval/cases/clinical_eval_v2.json exists -- validates that file too, so the
 frozen dataset is re-checked on every test run.
 
@@ -38,7 +38,7 @@ DISPOSITIONS = ("include", "include_ambiguous", "exclude")
 FORBIDDEN_KEY_FRAGMENTS = ("frequency", "duration", "per_dose", "dose_per", "times_per", "schedule")
 
 
-# --- The v2 protocol, as code (docs/CLINICAL_EVAL_GROUND_TRUTH.md) -------------
+# --- The v2 protocol, as code (documentation/docs/CLINICAL_EVAL_GROUND_TRUTH.md) -------------
 
 def canonical_cases_sha256(data: dict) -> str:
     """Section 7's freeze hash: cases + excluded_cases, canonical JSON."""

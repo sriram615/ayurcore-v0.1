@@ -3,7 +3,7 @@ Safety guard: pytest refuses to run outside an isolated test sandbox.
 
 Most test files open db/ayurcore.db of the checkout they run from -- in the
 real checkout, that is the development/clinic database. On 2026-09-27 one
-such run wrote test data into it (docs/TECHNICAL_RISK_REGISTER.md, R9).
+such run wrote test data into it (documentation/docs/TECHNICAL_RISK_REGISTER.md, R9).
 
 This guard changes no test. It only stops pytest before any test module is
 imported unless this checkout carries the sandbox marker written by

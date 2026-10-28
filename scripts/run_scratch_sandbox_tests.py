@@ -4,7 +4,7 @@ Run the backend tests in a scratch sandbox that structurally cannot contain rest
 
 Why not scripts/run_isolated_tests.py: that runner copies every file Git knows about, untracked ones included, and the
 acceptance file of the longitudinal benchmark is untracked, so the runner would copy it (and one test hashes it). This
-script is the procedure documented in docs/PORTFOLIO_READINESS_ROADMAP.md (decision D-04); it does NOT modify the runner.
+script is the procedure documented in documentation/docs/PORTFOLIO_READINESS_ROADMAP.md (decision D-04); it does NOT modify the runner.
 
     python scripts/run_scratch_sandbox_tests.py --dest <new dir outside the checkout> --python <venv python> --dry-run
     python scripts/run_scratch_sandbox_tests.py --dest <new dir outside the checkout> --python <venv python> [--collect-only]
@@ -51,7 +51,7 @@ EXCLUDED_TESTS = {
     "tests/test_ui_ux2.py": "legacy UI test: needs streamlit",
     "tests/test_ui_ux3.py": "legacy UI test: needs streamlit",
     "tests/test_ui_error_translation.py": "legacy UI test: imports ui/app.py, which imports streamlit",
-    "tests/test_extractor_t1.py": "needs numpy (pinned in constraints.txt; not installed in the scratch venv, installing needs the network)",
+    "tests/test_extractor_t1.py": "needs numpy (pinned in documentation/constraints.txt; not installed in the scratch venv, installing needs the network)",
     "tests/test_extractor_t2.py": "needs numpy (see test_extractor_t1.py)",
     "tests/test_extractor_t3.py": "needs numpy (see test_extractor_t1.py)",
 }

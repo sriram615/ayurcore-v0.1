@@ -4,7 +4,7 @@ AyurCore MVP backup utility (Backup/Restore MVP phase).
 Backs up the single production SQLite database (db/ayurcore.db) safely,
 even while the application is running under WAL mode, using SQLite's own
 VACUUM INTO mechanism -- never a raw filesystem copy. See the
-Backup & Restore Read-Only Audit and docs/BACKUP_RESTORE_RUNBOOK.md for the
+Backup & Restore Read-Only Audit and documentation/docs/BACKUP_RESTORE_RUNBOOK.md for the
 full reasoning; this module is the audit's "Exact implementation required"
 section, now built.
 
@@ -207,7 +207,7 @@ def verify_backup(dest_path: str) -> VerifyResult:
     KNOWN_TABLES that is actually present in the file -- a table's absence
     (e.g. verifying a backup taken from an older schema) is not itself a
     failure here; that is exactly what the migration runner is for on the
-    next startup (see docs/BACKUP_RESTORE_RUNBOOK.md).
+    next startup (see documentation/docs/BACKUP_RESTORE_RUNBOOK.md).
 
     Security review 4.1 -- two further checks, after the three above:
       4. The backup is an AyurCore migrated database (schema_migrations
@@ -272,7 +272,7 @@ def _find_openssl() -> str:
         raise BackupError(
             "openssl was not found on PATH. AyurCore's backup encryption deliberately uses the system "
             "`openssl` command-line tool (present by default on macOS and Linux) instead of adding a new "
-            "Python/pip dependency -- see docs/BACKUP_RESTORE_RUNBOOK.md. Install or enable openssl before "
+            "Python/pip dependency -- see documentation/docs/BACKUP_RESTORE_RUNBOOK.md. Install or enable openssl before "
             "using --encrypt, or run this script without --encrypt and apply an already-approved "
             "encryption step separately before the backup leaves this machine."
         )
@@ -334,7 +334,7 @@ def encrypt_backup(plain_path: str, encrypted_path: str, passphrase_env_var: str
 
 def decrypt_backup(encrypted_path: str, plain_path: str, passphrase_env_var: str = PASSPHRASE_ENV_VAR) -> str:
     """The inverse of encrypt_backup() -- needed during an actual restore
-    of an encrypted backup (see docs/BACKUP_RESTORE_RUNBOOK.md, step 2).
+    of an encrypted backup (see documentation/docs/BACKUP_RESTORE_RUNBOOK.md, step 2).
     Same passphrase-handling rules apply: env-var only, never logged.
     """
     passphrase = os.environ.get(passphrase_env_var)

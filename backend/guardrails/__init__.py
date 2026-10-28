@@ -11,7 +11,7 @@ No Gemini, no database, no inventory, no audit: rules are pure functions of
 the candidate. Nothing in the request path imports this package, so preview,
 confirm, manual fallback, inventory, audit and API responses are unchanged.
 Only engineering data-integrity rules exist; clinical rules need a recorded
-approval to register (docs/PHASE_3_PLAN.md).
+approval to register (documentation/docs/PHASE_3_PLAN.md).
 """
 from backend.guardrails.candidate import Candidate, HerbLine, InvalidCandidateError, build_candidate, build_confirm_candidate
 from backend.guardrails.engine import (

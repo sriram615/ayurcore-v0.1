@@ -5,7 +5,7 @@ A candidate is the clinical content only -- dosha plus herb lines -- in the
 form /prescribe/confirm would commit it (canonical herb names, merged
 totals). It carries NO patient identity (name, phone, ID) and no clinic
 context: which patient or encounter facts rules may read is an open decision
-(docs/PHASE_3_PLAN.md §5 D3).
+(documentation/docs/PHASE_3_PLAN.md §5 D3).
 
 Validation here is STRUCTURAL only (types, shape, finiteness), so malformed
 input fails loudly with InvalidCandidateError -- never a PASS. Whether a

@@ -19,7 +19,7 @@ class Outcome(str, Enum):
 
     Phase 3A is evaluation-only: no outcome blocks or changes anything.
     What REJECT or REVIEW will *do* at preview/confirm is Phase 3B, and needs
-    approval (docs/PHASE_3_PLAN.md §4, §5)."""
+    approval (documentation/docs/PHASE_3_PLAN.md §4, §5)."""
     PASS = "PASS"
     REVIEW = "REVIEW"
     REJECT = "REJECT"

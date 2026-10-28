@@ -1,5 +1,5 @@
 """
-Migration 017 -- guardrail shadow recording (Phase 3A.4, docs/PHASE_3_PLAN.md).
+Migration 017 -- guardrail shadow recording (Phase 3A.4, documentation/docs/PHASE_3_PLAN.md).
 
 Two append-only tables for evaluation-only guardrail results. Nothing here
 changes any existing table, row, response or write path, and nothing reads

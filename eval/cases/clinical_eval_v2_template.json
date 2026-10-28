@@ -2,7 +2,7 @@
   "schema_version": "ayurcore.clinical_eval.cases/v1",
   "corpus_id": "clinical_eval_v2",
   "template_status": "TEMPLATE_NOT_FOR_EVALUATION",
-  "purpose": "Template for the 30-50 case clinician-reviewed evaluation set. Copy to eval/cases/clinical_eval_v2.json, fill one entry per case from the signed review forms (docs/CLINICAL_CASE_REVIEW_FORM.md), then freeze per docs/CLINICAL_EVAL_GROUND_TRUTH.md. This template contains NO clinical ground truth and cannot be run: its cases list is empty by design.",
+  "purpose": "Template for the 30-50 case clinician-reviewed evaluation set. Copy to eval/cases/clinical_eval_v2.json, fill one entry per case from the signed review forms (documentation/docs/CLINICAL_CASE_REVIEW_FORM.md), then freeze per documentation/docs/CLINICAL_EVAL_GROUND_TRUTH.md. This template contains NO clinical ground truth and cannot be run: its cases list is empty by design.",
   "dataset": {
     "dataset_version": "2.0.0",
     "status": "DRAFT",

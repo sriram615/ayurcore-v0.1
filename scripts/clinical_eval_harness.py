@@ -30,7 +30,7 @@ imported (by path) and never modified. Like that harness, this one calls the
 parser functions directly rather than POST /prescribe/preview, so it writes
 nothing to the database and keeps the model's raw herb names.
 
-GRADING RULES (see CLAUDE.md "Evaluation rules")
+GRADING RULES (see documentation/CLAUDE.md "Evaluation rules")
 ------------------------------------------------
   - Expected grams are TOTAL prescribed/dispensed grams. Frequency/duration
     are not represented by ClinicalParse and are never inferred.
