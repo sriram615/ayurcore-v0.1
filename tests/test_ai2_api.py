@@ -123,14 +123,19 @@ class AuthAndRoleTests(ApiCase):
         self.assertEqual(self.ask("What was the first prescription?", headers={"Authorization": "Basic abc"}).status_code, 401)
 
     def test_admin_and_auditor_are_403(self):
-        for headers in (self.admin, self.auditor):
-            r = self.ask("What was the first prescription?", headers=headers)
-            self.assertEqual(r.status_code, 403, r.text)
-            self.assertNotIn("prescription_id", r.text)
+        # ADMIN is now allowed on /ask (D-02); only AUDITOR is denied.
+        r = self.ask("What was the first prescription?", headers=self.admin)
+        self.assertEqual(r.status_code, 200, r.text)
+        r = self.ask("What was the first prescription?", headers=self.auditor)
+        self.assertEqual(r.status_code, 403, r.text)
+        self.assertNotIn("prescription_id", r.text)
 
-    def test_doctor_is_allowed_and_the_matrix_says_doctor_only(self):
-        from backend.rbac import PERMISSION_MATRIX, ROLE_DOCTOR
-        self.assertEqual(PERMISSION_MATRIX["memory_ask"], frozenset({ROLE_DOCTOR}))
+    def test_doctor_is_allowed_and_the_matrix_says_doctor_and_admin(self):
+        from backend.rbac import PERMISSION_MATRIX, ROLE_DOCTOR, ROLE_ADMIN
+        self.assertEqual(
+            PERMISSION_MATRIX["memory_ask"],
+            frozenset({ROLE_DOCTOR, ROLE_ADMIN}),
+        )
         self.assertEqual(self.ask("What was the first prescription?").status_code, 200)
 
     def test_authentication_is_decided_before_validation_and_before_the_patient_lookup(self):

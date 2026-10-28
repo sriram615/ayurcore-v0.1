@@ -39,7 +39,10 @@ DOCTOR, ADMIN, AUDITOR. No other role value can exist in this database.
 | GET  /patients/{pk}/prescriptions  |  YES   |  YES  |  NO     | patient must belong to auth.clinic_id, else 404 |
 | POST /patients/{pk}/encounters     |  YES   |  NO   |  NO     | patient must belong to auth.clinic_id, else 404; client clinic_id rejected |
 | GET  /patients/{pk}/encounters     |  YES   |  YES  |  NO     | patient must belong to auth.clinic_id, else 404 |
-| POST /patients/{pk}/ask            |  YES   |  NO   |  NO     | patient must belong to auth.clinic_id, else 404 (read-only; AI-2 question about the recorded history) |
+| POST /patients/{pk}/ask            |  YES   |  YES  |  NO     | patient must belong to auth.clinic_id, else 404 (read-only; AI-2 question about the recorded history) |
+| POST /prescriptions/{pk}/dispense  |  YES   |  NO   |  NO     | prescription must belong to auth.clinic_id, else 404 (marks a confirmed prescription as dispensed) |
+| POST /prescriptions/{pk}/payment   |  YES   |  NO   |  NO     | prescription must belong to auth.clinic_id, else 404 (records payment against a prescription) |
+| GET  /prescriptions/{pk}/invoice   |  YES   |  YES  |  NO     | prescription must belong to auth.clinic_id, else 404 (read-only receipt summary) |
 | GET  /encounters/{pk}              |  YES   |  YES  |  NO     | encounter must belong to auth.clinic_id, else 404 |
 | POST /encounters/{pk}/close        |  YES   |  NO   |  NO     | encounter must belong to auth.clinic_id, else 404 |
 
@@ -131,8 +134,17 @@ PERMISSION_MATRIX = {
     "encounters_write": frozenset({ROLE_DOCTOR}),
     "encounters_read": frozenset({ROLE_DOCTOR, ROLE_ADMIN}),
     # AI-2 consultation memory (POST /patients/{pk}/ask). A clinical question about a patient's recorded history, asked while
-    # consulting: DOCTOR only, like the other clinical reads that sit inside a consultation. Read-only; it writes nothing.
-    "memory_ask": frozenset({ROLE_DOCTOR}),
+    # consulting: DOCTOR and ADMIN may both ask about their own clinic's patients. Read-only; it writes nothing.
+    "memory_ask": frozenset({ROLE_DOCTOR, ROLE_ADMIN}),
+    # Prescription dispensing (POST /prescriptions/{pk}/dispense). A clinical act -- marking a confirmed
+    # prescription as physically handed to the patient. DOCTOR only, like prescribing itself.
+    "prescription_dispense": frozenset({ROLE_DOCTOR}),
+    # Prescription payment recording (POST /prescriptions/{pk}/payment). Records money received against
+    # a prescription. DOCTOR only (billing is a clinical-adjacent act in a single-doctor clinic).
+    "prescription_payment": frozenset({ROLE_DOCTOR}),
+    # Prescription invoice / receipt (GET /prescriptions/{pk}/invoice). Read-only receipt summary.
+    # DOCTOR + ADMIN (an auditor may need to see invoices for reconciliation).
+    "prescription_invoice": frozenset({ROLE_DOCTOR, ROLE_ADMIN}),
 }
 
 

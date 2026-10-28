@@ -36,6 +36,16 @@ def _row_to_dict(row: sqlite3.Row) -> dict:
         "display_name": row["display_name"],
         "phone": row["phone"],
         "created_at": row["created_at"],
+        # Migration 018: clinic-enriched demographics.
+        "date_of_birth": row["date_of_birth"],
+        "gender": row["gender"],
+        "address_line": row["address_line"],
+        "city": row["city"],
+        "state": row["state"],
+        "pincode": row["pincode"],
+        "prakriti": row["prakriti"],
+        "allergies": row["allergies"],
+        "registered_at": row["registered_at"],
     }
 
 
@@ -46,6 +56,16 @@ def create_patient(
     display_name: str,
     phone: Optional[str],
     created_by_user_id: int,
+    # Migration 018: clinic-enriched demographics (all optional).
+    date_of_birth: Optional[str] = None,
+    gender: Optional[str] = None,
+    address_line: Optional[str] = None,
+    city: Optional[str] = None,
+    state: Optional[str] = None,
+    pincode: Optional[str] = None,
+    prakriti: Optional[str] = None,
+    allergies: Optional[str] = None,
+    registered_at: Optional[str] = None,
 ) -> dict:
     """Registers a patient in `clinic_id`. Raises DuplicatePatientError if
     that clinic already has this clinic_patient_id. Values arrive already
@@ -55,10 +75,15 @@ def create_patient(
         try:
             cursor = conn.execute(
                 """
-                INSERT INTO patients (clinic_id, clinic_patient_id, display_name, phone, created_by_user_id, created_at)
-                VALUES (?, ?, ?, ?, ?, ?)
+                INSERT INTO patients (clinic_id, clinic_patient_id, display_name, phone, created_by_user_id, created_at,
+                                      date_of_birth, gender, address_line, city, state, pincode, prakriti, allergies,
+                                      registered_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
-                (clinic_id, clinic_patient_id, display_name, phone, created_by_user_id, _now()),
+                (
+                    clinic_id, clinic_patient_id, display_name, phone, created_by_user_id, _now(),
+                    date_of_birth, gender, address_line, city, state, pincode, prakriti, allergies, registered_at,
+                ),
             )
         except sqlite3.IntegrityError as e:
             conn.rollback()
@@ -206,7 +231,9 @@ def get_prescription_history(clinic_id: str, patient_pk: int, limit: int, offset
     try:
         rows = conn.execute(
             """
-            SELECT id, created_at, status, patient_name, description, dosha_imbalance
+            SELECT id, created_at, status, patient_name, description, dosha_imbalance,
+                   payment_status, payment_amount_cents, payment_method, payment_reference,
+                   dispensed_at, dispensed_by_user_id, invoice_number
             FROM prescriptions
             WHERE clinic_id = ? AND patient_pk = ?
             ORDER BY created_at DESC, id DESC
@@ -248,5 +275,13 @@ def get_prescription_history(clinic_id: str, patient_pk: int, limit: int, offset
             "status": row["status"],
             "dosha_imbalance": dosha,
             "prescribed_herbs": herbs,
+            # Migration 018: dispensing + payment fields.
+            "payment_status": row["payment_status"],
+            "payment_amount_cents": row["payment_amount_cents"],
+            "payment_method": row["payment_method"],
+            "payment_reference": row["payment_reference"],
+            "dispensed_at": row["dispensed_at"],
+            "dispensed_by_user_id": row["dispensed_by_user_id"],
+            "invoice_number": row["invoice_number"],
         })
     return history, len(rows) > limit

@@ -67,13 +67,37 @@ def _row_to_dict(row: sqlite3.Row) -> dict:
         "created_at": row["created_at"],
         "closed_at": row["closed_at"],
         "encounter_ref": row["encounter_ref"],
+        # Migration 018: encounter enrichment.
+        "visit_type": row["visit_type"],
+        "chief_complaint": row["chief_complaint"],
+        "vitals_bp": row["vitals_bp"],
+        "vitals_weight_kg": row["vitals_weight_kg"],
+        "vitals_temperature_c": row["vitals_temperature_c"],
+        "follow_up_date": row["follow_up_date"],
     }
 
 
-def open_encounter(*, clinic_id: str, patient_pk: int, created_by_user_id: int) -> dict:
+def open_encounter(
+    *,
+    clinic_id: str,
+    patient_pk: int,
+    created_by_user_id: int,
+    # Migration 018: encounter enrichment (all optional).
+    visit_type: Optional[str] = None,
+    chief_complaint: Optional[str] = None,
+    vitals_bp: Optional[str] = None,
+    vitals_weight_kg: Optional[float] = None,
+    vitals_temperature_c: Optional[float] = None,
+    follow_up_date: Optional[str] = None,
+) -> dict:
     """Opens a new encounter for `patient_pk` in `clinic_id` and audits it
     (ENCOUNTER_OPENED, actor = the creating user), atomically. The caller
-    must already have verified the patient belongs to `clinic_id`."""
+    must already have verified the patient belongs to `clinic_id`.
+
+    Migration 018: optional encounter-enrichment fields (visit_type,
+    chief_complaint, vitals, follow_up_date) are persisted alongside the
+    encounter lifecycle fields.
+    """
     conn = get_connection()
     try:
         conn.execute("BEGIN IMMEDIATE")
@@ -85,10 +109,15 @@ def open_encounter(*, clinic_id: str, patient_pk: int, created_by_user_id: int) 
                 encounter_ref = secrets.token_hex(8)
                 cursor = conn.execute(
                     """
-                    INSERT INTO encounters (clinic_id, patient_pk, created_by_user_id, status, created_at, encounter_ref)
-                    VALUES (?, ?, ?, 'OPEN', ?, ?)
+                    INSERT INTO encounters (clinic_id, patient_pk, created_by_user_id, status, created_at, closed_at,
+                                            encounter_ref, visit_type, chief_complaint, vitals_bp, vitals_weight_kg,
+                                            vitals_temperature_c, follow_up_date)
+                    VALUES (?, ?, ?, 'OPEN', ?, NULL, ?, ?, ?, ?, ?, ?, ?)
                     """,
-                    (clinic_id, patient_pk, created_by_user_id, _now(), encounter_ref),
+                    (
+                        clinic_id, patient_pk, created_by_user_id, _now(), encounter_ref,
+                        visit_type, chief_complaint, vitals_bp, vitals_weight_kg, vitals_temperature_c, follow_up_date,
+                    ),
                 )
             except sqlite3.IntegrityError as e:
                 message = str(e)

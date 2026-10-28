@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import secrets
 import sqlite3
 import sys
 import time
@@ -45,10 +46,15 @@ from backend.schemas import (
     EncounterListResponse,
     InventoryItem,
     InventoryResponse,
+    DispenseRequest,
+    DispenseResponse,
+    PaymentRequest,
+    PaymentResponse,
+    InvoiceResponse,
 )
 from backend.herb_resolver import merge_herb_lines, normalize_herb, UnknownHerbError
 from backend.inventory_service import deduct_and_prescribe, InsufficientStockError
-from backend.inventory_read import list_stock
+from backend.inventory_read import list_stock, list_stock_detailed
 from backend.corrections_service import log_correction, get_corrections_for_clinic
 from backend.audit_store import (
     AUDIT_EVENT_TYPE_PRESCRIPTION_CONFIRMED,
@@ -337,6 +343,16 @@ def register_patient(
             display_name=request.display_name,
             phone=request.phone,
             created_by_user_id=auth.user_id,
+            # Migration 018: clinic-enriched demographics.
+            date_of_birth=request.date_of_birth,
+            gender=request.gender,
+            address_line=request.address_line,
+            city=request.city,
+            state=request.state,
+            pincode=request.pincode,
+            prakriti=request.prakriti,
+            allergies=request.allergies,
+            registered_at=request.registered_at,
         )
     except DuplicatePatientError:
         # Uniqueness is per clinic, so this only ever reveals something about
@@ -408,14 +424,227 @@ def patient_prescription_history(
     summary="Current stock of the caller's own clinic, sorted by herb name. DOCTOR/ADMIN only. Read-only.",
 )
 def get_inventory(auth: AuthenticatedSession = Depends(require_role(ROLE_DOCTOR, ROLE_ADMIN))):
-    # backend/inventory_read.list_stock: one SELECT, scoped to the session's
-    # clinic; nothing in the request selects the clinic.
-    stock = list_stock(auth.clinic_id)
-    return InventoryResponse(items=[InventoryItem(herb_name=name, stock_grams=grams)
-                                    for name, grams in sorted(stock.items())])
+    # backend/inventory_read.list_stock_detailed: one SELECT, scoped to the
+    # session's clinic; returns batch, expiry, supplier and reorder level
+    # (migration 018) alongside herb name and stock.
+    stock = list_stock_detailed(auth.clinic_id)
+    return InventoryResponse(items=[InventoryItem(**item) for item in stock])
 
 
-# --- AI-2 consultation memory: POST /patients/{patient_pk}/ask --------------------------------------------------------
+# --- Prescription dispensing / payment / invoice (clinic workflow) -----------
+
+@app.post(
+    "/prescriptions/{prescription_pk}/dispense",
+    response_model=DispenseResponse,
+    summary="Mark a confirmed prescription as physically dispensed. DOCTOR only. Idempotent.",
+)
+def dispense_prescription(
+    prescription_pk: int = Path(gt=0),
+    request: Optional[DispenseRequest] = None,
+    auth: AuthenticatedSession = Depends(require_role(*PERMISSION_MATRIX["prescription_dispense"])),
+):
+    # Clinic isolation: prescription must belong to the caller's clinic.
+    conn = get_connection()
+    try:
+        conn.execute("BEGIN IMMEDIATE")
+        try:
+            row = conn.execute(
+                """
+                SELECT id, clinic_id, patient_name, status, dispensed_at, dispensed_by_user_id
+                FROM prescriptions WHERE id = ? AND clinic_id = ?
+                """,
+                (prescription_pk, auth.clinic_id),
+            ).fetchone()
+            if row is None:
+                raise HTTPException(status_code=404, detail="Prescription not found.")
+
+            if row["dispensed_at"] is not None:
+                # Idempotent: already dispensed. Return the existing state.
+                return DispenseResponse(
+                    prescription_id=row["id"],
+                    dispensed_at=row["dispensed_at"],
+                    dispensed_by_user_id=row["dispensed_by_user_id"],
+                    status="dispensed",
+                )
+
+            conn.execute(
+                """
+                UPDATE prescriptions
+                SET dispensed_at = ?, dispensed_by_user_id = ?
+                WHERE id = ? AND clinic_id = ? AND dispensed_at IS NULL
+                """,
+                (_now(), auth.user_id, prescription_pk, auth.clinic_id),
+            )
+            if conn.execute(
+                "SELECT changes()"
+            ).fetchone()[0] != 1:
+                raise HTTPException(
+                    status_code=409, detail="Prescription was dispensed by another request."
+                )
+
+            row = conn.execute(
+                "SELECT id, dispensed_at, dispensed_by_user_id FROM prescriptions WHERE id = ?",
+                (prescription_pk,),
+            ).fetchone()
+        except BaseException:
+            conn.rollback()
+            raise
+        conn.commit()
+        return DispenseResponse(
+            prescription_id=row["id"],
+            dispensed_at=row["dispensed_at"],
+            dispensed_by_user_id=row["dispensed_by_user_id"],
+            status="dispensed",
+        )
+    finally:
+        conn.close()
+
+
+@app.post(
+    "/prescriptions/{prescription_pk}/payment",
+    response_model=PaymentResponse,
+    summary="Record payment against a confirmed prescription. DOCTOR only.",
+)
+def record_payment(
+    prescription_pk: int = Path(gt=0),
+    request: PaymentRequest = None,
+    auth: AuthenticatedSession = Depends(require_role(*PERMISSION_MATRIX["prescription_payment"])),
+):
+    # Clinic isolation: prescription must belong to the caller's clinic.
+    conn = get_connection()
+    try:
+        conn.execute("BEGIN IMMEDIATE")
+        try:
+            row = conn.execute(
+                """
+                SELECT id, clinic_id, status, payment_status, payment_amount_cents,
+                       payment_method, payment_reference, invoice_number, created_at
+                FROM prescriptions WHERE id = ? AND clinic_id = ?
+                """,
+                (prescription_pk, auth.clinic_id),
+            ).fetchone()
+            if row is None:
+                raise HTTPException(status_code=404, detail="Prescription not found.")
+
+            if row["status"] != "CONFIRMED":
+                raise HTTPException(
+                    status_code=409,
+                    detail="Payment can only be recorded against a confirmed prescription.",
+                )
+
+            # Validate amount against any previously recorded amount.
+            # The prescription has no separate "total" column; the amount
+            # recorded here is what the clinic charged for this prescription.
+            if request.payment_amount_cents is not None and request.payment_amount_cents < 0:
+                raise HTTPException(
+                    status_code=422, detail="Payment amount cannot be negative."
+                )
+
+            invoice_number = row["invoice_number"]
+            if request.payment_status == "paid" and not invoice_number:
+                invoice_number = f"INV-{secrets.token_hex(4)}"
+
+            conn.execute(
+                """
+                UPDATE prescriptions
+                SET payment_status = ?, payment_amount_cents = ?,
+                    payment_method = ?, payment_reference = ?,
+                    invoice_number = ?
+                WHERE id = ? AND clinic_id = ?
+                """,
+                (
+                    request.payment_status,
+                    request.payment_amount_cents,
+                    request.payment_method,
+                    request.payment_reference,
+                    invoice_number,
+                    prescription_pk,
+                    auth.clinic_id,
+                ),
+            )
+
+            row = conn.execute(
+                """
+                SELECT id, payment_status, payment_amount_cents,
+                       payment_method, payment_reference, invoice_number
+                FROM prescriptions WHERE id = ?
+                """,
+                (prescription_pk,),
+            ).fetchone()
+        except BaseException:
+            conn.rollback()
+            raise
+        conn.commit()
+        return PaymentResponse(
+            prescription_id=row["id"],
+            payment_status=row["payment_status"],
+            payment_amount_cents=row["payment_amount_cents"],
+            payment_method=row["payment_method"],
+            payment_reference=row["payment_reference"],
+            invoice_number=row["invoice_number"],
+        )
+    finally:
+        conn.close()
+
+
+@app.get(
+    "/prescriptions/{prescription_pk}/invoice",
+    response_model=InvoiceResponse,
+    summary="Receipt-like invoice summary for a confirmed prescription. DOCTOR/ADMIN only. Read-only.",
+)
+def get_invoice(
+    prescription_pk: int = Path(gt=0),
+    auth: AuthenticatedSession = Depends(require_role(*PERMISSION_MATRIX["prescription_invoice"])),
+):
+    # Clinic isolation: prescription must belong to the caller's clinic.
+    conn = get_connection()
+    try:
+        row = conn.execute(
+            """
+            SELECT p.id, p.clinic_id, p.patient_name, p.dosha_imbalance,
+                   p.payment_status, p.payment_amount_cents, p.payment_method,
+                   p.payment_reference, p.invoice_number, p.dispensed_at,
+                   p.created_at, pt.clinic_patient_id
+            FROM prescriptions p
+            JOIN patients pt ON pt.patient_pk = p.patient_pk AND pt.clinic_id = p.clinic_id
+            WHERE p.id = ? AND p.clinic_id = ?
+            """,
+            (prescription_pk, auth.clinic_id),
+        ).fetchone()
+        if row is None:
+            raise HTTPException(status_code=404, detail="Prescription not found.")
+
+        # Structured herb items (migration 015).
+        items = conn.execute(
+            """
+            SELECT herb_name, grams FROM prescription_items
+            WHERE prescription_id = ? AND clinic_id = ?
+            ORDER BY line_no
+            """,
+            (prescription_pk, auth.clinic_id),
+        ).fetchall()
+
+        prescribed_herbs = [
+            {"name": item["herb_name"], "grams": item["grams"]} for item in items
+        ]
+
+        return InvoiceResponse(
+            prescription_id=row["id"],
+            clinic_id=row["clinic_id"],
+            patient_clinic_patient_id=row["clinic_patient_id"],
+            patient_display_name=row["patient_name"],
+            dosha_imbalance=row["dosha_imbalance"],
+            prescribed_herbs=prescribed_herbs,
+            total_amount_cents=row["payment_amount_cents"] or 0,
+            payment_status=row["payment_status"],
+            payment_method=row["payment_method"],
+            payment_reference=row["payment_reference"],
+            invoice_number=row["invoice_number"],
+            dispensed_at=row["dispensed_at"],
+            created_at=row["created_at"],
+        )
+    finally:
+        conn.close()
 # A thin, read-only HTTP layer over ai2.Ai2Service (local, deterministic, no external API, no write path). This module owns who may ask
 # (DOCTOR, from the session) and which clinic's patient is read (the session's, never the request's); ai2 owns everything about
 # understanding and answering. The planner is loaded once, on the first question, and cached.
@@ -503,6 +732,13 @@ def open_patient_encounter(
             clinic_id=auth.clinic_id,
             patient_pk=patient["patient_pk"],
             created_by_user_id=auth.user_id,
+            # Migration 018: encounter enrichment (all optional).
+            visit_type=request.visit_type if request else None,
+            chief_complaint=request.chief_complaint if request else None,
+            vitals_bp=request.vitals_bp if request else None,
+            vitals_weight_kg=request.vitals_weight_kg if request else None,
+            vitals_temperature_c=request.vitals_temperature_c if request else None,
+            follow_up_date=request.follow_up_date if request else None,
         )
     except OpenEncounterExistsError:
         raise HTTPException(status_code=409, detail="This patient already has an open encounter.")
