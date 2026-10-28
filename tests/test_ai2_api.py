@@ -141,7 +141,8 @@ class AuthAndRoleTests(ApiCase):
     def test_authentication_is_decided_before_validation_and_before_the_patient_lookup(self):
         self.assertEqual(self.client.post(f"/patients/{self.p}/ask", json={"nope": 1}).status_code, 401)
         self.assertEqual(self.client.post("/patients/999999/ask", json={"question": "x"}).status_code, 401)
-        self.assertEqual(self.client.post(f"/patients/{self.p}/ask", json={"nope": 1}, headers=self.admin).status_code, 403)
+        # ADMIN is now allowed on /ask (D-02), so an invalid body gets 422, not 403.
+        self.assertEqual(self.client.post(f"/patients/{self.p}/ask", json={"nope": 1}, headers=self.admin).status_code, 422)
 
     def test_a_logged_out_session_stops_working(self):
         headers = _login(self.client, self.clinic_a)
@@ -414,7 +415,8 @@ class ServiceAvailabilityTests(ApiCase):
         with mock.patch.object(main_module, "_AI2_SERVICE", None), mock.patch("ai2.Ai2Service.default", side_effect=RuntimeError("down")):
             self.assertEqual(self.ask("x", patient=999999).status_code, 404)
             self.assertEqual(self.ask("x", headers={}).status_code, 401)
-            self.assertEqual(self.ask("x", headers=self.admin).status_code, 403)
+            # ADMIN is now allowed on /ask (D-02); when the service is down, that's a 503, not 403.
+            self.assertEqual(self.ask("x", headers=self.admin).status_code, 503)
 
     def test_the_service_is_loaded_once_and_shared(self):
         a = main_module.get_ai2_service()
@@ -436,7 +438,8 @@ class WriteSafetyTests(ApiCase):
         self.assertEqual(self.ask("x", choice={"frame": "COUNT_HERB", "query": {"op": "list"}}).status_code, 422)
         self.assertEqual(self.ask("x", patient=999999).status_code, 404)
         self.assertEqual(self.ask("x", patient=self.p_b).status_code, 404)
-        self.assertEqual(self.ask("x", headers=self.admin).status_code, 403)
+        # ADMIN is now allowed on /ask (D-02); a valid question gets a real answer.
+        self.assertEqual(self.ask("x", headers=self.admin).status_code, 200)
         self.assertEqual(self.ask("x", headers={}).status_code, 401)
         self.assertEqual(self.ask("").status_code, 422)
         self.assertEqual(_db_fingerprint(), before)
