@@ -234,7 +234,7 @@ def test_doctor_and_admin_can_register_in_their_own_clinic():
             resp = _register(client, headers, clinic_patient_id="  OP-100  ", display_name="  Asha Menon ", phone=" 98470 ")
             check(f"{role} registration returns 201", resp.status_code == 201, resp.text)
             body = resp.json()
-            check(f"{role}: response shape", set(body) == {"patient_pk", "clinic_patient_id", "display_name", "phone", "created_at"}, body)
+            check(f"{role}: response shape", set(body) == {"patient_pk", "clinic_patient_id", "display_name", "phone", "created_at", "date_of_birth", "gender", "address_line", "city", "state", "pincode", "prakriti", "allergies", "registered_at"}, body)
             check(f"{role}: values are trimmed", (body["clinic_patient_id"], body["display_name"], body["phone"]) == ("OP-100", "Asha Menon", "98470"), body)
             rows = _query("SELECT clinic_id, created_by_user_id FROM patients WHERE patient_pk = ?", (body["patient_pk"],))
             check(f"{role}: stored under the session's clinic", rows[0]["clinic_id"] == clinic, dict(rows[0]))
@@ -303,7 +303,7 @@ def test_manual_preview_links_patient_and_confirm_copies_from_stored_preview():
         prev = _manual_preview(client, headers, patient_pk=patient["patient_pk"], patient_name="Typed Free Text")
         check("linked manual preview succeeds", prev.status_code == 200, prev.text)
         check("preview response shape is unchanged (locked contract)",
-              set(prev.json()) == {"preview_id", "patient_name", "dosha_imbalance", "prescribed_herbs"}, prev.json())
+              set(prev.json()) == {"preview_id", "patient_name", "dosha_imbalance", "prescribed_herbs", "proposal_source"}, prev.json())
         check("registry is authoritative for the preview's patient name",
               prev.json()["patient_name"] == "Registry Name", prev.json())
         stored = _query("SELECT patient_pk, patient_name, patient_phone, patient_id FROM prescription_previews WHERE preview_id = ?",
@@ -319,7 +319,7 @@ def test_manual_preview_links_patient_and_confirm_copies_from_stored_preview():
                            headers=headers)
         check("confirm succeeds", conf.status_code == 200, conf.text)
         check("confirm response shape is unchanged (locked contract)",
-              set(conf.json()) == {"patient_name", "dosha_imbalance", "prescribed_herbs", "prescription_id", "created_at"},
+              set(conf.json()) == {"patient_name", "dosha_imbalance", "prescribed_herbs", "prescription_id", "created_at", "proposal_source"},
               conf.json())
         rx = _query("SELECT clinic_id, patient_pk, patient_name FROM prescriptions WHERE id = ?",
                     (conf.json()["prescription_id"],))[0]

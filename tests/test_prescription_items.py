@@ -566,7 +566,11 @@ def test_history_reads_items_first_and_falls_back_to_the_description():
               records[new.json()["prescription_id"]]["prescribed_herbs"]
               == [{"name": "Ashwagandha", "grams": 5}, {"name": "Brahmi", "grams": 2}])
         check("record shape unchanged", set(records[legacy]) == {"prescription_id", "created_at", "status",
-                                                                 "dosha_imbalance", "prescribed_herbs"})
+                                                                 "dosha_imbalance", "prescribed_herbs",
+                                                                 "payment_status", "payment_amount_cents",
+                                                                 "payment_method", "payment_reference",
+                                                                 "dispensed_at", "dispensed_by_user_id",
+                                                                 "invoice_number"})
 
         # Migration 016: a legacy row has no audit event, so migration 015's
         # seal does not cover it -- but it is no longer the newest

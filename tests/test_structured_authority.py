@@ -314,7 +314,9 @@ def test_legacy_prescriptions_still_display_as_before():
         check("text whose name prefix does not match is reported unknown, not guessed",
               records[renamed]["dosha_imbalance"] is None and records[renamed]["prescribed_herbs"] is None)
         check("record shape unchanged", all(set(r) == {"prescription_id", "created_at", "status", "dosha_imbalance",
-                                                       "prescribed_herbs"} for r in records.values()))
+                                                       "prescribed_herbs", "payment_status", "payment_amount_cents",
+                                                       "payment_method", "payment_reference", "dispensed_at",
+                                                       "dispensed_by_user_id", "invoice_number"} for r in records.values()))
 
 
 # --- immutability ---------------------------------------------------------------------
@@ -441,7 +443,8 @@ def test_confirm_response_and_idempotency_behavior_unchanged():
         first = _confirm(client, doctor, pid, key=key)
         check("confirm succeeds", first.status_code == 200, first.text)
         check("response has exactly the locked fields",
-              set(first.json()) == {"patient_name", "dosha_imbalance", "prescribed_herbs", "prescription_id", "created_at"},
+              set(first.json()) == {"patient_name", "dosha_imbalance", "prescribed_herbs", "prescription_id", "created_at",
+                                    "proposal_source"},
               set(first.json()))
         replay = _confirm(client, doctor, pid, key=key)
         check("replay returns the byte-identical original body", replay.status_code == 200 and replay.content == first.content)
