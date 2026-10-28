@@ -151,18 +151,22 @@ def create_preview(
     created_by_session: Optional[str],
     patient_pk: Optional[int] = None,
     encounter_pk: Optional[int] = None,
+    proposal_source: str = "gemini",
 ) -> str:
     """Creates a new PENDING preview and returns its preview_id. Used by
-    both /prescribe/preview (is_manual=False) and /prescribe/manual-preview
-    (is_manual=True) -- the only difference between them is this flag and
-    where dosha_imbalance/prescribed_herbs came from (Gemini vs. the
-    doctor's direct input); everything downstream treats both identically.
+    /prescribe/preview (is_manual=False, proposal_source='gemini'),
+    /prescribe/preview/local (is_manual=False, proposal_source='local_extractor')
+    and /prescribe/manual-preview (is_manual=True, proposal_source='manual') --
+    the only difference between them is where dosha_imbalance/prescribed_herbs
+    came from; everything downstream treats both identically.
 
     preview_id is generated here (not by the caller) with
     secrets.token_hex(8) -- 64 bits of CSPRNG entropy, opaque, and with
     nothing about patient identity, clinic identity, or time encoded into
     it, per the locked contract's "unguessable lookup key" guarantee.
     """
+    if proposal_source not in ("local_extractor", "gemini", "manual"):
+        raise ValueError(f"invalid proposal_source {proposal_source!r}")
     created_at = _now()
     expires_at = created_at + timedelta(seconds=PREVIEW_TTL_SECONDS)
 
@@ -176,14 +180,15 @@ def create_preview(
                     INSERT INTO prescription_previews (
                         preview_id, clinic_id, patient_name, patient_phone, patient_id,
                         is_manual, ai_dosha_imbalance, ai_prescribed_herbs_json,
-                        status, created_by_session, created_at, expires_at, patient_pk, encounter_pk
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'PENDING', ?, ?, ?, ?, ?)
+                        status, created_by_session, created_at, expires_at, patient_pk,
+                        encounter_pk, proposal_source
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'PENDING', ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         preview_id, clinic_id, patient_name, patient_phone, patient_id,
                         1 if is_manual else 0, dosha_imbalance, json.dumps(prescribed_herbs),
                         created_by_session, _format(created_at), _format(expires_at), patient_pk,
-                        encounter_pk,
+                        encounter_pk, proposal_source,
                     ),
                 )
                 conn.commit()

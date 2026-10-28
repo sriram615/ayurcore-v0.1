@@ -67,6 +67,9 @@ class PreviewResponse(BaseModel):
     patient_name: str
     dosha_imbalance: str
     prescribed_herbs: List[PrescribedHerb]
+    # Where the proposal came from: local_extractor (AI-1 local extractor),
+    # gemini (Google Gemini), or manual (doctor-entered via /manual-preview).
+    proposal_source: str
 
 
 class ManualPreviewRequest(BaseModel):
@@ -162,6 +165,8 @@ class PrescriptionResponse(BaseModel):
     dispensed_at: Optional[str] = None
     dispensed_by_user_id: Optional[int] = Field(default=None, gt=0)
     invoice_number: Optional[str] = Field(default=None, max_length=64)
+    # Migration 021: where the proposal came from.
+    proposal_source: str
 
 
 # --- Dispense / Payment / Invoice (clinic workflow, migration 018) ----------

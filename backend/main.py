@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import pathlib
 import secrets
 import sqlite3
 import sys
@@ -1084,6 +1085,7 @@ def prescribe_preview(request: PreviewRequest, auth: AuthenticatedSession = Depe
         dosha_imbalance=parsed.dosha_imbalance,
         prescribed_herbs=normalized_herbs,
         is_manual=False,
+        proposal_source="gemini",
         created_by_session=str(auth.session_id),
         patient_pk=linked_patient["patient_pk"] if linked_patient else None,
         encounter_pk=linked_encounter_pk,
@@ -1101,6 +1103,160 @@ def prescribe_preview(request: PreviewRequest, auth: AuthenticatedSession = Depe
         patient_name=stored_name,
         dosha_imbalance=parsed.dosha_imbalance,
         prescribed_herbs=normalized_herbs,
+        proposal_source="gemini",
+    )
+
+
+@app.post(
+    "/prescribe/preview/local",
+    response_model=PreviewResponse,
+    summary="Parse clinical notes via the local AI-1 extractor (T1 tagger + T2 assembly + T3 verifier). No LLM, no network, no API key. Writes nothing.",
+)
+def prescribe_preview_local(request: PreviewRequest, auth: AuthenticatedSession = Depends(require_role(ROLE_DOCTOR))):
+    """Local, deterministic draft path using the AI-1 extractor instead of
+    Gemini. Reads the sanitized notes through T1/T2/T3 and returns a
+    verified ClinicalParse, or 422 if the verifier abstains.
+
+    The only clinical write remains /prescribe/confirm, which makes no AI
+    call of any kind. If the local extractor abstains, the doctor can use
+    /prescribe/manual-preview (no AI) or /prescribe/preview (Gemini, if an
+    API key is configured).
+    """
+    request_id = uuid.uuid4().hex[:12]
+
+    # Patient Registry Phase 1: resolve an optional patient link FIRST, within
+    # the caller's own clinic, so an invalid link fails before any parsing.
+    linked_patient = _resolve_linked_patient(request.patient_pk, auth.clinic_id)
+    linked_encounter_pk = _resolve_preview_encounter(request.encounter_pk, linked_patient, auth.clinic_id)
+    stored_name, stored_phone, stored_patient_id = _preview_identity(request, linked_patient)
+
+    # PII air-gap: tokenize before anything touches the notes.
+    pii_values = [
+        *expand_name_variants(request.patient_name),
+        request.patient_phone,
+        request.patient_id,
+    ]
+    if linked_patient is not None:
+        pii_values += [
+            *expand_name_variants(linked_patient["display_name"]),
+            linked_patient["phone"],
+            linked_patient["clinic_patient_id"],
+        ]
+    sanitized_notes, pii_mapping = tokenize_payload(request.notes, pii_values)
+
+    # Pre-flight invariant: abort before parsing if any PII leaked through.
+    try:
+        assert_no_pii_leak(sanitized_notes, pii_values)
+    except PIIViolationError:
+        logger.error(
+            "request_id=%s event=pii_leak_detected action=aborted_before_ai_call",
+            request_id,
+        )
+        raise HTTPException(
+            status_code=500,
+            detail="Internal privacy safeguard triggered; request aborted before parsing.",
+        )
+
+    logger.info(
+        "request_id=%s patient_token=%s event=local_extractor_start",
+        request_id, next(iter(pii_mapping), None),
+    )
+
+    # Load the T1 model and run the local extractor pipeline.
+    from extractor.pipeline import Extractor
+    from extractor.train import load_model
+
+    model_path = pathlib.Path(__file__).resolve().parent.parent / "artifacts" / "models" / "t1_tagger" / "model.json"
+    model = load_model(model_path)
+    extractor = Extractor(model)
+
+    result = extractor.extract(sanitized_notes)
+
+    if result["abstain"]:
+        logger.info(
+            "request_id=%s event=local_extractor_abstain violations=%s",
+            request_id, result["violations"],
+        )
+        raise HTTPException(
+            status_code=422,
+            detail="The local extractor could not verify this prescription from the notes. Use /prescribe/manual-preview to enter it manually, or /prescribe/preview if Gemini is available.",
+            headers={"X-Error-Code": "EXTRACTOR_ABSTAINED"},
+        )
+
+    parsed: ClinicalParse = result["parse"]
+
+    # Rehydrate locally: any token in the AI's output gets restored here.
+    if find_unresolved_tokens(parsed.model_dump()):
+        logger.error("request_id=%s event=local_extractor_output_echoed_identity_token", request_id)
+        raise HTTPException(status_code=422, detail="Invalid extractor output")
+    rehydrated = rehydrate_payload(parsed.model_dump(), pii_mapping)
+    leftover_tokens = find_unresolved_tokens(rehydrated)
+    if leftover_tokens:
+        logger.error(
+            "request_id=%s event=local_extractor_rehydration_incomplete count=%d",
+            request_id, len(leftover_tokens),
+        )
+        raise HTTPException(
+            status_code=502,
+            detail="Extractor response could not be safely de-tokenized; request aborted.",
+        )
+    parsed = ClinicalParse.model_validate(rehydrated)
+    if contains_identity(parsed.dosha_imbalance, pii_values):
+        logger.error("request_id=%s event=local_extractor_dosha_contained_identity", request_id)
+        raise HTTPException(status_code=422, detail="Invalid extractor output")
+
+    logger.info(
+        "request_id=%s event=local_extractor_success",
+        request_id,
+    )
+
+    # Normalize and resolve canonical herb names.
+    normalized_herbs = []
+    try:
+        for herb in parsed.prescribed_herbs:
+            canon_name = normalize_herb(herb.name)
+            normalized_herbs.append({"name": canon_name, "grams": herb.grams})
+    except UnknownHerbError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    if not normalized_herbs:
+        logger.error("request_id=%s event=local_extractor_empty_proposal", request_id)
+        raise HTTPException(status_code=422, detail="Invalid extractor output")
+
+    try:
+        mark_stale_previews_expired()
+    except SchemaNotMigratedError:
+        logger.error("event=schema_not_migrated_detected", exc_info=True)
+        raise
+    except Exception:
+        logger.warning("event=stale_preview_cleanup_failed", exc_info=True)
+
+    preview_id = _create_preview_or_404(
+        patient_name=stored_name,
+        patient_phone=stored_phone,
+        patient_id=stored_patient_id,
+        clinic_id=auth.clinic_id,
+        dosha_imbalance=parsed.dosha_imbalance,
+        prescribed_herbs=normalized_herbs,
+        is_manual=False,
+        proposal_source="local_extractor",
+        created_by_session=str(auth.session_id),
+        patient_pk=linked_patient["patient_pk"] if linked_patient else None,
+        encounter_pk=linked_encounter_pk,
+    )
+
+    logger.info(
+        "request_id=%s patient_token=%s preview_id=%s event=local_extractor_preview_ready",
+        request_id, next(iter(pii_mapping), None), preview_id,
+    )
+    _record_shadow_preview(clinic_id=auth.clinic_id, preview_id=preview_id, is_manual=False,
+                           dosha_imbalance=parsed.dosha_imbalance, prescribed_herbs=normalized_herbs)
+
+    return PreviewResponse(
+        preview_id=preview_id,
+        patient_name=stored_name,
+        dosha_imbalance=parsed.dosha_imbalance,
+        prescribed_herbs=normalized_herbs,
+        proposal_source="local_extractor",
     )
 
 
@@ -1171,6 +1327,7 @@ def prescribe_manual_preview(request: ManualPreviewRequest, auth: AuthenticatedS
         dosha_imbalance=request.dosha_imbalance,
         prescribed_herbs=normalized_herbs,
         is_manual=True,
+        proposal_source="manual",
         created_by_session=str(auth.session_id),
         patient_pk=linked_patient["patient_pk"] if linked_patient else None,
         encounter_pk=linked_encounter_pk,
@@ -1188,6 +1345,7 @@ def prescribe_manual_preview(request: ManualPreviewRequest, auth: AuthenticatedS
         patient_name=stored_name,
         dosha_imbalance=request.dosha_imbalance,
         prescribed_herbs=normalized_herbs,
+        proposal_source="manual",
     )
 
 
@@ -1489,6 +1647,9 @@ def prescribe_confirm(
                     # no patient field), inside this same transaction.
                     patient_pk=entry["patient_pk"],
                     encounter_pk=entry["encounter_pk"],
+                    # Migration 021: where the proposal came from, copied
+                    # from the stored preview row.
+                    proposal_source=entry["proposal_source"],
                 )
             except InsufficientStockError as e:
                 # Preview is intentionally left untouched (not consumed)
@@ -1575,6 +1736,7 @@ def prescribe_confirm(
                 prescribed_herbs=transaction_result["prescribed_herbs"],
                 prescription_id=transaction_result["prescription_id"],
                 created_at=transaction_result["created_at"],
+                proposal_source=transaction_result["proposal_source"],
             )
 
             if idempotency_reservation_active:

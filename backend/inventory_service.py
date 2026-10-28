@@ -42,6 +42,7 @@ def deduct_and_prescribe(
     conn: Optional[sqlite3.Connection] = None,
     patient_pk: Optional[int] = None,
     encounter_pk: Optional[int] = None,
+    proposal_source: str = "gemini",
 ) -> dict:
     """
     Deducts inventory for the prescribed herbs atomically and logs the
@@ -77,6 +78,10 @@ def deduct_and_prescribe(
     preview only. Migration 012's trigger rejects an encounter that is not
     OPEN or not this prescription's clinic + patient; None leaves the
     prescription outside any encounter.
+
+    `proposal_source` (Migration 021): where the draft proposal came from --
+    'local_extractor' (AI-1 local extractor), 'gemini' (Google Gemini), or
+    'manual' (doctor-entered). Copied from the preview row at confirm time.
     """
     # Normalize and merge duplicate herbs (e.g. two 10g entries become one 20g
     # entry) with the shared merge (backend/herb_resolver.merge_herb_lines).
@@ -113,9 +118,9 @@ def deduct_and_prescribe(
         # prescription_items below it is the authoritative record, and
         # `description` is kept only for backward compatibility.
         cursor.execute('''
-            INSERT INTO prescriptions (clinic_id, patient_name, description, status, patient_pk, encounter_pk, dosha_imbalance)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        ''', (clinic_id, patient_name, description, "Active", patient_pk, encounter_pk, dosha))
+            INSERT INTO prescriptions (clinic_id, patient_name, description, status, patient_pk, encounter_pk, dosha_imbalance, proposal_source)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (clinic_id, patient_name, description, "Active", patient_pk, encounter_pk, dosha, proposal_source))
 
         prescription_id = cursor.lastrowid
 
@@ -146,6 +151,7 @@ def deduct_and_prescribe(
             "clinic_id": clinic_id,
             "patient_pk": patient_pk,
             "encounter_pk": encounter_pk,
+            "proposal_source": proposal_source,
         }
     except Exception as e:
         if owns_connection:
