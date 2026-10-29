@@ -721,7 +721,7 @@ _AI2_SERVICE = None
 @app.post(
     "/patients/{patient_pk}/ask",
     response_model=AskResponse,
-    summary="Ask AI-2 a question about one patient's recorded history (confirmed prescriptions and encounters). DOCTOR only. Read-only: writes nothing, calls no external service.",
+    summary="Ask AI-2 a question about one patient's recorded history (confirmed prescriptions and encounters). DOCTOR/ADMIN only. Read-only: writes nothing, calls no external service.",
 )
 def ask_patient_history(
     body: AskRequest,

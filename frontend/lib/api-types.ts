@@ -50,6 +50,7 @@ export interface PreviewResponse {
   patient_name: string
   dosha_imbalance: string
   prescribed_herbs: PrescribedHerb[]
+  proposal_source?: 'local_extractor' | 'gemini' | 'manual'
 }
 
 export interface ConfirmRequest {

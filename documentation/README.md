@@ -14,7 +14,7 @@ This is a **standalone portfolio snapshot** of AyurCore v0.1, taken from the dev
 
 - **Left out:** the reserved AI-1 final holdout (`documentation/eval/benchmarks/s1/s1_test.json`), the registered longitudinal evaluation protocol, its run log, the longitudinal and PARA v2 benchmarks, the related evaluation scripts and tests, and local evidence files (for example the AI-2 dev-run reports). Documents under `documentation/docs/` that mention them describe files that are **not in this repository**.
 - **Changed:** three local-path mentions (in two files) were replaced with placeholders. Nothing else was edited.
-- **No licence has been chosen yet,** so no licence file is included.
+- **Open source license:** licensed under the [MIT License](file:///Users/apple/Desktop/AyurCore-v0.1-public/LICENSE).
 
 ## What it does
 
