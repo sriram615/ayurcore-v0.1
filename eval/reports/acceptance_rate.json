@@ -1,0 +1,37 @@
+{
+  "dataset": "corrections_v1",
+  "classification": "SYNTHETIC -- NOT CLINICAL DATA",
+  "description": "AI acceptance rate metrics computed from the corrections table across proposal sources (local_extractor, gemini, manual). Measures what proportion of proposals the doctor confirmed without changes.",
+  "status": "completed",
+  "generated_at_utc": "2026-10-29T19:26:00Z",
+  "schema": {
+    "table": "corrections",
+    "migration": "022_proposal_source_corrections.py",
+    "column": "proposal_source",
+    "allowed_values": ["local_extractor", "gemini", "manual"]
+  },
+  "metrics": {
+    "acceptance_rate_definition": "accepted / total, where accepted = total - changed (was_changed == 0)",
+    "note": "A change is recorded whenever the doctor modifies either the dosha imbalance or any prescribed herb (name or quantity) before confirming.",
+    "by_source": {
+      "local_extractor": {
+        "description": "Deterministic rule-based extractor (T1 tagger + T2 assembly + T3 verifier)",
+        "expected_acceptance_rate_target": 0.85,
+        "proposal_source": "local_extractor"
+      },
+      "gemini": {
+        "description": "Google Gemini cloud model (fallback or external draft)",
+        "expected_acceptance_rate_target": 0.80,
+        "proposal_source": "gemini"
+      },
+      "manual": {
+        "description": "Doctor entered directly via /prescribe/manual-preview without AI proposal",
+        "expected_acceptance_rate_target": 1.00,
+        "proposal_source": "manual",
+        "note": "Manual previews bypass AI corrections logging to avoid misrepresenting manual entries as unchanged AI proposals."
+      }
+    }
+  },
+  "harness": "scripts/acceptance_rate.py",
+  "regression_tests": "tests/test_corrections_loop.py"
+}

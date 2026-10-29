@@ -1,0 +1,11 @@
+{
+  "dataset": "s7_v1",
+  "classification": "SYNTHETIC -- NOT CLINICAL DATA",
+  "seed": 20261028,
+  "description": "Unseen holdout for AI-2 memory evaluation. Questions about demo-clinic patients, not used during development.",
+  "total_questions": 810,
+  "file_sha256": {
+    "s7_unseen.json": "9553b4d598438f09e7f74e564b54a5c692cd142db7ee3aa73a06076480259210"
+  },
+  "canonical_manifest": "eval/reports/s7/manifest.json"
+}

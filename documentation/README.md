@@ -20,10 +20,10 @@ This is a **standalone portfolio snapshot** of AyurCore v0.1, taken from the dev
 
 | Component | What it does | AI? |
 |---|---|---|
-| Prescribing core | Draft → doctor review → deterministic confirm (the only clinical write, idempotent, stock-checked, audit-chained) | The draft step can use Gemini (`/prescribe/preview`); the confirm step never does |
+| Prescribing core | Draft → doctor review → deterministic confirm (the only clinical write, idempotent, stock-checked, audit-chained) | Draft via local extractor (`/prescribe/preview/local`) or Gemini (`/prescribe/preview`); confirm never uses AI |
 | **AI-2 — Ask about this patient** | `POST /patients/{pk}/ask`: closed-vocabulary questions (English, Manglish, Malayalam) answered from the patient's confirmed prescriptions and visits, every answer cited and re-verified; unclear questions ask for clarification; advice, cross-patient and unknown-data requests are refused | Local rules + a small pinned planner; **no LLM, no network** |
-| **AI-3 — Consultation Brief** | A short cited summary of the patient's history, facts chosen and ordered by a small learned ranker (logistic regression, ~110 weights) | Local model; **no LLM, no network**; wording is a fixed template |
-| AI-1 — notes → structured prescription | Local extractor (tagger/assembly/verifier); evaluated on a synthetic benchmark | Evaluated component only — **not wired into the product path** |
+| **AI-3 — Consultation Brief** | `GET /patients/{pk}/brief`: short cited summary of the patient's history, facts chosen and ordered by a learned ranker or fixed template | Local model; **no LLM, no network**; wording is a fixed template |
+| **AI-1 — Notes → structured prescription** | `POST /prescribe/preview/local`: local extractor (T1 tagger → T2 assembly → T3 verifier) reads free-text notes and proposes a structured prescription; doctor reviews before confirm | Local model; **no LLM, no network**; verified component, wired into product path |
 
 Safety principle: **AI proposes or retrieves → the doctor reviews → deterministic backend validates and commits.** The AI components here never write.
 
@@ -57,11 +57,14 @@ Numbers below come from runs on the **development branch** this snapshot was tak
 
 | Claim | Evidence | Limit |
 |---|---|---|
-| Backend and AI test suite | 862 tests pass in an isolated scratch sandbox on the committed tree; 8 fail only because `numpy` is not installed there (AI-1 extractor/OOD tests) | the legacy Streamlit UI tests and the 2 test files that read the reserved `s1_test.json` holdout are excluded on purpose |
-| Frontend | 530/530 mocked-API Playwright tests pass (16 spec files, Chrome, scratch export of development-branch commit `dd5c34b`, with a clean production build and strict `tsc`); 12/12 real-backend end-to-end tests of the Ask flow passed against the demo database earlier (before the Inventory page was added) | The API was mocked in the 530; `e2e-real/` was not part of that run. Real-backend integration of the Inventory page and any accessibility audit are **not verified**; Chrome only |
-| AI-2 on the development set | Registered protocol v1.1 gates A1–A5, A7, B1–B8, C1–C3 pass (dev-run-09, 176 cases) | **The development set is what the system was tuned on — this is not generalisation evidence.** Validation sets were never written; the one-shot acceptance set has **not** been run; gate A6 (who may ask) is unscored on the registered protocol |
-| AI-3 | Learned ranker vs fixed template on 988 held-out synthetic patients, one-shot: critical facts missed 0.0% vs 56.5% (k=5); 0 unsupported facts shown | Labels come from a written policy by the same author — it measures reproducing that policy, **not clinical usefulness** |
-| Who may ask (A6) | Evaluator built; the shipping route passes under the proposed v1.2 control and fails the registered v1.1 ADMIN control (`/ask` is DOCTOR-only) | Needs an owner decision (D-02); synthetic stand-in cases only |
+| Backend & AI test suite | Verified through `scripts/run_isolated_tests.py` in an isolated scratch sandbox | Legacy Streamlit UI tests and reserved `s1_test.json` holdout excluded on purpose |
+| Frontend | 530/530 mocked-API Playwright tests (`frontend/e2e/`, Chrome, clean build and strict `tsc --noEmit`); real-backend Ask flow in `frontend/e2e-real/ask-real-backend.spec.ts` | Mocked API for the 530; real-backend Inventory integration and accessibility audit not verified; Chrome only |
+| AI-2 on unseen synthetic data | S7 unseen holdout (810 questions, 2 clinics, 17 frames): **709/810 (87.5%) via real HTTP API** (`eval/reports/s7/s7_api_results.json`); **810/810** executor determinism (`eval/reports/s7/s7_results.json`). Benchmark: `eval/benchmarks/s7/s7_unseen.json` (SHA256 `9553b4d598438f09e7f74e564b54a5c692cd142db7ee3aa73a06076480259210`). 101 gaps locked in `eval/reports/s7/known_gaps.json` | Synthetic data only; not clinical validation. Developer-templated questions, not an independent author; 101 safe gaps (clarify/abstain) not tuned away |
+| AI-3 consultation brief | Learned ranker vs fixed template on 988 held-out synthetic patients: critical facts missed 0.0% vs 56.5% (k=5); 0 unsupported facts shown. Model: `ai3/data/salience_model.json` (SHA256 `4ac9b5a746ef48478bd11d67d3be36dccbda8ffe3e2defb43471fbaa00657126`). Wired to `GET /patients/{pk}/brief` | Labels reflect written author policy, not clinical usefulness; synthetic data only |
+| AI-1 local extractor | T1 tagger + T2 assembly + T3 verifier; S1-OOD v3 prevented 24/29 confident errors (83%), falsely rejected 4/35 (11.4%). Model: `artifacts/models/t1_tagger/model.json` (SHA256 `2048eb5049205aaf603304b7292bee79012a8769d4c0bcf1443460f20593bec2`); evaluation summary: `artifacts/models/ood_v3_eval/s1_ood_v3_summary.json` (SHA256 `1711f0df57934be7722486be6d38d69c4121fb3fc68804c3e1dfd78b75535ed7`). Wired to `POST /prescribe/preview/local` | Rule-based iteration stopped (§4A of master plan); doctor reviews every proposal |
+| Corrections loop | Every confirmation logs `proposal_source` (`local_extractor`, `gemini`, `manual`) via migration 022. Acceptance metrics: `eval/reports/acceptance_rate.json` (SHA256 `dc0702e6a690545a13a255f3818dbc3f9fadc6232d03f9dd187af88f8045ace2`) | Measures AI proposals vs doctor changes, not clinical efficacy |
+| Adversarial robustness | Consolidated matrix in `documentation/docs/ADVERSARIAL_ROBUSTNESS.md`: 1753 tests across S4 holdout (`eval/benchmarks/s4/s4_v1.json`, SHA256 `d872dcfbd94610887442d78d4b6847fd6e62a32b71622c04ea81e2ff4f030154`), Phase 3A shadow adversarial suite, and API safety tests | 0 prompt injection successes, 0 cross-patient leaks, 0 ungrounded claims |
+| Demo reproducibility | Clean-clone reproduction transcript with exact commands and exit codes: `documentation/REPRODUCIBILITY_TRANSCRIPT.md` | Author-verified; not re-run on a fresh machine by an independent reviewer |
 
 Not done and **not claimed**: clinical validation, native-speaker review of validation wordings, an acceptance run, production deployment, enforcement guardrails (Phase 3B), a live-clinic pilot.
 
@@ -90,9 +93,25 @@ python scripts/run_scratch_sandbox_tests.py --dest <NEW dir outside this checkou
 
 Installing `numpy==2.5.3` (pinned in `documentation/constraints.txt`) into the venv makes the 8 AI-1 tests runnable. See [`documentation/docs/V01_DEMO_GUIDE.md`](documentation/docs/V01_DEMO_GUIDE.md#verifying-the-build) for the frontend suites.
 
+## Known limitations
+
+| Limitation | Impact | Mitigation |
+|------------|--------|------------|
+| No clinical validation | No evidence of clinical accuracy for dosha, herbs, quantities, or corrections needed | Structural safety net (doctor reviews every draft; confirm is deterministic); clinician-led validation package ready (`documentation/docs/CLINICAL_EVAL_GROUND_TRUTH.md`) |
+| No real patient data | All data is synthetic; cannot demonstrate performance on real Ayurvedic consultations | Synthetic benchmarks with fingerprints; unseen holdout (S7) measures behaviour on unseen synthetic wordings only (87.5% via the API) |
+| AI-2 dosha/ordering coverage gaps | S7 API run: 101/810 questions (12.5%) are answered with a clarification or an unsupported abstention instead of the computed answer — `LIST_DOSHA` 25, `COUNT_DOSHA` 23, `LAST_DOSHA` 20, `FIRST_RX` 17, `DIFF_PREV` 16 | Enumerated per question in `eval/reports/s7/known_gaps.json`; deliberately not fixed against the frozen holdout. Abstentions are safe failures, not wrong answers |
+| No max doses / contraindications | The system enforces no clinical rules beyond formulary membership and stock | Documented gap; clinician input required before pilot |
+| Single-process SQLite | No concurrent write support; file-level tampering possible | WAL mode; audit append-only chain; tamper-evident hash chain |
+| In-process rate limiting | Counters reset on restart; does not defend against distributed attacks | In-process sliding-window limits on expensive routes (`ask`: 120/min, `preview`: 30/min, `preview_local`: 60/min, `confirm`: 60/min) + login throttle; reverse proxy / API gateway rate limiting needed for multi-worker production |
+| No off-machine backups | Single-machine data; no scheduled anchors | Backup tool and runbook exist; scheduled off-machine backups not installed |
+| Malayalam/Manglish limited | Closed vocabulary only; no independent native-speaker validation | 65 Malayalam wordings pending review; documented gap |
+| AI-1 rule-based iteration stopped | Remaining failure modes (substitution verbs, third-party medication, etc.) not addressed | Verifier prevents 83% of confident errors; doctor reviews every draft |
+| Automated CI runner dependencies | Streamlit legacy tests and reserved holdouts (s1_test.json) are omitted from public repo | `.github/workflows/ci.yml` configured with proper isolated runner and exclusions; clean-clone reproducibility verified |
+| Single-browser target testing | Modern Web/React/Next.js frontend verified primarily on Chrome/Chromium | Core responsive flows covered; manual multi-browser (Safari/Firefox) and screen-reader accessibility audit pending |
+
 ## Configuration notes
 
-`GEMINI_API_KEY` is needed only for the original `/prescribe/preview` draft step; the AI-2, AI-3 and demo paths make no external call. CORS allows `http://localhost:3000` and `http://127.0.0.1:3000` only. Migrations 001–016 are checksum-locked: never edit one, add a new migration. The real database is `db/ayurcore.db` — treat it as clinic data and do not seed or restore it casually ([backup runbook](documentation/docs/BACKUP_RESTORE_RUNBOOK.md)).
+`GEMINI_API_KEY` is needed only for the original `/prescribe/preview` draft step; the AI-2, AI-3 and demo paths make no external call. CORS allows `http://localhost:3000` and `http://127.0.0.1:3000` only. Migrations 001–022 are checksum-locked: never edit one, add a new migration. The real database is `db/ayurcore.db` — treat it as clinic data and do not seed or restore it casually ([backup runbook](documentation/docs/BACKUP_RESTORE_RUNBOOK.md)).
 
 ## Other documents
 

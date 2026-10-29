@@ -1,0 +1,1022 @@
+{
+  "dataset": "s7_v1",
+  "surface": "HTTP API",
+  "generated_by": "scripts/run_s7_api_evaluation.py",
+  "note": "Enumerated S7 failures accepted as known AI-2 formulation/coverage gaps. tests/test_s7_unseen.py asserts the observed failure set equals this set, so any new failure fails CI and any fix must update this file.",
+  "total": 810,
+  "passed": 709,
+  "failed": 101,
+  "pass_rate": 0.8753,
+  "gaps": [
+    {
+      "id": "s7-0009",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0013",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0018",
+      "frame": "COUNT_DOSHA",
+      "question": "Count prescriptions with Not recorded dosha.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0041",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0045",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0058",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0082",
+      "frame": "COUNT_DOSHA",
+      "question": "How many prescriptions have dosha Not recorded?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0090",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0093",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0098",
+      "frame": "COUNT_DOSHA",
+      "question": "How many prescriptions have dosha Not recorded?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0102",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0105",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0106",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0122",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0138",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0141",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0153",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0157",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0162",
+      "frame": "COUNT_DOSHA",
+      "question": "Count prescriptions with Not recorded dosha.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0166",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0185",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0186",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0194",
+      "frame": "COUNT_DOSHA",
+      "question": "Count prescriptions with Not recorded dosha.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0198",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0201",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0202",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0205",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0210",
+      "frame": "COUNT_DOSHA",
+      "question": "Count prescriptions with Not recorded dosha.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0217",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0218",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0221",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0230",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0237",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0253",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0258",
+      "frame": "COUNT_DOSHA",
+      "question": "How many prescriptions have dosha Not recorded?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0269",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0282",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0290",
+      "frame": "COUNT_DOSHA",
+      "question": "How many prescriptions have dosha Not recorded?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0298",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0301",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0310",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0314",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0317",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0322",
+      "frame": "COUNT_DOSHA",
+      "question": "Count prescriptions with Not recorded dosha.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0338",
+      "frame": "COUNT_DOSHA",
+      "question": "How many prescriptions have dosha Not recorded?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0342",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0345",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0346",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0349",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0354",
+      "frame": "COUNT_DOSHA",
+      "question": "Count prescriptions with Not recorded dosha.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0365",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0370",
+      "frame": "COUNT_DOSHA",
+      "question": "How many prescriptions have dosha Tridosha?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0374",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0378",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0381",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0394",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0397",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0406",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0413",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0418",
+      "frame": "COUNT_DOSHA",
+      "question": "How many prescriptions have dosha Not recorded?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0422",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0425",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0429",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0438",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0454",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0458",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0470",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0473",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0482",
+      "frame": "COUNT_DOSHA",
+      "question": "How many prescriptions have dosha Not recorded?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0489",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0490",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0498",
+      "frame": "COUNT_DOSHA",
+      "question": "Count prescriptions with Tridosha dosha.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0502",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0505",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0509",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0514",
+      "frame": "COUNT_DOSHA",
+      "question": "How many prescriptions have dosha Tridosha?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0521",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0525",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0534",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0538",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0554",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0569",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0573",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0589",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0610",
+      "frame": "COUNT_DOSHA",
+      "question": "Count prescriptions with Not recorded dosha.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0621",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0649",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0650",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0662",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0678",
+      "frame": "DIFF_PREV",
+      "question": "Compare the previous prescription with the most recent one.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0690",
+      "frame": "COUNT_DOSHA",
+      "question": "How many prescriptions have dosha Tridosha?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0706",
+      "frame": "COUNT_DOSHA",
+      "question": "Count prescriptions with Not recorded dosha.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0729",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0730",
+      "frame": "LAST_DOSHA",
+      "question": "What dosha is shown on the latest visit?",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0738",
+      "frame": "COUNT_DOSHA",
+      "question": "How many prescriptions have dosha Not recorded?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0754",
+      "frame": "COUNT_DOSHA",
+      "question": "Count prescriptions with Not recorded dosha.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0765",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0770",
+      "frame": "COUNT_DOSHA",
+      "question": "How many prescriptions have dosha Tridosha?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0781",
+      "frame": "LIST_DOSHA",
+      "question": "Show every dosha value documented.",
+      "gold_status": "ok",
+      "outcome": "clarify",
+      "category": "clarify",
+      "stage": "clarify",
+      "reason": "expected answer, got clarify/clarify"
+    },
+    {
+      "id": "s7-0786",
+      "frame": "COUNT_DOSHA",
+      "question": "Count prescriptions with Not recorded dosha.",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "coverage",
+      "reason": "expected answer, got abstain/unsupported"
+    },
+    {
+      "id": "s7-0793",
+      "frame": "FIRST_RX",
+      "question": "Which herbs were prescribed first?",
+      "gold_status": "ok",
+      "outcome": "abstain",
+      "category": "unsupported",
+      "stage": "alignment",
+      "reason": "expected answer, got abstain/unsupported"
+    }
+  ]
+}

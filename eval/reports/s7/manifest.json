@@ -1,0 +1,73 @@
+{
+  "dataset": "s7_v1",
+  "classification": "SYNTHETIC -- NOT CLINICAL DATA",
+  "seed": 20261028,
+  "description": "Unseen holdout for AI-2 memory evaluation. Questions about demo-clinic patients, not used during development. Generated after code freeze; never tuned on.",
+  "total_questions": 810,
+  "final": true,
+  "frozen": true,
+  "file_sha256": {
+    "s7_unseen.json": "9553b4d598438f09e7f74e564b54a5c692cd142db7ee3aa73a06076480259210"
+  },
+  "evaluation": {
+    "status": "completed",
+    "surfaces": {
+      "executor_determinism": {
+        "harness": "scripts/run_s7_evaluation.py",
+        "results_file": "s7_results.json",
+        "passed": 810,
+        "failed": 0,
+        "errors": 0,
+        "pass_rate": 1.0,
+        "measures": "gold answers reproduce exactly when the same plans are re-executed (determinism / dataset self-consistency), NOT generalisation -- gold and evaluation share the executor."
+      },
+      "http_api": {
+        "harness": "scripts/run_s7_api_evaluation.py + tests/test_s7_unseen.py",
+        "results_file": "s7_api_results.json",
+        "known_gaps_file": "known_gaps.json",
+        "passed": 709,
+        "failed": 101,
+        "total": 810,
+        "pass_rate": 0.8753,
+        "measures": "full path: auth -> RBAC -> clinic scoping -> snapshot -> planner -> executor -> verifier -> answer formulation, per question's own clinic doctor."
+      }
+    },
+    "known_gaps": {
+      "count": 101,
+      "causes": {
+        "LIST_DOSHA clarify/unsupported": 25,
+        "COUNT_DOSHA abstain/unsupported": 23,
+        "LAST_DOSHA clarify/unsupported": 20,
+        "FIRST_RX abstain/unsupported": 17,
+        "DIFF_PREV abstain/unsupported": 16
+      },
+      "note": "Enumerated in known_gaps.json. Not tuned away: S7 is frozen and the planner was not adjusted against it."
+    },
+    "note": "Questions were authored from developer-written templates (not by an independent party) and gold answers are computed by the system under test, so this measures behaviour on unseen synthetic wordings, not independent generalisation or clinical validity.",
+    "executor_determinism_note": "Self-consistency only: gold and evaluation share memory.executor."
+  },
+  "corrections": [
+    {
+      "version": 2,
+      "date": "2026-10-29",
+      "defect": "Selectors were serialised as explicit nulls in gold plans; Query validation rejected them ('bad selector None') and the generator recorded the construction error as the gold answer. The runner rebuilt the same malformed query, so error-vs-error scored as a pass.",
+      "impact": "650 of 810 questions carried a construction error instead of a gold answer; the previously reported 810/810 pass rate was invalid.",
+      "fix": "Recomputed gold answers from the unchanged frozen plans with plan->Query construction that omits unset selectors. Questions, frames, patients and plans are untouched, so the holdout remains unseen.",
+      "gold_status_before": {
+        "not_recorded": 52,
+        "error": 650,
+        "ok": 98,
+        "refused": 10
+      },
+      "gold_status_after": {
+        "not_recorded": 52,
+        "ok": 748,
+        "refused": 10
+      },
+      "answers_rewritten": 650,
+      "sha256_before": "d7114022504485459258e2b78fcea5e90d422c316da16b35d24bd6f964663548",
+      "sha256_after": "9553b4d598438f09e7f74e564b54a5c692cd142db7ee3aa73a06076480259210",
+      "plan_normalisation": "Removed 1300 explicit null selector fields from the stored gold plans so a naive Query(**plan) cannot reintroduce the bug."
+    }
+  ]
+}

@@ -235,6 +235,37 @@ class InvoiceResponse(BaseModel):
     created_at: str
 
 
+# --- AI-3 Consultation Brief (read-only, uses ai3.brief) -------------
+
+class BriefItem(BaseModel):
+    """One line in the consultation brief: a verified fact with its cited records."""
+    rank: int
+    kind: str
+    text: str
+    records: list[str]
+    exact: bool
+    score: Optional[float] = None
+
+
+class BriefResponse(BaseModel):
+    """Response for GET /patients/{patient_pk}/brief.
+
+    A short, cited summary of one patient's recorded history for the start of
+    a consultation. Every fact is verified against the records; nothing is
+    inferred beyond what was documented. Read-only: no write path, no LLM,
+    no network.
+    """
+    patient_pk: int
+    as_of: str
+    arm: str
+    caveat: str
+    omitted: int
+    rejected: int
+    items: list[BriefItem]
+
+
+# --- AuditRecord (audit trail) ------------------------------------------
+
 class AuditRecord(BaseModel):
     """One row of the AI-proposal-vs-doctor-confirmation audit trail.
 

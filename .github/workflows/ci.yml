@@ -1,0 +1,56 @@
+name: AyurCore CI
+
+on:
+  push:
+    branches: [v0.1, main]
+  pull_request:
+    branches: [v0.1, main]
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r documentation/requirements-dev.txt
+          pip install numpy==2.5.3  # required for AI-1 extractor tests
+
+      - name: Run isolated backend test suite
+        run: |
+          python scripts/run_isolated_tests.py --ignore=tests/test_s1_benchmark.py --ignore=tests/test_s1_ood.py --ignore=tests/test_s1_ood_v2.py --ignore=tests/test_s1_ood_v3.py --ignore=tests/test_t3_context.py --ignore=tests/test_ui_auth_integration.py --ignore=tests/test_ui_error_translation.py --ignore=tests/test_ui_ux2.py --ignore=tests/test_ui_ux3.py --ignore=tests/test_streamlit_config.py
+
+  frontend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: |
+          pnpm install --frozen-lockfile
+
+      - name: TypeScript type check
+        working-directory: frontend
+        run: |
+          pnpm exec tsc --noEmit
+
+      - name: Build
+        working-directory: frontend
+        run: |
+          pnpm build

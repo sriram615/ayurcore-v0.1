@@ -146,16 +146,19 @@ test('authorization (UI): an ADMIN account has no Ask panel; the Dashboard loads
   await expect(page.locator('.dashboard')).toContainText('Herbs recorded')
 })
 
-test('authorization (API): 401 without a session, 403 for ADMIN and AUDITOR, 404 for an unknown patient, 422 for a bad body', async ({ request }) => {
+test('authorization (API): 401 without a session, 403 for AUDITOR, 200 for ADMIN, 404 for an unknown patient, 422 for a bad body', async ({ request }) => {
   const doctor = await token(request, 'DOCTOR')
   const list = await request.get(`${API}/patients?q=DEMO-0101`, { headers: { Authorization: `Bearer ${doctor}` } })
   const pk = (await list.json()).results[0].patient_pk as number
   const body = { question: 'What was the first prescription?' }
   expect((await request.post(`${API}/patients/${pk}/ask`, { data: body })).status()).toBe(401)
-  for (const role of ['ADMIN', 'AUDITOR']) {
-    const t = await token(request, role)
-    expect((await request.post(`${API}/patients/${pk}/ask`, { data: body, headers: { Authorization: `Bearer ${t}` } })).status(), role).toBe(403)
-  }
+  // AUDITOR is forbidden from asking (403)
+  const auditorToken = await token(request, 'AUDITOR')
+  expect((await request.post(`${API}/patients/${pk}/ask`, { data: body, headers: { Authorization: `Bearer ${auditorToken}` } })).status()).toBe(403)
+  // ADMIN is permitted to ask per D-02 protocol v1.2 (200)
+  const adminToken = await token(request, 'ADMIN')
+  expect((await request.post(`${API}/patients/${pk}/ask`, { data: body, headers: { Authorization: `Bearer ${adminToken}` } })).status()).toBe(200)
+
   const h = { Authorization: `Bearer ${doctor}` }
   expect((await request.post(`${API}/patients/999999/ask`, { data: body, headers: h })).status()).toBe(404)
   expect((await request.post(`${API}/patients/${pk}/ask`, { data: { question: 'x', clinic_id: 'other' }, headers: h })).status()).toBe(422)

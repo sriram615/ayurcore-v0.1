@@ -26,8 +26,16 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 TEMPLATE_PATH = REPO_ROOT / "eval" / "cases" / "clinical_eval_v2_template.json"
 DATASET_PATH = REPO_ROOT / "eval" / "cases" / "clinical_eval_v2.json"
-PROTOCOL_DOC = REPO_ROOT / "docs" / "CLINICAL_EVAL_GROUND_TRUTH.md"
-REVIEW_FORM_DOC = REPO_ROOT / "docs" / "CLINICAL_CASE_REVIEW_FORM.md"
+PROTOCOL_DOC = (
+    REPO_ROOT / "documentation" / "docs" / "CLINICAL_EVAL_GROUND_TRUTH.md"
+    if (REPO_ROOT / "documentation" / "docs" / "CLINICAL_EVAL_GROUND_TRUTH.md").exists()
+    else REPO_ROOT / "docs" / "CLINICAL_EVAL_GROUND_TRUTH.md"
+)
+REVIEW_FORM_DOC = (
+    REPO_ROOT / "documentation" / "docs" / "CLINICAL_CASE_REVIEW_FORM.md"
+    if (REPO_ROOT / "documentation" / "docs" / "CLINICAL_CASE_REVIEW_FORM.md").exists()
+    else REPO_ROOT / "docs" / "CLINICAL_CASE_REVIEW_FORM.md"
+)
 
 _spec = importlib.util.spec_from_file_location(
     "clinical_eval_harness", REPO_ROOT / "scripts" / "clinical_eval_harness.py")

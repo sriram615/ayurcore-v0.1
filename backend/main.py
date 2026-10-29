@@ -52,6 +52,7 @@ from backend.schemas import (
     PaymentRequest,
     PaymentResponse,
     InvoiceResponse,
+    BriefResponse,
 )
 from backend.herb_resolver import merge_herb_lines, normalize_herb, UnknownHerbError
 from backend.inventory_service import deduct_and_prescribe, InsufficientStockError
@@ -116,6 +117,7 @@ from backend.rbac import (
     require_auth,
     require_role,
 )
+from backend.rate_limit import limiter
 from backend.pii_sanitizer import (
     tokenize_payload,
     assert_no_pii_leak,
@@ -646,7 +648,54 @@ def get_invoice(
         )
     finally:
         conn.close()
-# A thin, read-only HTTP layer over ai2.Ai2Service (local, deterministic, no external API, no write path). This module owns who may ask
+
+
+# --- AI-3 consultation brief (read-only, no LLM, no network) ----------------
+
+@app.get(
+    "/patients/{patient_pk}/brief",
+    response_model=BriefResponse,
+    summary="Short cited summary of one patient's recorded history for the start of a consultation. DOCTOR/ADMIN only. Read-only.",
+)
+def get_consultation_brief(
+    patient_pk: int = Path(gt=0),
+    auth: AuthenticatedSession = Depends(require_role(*PERMISSION_MATRIX["patient_brief"])),
+    as_of: Optional[str] = Query(default=None, max_length=16, description="Reference date YYYY-MM-DD; defaults to today"),
+    arm: Optional[str] = Query(default="learned", description="'learned' (salience model) or 'template' (fixed order)"),
+):
+    """Build a read-only, verifiable consultation brief from one patient's
+    confirmed prescriptions and encounters. Every fact is re-verified against
+    the snapshot; nothing is inferred beyond what was recorded.
+
+    Uses the same read-only PatientSnapshot as AI-2, built through
+    ai2.adapters.clinic_stores. The AI component is only the salience
+    ranking (learned model) or fixed order (template); the wording is a
+    deterministic template. No diagnosis, treatment rationale, dose advice,
+    or outcome is ever stated.
+    """
+    from ai3.brief import make_brief
+    from ai2.adapters.clinic_stores import ClinicStoreRecords
+
+    # Default as_of to today's date.
+    if as_of is None:
+        from datetime import datetime, timezone
+        as_of = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    if arm not in ("learned", "template"):
+        raise HTTPException(status_code=422, detail="arm must be 'learned' or 'template'")
+
+    # Build a read-only snapshot of the patient's record (clinic-scoped).
+    try:
+        snapshot = ClinicStoreRecords().load_snapshot(auth.clinic_id, patient_pk)
+    except PatientNotFound:
+        raise HTTPException(status_code=404, detail="Patient not found.")
+    except SnapshotUnavailable:
+        # No consistent snapshot: nothing partial is answered.
+        logger.error("event=ai2_snapshot_unavailable user_id=%s", auth.user_id)
+        raise HTTPException(status_code=503, detail=_ASK_UNAVAILABLE, headers={"X-Error-Code": "MEMORY_SERVICE_UNAVAILABLE"})
+
+    brief = make_brief(snapshot, as_of=as_of, arm=arm)
+    return BriefResponse(**brief.to_dict())
 # (DOCTOR, from the session) and which clinic's patient is read (the session's, never the request's); ai2 owns everything about
 # understanding and answering. The planner is loaded once, on the first question, and cached.
 _ASK_CHOICE_ERROR = "The chosen reading is not one of the readings offered for this question."
@@ -678,6 +727,7 @@ def ask_patient_history(
     body: AskRequest,
     patient_pk: int = Path(gt=0),
     auth: AuthenticatedSession = Depends(require_role(*PERMISSION_MATRIX["memory_ask"])),
+    _rate_limit: None = Depends(limiter("ask")),
 ):
     from ai2 import InvalidChoice, PatientNotFound, SnapshotUnavailable
     from ai2.adapters.clinic_stores import ClinicStoreRecords
@@ -896,7 +946,11 @@ def _record_shadow_confirm(**committed) -> None:
     response_model=PreviewResponse,
     summary="Parse clinical notes via AI into a proposed dosha + herb list. Writes nothing.",
 )
-def prescribe_preview(request: PreviewRequest, auth: AuthenticatedSession = Depends(require_role(ROLE_DOCTOR))):
+def prescribe_preview(
+    request: PreviewRequest,
+    auth: AuthenticatedSession = Depends(require_role(ROLE_DOCTOR)),
+    _rate_limit: None = Depends(limiter("preview")),
+):
     request_id = uuid.uuid4().hex[:12]
 
     # Patient Registry Phase 1: resolve an optional patient link FIRST, within
@@ -1112,7 +1166,11 @@ def prescribe_preview(request: PreviewRequest, auth: AuthenticatedSession = Depe
     response_model=PreviewResponse,
     summary="Parse clinical notes via the local AI-1 extractor (T1 tagger + T2 assembly + T3 verifier). No LLM, no network, no API key. Writes nothing.",
 )
-def prescribe_preview_local(request: PreviewRequest, auth: AuthenticatedSession = Depends(require_role(ROLE_DOCTOR))):
+def prescribe_preview_local(
+    request: PreviewRequest,
+    auth: AuthenticatedSession = Depends(require_role(ROLE_DOCTOR)),
+    _rate_limit: None = Depends(limiter("preview_local")),
+):
     """Local, deterministic draft path using the AI-1 extractor instead of
     Gemini. Reads the sanitized notes through T1/T2/T3 and returns a
     verified ClinicalParse, or 422 if the verifier abstains.
@@ -1389,6 +1447,7 @@ def prescribe_confirm(
     # LONGER than 200 characters, with FastAPI's normal 422 response, the
     # same contract every other oversized field in this API already gets.
     idempotency_key: Optional[str] = Header(default=None, alias="Idempotency-Key", max_length=200),
+    _rate_limit: None = Depends(limiter("confirm")),
 ):
     # This endpoint makes NO AI call of any kind. Everything below is
     # ordinary, deterministic code -- the doctor's confirmation is what
@@ -1819,6 +1878,7 @@ def prescribe_confirm(
                 ai_prescribed_herbs=json.loads(entry["ai_prescribed_herbs_json"]),
                 confirmed_dosha_imbalance=final_dosha,
                 confirmed_prescribed_herbs=normalized_final_herbs,
+                proposal_source=entry["proposal_source"],
             )
         except Exception:
             logger.error(

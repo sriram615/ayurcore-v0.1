@@ -43,6 +43,7 @@ DOCTOR, ADMIN, AUDITOR. No other role value can exist in this database.
 | POST /prescriptions/{pk}/dispense  |  YES   |  NO   |  NO     | prescription must belong to auth.clinic_id, else 404 (marks a confirmed prescription as dispensed) |
 | POST /prescriptions/{pk}/payment   |  YES   |  NO   |  NO     | prescription must belong to auth.clinic_id, else 404 (records payment against a prescription) |
 | GET  /prescriptions/{pk}/invoice   |  YES   |  YES  |  NO     | prescription must belong to auth.clinic_id, else 404 (read-only receipt summary) |
+| GET  /patients/{pk}/brief          |  YES   |  YES  |  NO     | patient must belong to auth.clinic_id, else 404 (read-only consultation brief summary) |
 | GET  /encounters/{pk}              |  YES   |  YES  |  NO     | encounter must belong to auth.clinic_id, else 404 |
 | POST /encounters/{pk}/close        |  YES   |  NO   |  NO     | encounter must belong to auth.clinic_id, else 404 |
 
@@ -145,6 +146,10 @@ PERMISSION_MATRIX = {
     # Prescription invoice / receipt (GET /prescriptions/{pk}/invoice). Read-only receipt summary.
     # DOCTOR + ADMIN (an auditor may need to see invoices for reconciliation).
     "prescription_invoice": frozenset({ROLE_DOCTOR, ROLE_ADMIN}),
+    # Consultation brief (GET /patients/{pk}/brief). A short, cited summary of one patient's recorded
+    # history for the start of a consultation. Read-only: reads the snapshot, writes nothing.
+    # DOCTOR + ADMIN (a clinician preparing for the visit, or an admin reviewing it).
+    "patient_brief": frozenset({ROLE_DOCTOR, ROLE_ADMIN}),
 }
 
 

@@ -27,6 +27,7 @@ def log_correction(
     confirmed_dosha_imbalance: str,
     confirmed_prescribed_herbs: list[dict],
     clinic_id: str = DEFAULT_CLINIC_ID,
+    proposal_source: str = "gemini",
 ) -> None:
     was_changed = (
         ai_dosha_imbalance != confirmed_dosha_imbalance
@@ -41,8 +42,8 @@ def log_correction(
                 prescription_id, clinic_id,
                 ai_dosha_imbalance, ai_prescribed_herbs_json,
                 confirmed_dosha_imbalance, confirmed_prescribed_herbs_json,
-                was_changed
-            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                was_changed, proposal_source
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ''',
             (
                 prescription_id,
@@ -52,6 +53,7 @@ def log_correction(
                 confirmed_dosha_imbalance,
                 json.dumps(confirmed_prescribed_herbs),
                 1 if was_changed else 0,
+                proposal_source,
             ),
         )
         conn.commit()
@@ -75,7 +77,8 @@ def get_corrections_for_clinic(clinic_id: str = DEFAULT_CLINIC_ID) -> list[dict]
         rows = conn.execute(
             '''
             SELECT prescription_id, clinic_id, ai_dosha_imbalance, ai_prescribed_herbs_json,
-                   confirmed_dosha_imbalance, confirmed_prescribed_herbs_json, was_changed, created_at
+                   confirmed_dosha_imbalance, confirmed_prescribed_herbs_json, was_changed, created_at,
+                   proposal_source
             FROM corrections
             WHERE clinic_id = ?
             ORDER BY created_at DESC
@@ -94,6 +97,7 @@ def get_corrections_for_clinic(clinic_id: str = DEFAULT_CLINIC_ID) -> list[dict]
             "confirmed_dosha_imbalance": row["confirmed_dosha_imbalance"],
             "confirmed_prescribed_herbs": json.loads(row["confirmed_prescribed_herbs_json"]),
             "was_changed": bool(row["was_changed"]),
+            "proposal_source": row["proposal_source"],
             "created_at": row["created_at"],
         }
         for row in rows
