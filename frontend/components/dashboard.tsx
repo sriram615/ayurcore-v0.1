@@ -198,11 +198,12 @@ function RecentPrescriptions({ source }: { source: ReturnType<typeof useSource<A
     {source.status === 'error' && <SourceError error={source.error} onRetry={source.reload} />}
     {source.status === 'done' && (rows.length === 0
       ? <div className="patients-empty" role="status"><p>No confirmed prescriptions yet.</p></div>
-      : <div className="table-wrap"><table aria-label="Recent prescriptions"><thead><tr><th>Prescription</th><th>Date</th><th>Dosha</th><th>Changed</th></tr></thead><tbody>
+      : <div className="table-wrap"><table aria-label="Recent prescriptions"><thead><tr><th>Prescription</th><th>Date</th><th>Dosha</th><th>Source</th><th>Changed</th></tr></thead><tbody>
         {rows.map((x) => <tr key={x.prescription_id}>
           <td><strong className="mono">#{x.prescription_id}</strong></td>
           <td>{formatRecordDate(x.created_at)}</td>
           <td>{x.confirmed_dosha_imbalance}</td>
+          <td><span className="mono">{x.proposal_source ?? 'gemini'}</span></td>
           <td>{x.was_changed ? 'Yes' : 'No'}</td>
         </tr>)}
       </tbody></table></div>)}

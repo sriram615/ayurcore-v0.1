@@ -282,6 +282,7 @@ class AuditRecord(BaseModel):
     confirmed_dosha_imbalance: str
     confirmed_prescribed_herbs: List[PrescribedHerb]
     was_changed: bool
+    proposal_source: Optional[str] = "gemini"
 
 
 class LoginRequest(BaseModel):

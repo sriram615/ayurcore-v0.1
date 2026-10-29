@@ -46,6 +46,8 @@ const MSG_UNKNOWN_HERB = 'Not a herb this clinic stocks. Check the spelling or p
 const MSG_VALIDATION = "Some of the prescription details couldn't be accepted. Check the dosha and the herb amounts, then try again."
 const MSG_AI_UNAVAILABLE =
   "The assistant isn't responding right now. You can write this prescription yourself — the same herb and stock checks still apply."
+const MSG_EXTRACTOR_ABSTAINED =
+  "The local extractor could not verify this prescription from the notes. You can write it yourself, or try Cloud AI."
 const MSG_AI_INVALID_RESPONSE = "The assistant's reply couldn't be read. Try again, or write it yourself."
 const MSG_PREVIEW_EXPIRED = 'This draft is over 30 minutes old and has lapsed. Draft it again from your notes?'
 const MSG_INSUFFICIENT_STOCK = 'Not enough stock to dispense this amount.'
@@ -95,12 +97,14 @@ export type ApiOperation =
   | 'login'
   | 'logout'
   | 'preview'
+  | 'preview_local'
   | 'manual_preview'
   | 'confirm'
   | 'audit_export'
   | 'audit_events'
   | 'inventory'
   | 'patient_ask'
+  | 'patient_brief'
   | 'patient_search'
   | 'patient_history'
   | 'patient_register'
@@ -123,6 +127,9 @@ export function translateApiError(
 
   if (errorCode === 'AI_SERVICE_UNAVAILABLE') {
     return { category: ErrorCategory.AI_UNAVAILABLE, message: MSG_AI_UNAVAILABLE }
+  }
+  if (errorCode === 'EXTRACTOR_ABSTAINED') {
+    return { category: ErrorCategory.AI_INVALID_RESPONSE, message: MSG_EXTRACTOR_ABSTAINED }
   }
 
   if (status === null) {

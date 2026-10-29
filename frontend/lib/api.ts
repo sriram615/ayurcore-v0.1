@@ -18,6 +18,7 @@ import type {
   AskRequest,
   AskResponse,
   AuditExportResponse,
+  BriefResponse,
   InventoryResponse,
   ConfirmRequest,
   LoginRequest,
@@ -149,6 +150,11 @@ export function prescribePreview(body: PreviewRequest, token: string): Promise<P
   return request<PreviewResponse>('/prescribe/preview', 'preview', { method: 'POST', body }, { token })
 }
 
+/** Local deterministic extraction via AI-1 (T1 tagger + T2 assembly + T3 verifier). No LLM, no API key, offline. */
+export function prescribePreviewLocal(body: PreviewRequest, token: string): Promise<PreviewResponse> {
+  return request<PreviewResponse>('/prescribe/preview/local', 'preview_local', { method: 'POST', body }, { token })
+}
+
 export function prescribeManualPreview(
   body: ManualPreviewRequest,
   token: string
@@ -214,6 +220,26 @@ export function askPatient(patientPk: number, body: AskRequest, token: string, s
     `/patients/${encodeURIComponent(String(patientPk))}/ask`,
     'patient_ask',
     { method: 'POST', body },
+    { token, signal }
+  )
+}
+
+/** Get AI-3 consultation brief (DOCTOR/ADMIN only; read-only deterministic facts with salience ranking). */
+export function getPatientBrief(
+  patientPk: number,
+  token: string,
+  arm: 'learned' | 'template' = 'learned',
+  asOf?: string,
+  signal?: AbortSignal
+): Promise<BriefResponse> {
+  const params = new URLSearchParams()
+  if (arm) params.set('arm', arm)
+  if (asOf) params.set('as_of', asOf)
+  const query = params.toString()
+  return request<BriefResponse>(
+    `/patients/${encodeURIComponent(String(patientPk))}/brief${query ? `?${query}` : ''}`,
+    'patient_brief',
+    { method: 'GET' },
     { token, signal }
   )
 }

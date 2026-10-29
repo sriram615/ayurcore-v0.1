@@ -17,6 +17,7 @@ import { ChevronLeft, FileText, Leaf, RefreshCw, Search, UserPlus, X } from 'luc
 
 import { ApiCallError, patientHistory, registerPatient, searchPatients } from '@/lib/api'
 import PatientAsk from '@/components/patient-ask'
+import ConsultationBrief from '@/components/consultation-brief'
 import { formatRecordDate } from '@/lib/format'
 import type { ApiOperation } from '@/lib/errors'
 import { friendlyMessage } from '@/lib/errors'
@@ -275,6 +276,11 @@ function PatientHistory({ patient, session, onSessionExpired, onClose }: { patie
       </div>
       <button type="button" className="button button-outline patients-back" onClick={onClose}><ChevronLeft size={15} /> Close</button>
     </div>
+
+    {/* AI-3 Consultation Brief: available to DOCTOR and ADMIN accounts (read-only cited facts). */}
+    {(session.role === 'DOCTOR' || session.role === 'ADMIN') && (
+      <ConsultationBrief patient={patient} session={session} onSessionExpired={onSessionExpired} />
+    )}
 
     {/* Doctor accounts only; the backend is the authority and answers 403 to anyone else. Remounted with this panel (key = patient_pk),
         so a different patient always starts from an empty question. */}

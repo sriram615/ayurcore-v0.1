@@ -36,3 +36,13 @@ def pytest_configure(config):
             "`./venv/bin/python scripts/run_isolated_tests.py [pytest args]` instead.",
             returncode=4,
         )
+
+
+@pytest.fixture(autouse=True)
+def _reset_rate_limits():
+    """Reset the in-memory rate limiter so tests do not pollute each other's budgets."""
+    try:
+        from backend.rate_limit import reset
+        reset()
+    except ImportError:
+        pass

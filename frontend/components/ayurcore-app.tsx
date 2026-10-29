@@ -8,6 +8,7 @@ import {
   ChevronLeft,
   ClipboardCheck,
   Clock3,
+  Cpu,
   FileText,
   LayoutDashboard,
   Leaf,
@@ -37,6 +38,7 @@ import {
   prescribeConfirm,
   prescribeManualPreview,
   prescribePreview,
+  prescribePreviewLocal,
   ApiCallError,
 } from '@/lib/api'
 import { friendlyMessage } from '@/lib/errors'
@@ -354,6 +356,7 @@ function SlideToConfirm({ disabled, busy, onConfirm }: { disabled: boolean; busy
 function Consultation({ session, onSessionExpired }: { session: LoginResponse; onSessionExpired: () => void }) {
   const [stage, setStage] = useState<'input' | 'review' | 'confirmed'>('input')
   const [mode, setMode] = useState<'ai' | 'manual'>('ai')
+  const [proposalSource, setProposalSource] = useState<'local_extractor' | 'gemini' | 'manual'>('local_extractor')
   const [editing, setEditing] = useState(false)
   const [dosha, setDosha] = useState('')
   const [patient, setPatient] = useState('')
@@ -391,13 +394,38 @@ function Consultation({ session, onSessionExpired }: { session: LoginResponse; o
     setNotes('')
     setItems([])
     setDosha('')
+    setProposalSource('local_extractor')
     setPreviewId(null)
     setConfirmedResult(null)
     setError('')
     idempotencyKeyRef.current = null
   }
 
-  const startAi = async () => {
+  const startAiLocal = async () => {
+    setError('')
+    setStarting(true)
+    try {
+      const resp = await prescribePreviewLocal(
+        { patient_name: patient, patient_id: patientId || undefined, notes },
+        session.token
+      )
+      setPreviewId(resp.preview_id)
+      setDosha(resp.dosha_imbalance)
+      setItems(resp.prescribed_herbs.map((h) => ({ name: h.name, qty: h.grams })))
+      setMode('ai')
+      setProposalSource('local_extractor')
+      setEditing(false)
+      idempotencyKeyRef.current = null
+      setStage('review')
+    } catch (err) {
+      const message = handleAuthError(err)
+      if (message) setError(message)
+    } finally {
+      setStarting(false)
+    }
+  }
+
+  const startAiGemini = async () => {
     setError('')
     setStarting(true)
     try {
@@ -409,6 +437,7 @@ function Consultation({ session, onSessionExpired }: { session: LoginResponse; o
       setDosha(resp.dosha_imbalance)
       setItems(resp.prescribed_herbs.map((h) => ({ name: h.name, qty: h.grams })))
       setMode('ai')
+      setProposalSource('gemini')
       setEditing(false)
       idempotencyKeyRef.current = null
       setStage('review')
@@ -423,6 +452,7 @@ function Consultation({ session, onSessionExpired }: { session: LoginResponse; o
   const startManual = () => {
     setError('')
     setMode('manual')
+    setProposalSource('manual')
     setDosha('')
     setItems([])
     setPreviewId(null)
@@ -498,12 +528,12 @@ function Consultation({ session, onSessionExpired }: { session: LoginResponse; o
   }
 
   if (stage === 'confirmed' && confirmedResult) {
-    return <div className="confirmed-state"><div className="success-mark"><Check size={28} /></div><div className="section-kicker">CONFIRMATION COMPLETE</div><h1>Prescription confirmed.</h1><p>The prescription has been recorded and inventory has been validated.</p><div className="confirmation-sheet"><div className="confirm-top"><div><span>Patient</span><strong>{confirmedResult.patient_name}</strong></div><div><span>Date</span><strong>{formatDate(confirmedResult.created_at)}</strong></div><div><span>Dosha</span><strong>{confirmedResult.dosha_imbalance}</strong></div></div><div className="sheet-divider" />{confirmedResult.prescribed_herbs.map((item) => <div className="confirm-row" key={item.name}><span>{item.name}</span><strong>{item.grams} g</strong></div>)}<div className="sheet-divider" /><div className="prescription-number"><span>Prescription reference</span><strong>#{confirmedResult.prescription_id}</strong></div></div><Button onClick={resetDraft}>Start next patient <ArrowRight size={16} /></Button></div>
+    return <div className="confirmed-state"><div className="success-mark"><Check size={28} /></div><div className="section-kicker">CONFIRMATION COMPLETE</div><h1>Prescription confirmed.</h1><p>The prescription has been recorded and inventory has been validated.</p><div className="confirmation-sheet"><div className="confirm-top"><div><span>Patient</span><strong>{confirmedResult.patient_name}</strong></div><div><span>Date</span><strong>{formatDate(confirmedResult.created_at)}</strong></div><div><span>Dosha</span><strong>{confirmedResult.dosha_imbalance}</strong></div><div><span>Source</span><strong className="mono">{confirmedResult.proposal_source === 'local_extractor' ? 'Local AI Extractor' : confirmedResult.proposal_source === 'gemini' ? 'Google Gemini' : 'Manual Entry'}</strong></div></div><div className="sheet-divider" />{confirmedResult.prescribed_herbs.map((item) => <div className="confirm-row" key={item.name}><span>{item.name}</span><strong>{item.grams} g</strong></div>)}<div className="sheet-divider" /><div className="prescription-number"><span>Prescription reference</span><strong>#{confirmedResult.prescription_id}</strong></div></div><Button onClick={resetDraft}>Start next patient <ArrowRight size={16} /></Button></div>
   }
 
   return <div className="consultation-view"><PageHeader eyebrow="DOCTOR · CONSULTATION" title={stage === 'input' ? 'New consultation' : mode === 'ai' ? 'Review clinical draft' : 'Write prescription'} description={stage === 'input' ? 'Prepare a clinical proposal for review. The final decision always remains with you.' : mode === 'ai' ? 'Review the proposed prescription before confirming.' : 'Select medicines and quantities for this patient.'} />
     <div className="stage-line"><span className={stage === 'input' ? 'current' : 'done'}>01 <b>INPUT</b></span><i /><span className={stage === 'review' ? 'current' : stage === 'confirmed' ? 'done' : ''}>02 <b>{mode === 'ai' ? 'AI / MANUAL' : 'MANUAL'}</b></span><i /><span>03 <b>REVIEW</b></span><i /><span>04 <b>CONFIRM</b></span></div>
-    {stage === 'input' ? <div className="consultation-form"><div className="clinical-form"><label>Patient name<input value={patient} onChange={(e) => setPatient(e.target.value)} placeholder="Search or enter patient name" /></label><label>Patient phone / ID<input value={patientId} onChange={(e) => setPatientId(e.target.value)} placeholder="e.g. AC-1048" /></label><label>Clinical notes<textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Describe the patient's concerns, observations, and relevant history..." rows={8} /></label><div className="form-footer"><span><ShieldCheck size={15} /> Your notes stay within the clinic workspace.</span></div></div><div className="draft-choice"><div className="choice-kicker">HOW WOULD YOU LIKE TO PROCEED?</div><button className="choice-button" onClick={startAi} disabled={starting || !patient || !notes}><span className="choice-icon"><Sparkles size={18} /></span><span><strong>{starting ? 'Drafting…' : 'Draft with AI'}</strong><small>Generate a clinical proposal for review.</small></span><ArrowRight size={17} /></button><button className="choice-button" onClick={startManual} disabled={starting || !patient}><span className="choice-icon manual"><Stethoscope size={18} /></span><span><strong>Write it myself</strong><small>Enter the prescription yourself.</small></span><ArrowRight size={17} /></button>{error && <div className="inline-error">{error}</div>}</div></div> : <div className="review-view"><div className="review-header"><div><div className="section-kicker">{mode === 'ai' ? 'AI DRAFT' : 'MANUAL ENTRY'} <span className="generated-status"><span /> {mode === 'ai' ? 'AI generated' : 'Doctor entered'}</span></div><h2>{mode === 'ai' ? 'Review proposed prescription' : 'Review prescription'}</h2></div><PatientContext patientName={patient} patientId={patientId} manual={mode === 'manual'} /></div><div className="review-grid"><section className="prescription-panel"><div className="panel-heading"><div><span className="panel-label">PRESCRIPTION</span><h3>{editing ? 'Edit medicines and quantities' : 'Proposed medicines'}</h3></div>{!editing && <Button variant="outline" onClick={() => setEditing(true)}>Edit prescription</Button>}</div><div className="dosha-line"><span>Dosha imbalance</span>{editing ? <select value={dosha} onChange={(e) => setDosha(e.target.value)}><option value="">Select…</option><option>Vata</option><option>Pitta</option><option>Kapha</option><option>Other</option></select> : <strong>{dosha}</strong>}</div><div className="medicine-list">{items.map((item, index) => <MedicineRow key={item.name} item={item} editing={editing} update={(qty: number) => setItems(items.map((x, i) => i === index ? { ...x, qty } : x))} remove={() => setItems(items.filter((_, i) => i !== index))} />)}{items.length === 0 && <p style={{ color: 'var(--muted)', fontSize: 12 }}>No medicines added yet.</p>}</div>{editing && <><div className="medicine-row"><div className="medicine-name"><span className="medicine-icon"><Plus size={14} /></span><input aria-label="New medicine name" placeholder="Medicine name" value={newHerbName} onChange={(e) => setNewHerbName(e.target.value)} style={{ border: '1px solid var(--border)', borderRadius: 4, padding: '6px 8px', fontSize: 12 }} /></div><div className="quantity-control"><input aria-label="New medicine grams" type="number" min="1" value={newHerbGrams} onChange={(e) => setNewHerbGrams(e.target.value)} /><span>g</span></div><button className="remove-button" onClick={addMedicine}>Add</button></div>{error && <div className="inline-error">{error}</div>}<div className="edit-actions"><Button variant="outline" onClick={() => setEditing(false)}>Cancel</Button><Button onClick={() => setEditing(false)} disabled={!dosha || items.length === 0}>Save changes <Check size={15} /></Button></div></>}{!editing && error && <div className="inline-error" role="alert">{error}</div>}</section><aside className="confirm-panel"><div className="confirm-panel-top"><span className="panel-label">FINAL REVIEW</span><ShieldCheck size={20} /></div><h3>Ready to confirm?</h3><p>Confirmation will validate stock and record this prescription against the clinic inventory.</p><div className="confirm-rule"><span>Doctor review required</span><Check size={14} /></div><SlideToConfirm disabled={editing || !dosha || items.length === 0} busy={confirming} onConfirm={handleConfirm} /></aside></div></div>}
+    {stage === 'input' ? <div className="consultation-form"><div className="clinical-form"><label>Patient name<input value={patient} onChange={(e) => setPatient(e.target.value)} placeholder="Search or enter patient name" /></label><label>Patient phone / ID<input value={patientId} onChange={(e) => setPatientId(e.target.value)} placeholder="e.g. AC-1048" /></label><label>Clinical notes<textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Describe the patient's concerns, observations, and relevant history..." rows={8} /></label><div className="form-footer"><span><ShieldCheck size={15} /> Your notes stay within the clinic workspace.</span></div></div><div className="draft-choice"><div className="choice-kicker">HOW WOULD YOU LIKE TO PROCEED?</div><button className="choice-button" onClick={startAiLocal} disabled={starting || !patient || !notes}><span className="choice-icon local"><Cpu size={18} /></span><span><strong>{starting ? 'Drafting…' : 'Draft with Local AI (Offline)'}</strong><small>AI-1 local extractor: T1 tagger + verifier. Offline, deterministic, zero cloud transfer.</small></span><ArrowRight size={17} /></button><button className="choice-button" onClick={startAiGemini} disabled={starting || !patient || !notes}><span className="choice-icon"><Sparkles size={18} /></span><span><strong>{starting ? 'Drafting…' : 'Draft with Cloud AI (Gemini)'}</strong><small>Cloud LLM extraction with client-side PII air-gap safeguard.</small></span><ArrowRight size={17} /></button><button className="choice-button" onClick={startManual} disabled={starting || !patient}><span className="choice-icon manual"><Stethoscope size={18} /></span><span><strong>Write it myself</strong><small>Enter medicines and dosha directly without AI assistance.</small></span><ArrowRight size={17} /></button>{error && <div className="inline-error">{error}</div>}</div></div> : <div className="review-view"><div className="review-header"><div><div className="section-kicker">{mode === 'ai' ? 'AI PROPOSAL REVIEW' : 'MANUAL ENTRY'} <span className={`proposal-source-badge ${proposalSource}`}>{proposalSource === 'local_extractor' && <><Cpu size={12} /> Local Extractor (Offline)</>}{proposalSource === 'gemini' && <><Sparkles size={12} /> Cloud AI (Gemini)</>}{proposalSource === 'manual' && <><Stethoscope size={12} /> Doctor entered</>}</span></div><h2>{mode === 'ai' ? 'Review proposed prescription' : 'Review prescription'}</h2></div><PatientContext patientName={patient} patientId={patientId} manual={mode === 'manual'} /></div><div className="review-grid"><section className="prescription-panel"><div className="panel-heading"><div><span className="panel-label">PRESCRIPTION</span><h3>{editing ? 'Edit medicines and quantities' : 'Proposed medicines'}</h3></div>{!editing && <Button variant="outline" onClick={() => setEditing(true)}>Edit prescription</Button>}</div><div className="dosha-line"><span>Dosha imbalance</span>{editing ? <select value={dosha} onChange={(e) => setDosha(e.target.value)}><option value="">Select…</option><option>Vata</option><option>Pitta</option><option>Kapha</option><option>Other</option></select> : <strong>{dosha}</strong>}</div><div className="medicine-list">{items.map((item, index) => <MedicineRow key={item.name} item={item} editing={editing} update={(qty: number) => setItems(items.map((x, i) => i === index ? { ...x, qty } : x))} remove={() => setItems(items.filter((_, i) => i !== index))} />)}{items.length === 0 && <p style={{ color: 'var(--muted)', fontSize: 12 }}>No medicines added yet.</p>}</div>{editing && <><div className="medicine-row"><div className="medicine-name"><span className="medicine-icon"><Plus size={14} /></span><input aria-label="New medicine name" placeholder="Medicine name" value={newHerbName} onChange={(e) => setNewHerbName(e.target.value)} style={{ border: '1px solid var(--border)', borderRadius: 4, padding: '6px 8px', fontSize: 12 }} /></div><div className="quantity-control"><input aria-label="New medicine grams" type="number" min="1" value={newHerbGrams} onChange={(e) => setNewHerbGrams(e.target.value)} /><span>g</span></div><button className="remove-button" onClick={addMedicine}>Add</button></div>{error && <div className="inline-error">{error}</div>}<div className="edit-actions"><Button variant="outline" onClick={() => setEditing(false)}>Cancel</Button><Button onClick={() => setEditing(false)} disabled={!dosha || items.length === 0}>Save changes <Check size={15} /></Button></div></>}{!editing && error && <div className="inline-error" role="alert">{error}</div>}</section><aside className="confirm-panel"><div className="confirm-panel-top"><span className="panel-label">FINAL REVIEW</span><ShieldCheck size={20} /></div><h3>Ready to confirm?</h3><p>Confirmation will validate stock and record this prescription against the clinic inventory.</p><div className="confirm-rule"><span>Doctor review required</span><Check size={14} /></div><SlideToConfirm disabled={editing || !dosha || items.length === 0} busy={confirming} onConfirm={handleConfirm} /></aside></div></div>}
   </div>
 }
 
@@ -591,7 +621,7 @@ function Prescriptions({ session, onSessionExpired }: { session: LoginResponse; 
     <PageHeader eyebrow="WORKSPACE · PRESCRIPTIONS" title="Prescriptions" description="Confirmed prescriptions for your clinic, from the audit trail (patient identity is never stored here by backend design)." />
     {loading && <p style={{ color: 'var(--muted)', fontSize: 12 }}>Loading…</p>}
     {error && <div className="inline-error">{error}</div>}
-    {records && <div className="table-wrap"><table><thead><tr><th>Prescription ID</th><th>Date</th><th>Dosha</th><th>Herbs</th><th>Status</th></tr></thead><tbody>{records.map((r) => <tr key={r.prescription_id}><td><strong className="mono">#{r.prescription_id}</strong></td><td>{formatDate(r.created_at)}</td><td>{r.confirmed_dosha_imbalance}</td><td>{herbSummary(r.confirmed_prescribed_herbs)}</td><td><span className="status-text"><i />{r.was_changed ? 'Changed from AI' : 'As proposed'}</span></td></tr>)}</tbody></table>{records.length === 0 && <p style={{ padding: 16, color: 'var(--muted)', fontSize: 12 }}>No confirmed prescriptions yet.</p>}</div>}
+    {records && <div className="table-wrap"><table><thead><tr><th>Prescription ID</th><th>Date</th><th>Dosha</th><th>Herbs</th><th>Source</th><th>Status</th></tr></thead><tbody>{records.map((r) => <tr key={r.prescription_id}><td><strong className="mono">#{r.prescription_id}</strong></td><td>{formatDate(r.created_at)}</td><td>{r.confirmed_dosha_imbalance}</td><td>{herbSummary(r.confirmed_prescribed_herbs)}</td><td><span className="mono">{r.proposal_source ?? 'gemini'}</span></td><td><span className="status-text"><i />{r.was_changed ? 'Changed from AI' : 'As proposed'}</span></td></tr>)}</tbody></table>{records.length === 0 && <p style={{ padding: 16, color: 'var(--muted)', fontSize: 12 }}>No confirmed prescriptions yet.</p>}</div>}
   </div>
 }
 
@@ -645,7 +675,7 @@ function Audit({ session, onSessionExpired }: { session: LoginResponse; onSessio
     </div>}
     {records && <>
       <div className="panel-heading"><div><span className="panel-label">CORRECTIONS</span><h3>AI proposal vs. confirmation</h3></div></div>
-      <div className="table-wrap"><table><thead><tr><th>Prescription ID</th><th>Date</th><th>AI dosha</th><th>Confirmed dosha</th><th>Changed</th></tr></thead><tbody>{records.map((r) => <tr key={r.prescription_id}><td><strong className="mono">#{r.prescription_id}</strong></td><td>{formatDate(r.created_at)}</td><td>{r.ai_dosha_imbalance}</td><td>{r.confirmed_dosha_imbalance}</td><td><span className="status-text"><i />{r.was_changed ? 'Yes' : 'No'}</span></td></tr>)}</tbody></table>{records.length === 0 && <p style={{ padding: 16, color: 'var(--muted)', fontSize: 12 }}>No records yet.</p>}</div>
+      <div className="table-wrap"><table><thead><tr><th>Prescription ID</th><th>Date</th><th>AI dosha</th><th>Confirmed dosha</th><th>Source</th><th>Changed</th></tr></thead><tbody>{records.map((r) => <tr key={r.prescription_id}><td><strong className="mono">#{r.prescription_id}</strong></td><td>{formatDate(r.created_at)}</td><td>{r.ai_dosha_imbalance}</td><td>{r.confirmed_dosha_imbalance}</td><td><span className="mono">{r.proposal_source ?? 'gemini'}</span></td><td><span className="status-text"><i />{r.was_changed ? 'Yes' : 'No'}</span></td></tr>)}</tbody></table>{records.length === 0 && <p style={{ padding: 16, color: 'var(--muted)', fontSize: 12 }}>No records yet.</p>}</div>
     </>}
     {events && <>
       <div className="panel-heading"><div><span className="panel-label">TAMPER-EVIDENT LOG</span><h3>Audit events</h3></div></div>

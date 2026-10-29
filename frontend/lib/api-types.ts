@@ -65,6 +65,7 @@ export interface PrescriptionResponse {
   prescribed_herbs: PrescribedHerb[]
   prescription_id: number
   created_at: string
+  proposal_source?: 'local_extractor' | 'gemini' | 'manual' | string
 }
 
 /** One row of GET /audit/export -- the AI-proposal-vs-confirmation trail.
@@ -78,6 +79,7 @@ export interface AuditRecord {
   confirmed_dosha_imbalance: string
   confirmed_prescribed_herbs: PrescribedHerb[]
   was_changed: boolean
+  proposal_source?: 'local_extractor' | 'gemini' | 'manual' | string
 }
 
 export interface AuditExportResponse {
@@ -236,4 +238,25 @@ export interface PatientHistoryResponse {
   limit: number
   offset: number
   has_more: boolean
+}
+
+/** One verified fact line in AI-3 consultation brief. */
+export interface BriefItem {
+  rank: number
+  kind: string
+  text: string
+  records: string[]
+  exact: boolean
+  score?: number | null
+}
+
+/** Response body for GET /patients/{patient_pk}/brief (DOCTOR/ADMIN read-only). */
+export interface BriefResponse {
+  patient_pk: number
+  as_of: string
+  arm: 'learned' | 'template' | string
+  caveat: string
+  omitted: number
+  rejected: number
+  items: BriefItem[]
 }

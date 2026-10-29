@@ -325,3 +325,38 @@ input[aria-invalid='true'] { border-color: var(--danger); }
 .ask-result p { color: var(--foreground); }
 .ask-result small { font-size: var(--fs-caption); line-height: 1.6; }
 @media (max-width: 560px) { .ask-panel { padding: 14px; } .ask-actions .button { flex: 1 1 0; } }
+
+/* AI-3 Consultation Brief */
+.brief-panel { display: flex; flex-direction: column; gap: 14px; margin-top: 20px; padding: 18px 20px; border: 1px solid var(--border); background: var(--surface); }
+.brief-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.brief-badge { display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border-radius: 4px; background: var(--sage); color: var(--primary); font-size: var(--fs-meta); font-weight: 700; letter-spacing: .08em; }
+.brief-title { margin: 6px 0 3px; color: var(--primary); font: 500 20px/1.2 Georgia, serif; letter-spacing: -.03em; }
+.brief-desc { color: var(--muted); font-size: var(--fs-caption); margin: 0; }
+.brief-controls { display: flex; align-items: center; gap: 10px; }
+.arm-toggle { display: inline-flex; border: 1px solid var(--border); border-radius: 5px; overflow: hidden; background: var(--background); }
+.arm-button { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; border: 0; background: transparent; color: var(--muted); font-size: var(--fs-caption); font-weight: 600; transition: background .15s, color .15s; }
+.arm-button.active { background: var(--primary); color: white; }
+.refresh-button { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); color: var(--muted); }
+.refresh-button:hover:not(:disabled) { background: var(--sage); color: var(--primary); }
+.spinning { animation: spin 1s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.brief-loading { padding: 12px 0; }
+.brief-content { display: flex; flex-direction: column; gap: 12px; }
+.brief-caveat { display: flex; align-items: flex-start; gap: 8px; padding: 8px 12px; border-left: 2px solid var(--primary); background: #f0f6f2; color: var(--primary); font-size: var(--fs-caption); line-height: 1.5; border-radius: 0 4px 4px 0; }
+.brief-items { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.brief-item { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 4px; background: var(--background); font-size: var(--fs-small); flex-wrap: wrap; }
+.brief-item-main { display: flex; align-items: flex-start; gap: 9px; flex: 1; min-width: 240px; }
+.brief-item-marker { display: grid; place-items: center; width: 18px; height: 18px; margin-top: 2px; border-radius: 50%; background: #d7e8dd; color: var(--primary); flex-shrink: 0; }
+.brief-item-text { color: var(--foreground); font-weight: 500; line-height: 1.45; }
+.brief-item-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.brief-kind-pill { display: inline-flex; align-items: center; padding: 2px 7px; border-radius: 3px; background: #e8ede9; color: var(--muted); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.brief-cite-pill { display: inline-flex; align-items: center; padding: 2px 7px; border: 1px solid var(--border); border-radius: 3px; background: var(--surface); color: var(--primary); font-size: 11px; }
+.brief-score-pill { display: inline-flex; align-items: center; padding: 2px 7px; border-radius: 3px; background: #d4ebd9; color: #22593b; font-size: 11px; font-weight: 600; }
+.brief-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid var(--border); color: var(--muted); font-size: var(--fs-meta); }
+
+/* Choice & Proposal Source Badges */
+.choice-icon.local { background: #dbebe0; color: #23593b; }
+.proposal-source-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 4px; font-size: var(--fs-caption); font-weight: 600; }
+.proposal-source-badge.local { background: #dbebe0; color: #23593b; }
+.proposal-source-badge.gemini { background: #e3ece6; color: #315c4a; }
+.proposal-source-badge.manual { background: #f0e9dc; color: #9b7441; }
