@@ -7,10 +7,12 @@
  * Every fact is verified against confirmed records; no diagnostic inference
  * or treatment rationale is ever generated. Allows toggling between the
  * learned salience model (arm="learned") and the fixed template (arm="template").
+ *
+ * Uses existing tokens, typography, and UI patterns only -- no custom colors.
  */
 
 import { useState } from 'react'
-import { Check, ChevronDown, ChevronUp, Info, Layers, RefreshCw, Sparkles } from 'lucide-react'
+import { ChevronDown, ChevronUp, RefreshCw, Sparkles } from 'lucide-react'
 
 import { ApiCallError, getPatientBrief } from '@/lib/api'
 import { friendlyMessage } from '@/lib/errors'
@@ -60,17 +62,12 @@ export default function ConsultationBrief({ patient, session, onSessionExpired }
   }
 
   return (
-    <section className="brief-panel" aria-label="Consultation brief">
+    <section className="ask-panel brief-panel" aria-label="Consultation brief">
       <div className="brief-header">
         <div>
-          <div className="section-kicker">
-            <span className="brief-badge">
-              <Sparkles size={13} aria-hidden="true" /> AI-3 BRIEF
-            </span>
-          </div>
-          <h4 className="brief-title">Pre-consultation summary</h4>
-          <p className="brief-desc">
-            Deterministic facts verified against this patient’s history. Read-only, zero hallucination.
+          <span className="panel-label">AI-3 BRIEF</span>
+          <p className="patients-hint">
+            Deterministic summary verified against recorded history. Read-only, zero hallucination.
           </p>
         </div>
 
@@ -78,10 +75,10 @@ export default function ConsultationBrief({ patient, session, onSessionExpired }
           {!open ? (
             <button
               type="button"
-              className="button button-outline brief-open-btn"
+              className="button button-outline"
               onClick={handleOpen}
             >
-              <Sparkles size={14} /> View brief <ChevronDown size={14} />
+              <Sparkles size={14} aria-hidden="true" /> View brief <ChevronDown size={14} aria-hidden="true" />
             </button>
           ) : (
             <>
@@ -91,18 +88,16 @@ export default function ConsultationBrief({ patient, session, onSessionExpired }
                   className={`arm-button ${arm === 'learned' ? 'active' : ''}`}
                   onClick={() => handleArmChange('learned')}
                   disabled={loading}
-                  title="Learned salience ranking model"
                 >
-                  <Sparkles size={13} /> Learned
+                  Learned
                 </button>
                 <button
                   type="button"
                   className={`arm-button ${arm === 'template' ? 'active' : ''}`}
                   onClick={() => handleArmChange('template')}
                   disabled={loading}
-                  title="Fixed template chronological ordering"
                 >
-                  <Layers size={13} /> Template
+                  Template
                 </button>
               </div>
 
@@ -113,16 +108,16 @@ export default function ConsultationBrief({ patient, session, onSessionExpired }
                 onClick={() => fetchBrief(arm)}
                 disabled={loading}
               >
-                <RefreshCw size={14} className={loading ? 'spinning' : ''} />
+                <RefreshCw size={13} className={loading ? 'spinning' : ''} aria-hidden="true" />
               </button>
 
               <button
                 type="button"
-                className="button button-outline brief-toggle-btn"
+                className="button button-outline"
                 onClick={() => setOpen(false)}
                 aria-label="Hide brief"
               >
-                <ChevronUp size={14} />
+                <ChevronUp size={14} aria-hidden="true" />
               </button>
             </>
           )}
@@ -146,9 +141,8 @@ export default function ConsultationBrief({ patient, session, onSessionExpired }
           {!loading && !error && brief && (
             <div className="brief-content">
               {brief.caveat && (
-                <div className="brief-caveat" role="note">
-                  <Info size={14} aria-hidden="true" />
-                  <span>{brief.caveat}</span>
+                <div className="ask-caveat" role="note">
+                  {brief.caveat}
                 </div>
               )}
 
@@ -159,9 +153,7 @@ export default function ConsultationBrief({ patient, session, onSessionExpired }
                   {brief.items.map((item, idx) => (
                     <li key={idx} className="brief-item">
                       <div className="brief-item-main">
-                        <span className="brief-item-marker">
-                          <Check size={12} aria-hidden="true" />
-                        </span>
+                        <span className="brief-item-marker" aria-hidden="true">▪</span>
                         <span className="brief-item-text">{item.text}</span>
                       </div>
 
@@ -173,7 +165,7 @@ export default function ConsultationBrief({ patient, session, onSessionExpired }
                           </span>
                         ))}
                         {brief.arm === 'learned' && typeof item.score === 'number' && (
-                          <span className="brief-score-pill" title={`Salience score: ${item.score.toFixed(3)}`}>
+                          <span className="brief-score-pill mono" title={`Salience: ${item.score.toFixed(3)}`}>
                             salience {(item.score * 100).toFixed(0)}%
                           </span>
                         )}
