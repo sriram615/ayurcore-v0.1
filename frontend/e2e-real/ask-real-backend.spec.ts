@@ -155,7 +155,8 @@ test('authorization (API): 401 without a session, 403 for AUDITOR, 200 for ADMIN
   // AUDITOR is forbidden from asking (403)
   const auditorToken = await token(request, 'AUDITOR')
   expect((await request.post(`${API}/patients/${pk}/ask`, { data: body, headers: { Authorization: `Bearer ${auditorToken}` } })).status()).toBe(403)
-  // ADMIN is permitted to ask per D-02 protocol v1.2 (200)
+  // ADMIN is permitted to ask: decision D-02 kept v1.1 semantics (/ask is DOCTOR + ADMIN);
+  // the v1.2 "ADMIN forbidden" proposal was not adopted.
   const adminToken = await token(request, 'ADMIN')
   expect((await request.post(`${API}/patients/${pk}/ask`, { data: body, headers: { Authorization: `Bearer ${adminToken}` } })).status()).toBe(200)
 

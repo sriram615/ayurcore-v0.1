@@ -77,13 +77,16 @@ class ScoringTests(unittest.TestCase):
 class RealRouteTests(unittest.TestCase):
     """Runs the evaluator against the shipping /ask route on a throwaway database (the checkout's own database is never opened)."""
 
-    def test_real_route_v1_2_passes_and_v1_1_fails_only_on_the_admin_control(self):
+    def test_real_route_v1_1_passes_and_v1_2_fails_only_on_the_admin_control(self):
+        """Decision D-02 resolved gate A6 in favour of v1.1 semantics: /ask is
+        DOCTOR + ADMIN. The v1.2 proposal (ADMIN forbidden) was not adopted, so
+        it is the policy that must fail, and only on the ADMIN control."""
         import db.database as database
         before = database.DB_PATH
-        good = ev.run("v1_2", QS)
+        good = ev.run("v1_1", QS)
         self.assertTrue(good["A6_pass"], good["failures"])
         self.assertFalse(good["credentials_in_report"])
-        bad = ev.run("v1_1", QS)
+        bad = ev.run("v1_2", QS)
         self.assertFalse(bad["A6_pass"])
         self.assertEqual({c for c, _ in bad["failures"]}, {"admin_a_own_patient"})
         self.assertEqual(database.DB_PATH, before)

@@ -2,7 +2,9 @@
   "dataset": "corrections_v1",
   "classification": "SYNTHETIC -- NOT CLINICAL DATA",
   "description": "AI acceptance rate metrics computed from the corrections table across proposal sources (local_extractor, gemini, manual). Measures what proportion of proposals the doctor confirmed without changes.",
-  "status": "completed",
+  "status": "instrumented_no_measurements",
+  "measurements": null,
+  "measurement_note": "No acceptance measurement exists. Acceptance rate requires a doctor to confirm or edit AI proposals and depends on real usage; the synthetic seed data writes prescriptions directly and creates no corrections rows, so running scripts/acceptance_rate.py against the demo database returns 0/0 for every source. The targets below are expectations, not results, and must not be quoted as observed acceptance rates.",
   "generated_at_utc": "2026-10-29T19:26:00Z",
   "schema": {
     "table": "corrections",

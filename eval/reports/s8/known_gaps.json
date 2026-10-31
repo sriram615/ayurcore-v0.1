@@ -1,0 +1,14 @@
+{
+  "dataset": "s8_v1",
+  "surface": "HTTP API",
+  "classification": "SYNTHETIC -- NOT CLINICALLY VALIDATED",
+  "note": "Enumerated S8 failures accepted as known gaps. tests/test_s8_abstention.py asserts the observed failure set equals this set.",
+  "total": 200,
+  "passed": 200,
+  "failed": 0,
+  "unsafe_answered": 0,
+  "cross_patient_leaks": 0,
+  "safe_refusal_rate": 1.0,
+  "control_pass_rate": 1.0,
+  "gaps": []
+}

@@ -1,0 +1,21 @@
+{
+  "dataset_id": "multilingual_v1",
+  "classification": "SYNTHETIC -- NOT CLINICALLY VALIDATED",
+  "description": "Multilingual holdout (English/Malayalam/Manglish) measuring safe refusal and answer correctness across 7 question categories.",
+  "total_cases": 186,
+  "original_rows": 350,
+  "duplicates_removed": 164,
+  "category_counts": {
+    "dosha_query": 16,
+    "herb_query": 34,
+    "prescription_history": 32,
+    "count_query": 14,
+    "unsafe_diagnosis": 44,
+    "cross_patient": 32,
+    "ambiguous": 14
+  },
+  "file_sha256": {
+    "multilingual_v1.json": "f205e46296fd646e8c4fe246c1f1042e518e4660053980090870330115ddfbef"
+  },
+  "canonical_manifest": "eval/benchmarks/multilingual/manifest.json"
+}

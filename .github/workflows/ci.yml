@@ -40,6 +40,11 @@ jobs:
           node-version: "20"
           cache: "pnpm"
 
+      - name: Enable pnpm via corepack
+        run: |
+          corepack enable
+          corepack prepare pnpm@12.3.4 --activate
+
       - name: Install dependencies
         working-directory: frontend
         run: |
@@ -54,3 +59,13 @@ jobs:
         working-directory: frontend
         run: |
           pnpm build
+
+      - name: Install Playwright browsers
+        working-directory: frontend
+        run: |
+          pnpm exec playwright install --with-deps chromium
+
+      - name: Run Playwright tests
+        working-directory: frontend
+        run: |
+          pnpm exec playwright test

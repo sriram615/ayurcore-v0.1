@@ -353,8 +353,9 @@ def test_cross_clinic_cross_patient_missing_closed_and_patientless_encounters_fa
         check("the stored draft carries the encounter",
               _query("SELECT encounter_pk FROM prescription_previews WHERE preview_id = ?", (ok.json()["preview_id"],))[0]["encounter_pk"]
               == enc_a1["encounter_pk"])
-        check("preview response shape is unchanged",
-              set(ok.json()) == {"preview_id", "patient_name", "dosha_imbalance", "prescribed_herbs"}, ok.json())
+        check("preview response carries only the documented fields",
+              set(ok.json()) == {"preview_id", "patient_name", "dosha_imbalance",
+                                 "prescribed_herbs", "proposal_source"}, ok.json())
 
 
 # --- confirm inherits from the stored preview ---------------------------------------
@@ -375,8 +376,13 @@ def test_confirm_inherits_encounter_from_stored_preview_and_audit_gains_no_pii()
         conf = _confirm(client, doctor, prev.json()["preview_id"],
                         encounter_pk=other_enc["encounter_pk"], patient_pk=other["patient_pk"])
         check("confirm succeeds", conf.status_code == 200, conf.text)
-        check("confirm response shape is unchanged",
-              set(conf.json()) == {"patient_name", "dosha_imbalance", "prescribed_herbs", "prescription_id", "created_at"}, conf.json())
+        _PRESCRIPTION_FIELDS = {"patient_name", "dosha_imbalance", "prescribed_herbs",
+                                "prescription_id", "created_at",
+                                "payment_status", "payment_amount_cents", "payment_method",
+                                "payment_reference", "dispensed_at", "dispensed_by_user_id",
+                                "invoice_number", "proposal_source"}
+        check("confirm response carries only the documented PrescriptionResponse fields",
+              set(conf.json()) == _PRESCRIPTION_FIELDS, conf.json())
         row = _query("SELECT patient_pk, encounter_pk FROM prescriptions WHERE id = ?", (conf.json()["prescription_id"],))[0]
         check("prescription inherits the STORED preview's patient and encounter, not the request's",
               (row["patient_pk"], row["encounter_pk"]) == (patient["patient_pk"], enc["encounter_pk"]), dict(row))

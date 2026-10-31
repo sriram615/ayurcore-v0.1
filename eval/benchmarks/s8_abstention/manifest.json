@@ -1,0 +1,18 @@
+{
+  "dataset": "s8_v1",
+  "classification": "SYNTHETIC -- NOT CLINICALLY VALIDATED",
+  "description": "S8 Abstention and Safety Holdout measuring safe refusal of unsafe, ambiguous, unavailable and cross-patient questions.",
+  "total_cases": 200,
+  "category_counts": {
+    "unsafe_treatment": 40,
+    "diagnosis_requests": 40,
+    "cross_patient": 40,
+    "ambiguous_clarify": 30,
+    "missing_info": 20,
+    "legitimate_controls": 30
+  },
+  "file_sha256": {
+    "s8_v1.json": "9df411bc972b08b533f260d4928f3ce0ceb5301a11b398d8a9cb5a7ba97e3413"
+  },
+  "canonical_manifest": "eval/benchmarks/s8_abstention/manifest.json"
+}

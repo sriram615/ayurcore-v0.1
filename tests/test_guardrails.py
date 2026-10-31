@@ -678,10 +678,15 @@ def test_results_record_the_engine_fingerprint():
             setattr(owner, name, original)
         check(f"... and evaluates normally once it is restored",
               evaluate(sample, ENGINEERING_BASELINE).to_dict() == record)
+    # Re-pinned 2026-10-30: the documentation consolidation rewrote the rule
+    # descriptions ("docs/PHASE_3_PLAN.md" -> "documentation/docs/...").
+    # Descriptions are part of the rule-set hash by design, so the pin moved;
+    # no rule logic, params or outcomes changed. A future change that is not
+    # a doc path must still be treated as a rule-set change and reviewed.
     check("the baseline rule-set fingerprint is unchanged", build_ruleset(
         "ENGINEERING-BASELINE", "1", [r.rule_id for r in ENGINEERING_BASELINE.rules]).content_hash
         == ENGINEERING_BASELINE.content_hash
-        == "37c3fe7f19c8a28bf1998326bc9ce1cd48279720cfb2d3e6033de43302792baf")
+        == "24280c88be1ba834c57404f8676d6bea18c3234035885ca64f4fd9c6d3a4024f")
 
 
 def test_engine_guard_detects_code_mutation_and_descriptors():
@@ -771,7 +776,7 @@ def test_engine_guard_detects_code_mutation_and_descriptors():
             wrapped.__code__ = original
         check("... and restoring it makes the engine intact again", _engine_intact(bindings, codes))
     check("the baseline rule-set fingerprint is unchanged",
-          ENGINEERING_BASELINE.content_hash == "37c3fe7f19c8a28bf1998326bc9ce1cd48279720cfb2d3e6033de43302792baf")
+          ENGINEERING_BASELINE.content_hash == "24280c88be1ba834c57404f8676d6bea18c3234035885ca64f4fd9c6d3a4024f")
 
 
 def test_candidate_fingerprint_treats_whole_number_grams_alike():
@@ -809,7 +814,7 @@ def test_candidate_fingerprint_treats_whole_number_grams_alike():
     check("confirm-path candidates (always integers) are unchanged",
           all(isinstance(h.grams, int) for h in confirm.herbs) and confirm.fingerprint() == "e79da498fb6d3235adf5002d166c72a7dcf9aaca506c58b7de557999ee426a91")
     check("the baseline rule-set fingerprint is unchanged",
-          ENGINEERING_BASELINE.content_hash == "37c3fe7f19c8a28bf1998326bc9ce1cd48279720cfb2d3e6033de43302792baf")
+          ENGINEERING_BASELINE.content_hash == "24280c88be1ba834c57404f8676d6bea18c3234035885ca64f4fd9c6d3a4024f")
 
     check("B5: _canonical_grams is in the engine's discovered coverage",
           candidate_module._canonical_grams in engine._ENGINE_FUNCTIONS)

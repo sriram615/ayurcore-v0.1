@@ -27,6 +27,11 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# ui/app.py is the legacy Streamlit surface, not part of the v0.1 demo.
+import pytest  # noqa: E402
+
+pytest.importorskip("streamlit", reason="legacy Streamlit UI is not part of the v0.1 demo")
+
 import ui.app as ui_app  # noqa: E402  (sys.path must be set up first, above)
 
 

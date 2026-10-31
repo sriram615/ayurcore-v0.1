@@ -16,6 +16,7 @@ import sys
 import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+RESERVED_HOLDOUT = ROOT / "eval" / "benchmarks" / "s1" / "s1_test.json"
 sys.path.insert(0, str(ROOT))
 
 from backend.schemas import ClinicalParse
@@ -314,6 +315,8 @@ class ContextCheckTests(unittest.TestCase):
                     self.assertTrue(source.startswith(("S1-train", "closed-class")), source)
                     self.assertNotIn("ood", source.lower())
 
+    @unittest.skipUnless(RESERVED_HOLDOUT.exists(),
+                         "reserved acceptance holdout s1_test.json not included in this repository")
     def test_notes_are_new(self):
         def norm(text):
             return " ".join("".join(ch.lower() if ch.isalnum() else " " for ch in text).split())

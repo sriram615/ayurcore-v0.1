@@ -266,8 +266,11 @@ def test_history_is_newest_first_and_excludes_unlinked_and_other_patients():
                   ("Pitta", [{"name": "Ashwagandha", "grams": 6}]),
                   ("Vata", [{"name": "Ashwagandha", "grams": 5}]),
               ], rx)
-        check("each record has only the history fields",
-              all(set(r) == {"prescription_id", "created_at", "status", "dosha_imbalance", "prescribed_herbs"} for r in rx),
+        check("each record has only the documented history fields",
+              all(set(r) == {"prescription_id", "created_at", "status", "dosha_imbalance", "prescribed_herbs",
+                             # dispense / payment / invoice workflow (migrations 018, 020-021)
+                             "payment_status", "payment_amount_cents", "payment_method", "payment_reference",
+                             "dispensed_at", "dispensed_by_user_id", "invoice_number"} for r in rx),
               rx)
         check("page metadata", (body["limit"], body["offset"], body["has_more"]) == (20, 0, False), body)
         for internal in ("event_hash", "previous_event_hash", "preview_id", "actor_user_id", "description",

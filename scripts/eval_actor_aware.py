@@ -11,9 +11,15 @@ Environment: a throwaway database in a new temporary directory (never db/ayurcor
 printed or stored, tokens from POST /auth/login on the in-process TestClient, no network, no language model.
 
 --policy chooses what the ADMIN-clinic-A control must do:
-    v1_1  protocol v1.1 as registered: ADMIN asking about an own-clinic patient must NOT be denied
-    v1_2  proposed v1.2 (documentation/docs/PROPOSED_PROTOCOL_v1_2_A6_ADMIN_CONTROL.md): ADMIN must be forbidden (/ask is DOCTOR-only)
-Against the shipping route, v1_1 is expected to FAIL (ADMIN gets 403) until the owner decides D-02; the failure is reported, not hidden.
+    v1_1  protocol v1.1 as registered, and the policy actually shipping after
+          decision D-02: ADMIN asking about an own-clinic patient is allowed
+          (/ask is DOCTOR + ADMIN)
+    v1_2  proposed v1.2 (documentation/docs/PROPOSED_PROTOCOL_v1_2_A6_ADMIN_CONTROL.md):
+          ADMIN forbidden (/ask DOCTOR-only). Not adopted; kept so the rejected
+          alternative stays measurable.
+
+Against the shipping route, v1_1 is expected to PASS and v1_2 to fail on exactly the
+ADMIN control. Both outcomes are reported, not hidden.
 """
 from __future__ import annotations
 

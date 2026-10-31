@@ -28,6 +28,13 @@ tool = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(tool)
 
 S1 = ROOT / "eval" / "benchmarks" / "s1"
+# The reserved acceptance holdout (s1_test.json) is deliberately NOT shipped in
+# this repository. Tests that only validate it are skipped with a visible
+# reason rather than silently passing.
+RESERVED_HOLDOUT = S1 / "s1_test.json"
+_skip_no_reserved = unittest.skipUnless(
+    RESERVED_HOLDOUT.exists(),
+    "reserved acceptance holdout eval/benchmarks/s1/s1_test.json not included in this repository")
 OOD = tool.load()
 
 
@@ -63,6 +70,7 @@ class DatasetTests(unittest.TestCase):
         reasons = {a["reason"] for c in OOD["cases"] for a in c["ood"]["abstain"]}
         self.assertGreaterEqual(len(reasons), 5)
 
+    @_skip_no_reserved
     def test_no_overlap_with_any_s1_split(self):
         # Reads S1 test only to compare ids/notes for leakage -- no model is run on it.
         s1 = [c for split in ("train", "dev", "test") for c in _s1_cases(split)]
@@ -70,6 +78,7 @@ class DatasetTests(unittest.TestCase):
         self.assertFalse({c["notes"] for c in OOD["cases"]} & {c["notes"] for c in s1})
         self.assertFalse({_norm(c["notes"]) for c in OOD["cases"]} & {_norm(c["notes"]) for c in s1})
 
+    @_skip_no_reserved
     def test_s1_test_hash_unchanged(self):
         manifest = json.loads((S1 / "manifest.json").read_text(encoding="utf-8"))
         self.assertEqual(evaluate_ood._sha256(S1 / "s1_test.json"), manifest["split_file_sha256"]["s1_test.json"])

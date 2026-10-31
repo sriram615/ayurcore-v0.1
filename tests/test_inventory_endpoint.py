@@ -103,8 +103,12 @@ def test_doctor_sees_own_clinic_stock_sorted():
         check("DOCTOR -> 200", resp.status_code == 200, resp.text)
         body = resp.json()
         check("only an items list is returned", set(body) == {"items"}, body)
-        check("items are herb_name + stock_grams only",
-              all(set(i) == {"herb_name", "stock_grams"} for i in body["items"]), body)
+        # v1.0 of the inventory endpoint returned herb_name + stock_grams only.
+        # Clinic enrichment (migration 018) intentionally added the batch and
+        # reorder columns; the check stays exact so nothing internal can leak in.
+        check("items carry only the documented inventory fields",
+              all(set(i) == {"herb_name", "stock_grams", "batch_code", "expiry_date",
+                             "supplier", "reorder_level_grams", "potency_score"} for i in body["items"]), body)
         check("sorted by herb name",
               [i["herb_name"] for i in body["items"]] == ["Ashwagandha", "Brahmi", "Triphala"], body)
         check("stock values", _items(resp) == {"Ashwagandha": 1200, "Brahmi": 300, "Triphala": 700}, body)
@@ -185,7 +189,10 @@ def test_no_inventory_mutation():
         check("inventory still unchanged after other methods", _inventory_snapshot() == inventory_before)
 
         names = set(main_module.get_inventory.__code__.co_names)
-        check("handler references list_stock", "list_stock" in names, names)
+        # Clinic enrichment reads the detailed stock projection (batch, expiry,
+        # supplier, reorder level, potency); it is still a read-only path.
+        check("handler references the read-only stock projection",
+              "list_stock_detailed" in names, names)
         check("handler references no mutation function",
               not names & {"deduct_and_prescribe", "get_connection", "execute", "commit"}, names)
 

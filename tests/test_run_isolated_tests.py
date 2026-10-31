@@ -155,7 +155,7 @@ def test_main_refuses_without_creating_anything_when_tmp_is_inside_the_checkout(
     pointed inside the checkout it exits and leaves no sandbox, directory or
     database behind. (Under the runner, ROOT is itself a sandbox copy.)"""
     r = _runner()
-    target = os.path.join(r.ROOT, "docs")
+    target = os.path.join(r.ROOT, "documentation")
     before = sorted(os.listdir(target))
     saved = tempfile.tempdir
     tempfile.tempdir = target

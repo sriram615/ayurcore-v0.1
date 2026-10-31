@@ -579,8 +579,15 @@ def test_fresh_confirm_response_shape_is_unchanged_from_pre_a4():
         check("confirm succeeds", resp.status_code == 200, resp.text)
         body = resp.json()
         check(
-            "response has exactly the locked PrescriptionResponse fields, nothing added or removed",
-            set(body.keys()) == {"patient_name", "dosha_imbalance", "prescribed_herbs", "prescription_id", "created_at"},
+            "response has exactly the documented PrescriptionResponse fields, nothing added or removed",
+            set(body.keys()) == {"patient_name", "dosha_imbalance", "prescribed_herbs",
+                                 "prescription_id", "created_at",
+                                 # added with the dispense/payment/invoice workflow
+                                 "payment_status", "payment_amount_cents", "payment_method",
+                                 "payment_reference", "dispensed_at", "dispensed_by_user_id",
+                                 "invoice_number",
+                                 # added in migration 022 / Step 1.1 provenance
+                                 "proposal_source"},
             body.keys(),
         )
 

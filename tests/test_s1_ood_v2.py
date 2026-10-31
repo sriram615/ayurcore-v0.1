@@ -18,6 +18,7 @@ import tempfile
 import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
+RESERVED_HOLDOUT = ROOT / "eval" / "benchmarks" / "s1" / "s1_test.json"
 sys.path.insert(0, str(ROOT))
 
 from extractor import evaluate_ood
@@ -106,6 +107,8 @@ class CoverageTests(unittest.TestCase):
         self.assertGreaterEqual(sum(len(c["safety"]["unaccounted"]) for c in cases), 6)
 
 
+@unittest.skipUnless(RESERVED_HOLDOUT.exists(),
+                     "reserved acceptance holdout s1_test.json not included in this repository")
 class OverlapTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -163,10 +166,14 @@ class CorruptedGoldTests(unittest.TestCase):
 
 
 class IsolationTests(unittest.TestCase):
-    def test_s1_ood_v1_and_s1_test_unchanged(self):
+    def test_s1_ood_v1_unchanged(self):
         v1 = _load(ROOT / "scripts" / "s1_ood_dataset.py", "s1_ood_v1_check")
         self.assertEqual(v1.verify(), [])
         self.assertEqual(evaluate_ood._sha256(v1.DATA_FILE), V1_FILE_SHA256)
+
+    @unittest.skipUnless(RESERVED_HOLDOUT.exists(),
+                         "reserved acceptance holdout s1_test.json not included in this repository")
+    def test_s1_test_unchanged(self):
         s1_manifest = json.loads((ROOT / "eval" / "benchmarks" / "s1" / "manifest.json").read_text(encoding="utf-8"))
         self.assertEqual(evaluate_ood._sha256(ROOT / "eval" / "benchmarks" / "s1" / "s1_test.json"),
                          s1_manifest["split_file_sha256"]["s1_test.json"])

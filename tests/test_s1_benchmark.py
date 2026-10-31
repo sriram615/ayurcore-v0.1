@@ -28,6 +28,14 @@ from scripts import s1_generator as gen
 
 BENCH = ROOT / "eval" / "benchmarks" / "s1"
 SPLIT_NAMES = ("train", "dev", "test")
+
+# The reserved acceptance split (s1_test.json) is deliberately not distributed
+# with this repository, and this benchmark's frozen-file checks include it.
+import pytest  # noqa: E402
+
+if not (BENCH / "s1_test.json").exists():
+    pytest.skip("reserved acceptance holdout s1_test.json not included in this repository",
+                allow_module_level=True)
 HARNESS = base._harness()
 
 

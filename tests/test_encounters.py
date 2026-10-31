@@ -94,7 +94,11 @@ def _app_client():
     return TestClient(main_module.app)
 
 
-_RESPONSE_FIELDS = {"encounter_pk", "patient_pk", "created_by_user_id", "status", "created_at", "closed_at", "encounter_ref"}
+_RESPONSE_FIELDS = {"encounter_pk", "patient_pk", "created_by_user_id", "status", "created_at",
+                    "closed_at", "encounter_ref",
+                    # clinic enrichment (migration 018)
+                    "visit_type", "chief_complaint", "vitals_bp", "vitals_weight_kg",
+                    "vitals_temperature_c", "follow_up_date"}
 
 
 # --- migration 010 ------------------------------------------------------------------
@@ -120,7 +124,9 @@ def test_migration_010_fresh_bootstrap_and_upgrade_leave_existing_data_untouched
         cols = [r[1] for r in conn.execute("PRAGMA table_info(encounters)")]
         check("encounters has exactly the specified columns",
               cols == ["encounter_pk", "clinic_id", "patient_pk", "created_by_user_id", "status", "created_at", "closed_at",
-                       "encounter_ref"], cols)  # encounter_ref added by migration 013
+                       "encounter_ref",  # migration 013
+                       "visit_type", "chief_complaint", "vitals_bp", "vitals_weight_kg",
+                       "vitals_temperature_c", "follow_up_date"], cols)  # clinic enrichment, migration 018
         triggers = {r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='trigger' AND tbl_name='encounters'")}
         check("the 4 encounter triggers from 010 exist (013 adds encounters_ref_required)", triggers == {
             "encounters_patient_clinic_insert", "encounters_identity_immutable",
@@ -467,12 +473,18 @@ def test_encounters_make_no_ai_calls_and_leave_existing_flows_unchanged():
             "patient_name": "x", "patient_pk": patient["patient_pk"], "dosha_imbalance": "Vata",
             "prescribed_herbs": [{"name": "Ashwagandha", "grams": 5}]}, headers=doctor)
         check("manual preview still works", prev.status_code == 200, prev.text)
-        check("preview response shape unchanged",
-              set(prev.json()) == {"preview_id", "patient_name", "dosha_imbalance", "prescribed_herbs"}, prev.json())
+        # proposal_source was added in Step 1.1 (local_extractor | gemini | manual).
+        check("preview response carries only the documented fields",
+              set(prev.json()) == {"preview_id", "patient_name", "dosha_imbalance",
+                                   "prescribed_herbs", "proposal_source"}, prev.json())
         conf = client.post("/prescribe/confirm", json={"preview_id": prev.json()["preview_id"]}, headers=doctor)
         check("confirm still works", conf.status_code == 200, conf.text)
-        check("confirm response shape unchanged",
-              set(conf.json()) == {"patient_name", "dosha_imbalance", "prescribed_herbs", "prescription_id", "created_at"}, conf.json())
+        check("confirm response carries only documented fields",
+              set(conf.json()) == {"patient_name", "dosha_imbalance", "prescribed_herbs",
+                                   "prescription_id", "created_at", "payment_status",
+                                   "payment_amount_cents", "payment_method", "payment_reference",
+                                   "dispensed_at", "dispensed_by_user_id", "invoice_number",
+                                   "proposal_source"}, conf.json())
         check("stock was deducted exactly as before",
               _query("SELECT stock_grams FROM inventory WHERE clinic_id = ?", (clinic,))[0]["stock_grams"] == 95)
         check("prescription linked to the patient exactly as before (Phase 1)",
