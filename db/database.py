@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-DB_PATH = os.path.join(os.path.dirname(__file__), 'ayurcore.db')
+DB_PATH = os.environ.get("AYURCORE_DB_PATH") or os.path.join(os.path.dirname(__file__), 'ayurcore.db')
 
 DEFAULT_CLINIC_ID = "default_clinic"
 

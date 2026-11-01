@@ -422,6 +422,20 @@ def patient_prescription_history(
 
 
 @app.get(
+    "/patients/{patient_pk}",
+    response_model=PatientResponse,
+    summary="Get patient demographics for one patient of the caller's own clinic. DOCTOR/ADMIN only. Read-only.",
+)
+def get_patient_endpoint(
+    patient_pk: int = Path(gt=0),
+    auth: AuthenticatedSession = Depends(require_role(ROLE_DOCTOR, ROLE_ADMIN)),
+):
+    # Same 404 for a patient of another clinic and a nonexistent one.
+    patient = _resolve_linked_patient(patient_pk, auth.clinic_id)
+    return PatientResponse(**patient)
+
+
+@app.get(
     "/inventory",
     response_model=InventoryResponse,
     summary="Current stock of the caller's own clinic, sorted by herb name. DOCTOR/ADMIN only. Read-only.",

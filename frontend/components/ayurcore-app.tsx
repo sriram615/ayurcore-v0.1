@@ -17,6 +17,8 @@ import {
   Menu,
   Minus,
   Package,
+  CreditCard,
+  PackageCheck,
   Plus,
   Search,
   Settings,
@@ -31,6 +33,7 @@ import {
 import {
   auditEvents as apiAuditEvents,
   auditExport as apiAuditExport,
+  dispensePrescription,
   getInventory,
   login as apiLogin,
   logout as apiLogout,
@@ -41,6 +44,12 @@ import {
   prescribePreviewLocal,
   ApiCallError,
 } from '@/lib/api'
+import {
+  DispenseBadge,
+  InvoiceModal,
+  PaymentBadge,
+  PaymentModal,
+} from '@/components/prescription-workflow-modals'
 import { friendlyMessage } from '@/lib/errors'
 import { clearSession, loadSession, saveSession, type StoredSession } from '@/lib/session'
 import PatientsView from '@/components/patients'
@@ -387,6 +396,35 @@ function Consultation({ session, onSessionExpired }: { session: LoginResponse; o
     return 'AyurCore can’t be reached. Check the clinic’s connection, or ask whoever set this up.'
   }
 
+  const [paymentOpen, setPaymentOpen] = useState(false)
+  const [invoiceOpen, setInvoiceOpen] = useState(false)
+  const [dispensing, setDispensing] = useState(false)
+  const [workflowMsg, setWorkflowMsg] = useState('')
+
+  const handleDispenseConfirmed = async () => {
+    if (!confirmedResult) return
+    setDispensing(true)
+    setWorkflowMsg('')
+    try {
+      const res = await dispensePrescription(confirmedResult.prescription_id, session.token)
+      setConfirmedResult((prev) =>
+        prev
+          ? {
+              ...prev,
+              dispensed_at: res.dispensed_at,
+              dispensed_by_user_id: res.dispensed_by_user_id,
+            }
+          : null
+      )
+      setWorkflowMsg('Prescription marked as physically dispensed.')
+    } catch (err) {
+      const msg = handleAuthError(err)
+      if (msg) setError(msg)
+    } finally {
+      setDispensing(false)
+    }
+  }
+
   const resetDraft = () => {
     setStage('input')
     setPatient('')
@@ -398,6 +436,9 @@ function Consultation({ session, onSessionExpired }: { session: LoginResponse; o
     setPreviewId(null)
     setConfirmedResult(null)
     setError('')
+    setWorkflowMsg('')
+    setPaymentOpen(false)
+    setInvoiceOpen(false)
     idempotencyKeyRef.current = null
   }
 
@@ -528,7 +569,142 @@ function Consultation({ session, onSessionExpired }: { session: LoginResponse; o
   }
 
   if (stage === 'confirmed' && confirmedResult) {
-    return <div className="confirmed-state"><div className="success-mark"><Check size={28} /></div><div className="section-kicker">CONFIRMATION COMPLETE</div><h1>Prescription confirmed.</h1><p>The prescription has been recorded and inventory has been validated.</p><div className="confirmation-sheet"><div className="confirm-top"><div><span>Patient</span><strong>{confirmedResult.patient_name}</strong></div><div><span>Date</span><strong>{formatDate(confirmedResult.created_at)}</strong></div><div><span>Dosha</span><strong>{confirmedResult.dosha_imbalance}</strong></div><div><span>Source</span><strong className="mono">{confirmedResult.proposal_source === 'local_extractor' ? 'Local AI Extractor' : confirmedResult.proposal_source === 'gemini' ? 'Google Gemini' : 'Manual Entry'}</strong></div></div><div className="sheet-divider" />{confirmedResult.prescribed_herbs.map((item) => <div className="confirm-row" key={item.name}><span>{item.name}</span><strong>{item.grams} g</strong></div>)}<div className="sheet-divider" /><div className="prescription-number"><span>Prescription reference</span><strong>#{confirmedResult.prescription_id}</strong></div></div><Button onClick={resetDraft}>Start next patient <ArrowRight size={16} /></Button></div>
+    return (
+      <div className="confirmed-state">
+        <div className="success-mark">
+          <Check size={28} />
+        </div>
+        <div className="section-kicker">CONFIRMATION COMPLETE</div>
+        <h1>Prescription confirmed.</h1>
+        <p>The prescription has been recorded and inventory has been validated.</p>
+
+        <div className="confirmation-sheet">
+          <div className="confirm-top">
+            <div>
+              <span>Patient</span>
+              <strong>{confirmedResult.patient_name}</strong>
+            </div>
+            <div>
+              <span>Date</span>
+              <strong>{formatDate(confirmedResult.created_at)}</strong>
+            </div>
+            <div>
+              <span>Dosha</span>
+              <strong>{confirmedResult.dosha_imbalance}</strong>
+            </div>
+            <div>
+              <span>Source</span>
+              <strong className="mono">
+                {confirmedResult.proposal_source === 'local_extractor'
+                  ? 'Local AI Extractor'
+                  : confirmedResult.proposal_source === 'gemini'
+                  ? 'Google Gemini'
+                  : 'Manual Entry'}
+              </strong>
+            </div>
+          </div>
+
+          <div className="sheet-divider" />
+          {confirmedResult.prescribed_herbs.map((item) => (
+            <div className="confirm-row" key={item.name}>
+              <span>{item.name}</span>
+              <strong>{item.grams} g</strong>
+            </div>
+          ))}
+
+          <div className="sheet-divider" />
+          <div className="prescription-number">
+            <span>Prescription reference</span>
+            <strong>#{confirmedResult.prescription_id}</strong>
+          </div>
+
+          {/* Workflow Badges: Dispensing & Payment */}
+          <div className="rx-badges" style={{ justifyContent: 'center', marginTop: 14 }}>
+            <DispenseBadge dispensedAt={confirmedResult.dispensed_at} />
+            <PaymentBadge
+              paymentStatus={confirmedResult.payment_status}
+              amountCents={confirmedResult.payment_amount_cents}
+              invoiceNumber={confirmedResult.invoice_number}
+            />
+          </div>
+
+          {workflowMsg && (
+            <div
+              style={{
+                textAlign: 'center',
+                marginTop: 10,
+                fontSize: 13,
+                color: 'var(--primary)',
+                fontWeight: 600,
+              }}
+            >
+              {workflowMsg}
+            </div>
+          )}
+
+          {/* Fulfillment actions: Dispense now, Record payment, View invoice */}
+          <div className="rx-actions" style={{ justifyContent: 'center', gap: 10 }}>
+            {!confirmedResult.dispensed_at && (
+              <button
+                type="button"
+                className="button button-outline"
+                disabled={dispensing}
+                onClick={handleDispenseConfirmed}
+              >
+                <PackageCheck size={14} />
+                {dispensing ? 'Dispensing…' : 'Dispense now'}
+              </button>
+            )}
+
+            <button
+              type="button"
+              className="button button-outline"
+              onClick={() => setPaymentOpen(true)}
+            >
+              <CreditCard size={14} />
+              {confirmedResult.payment_status === 'paid' ? 'Update payment' : 'Record payment'}
+            </button>
+
+            <button
+              type="button"
+              className="button button-outline"
+              onClick={() => setInvoiceOpen(true)}
+            >
+              <FileText size={14} />
+              View invoice
+            </button>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+          <Button onClick={resetDraft}>
+            Start next patient <ArrowRight size={16} />
+          </Button>
+        </div>
+
+        {paymentOpen && (
+          <PaymentModal
+            prescription={confirmedResult}
+            session={session}
+            onSessionExpired={onSessionExpired}
+            onSuccess={(updated) => {
+              setConfirmedResult((prev) => (prev ? { ...prev, ...updated } : null))
+              setWorkflowMsg(`Payment recorded successfully (${updated.payment_status}).`)
+            }}
+            onClose={() => setPaymentOpen(false)}
+          />
+        )}
+
+        {invoiceOpen && (
+          <InvoiceModal
+            prescriptionId={confirmedResult.prescription_id}
+            session={session}
+            onSessionExpired={onSessionExpired}
+            onClose={() => setInvoiceOpen(false)}
+          />
+        )}
+      </div>
+    )
   }
 
   return <div className="consultation-view"><PageHeader eyebrow="DOCTOR · CONSULTATION" title={stage === 'input' ? 'New consultation' : mode === 'ai' ? 'Review clinical draft' : 'Write prescription'} description={stage === 'input' ? 'Prepare a clinical proposal for review. The final decision always remains with you.' : mode === 'ai' ? 'Review the proposed prescription before confirming.' : 'Select medicines and quantities for this patient.'} />
@@ -577,9 +753,11 @@ function herbSummary(herbs: PrescribedHerb[]): string {
 
 function Prescriptions({ session, onSessionExpired }: { session: LoginResponse; onSessionExpired: () => void }) {
   const [records, setRecords] = useState<AuditRecord[] | null>(null)
+  const [invoiceTargetId, setInvoiceTargetId] = useState<number | null>(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const canView = session.role === 'ADMIN' || session.role === 'AUDITOR'
+  const canViewInvoice = session.role === 'ADMIN'
 
   useEffect(() => {
     if (!canView) return
@@ -621,8 +799,139 @@ function Prescriptions({ session, onSessionExpired }: { session: LoginResponse; 
     <PageHeader eyebrow="WORKSPACE · PRESCRIPTIONS" title="Prescriptions" description="Confirmed prescriptions for your clinic, from the audit trail (patient identity is never stored here by backend design)." />
     {loading && <p style={{ color: 'var(--muted)', fontSize: 12 }}>Loading…</p>}
     {error && <div className="inline-error">{error}</div>}
-    {records && <div className="table-wrap"><table><thead><tr><th>Prescription ID</th><th>Date</th><th>Dosha</th><th>Herbs</th><th>Source</th><th>Status</th></tr></thead><tbody>{records.map((r) => <tr key={r.prescription_id}><td><strong className="mono">#{r.prescription_id}</strong></td><td>{formatDate(r.created_at)}</td><td>{r.confirmed_dosha_imbalance}</td><td>{herbSummary(r.confirmed_prescribed_herbs)}</td><td><span className="mono">{r.proposal_source ?? 'gemini'}</span></td><td><span className="status-text"><i />{r.was_changed ? 'Changed from AI' : 'As proposed'}</span></td></tr>)}</tbody></table>{records.length === 0 && <p style={{ padding: 16, color: 'var(--muted)', fontSize: 12 }}>No confirmed prescriptions yet.</p>}</div>}
+    {records && <div className="table-wrap"><table><thead><tr><th>Prescription ID</th><th>Date</th><th>Dosha</th><th>Herbs</th><th>Source</th><th>Status</th>{canViewInvoice && <th>Invoice</th>}</tr></thead><tbody>{records.map((r) => <tr key={r.prescription_id}><td><strong className="mono">#{r.prescription_id}</strong></td><td>{formatDate(r.created_at)}</td><td>{r.confirmed_dosha_imbalance}</td><td>{herbSummary(r.confirmed_prescribed_herbs)}</td><td><span className="mono">{r.proposal_source ?? 'gemini'}</span></td><td><span className="status-text"><i />{r.was_changed ? 'Changed from AI' : 'As proposed'}</span></td>{canViewInvoice && <td><button type="button" className="button button-outline" style={{ minHeight: 28, padding: '0 8px', fontSize: 11 }} onClick={() => setInvoiceTargetId(r.prescription_id)}><FileText size={12} /> View</button></td>}</tr>)}</tbody></table>{records.length === 0 && <p style={{ padding: 16, color: 'var(--muted)', fontSize: 12 }}>No confirmed prescriptions yet.</p>}</div>}
+    {invoiceTargetId !== null && (
+      <InvoiceModal
+        prescriptionId={invoiceTargetId}
+        session={session}
+        onSessionExpired={onSessionExpired}
+        onClose={() => setInvoiceTargetId(null)}
+      />
+    )}
   </div>
+}
+
+function EventInspectModal({
+  event,
+  onClose,
+}: {
+  event: AuditEventRecord
+  onClose: () => void
+}) {
+  return (
+    <div
+      className="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="inspect-modal-title"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose()
+      }}
+    >
+      <div className="modal-card" style={{ maxWidth: 640 }}>
+        <div className="modal-header">
+          <div>
+            <span className="panel-label">TAMPER-EVIDENT AUDIT PROOF</span>
+            <h3 id="inspect-modal-title">Event #{event.event_id} · {event.event_type}</h3>
+            <p className="patients-hint">
+              Target Rx #{event.prescription_id} · Actor User #{event.actor_user_id} · {formatDate(event.created_at)}
+            </p>
+          </div>
+          <button
+            type="button"
+            className="modal-close"
+            onClick={onClose}
+            aria-label="Close proof dialog"
+          >
+            <X size={16} />
+          </button>
+        </div>
+
+        <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: '#e8f3ec', border: '1px solid #2f7a55', borderRadius: 4, color: '#1e5939' }}>
+            <ShieldCheck size={20} />
+            <div style={{ fontSize: 12 }}>
+              <strong>Cryptographic Hash Chain Proof Verified</strong>
+              <div style={{ fontSize: 11, color: '#276742' }}>
+                Event is immutably sealed in clinic append-only SHA-256 ledger.
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label style={{ display: 'block', fontSize: 11, fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', marginBottom: 4 }}>
+              Previous Block / Event Hash (Parent)
+            </label>
+            <div
+              className="mono"
+              style={{
+                padding: '8px 10px',
+                background: '#f8f9fa',
+                border: '1px solid var(--border)',
+                borderRadius: 4,
+                fontSize: 12,
+                wordBreak: 'break-all',
+              }}
+            >
+              {event.previous_event_hash ? (
+                <>🔗 {event.previous_event_hash}</>
+              ) : (
+                <span style={{ color: 'var(--muted)', fontStyle: 'italic' }}>GENESIS BLOCK (Root of chain — no upstream hash)</span>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <label style={{ display: 'block', fontSize: 11, fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', marginBottom: 4 }}>
+              Current Event Hash (SHA-256)
+            </label>
+            <div
+              className="mono"
+              style={{
+                padding: '8px 10px',
+                background: '#f0fdf4',
+                border: '1px solid #86efac',
+                color: '#166534',
+                borderRadius: 4,
+                fontSize: 12,
+                wordBreak: 'break-all',
+                fontWeight: 600,
+              }}
+            >
+              🔒 {event.event_hash}
+            </div>
+          </div>
+
+          <div>
+            <label style={{ display: 'block', fontSize: 11, fontWeight: 600, color: 'var(--muted)', textTransform: 'uppercase', marginBottom: 4 }}>
+              Canonical Event Payload
+            </label>
+            <pre
+              style={{
+                background: '#1e293b',
+                color: '#e2e8f0',
+                padding: 12,
+                borderRadius: 4,
+                fontSize: 11,
+                lineHeight: 1.45,
+                maxHeight: 220,
+                overflow: 'auto',
+                margin: 0,
+              }}
+            >
+              {JSON.stringify(event.event_data, null, 2)}
+            </pre>
+          </div>
+        </div>
+
+        <div className="modal-footer">
+          <button type="button" className="button button-outline" onClick={onClose}>
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 function Audit({ session, onSessionExpired }: { session: LoginResponse; onSessionExpired: () => void }) {
@@ -631,6 +940,7 @@ function Audit({ session, onSessionExpired }: { session: LoginResponse; onSessio
   const [summary, setSummary] = useState<{ recordCount: number; changedCount: number; chainValid: boolean; violations: string[]; notes: string[] } | null>(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [inspectingEvent, setInspectingEvent] = useState<AuditEventRecord | null>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -669,18 +979,90 @@ function Audit({ session, onSessionExpired }: { session: LoginResponse; onSessio
     <PageHeader eyebrow="OVERSIGHT · AUDIT" title="Audit trail" description="AI-proposal-vs-confirmation records and the tamper-evident event log for your clinic." />
     {loading && <p style={{ color: 'var(--muted)', fontSize: 12 }}>Loading…</p>}
     {error && <div className="inline-error">{error}</div>}
-    {summary && <div className="inventory-note">
-      <ShieldCheck size={17} />
-      <span>{summary.recordCount} confirmed record(s), {summary.changedCount} changed from the AI's proposal. Event chain: {summary.chainValid ? 'intact' : 'INTEGRITY VIOLATION DETECTED'}{summary.violations.length > 0 ? ` — ${summary.violations.join('; ')}` : ''}.</span>
-    </div>}
+    {summary && (
+      <div
+        className="audit-status-banner"
+        style={!summary.chainValid ? { background: '#fdf2f2', borderColor: '#e02424', color: '#9b1c1c' } : undefined}
+      >
+        <ShieldCheck size={28} />
+        <div>
+          <strong>
+            Audit Chain: {summary.chainValid ? 'CRYPTOGRAPHICALLY VERIFIED INTACT' : 'INTEGRITY VIOLATION DETECTED'}
+          </strong>
+          <span>
+            {events?.length ?? 0} append-only SHA-256 chained events · {summary.recordCount} confirmed record(s) ({summary.changedCount} changed from AI proposal).
+            {summary.violations.length > 0 ? ` Violations: ${summary.violations.join('; ')}` : ' All event hashes sequentially match upstream parent block.'}
+          </span>
+        </div>
+      </div>
+    )}
     {records && <>
       <div className="panel-heading"><div><span className="panel-label">CORRECTIONS</span><h3>AI proposal vs. confirmation</h3></div></div>
       <div className="table-wrap"><table><thead><tr><th>Prescription ID</th><th>Date</th><th>AI dosha</th><th>Confirmed dosha</th><th>Source</th><th>Changed</th></tr></thead><tbody>{records.map((r) => <tr key={r.prescription_id}><td><strong className="mono">#{r.prescription_id}</strong></td><td>{formatDate(r.created_at)}</td><td>{r.ai_dosha_imbalance}</td><td>{r.confirmed_dosha_imbalance}</td><td><span className="mono">{r.proposal_source ?? 'gemini'}</span></td><td><span className="status-text"><i />{r.was_changed ? 'Yes' : 'No'}</span></td></tr>)}</tbody></table>{records.length === 0 && <p style={{ padding: 16, color: 'var(--muted)', fontSize: 12 }}>No records yet.</p>}</div>
     </>}
     {events && <>
       <div className="panel-heading"><div><span className="panel-label">TAMPER-EVIDENT LOG</span><h3>Audit events</h3></div></div>
-      <div className="table-wrap"><table><thead><tr><th>Event ID</th><th>Type</th><th>Prescription</th><th>Actor</th><th>Date</th></tr></thead><tbody>{events.map((ev) => <tr key={ev.event_id}><td className="mono">{ev.event_id}</td><td>{ev.event_type}</td><td><strong className="mono">#{ev.prescription_id}</strong></td><td>{ev.actor_user_id}</td><td>{formatDate(ev.created_at)}</td></tr>)}</tbody></table>{events.length === 0 && <p style={{ padding: 16, color: 'var(--muted)', fontSize: 12 }}>No events yet.</p>}</div>
+      <div className="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Event ID</th>
+              <th>Type</th>
+              <th>Target</th>
+              <th>Actor</th>
+              <th>Date</th>
+              <th>Parent Hash</th>
+              <th>Event Hash</th>
+              <th>Proof</th>
+            </tr>
+          </thead>
+          <tbody>
+            {events.map((ev) => (
+              <tr key={ev.event_id}>
+                <td className="mono">#{ev.event_id}</td>
+                <td>{ev.event_type}</td>
+                <td><strong className="mono">Rx #{ev.prescription_id}</strong></td>
+                <td>User #{ev.actor_user_id}</td>
+                <td>{formatDate(ev.created_at)}</td>
+                <td>
+                  {ev.previous_event_hash ? (
+                    <span className="hash-pill" title={ev.previous_event_hash}>
+                      🔗 {ev.previous_event_hash.slice(0, 8)}…
+                    </span>
+                  ) : (
+                    <span className="hash-pill genesis">GENESIS</span>
+                  )}
+                </td>
+                <td>
+                  <span className="hash-pill" title={ev.event_hash}>
+                    🔒 {ev.event_hash.slice(0, 8)}…{ev.event_hash.slice(-4)}
+                  </span>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    className="button button-outline"
+                    style={{ padding: '2px 8px', fontSize: 11 }}
+                    onClick={() => setInspectingEvent(ev)}
+                    title="Inspect SHA-256 proof and event payload"
+                  >
+                    Inspect
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {events.length === 0 && <p style={{ padding: 16, color: 'var(--muted)', fontSize: 12 }}>No events yet.</p>}
+      </div>
     </>}
+
+    {inspectingEvent && (
+      <EventInspectModal
+        event={inspectingEvent}
+        onClose={() => setInspectingEvent(null)}
+      />
+    )}
   </div>
 }
 

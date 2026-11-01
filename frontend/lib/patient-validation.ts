@@ -25,18 +25,46 @@ export interface PatientFormValues {
   clinicPatientId: string
   displayName: string
   phone: string
+  dateOfBirth?: string
+  gender?: string
+  prakriti?: string
+  addressLine?: string
+  city?: string
+  state?: string
+  pincode?: string
+  allergies?: string
 }
 
 export interface PatientFormResult {
   errors: Partial<Record<keyof PatientFormValues, string>>
   /** Present only when there are no errors: the exact trimmed body to send. */
-  body?: { clinic_patient_id: string; display_name: string; phone?: string }
+  body?: {
+    clinic_patient_id: string
+    display_name: string
+    phone?: string
+    date_of_birth?: string
+    gender?: string
+    address_line?: string
+    city?: string
+    state?: string
+    pincode?: string
+    prakriti?: string
+    allergies?: string
+  }
 }
 
 export function validatePatientForm(values: PatientFormValues): PatientFormResult {
   const id = trim(values.clinicPatientId)
   const name = trim(values.displayName)
   const phone = trim(values.phone)
+  const dob = values.dateOfBirth ? trim(values.dateOfBirth) : ''
+  const gender = values.gender ? trim(values.gender) : ''
+  const prakriti = values.prakriti ? trim(values.prakriti) : ''
+  const address = values.addressLine ? trim(values.addressLine) : ''
+  const city = values.city ? trim(values.city) : ''
+  const state = values.state ? trim(values.state) : ''
+  const pincode = values.pincode ? trim(values.pincode) : ''
+  const allergies = values.allergies ? trim(values.allergies) : ''
   const errors: PatientFormResult['errors'] = {}
 
   if (!id) errors.clinicPatientId = 'Enter the clinic patient ID (OP / registration number).'
@@ -48,8 +76,25 @@ export function validatePatientForm(values: PatientFormValues): PatientFormResul
 
   if (phone && charCount(phone) > PATIENT_PHONE_MAX) errors.phone = `Phone can be at most ${PATIENT_PHONE_MAX} characters.`
 
+  if (pincode && !/^\d{6}$/.test(pincode)) errors.pincode = 'Pincode must be a 6-digit postal code.'
+
   if (Object.keys(errors).length > 0) return { errors }
-  return { errors, body: { clinic_patient_id: id, display_name: name, ...(phone ? { phone } : {}) } }
+  return {
+    errors,
+    body: {
+      clinic_patient_id: id,
+      display_name: name,
+      ...(phone ? { phone } : {}),
+      ...(dob ? { date_of_birth: dob } : {}),
+      ...(gender ? { gender } : {}),
+      ...(prakriti ? { prakriti } : {}),
+      ...(address ? { address_line: address } : {}),
+      ...(city ? { city } : {}),
+      ...(state ? { state } : {}),
+      ...(pincode ? { pincode } : {}),
+      ...(allergies ? { allergies } : {}),
+    },
+  }
 }
 
 /** The trimmed query if it is searchable, otherwise null. */

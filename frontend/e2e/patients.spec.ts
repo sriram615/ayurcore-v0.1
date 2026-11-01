@@ -57,8 +57,25 @@ async function mockApi(page: Page, role: Role, handler: Handler): Promise<Call[]
     if (url.pathname === '/auth/logout') return route.fulfill({ status: 200, headers: CORS, json: { status: 'logged_out' } })
     const reply = await handler(call)
     if (reply === 'network-error') return route.abort('failed')
-    if (!reply) return route.fulfill({ status: 599, headers: CORS, json: { detail: `unexpected request in test: ${call.method} ${url.pathname}` } })
-    return route.fulfill({ status: reply.status ?? 200, headers: CORS, json: reply.body })
+    if (reply) return route.fulfill({ status: reply.status ?? 200, headers: CORS, json: reply.body })
+    if (call.method === 'GET' && call.path.includes('/encounters')) {
+      return route.fulfill({ status: 200, headers: CORS, json: { encounters: [] } })
+    }
+    if (call.method === 'GET' && /^\/patients\/\d+$/.test(call.path)) {
+      return route.fulfill({
+        status: 200,
+        headers: CORS,
+        json: {
+          patient_pk: 5,
+          clinic_patient_id: 'OP-1001',
+          display_name: 'Anjali Nair',
+          gender: 'Female',
+          prakriti: 'Vata-Pitta',
+          allergies: 'None',
+        },
+      })
+    }
+    return route.fulfill({ status: 599, headers: CORS, json: { detail: `unexpected request in test: ${call.method} ${url.pathname}` } })
   })
   return calls
 }

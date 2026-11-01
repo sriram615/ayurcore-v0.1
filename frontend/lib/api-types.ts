@@ -65,6 +65,13 @@ export interface PrescriptionResponse {
   prescribed_herbs: PrescribedHerb[]
   prescription_id: number
   created_at: string
+  payment_status?: string | null
+  payment_amount_cents?: number | null
+  payment_method?: string | null
+  payment_reference?: string | null
+  dispensed_at?: string | null
+  dispensed_by_user_id?: number | null
+  invoice_number?: string | null
   proposal_source?: 'local_extractor' | 'gemini' | 'manual' | string
 }
 
@@ -210,15 +217,32 @@ export interface PatientCreateRequest {
   clinic_patient_id: string
   display_name: string
   phone?: string
+  date_of_birth?: string
+  gender?: string
+  address_line?: string
+  city?: string
+  state?: string
+  pincode?: string
+  prakriti?: string
+  allergies?: string
 }
 
-/** Response body for POST /patients (201). */
+/** Response body for POST /patients (201) and GET /patients/{pk}. */
 export interface PatientResponse {
   patient_pk: number
   clinic_patient_id: string
   display_name: string
   phone: string | null
   created_at: string
+  date_of_birth?: string | null
+  gender?: string | null
+  address_line?: string | null
+  city?: string | null
+  state?: string | null
+  pincode?: string | null
+  prakriti?: string | null
+  allergies?: string | null
+  registered_at?: string | null
 }
 
 /** One confirmed prescription in a patient's history. dosha/herbs are null
@@ -229,6 +253,63 @@ export interface PatientPrescriptionRecord {
   status: string
   dosha_imbalance: string | null
   prescribed_herbs: PrescribedHerb[] | null
+  payment_status?: string | null
+  payment_amount_cents?: number | null
+  payment_method?: string | null
+  payment_reference?: string | null
+  dispensed_at?: string | null
+  dispensed_by_user_id?: number | null
+  invoice_number?: string | null
+}
+
+// ---------------------------------------------------------------------
+// Dispensing / Payment / Invoice (clinic workflow, migration 018)
+// ---------------------------------------------------------------------
+
+export interface DispenseRequest {
+  notes?: string
+}
+
+export interface DispenseResponse {
+  prescription_id: number
+  dispensed_at: string
+  dispensed_by_user_id: number
+  status: string
+}
+
+export type PaymentStatus = 'paid' | 'partial' | 'unpaid'
+export type PaymentMethod = 'cash' | 'upi' | 'card'
+
+export interface PaymentRequest {
+  payment_status: PaymentStatus
+  payment_amount_cents?: number
+  payment_method?: PaymentMethod
+  payment_reference?: string
+}
+
+export interface PaymentResponse {
+  prescription_id: number
+  payment_status: string
+  payment_amount_cents?: number | null
+  payment_method?: string | null
+  payment_reference?: string | null
+  invoice_number?: string | null
+}
+
+export interface InvoiceResponse {
+  prescription_id: number
+  clinic_id: string
+  patient_clinic_patient_id: string
+  patient_display_name: string
+  dosha_imbalance: string | null
+  prescribed_herbs: PrescribedHerb[]
+  total_amount_cents: number
+  payment_status: string
+  payment_method?: string | null
+  payment_reference?: string | null
+  invoice_number?: string | null
+  dispensed_at?: string | null
+  created_at: string
 }
 
 /** Response body for GET /patients/{patient_pk}/prescriptions. */
@@ -259,4 +340,42 @@ export interface BriefResponse {
   omitted: number
   rejected: number
   items: BriefItem[]
+}
+
+// ---------------------------------------------------------------------
+// Encounter Lifecycle (Phase 1A/1B, migrations 010, 018)
+// ---------------------------------------------------------------------
+
+export type VisitType = 'FIRST_VISIT' | 'FOLLOW_UP' | string
+
+export interface EncounterCreateRequest {
+  visit_type?: VisitType
+  chief_complaint?: string
+  vitals_bp?: string
+  vitals_weight_kg?: number
+  vitals_temperature_c?: number
+  follow_up_date?: string
+}
+
+export interface EncounterResponse {
+  encounter_pk: number
+  patient_pk: number
+  created_by_user_id: number
+  status: 'OPEN' | 'CLOSED' | string
+  created_at: string
+  closed_at?: string | null
+  encounter_ref: string
+  visit_type?: string | null
+  chief_complaint?: string | null
+  vitals_bp?: string | null
+  vitals_weight_kg?: number | null
+  vitals_temperature_c?: number | null
+  follow_up_date?: string | null
+}
+
+export interface EncounterListResponse {
+  encounters: EncounterResponse[]
+  limit: number
+  offset: number
+  has_more: boolean
 }

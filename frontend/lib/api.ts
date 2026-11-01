@@ -31,6 +31,14 @@ import type {
   PreviewRequest,
   PreviewResponse,
   PrescriptionResponse,
+  DispenseRequest,
+  DispenseResponse,
+  PaymentRequest,
+  PaymentResponse,
+  InvoiceResponse,
+  EncounterCreateRequest,
+  EncounterResponse,
+  EncounterListResponse,
 } from './api-types'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://127.0.0.1:8000'
@@ -181,6 +189,52 @@ export function prescribeConfirm(
 }
 
 // ---------------------------------------------------------------------
+// Dispensing, payment & invoices (clinic workflow, migration 018)
+// ---------------------------------------------------------------------
+
+/** Mark a confirmed prescription as physically dispensed. DOCTOR only. Idempotent. */
+export function dispensePrescription(
+  prescriptionPk: number,
+  token: string,
+  body?: DispenseRequest
+): Promise<DispenseResponse> {
+  return request<DispenseResponse>(
+    `/prescriptions/${encodeURIComponent(String(prescriptionPk))}/dispense`,
+    'prescription_dispense',
+    { method: 'POST', body: body ?? {} },
+    { token }
+  )
+}
+
+/** Record payment against a confirmed prescription. DOCTOR only. */
+export function recordPayment(
+  prescriptionPk: number,
+  body: PaymentRequest,
+  token: string
+): Promise<PaymentResponse> {
+  return request<PaymentResponse>(
+    `/prescriptions/${encodeURIComponent(String(prescriptionPk))}/payment`,
+    'prescription_payment',
+    { method: 'POST', body },
+    { token }
+  )
+}
+
+/** Receipt-like invoice summary for a confirmed prescription. DOCTOR/ADMIN only. Read-only. */
+export function getInvoice(
+  prescriptionPk: number,
+  token: string,
+  signal?: AbortSignal
+): Promise<InvoiceResponse> {
+  return request<InvoiceResponse>(
+    `/prescriptions/${encodeURIComponent(String(prescriptionPk))}/invoice`,
+    'prescription_invoice',
+    { method: 'GET' },
+    { token, signal }
+  )
+}
+
+// ---------------------------------------------------------------------
 // Patient registry (DOCTOR / ADMIN only -- enforced by backend/rbac.py).
 // The clinic is always the session's, resolved server-side; nothing here
 // sends a clinic_id.
@@ -246,6 +300,66 @@ export function getPatientBrief(
 
 export function registerPatient(body: PatientCreateRequest, token: string): Promise<PatientResponse> {
   return request<PatientResponse>('/patients', 'patient_register', { method: 'POST', body }, { token })
+}
+
+/** Get full patient demographics (DOCTOR/ADMIN only; read-only). */
+export function getPatient(patientPk: number, token: string, signal?: AbortSignal): Promise<PatientResponse> {
+  return request<PatientResponse>(
+    `/patients/${encodeURIComponent(String(patientPk))}`,
+    'patient_demographics',
+    { method: 'GET' },
+    { token, signal }
+  )
+}
+
+// ---------------------------------------------------------------------
+// Encounter Lifecycle (Phase 1A/1B, migrations 010, 018)
+// ---------------------------------------------------------------------
+
+/** Open a new clinical encounter for a patient. DOCTOR only. At most one OPEN encounter per patient. */
+export function openPatientEncounter(
+  patientPk: number,
+  token: string,
+  body?: EncounterCreateRequest
+): Promise<EncounterResponse> {
+  return request<EncounterResponse>(
+    `/patients/${encodeURIComponent(String(patientPk))}/encounters`,
+    'encounter_open',
+    { method: 'POST', body: body ?? {} },
+    { token }
+  )
+}
+
+/** Encounters for one patient, newest first. DOCTOR/ADMIN only. Read-only. */
+export function listPatientEncounters(
+  patientPk: number,
+  token: string,
+  pagination?: { limit?: number; offset?: number },
+  signal?: AbortSignal
+): Promise<EncounterListResponse> {
+  const params = new URLSearchParams()
+  if (pagination?.limit !== undefined) params.set('limit', String(pagination.limit))
+  if (pagination?.offset !== undefined) params.set('offset', String(pagination.offset))
+  const qs = params.toString() ? `?${params.toString()}` : ''
+  return request<EncounterListResponse>(
+    `/patients/${encodeURIComponent(String(patientPk))}/encounters${qs}`,
+    'encounter_list',
+    { method: 'GET' },
+    { token, signal }
+  )
+}
+
+/** Close an OPEN encounter (CLOSED is terminal and audited). DOCTOR only. */
+export function closeEncounter(
+  encounterPk: number,
+  token: string
+): Promise<EncounterResponse> {
+  return request<EncounterResponse>(
+    `/encounters/${encodeURIComponent(String(encounterPk))}/close`,
+    'encounter_close',
+    { method: 'POST' },
+    { token }
+  )
 }
 
 // ---------------------------------------------------------------------

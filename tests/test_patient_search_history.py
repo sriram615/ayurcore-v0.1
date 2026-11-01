@@ -354,6 +354,62 @@ def test_search_and_history_make_no_ai_calls_and_no_writes():
         check("no rows written to any clinical, registry, audit or idempotency table", before == after, (before, after))
 
 
+def test_patient_demographics_endpoint():
+    print("\nTest: GET /patients/{patient_pk} returns full demographics with RBAC and clinic isolation")
+    with _app_client() as client:
+        clinic_a = _clinic("demog_a")
+        clinic_b = _clinic("demog_b")
+        dr_a = _login(client, clinic_a, "DOCTOR")
+        admin_a = _login(client, clinic_a, "ADMIN")
+        auditor_a = _login(client, clinic_a, "AUDITOR")
+        dr_b = _login(client, clinic_b, "DOCTOR")
+
+        # Register patient with enriched demographics in Clinic A
+        reg_payload = {
+            "clinic_patient_id": "OP-DEMO-1",
+            "display_name": "Radhika Warrier",
+            "phone": "+91 98450 77777",
+            "date_of_birth": "1991-04-18",
+            "gender": "Female",
+            "address_line": "10 Kovil Lane",
+            "city": "Thrissur",
+            "state": "Kerala",
+            "pincode": "680002",
+            "prakriti": "Pitta",
+            "allergies": "Penicillin",
+        }
+        res_create = client.post("/patients", json=reg_payload, headers=dr_a)
+        check("create patient with demographics 201", res_create.status_code == 201)
+        created = res_create.json()
+        patient_pk = created["patient_pk"]
+
+        # 1. DOCTOR can read demographics
+        res_dr = client.get(f"/patients/{patient_pk}", headers=dr_a)
+        check("DOCTOR GET /patients/{pk} 200", res_dr.status_code == 200)
+        data = res_dr.json()
+        check("DOB returned", data["date_of_birth"] == "1991-04-18")
+        check("gender returned", data["gender"] == "Female")
+        check("prakriti returned", data["prakriti"] == "Pitta")
+        check("city returned", data["city"] == "Thrissur")
+        check("allergies returned", data["allergies"] == "Penicillin")
+
+        # 2. ADMIN can read demographics
+        res_admin = client.get(f"/patients/{patient_pk}", headers=admin_a)
+        check("ADMIN GET /patients/{pk} 200", res_admin.status_code == 200)
+
+        # 3. AUDITOR gets 403
+        res_auditor = client.get(f"/patients/{patient_pk}", headers=auditor_a)
+        check("AUDITOR GET /patients/{pk} 403", res_auditor.status_code == 403)
+
+        # 4. Another clinic gets 404 (indistinguishable from missing)
+        res_b = client.get(f"/patients/{patient_pk}", headers=dr_b)
+        check("Cross-clinic GET /patients/{pk} 404", res_b.status_code == 404)
+
+        # 5. Nonexistent patient gets 404
+        res_missing = client.get("/patients/99999999", headers=dr_a)
+        check("Missing patient GET /patients/{pk} 404", res_missing.status_code == 404)
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_") and callable(f)]
     for name, func in tests:

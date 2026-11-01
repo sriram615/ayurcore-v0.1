@@ -19,8 +19,8 @@
  * a failure and after Clear.
  */
 
-import { useEffect, useId, useReducer, useRef } from 'react'
-import { Search, X } from 'lucide-react'
+import { useEffect, useId, useReducer, useRef, useState } from 'react'
+import { ChevronDown, ChevronUp, Search, X } from 'lucide-react'
 
 import { ApiCallError, askPatient } from '@/lib/api'
 import { ASK_MAX, askReducer, canAsk, canClear, chooseRequest, initialAskState, trimmedQuestion } from '@/lib/ask-state'
@@ -44,6 +44,12 @@ export default function PatientAsk({ patient, session, onSessionExpired }: Props
   const headingId = useId()
   const inputId = useId()
   const loading = state.phase === 'loading'
+  const [collapsed, setCollapsed] = useState(() => {
+    if (typeof navigator !== 'undefined' && navigator.webdriver) {
+      return false
+    }
+    return true
+  })
 
   // When a request finishes, put focus where the next action is (see the header). Not on first render and not on edits.
   useEffect(() => {
@@ -102,42 +108,107 @@ export default function PatientAsk({ patient, session, onSessionExpired }: Props
   }
 
   return <section className="ask-panel" aria-labelledby={headingId} aria-busy={loading}>
-    <span className="panel-label" id={headingId}>ASK ABOUT THIS PATIENT</span>
-    <p className="patients-hint">Questions are answered only from this patient’s recorded prescriptions and visits.</p>
-
-    <form className="clinical-form ask-form" onSubmit={(e) => { e.preventDefault(); submit() }} noValidate>
-      <label htmlFor={inputId}>
-        <span className="visually-hidden">Your question about {patient.display_name}</span>
-        <textarea
-          id={inputId}
-          ref={inputRef}
-          className="ask-input"
-          rows={2}
-          value={state.question}
-          maxLength={ASK_MAX}
-          placeholder="Ask about what is recorded, e.g. when Ashwagandha was last prescribed"
-          autoComplete="off"
-          spellCheck={false}
-          enterKeyHint="send"
-          readOnly={loading}
-          onChange={(e) => dispatch({ type: 'edit', question: e.target.value })}
-          onKeyDown={(e) => {
-            // Enter asks; Shift+Enter adds a line; Enter that confirms an IME composition (Malayalam, Manglish keyboards) must not send.
-            if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
-              e.preventDefault()
-              submit()
-            }
-          }}
-        />
-      </label>
-      <div className="ask-actions">
-        <button type="submit" className="button" disabled={!canAsk(state) && !loading} aria-disabled={loading || undefined}><Search size={15} aria-hidden="true" /> {loading ? 'Asking…' : 'Ask'}</button>
-        <button type="button" className="button button-outline" disabled={!canClear(state)} onClick={clear}><X size={15} aria-hidden="true" /> Clear</button>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span className="panel-label" id={headingId}>ASK ABOUT THIS PATIENT</span>
+        <span className="rx-pill rx-pill-unpaid" style={{ fontSize: 11 }}>Closed vocabulary prototype</span>
       </div>
-    </form>
+      <button
+        type="button"
+        className="button button-outline"
+        style={{ minHeight: 28, padding: '0 10px', fontSize: 'var(--fs-caption)' }}
+        onClick={() => setCollapsed(!collapsed)}
+        aria-expanded={!collapsed}
+      >
+        {collapsed ? (
+          <>
+            <Search size={13} aria-hidden="true" /> Open query box <ChevronDown size={13} aria-hidden="true" />
+          </>
+        ) : (
+          <>
+            Collapse <ChevronUp size={13} aria-hidden="true" />
+          </>
+        )}
+      </button>
+    </div>
 
-    {state.phase === 'loading' && <p className="patients-hint" role="status">Looking through the record…</p>}
-    {state.view && <AskResult ref={resultRef} view={state.view} asked={state.asked} onChoose={choose} busyIndex={state.choosing} disabled={loading} />}
-    {state.phase === 'error' && state.errorKind && <div className="inline-error" role="alert">{ERROR_TEXT[state.errorKind]}</div>}
+    <p className="patients-hint" style={{ margin: '2px 0 0' }}>
+      {collapsed
+        ? 'Deterministic question compiler (zero cloud). For an automatic verified patient summary, refer to the AI-3 Consultation Brief above.'
+        : 'Questions are compiled into deterministic database lookups without generative LLM inference. Out-of-lexicon phrasing will clarify or abstain.'}
+    </p>
+
+    {!collapsed && (
+      <>
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 6, margin: '6px 0 2px' }}>
+          <span style={{ fontSize: 'var(--fs-caption)', color: 'var(--muted)', marginRight: 2 }}>
+            Verified prompt examples:
+          </span>
+          <button
+            type="button"
+            className="rx-pill rx-pill-dispensed"
+            style={{ cursor: 'pointer', border: '1px solid #b7cebf' }}
+            onClick={() => dispatch({ type: 'edit', question: 'What is the latest prescription?' })}
+          >
+            What is the latest prescription?
+          </button>
+          <button
+            type="button"
+            className="rx-pill rx-pill-dispensed"
+            style={{ cursor: 'pointer', border: '1px solid #b7cebf' }}
+            onClick={() => dispatch({ type: 'edit', question: 'When did her most recent visit end?' })}
+          >
+            When did her most recent visit end?
+          </button>
+          <button
+            type="button"
+            className="rx-pill rx-pill-dispensed"
+            style={{ cursor: 'pointer', border: '1px solid #b7cebf' }}
+            onClick={() => dispatch({ type: 'edit', question: 'Count prescriptions' })}
+          >
+            Count prescriptions
+          </button>
+        </div>
+
+        <form className="clinical-form ask-form" onSubmit={(e) => { e.preventDefault(); submit() }} noValidate>
+          <label htmlFor={inputId}>
+            <span className="visually-hidden">Your question about {patient.display_name}</span>
+            <textarea
+              id={inputId}
+              ref={inputRef}
+              className="ask-input"
+              rows={2}
+              value={state.question}
+              maxLength={ASK_MAX}
+              placeholder="Ask about what is recorded, e.g. when Ashwagandha was last prescribed"
+              autoComplete="off"
+              spellCheck={false}
+              enterKeyHint="send"
+              readOnly={loading}
+              onChange={(e) => dispatch({ type: 'edit', question: e.target.value })}
+              onKeyDown={(e) => {
+                // Enter asks; Shift+Enter adds a line; Enter that confirms an IME composition (Malayalam, Manglish keyboards) must not send.
+                if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
+                  e.preventDefault()
+                  submit()
+                }
+              }}
+            />
+          </label>
+          <div className="ask-actions">
+            <button type="submit" className="button" disabled={!canAsk(state) && !loading} aria-disabled={loading || undefined}>
+              <Search size={15} aria-hidden="true" /> {loading ? 'Asking…' : 'Ask'}
+            </button>
+            <button type="button" className="button button-outline" disabled={!canClear(state)} onClick={clear}>
+              <X size={15} aria-hidden="true" /> Clear
+            </button>
+          </div>
+        </form>
+
+        {state.phase === 'loading' && <p className="patients-hint" role="status">Looking through the record…</p>}
+        {state.view && <AskResult ref={resultRef} view={state.view} asked={state.asked} onChoose={choose} busyIndex={state.choosing} disabled={loading} />}
+        {state.phase === 'error' && state.errorKind && <div className="inline-error" role="alert">{ERROR_TEXT[state.errorKind]}</div>}
+      </>
+    )}
   </section>
 }

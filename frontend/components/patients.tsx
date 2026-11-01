@@ -13,15 +13,22 @@
  */
 
 import { useEffect, useRef, useState } from 'react'
-import { ChevronLeft, FileText, Leaf, RefreshCw, Search, UserPlus, X } from 'lucide-react'
+import { ChevronDown, ChevronLeft, ChevronUp, CreditCard, FileText, Leaf, PackageCheck, RefreshCw, Search, UserPlus, X } from 'lucide-react'
 
-import { ApiCallError, patientHistory, registerPatient, searchPatients } from '@/lib/api'
+import { ApiCallError, dispensePrescription, getPatient, patientHistory, registerPatient, searchPatients } from '@/lib/api'
 import PatientAsk from '@/components/patient-ask'
 import ConsultationBrief from '@/components/consultation-brief'
+import {
+  DispenseBadge,
+  InvoiceModal,
+  PaymentBadge,
+  PaymentModal,
+} from '@/components/prescription-workflow-modals'
+import { PatientEncountersSection } from '@/components/encounter-workflow'
 import { formatRecordDate } from '@/lib/format'
 import type { ApiOperation } from '@/lib/errors'
 import { friendlyMessage } from '@/lib/errors'
-import type { LoginResponse, PatientPrescriptionRecord, PatientSummary } from '@/lib/api-types'
+import type { LoginResponse, PatientPrescriptionRecord, PatientResponse, PatientSummary, PaymentResponse } from '@/lib/api-types'
 import {
   PATIENT_ID_MAX,
   SEARCH_MAX,
@@ -220,13 +227,75 @@ function SearchResults({ query, search, selectedPk, onSelect, onRegister }: {
   </>
 }
 
+function calculateAge(dobStr?: string | null): string | null {
+  if (!dobStr) return null
+  const dob = new Date(dobStr)
+  if (isNaN(dob.getTime())) return null
+  const now = new Date()
+  let age = now.getFullYear() - dob.getFullYear()
+  const m = now.getMonth() - dob.getMonth()
+  if (m < 0 || (m === 0 && now.getDate() < dob.getDate())) {
+    age--
+  }
+  return `${age} yrs`
+}
+
 function PatientHistory({ patient, session, onSessionExpired, onClose }: { patient: PatientSummary; session: LoginResponse; onSessionExpired: () => void; onClose: () => void }) {
   const [records, setRecords] = useState<PatientPrescriptionRecord[]>([])
+  const [demographics, setDemographics] = useState<PatientResponse | null>(null)
   const [hasMore, setHasMore] = useState(false)
   const [status, setStatus] = useState<'loading' | 'done' | 'error' | 'loading-more'>('loading')
   const [error, setError] = useState('')
   const [attempt, setAttempt] = useState(0)
+  const [paymentTarget, setPaymentTarget] = useState<PatientPrescriptionRecord | null>(null)
+  const [invoiceTargetId, setInvoiceTargetId] = useState<number | null>(null)
+  const [dispensingId, setDispensingId] = useState<number | null>(null)
+  const [actionError, setActionError] = useState('')
   const errorMessage = useErrorMessage(onSessionExpired)
+
+  const handleDispense = async (prescriptionId: number) => {
+    setDispensingId(prescriptionId)
+    setActionError('')
+    try {
+      const res = await dispensePrescription(prescriptionId, session.token)
+      setRecords((prev) =>
+        prev.map((r) =>
+          r.prescription_id === prescriptionId
+            ? { ...r, dispensed_at: res.dispensed_at, dispensed_by_user_id: res.dispensed_by_user_id }
+            : r
+        )
+      )
+    } catch (err) {
+      if (err instanceof ApiCallError && err.status === 401) {
+        onSessionExpired()
+        return
+      }
+      setActionError(
+        err instanceof ApiCallError
+          ? friendlyMessage(err, 'prescription_dispense')
+          : 'Could not dispense prescription.'
+      )
+    } finally {
+      setDispensingId(null)
+    }
+  }
+
+  const handlePaymentSuccess = (res: PaymentResponse) => {
+    setRecords((prev) =>
+      prev.map((r) =>
+        r.prescription_id === res.prescription_id
+          ? {
+              ...r,
+              payment_status: res.payment_status,
+              payment_amount_cents: res.payment_amount_cents,
+              payment_method: res.payment_method,
+              payment_reference: res.payment_reference,
+              invoice_number: res.invoice_number,
+            }
+          : r
+      )
+    )
+  }
 
   useEffect(() => {
     const controller = new AbortController()
@@ -247,6 +316,15 @@ function PatientHistory({ patient, session, onSessionExpired, onClose }: { patie
           setStatus('error')
         }
       })
+
+    getPatient(patient.patient_pk, session.token, controller.signal)
+      .then((res) => {
+        if (!controller.signal.aborted) setDemographics(res)
+      })
+      .catch(() => {
+        // Demographics are best-effort enrichment; falls back smoothly to summary
+      })
+
     return () => controller.abort()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [patient.patient_pk, session.token, attempt])
@@ -277,16 +355,86 @@ function PatientHistory({ patient, session, onSessionExpired, onClose }: { patie
       <button type="button" className="button button-outline patients-back" onClick={onClose}><ChevronLeft size={15} /> Close</button>
     </div>
 
+    {/* Patient Enriched Demographics Banner */}
+    {demographics && (
+      <div className="patient-demographics-banner">
+        <div className="demographics-grid">
+          <div>
+            <span className="demographics-label">DOB / Age</span>
+            <strong>
+              {demographics.date_of_birth ?? '—'}
+              {demographics.date_of_birth && calculateAge(demographics.date_of_birth)
+                ? ` (${calculateAge(demographics.date_of_birth)})`
+                : ''}
+            </strong>
+          </div>
+          <div>
+            <span className="demographics-label">Gender</span>
+            <strong>{demographics.gender ?? '—'}</strong>
+          </div>
+          <div>
+            <span className="demographics-label">Prakriti</span>
+            {demographics.prakriti ? (
+              <span className="rx-pill rx-pill-open" style={{ margin: 0 }}>
+                {demographics.prakriti}
+              </span>
+            ) : (
+              <span>—</span>
+            )}
+          </div>
+          <div>
+            <span className="demographics-label">Allergies</span>
+            {demographics.allergies ? (
+              <span className="rx-pill rx-pill-unpaid" style={{ margin: 0 }}>
+                {demographics.allergies}
+              </span>
+            ) : (
+              <span style={{ color: 'var(--muted)' }}>No known allergies</span>
+            )}
+          </div>
+          {demographics.phone && (
+            <div>
+              <span className="demographics-label">Phone</span>
+              <span className="mono">{demographics.phone}</span>
+            </div>
+          )}
+          {(demographics.address_line || demographics.city) && (
+            <div style={{ gridColumn: '1 / -1' }}>
+              <span className="demographics-label">Address</span>
+              <span>
+                {[
+                  demographics.address_line,
+                  demographics.city,
+                  demographics.state,
+                  demographics.pincode,
+                ]
+                  .filter(Boolean)
+                  .join(', ')}
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+    )}
+
     {/* AI-3 Consultation Brief: available to DOCTOR and ADMIN accounts (read-only cited facts). */}
     {(session.role === 'DOCTOR' || session.role === 'ADMIN') && (
       <ConsultationBrief patient={patient} session={session} onSessionExpired={onSessionExpired} />
     )}
 
-    {/* Doctor accounts only; the backend is the authority and answers 403 to anyone else. Remounted with this panel (key = patient_pk),
-        so a different patient always starts from an empty question. */}
+    {/* Clinical Encounter Lifecycle (open, active, close, past history) */}
+    <PatientEncountersSection
+      patient={patient}
+      session={session}
+      onSessionExpired={onSessionExpired}
+    />
+
+    {/* Doctor accounts only: AI-2 Closed-vocabulary clinical memory. Collapsed by default to lead with AI-3 Brief. */}
     {session.role === 'DOCTOR' && <PatientAsk patient={patient} session={session} onSessionExpired={onSessionExpired} />}
 
     <div className="panel-label patient-record-kicker">PRESCRIPTION HISTORY · NEWEST FIRST</div>
+
+    {actionError && <div className="inline-error" role="alert" style={{ marginBottom: 12 }}>{actionError}</div>}
 
     {status === 'loading' && <p className="patients-hint" role="status">Loading prescription history…</p>}
     {status === 'error' && <div className="patients-error">
@@ -311,6 +459,53 @@ function PatientHistory({ patient, session, onSessionExpired, onClose }: { patie
             {rx.prescribed_herbs.map((h) => <li key={h.name}><span><Leaf size={13} aria-hidden="true" />{h.name}</span><strong>{h.grams} g</strong></li>)}
           </ul>
         </> : <p className="patients-hint">Details for this record couldn’t be displayed.</p>}
+
+        {/* Workflow Badges: Dispensing & Payment */}
+        <div className="rx-badges">
+          <DispenseBadge dispensedAt={rx.dispensed_at} />
+          <PaymentBadge
+            paymentStatus={rx.payment_status}
+            amountCents={rx.payment_amount_cents}
+            invoiceNumber={rx.invoice_number}
+          />
+        </div>
+
+        {/* Workflow Actions: Dispense, Payment Entry, View Invoice */}
+        <div className="rx-actions">
+          {session.role === 'DOCTOR' && !rx.dispensed_at && (
+            <button
+              type="button"
+              className="button button-outline"
+              disabled={dispensingId === rx.prescription_id}
+              onClick={() => handleDispense(rx.prescription_id)}
+            >
+              <PackageCheck size={14} />
+              {dispensingId === rx.prescription_id ? 'Dispensing…' : 'Dispense'}
+            </button>
+          )}
+
+          {session.role === 'DOCTOR' && (
+            <button
+              type="button"
+              className="button button-outline"
+              onClick={() => setPaymentTarget(rx)}
+            >
+              <CreditCard size={14} />
+              {rx.payment_status === 'paid' ? 'Update payment' : 'Record payment'}
+            </button>
+          )}
+
+          {(session.role === 'DOCTOR' || session.role === 'ADMIN') && (
+            <button
+              type="button"
+              className="button button-outline rx-actions-right"
+              onClick={() => setInvoiceTargetId(rx.prescription_id)}
+            >
+              <FileText size={14} />
+              Invoice
+            </button>
+          )}
+        </div>
       </li>)}
     </ol>}
 
@@ -318,6 +513,28 @@ function PatientHistory({ patient, session, onSessionExpired, onClose }: { patie
     {hasMore && status !== 'loading' && status !== 'error' && <button type="button" className="button button-outline history-more" disabled={status === 'loading-more'} onClick={loadMore}>
       {status === 'loading-more' ? 'Loading…' : 'Load older prescriptions'}
     </button>}
+
+    {paymentTarget && (
+      <PaymentModal
+        prescription={{
+          ...paymentTarget,
+          patient_name: patient.display_name,
+        }}
+        session={session}
+        onSessionExpired={onSessionExpired}
+        onSuccess={handlePaymentSuccess}
+        onClose={() => setPaymentTarget(null)}
+      />
+    )}
+
+    {invoiceTargetId !== null && (
+      <InvoiceModal
+        prescriptionId={invoiceTargetId}
+        session={session}
+        onSessionExpired={onSessionExpired}
+        onClose={() => setInvoiceTargetId(null)}
+      />
+    )}
   </div>
 }
 
@@ -362,11 +579,13 @@ function RegisterPatientForm({ session, prefill, onSessionExpired, onCancel, onR
     }
   }
 
+  const [showMore, setShowMore] = useState(false)
+
   const field = (key: keyof PatientFormValues, label: string, extra: React.InputHTMLAttributes<HTMLInputElement> = {}) => {
     const errorId = `patient-${key}-error`
     return <label>
       {label}
-      <input value={values[key]} onChange={set(key)} disabled={submitting} aria-invalid={Boolean(fieldErrors[key])} aria-describedby={fieldErrors[key] ? errorId : undefined} {...extra} />
+      <input value={values[key] ?? ''} onChange={set(key)} disabled={submitting} aria-invalid={Boolean(fieldErrors[key])} aria-describedby={fieldErrors[key] ? errorId : undefined} {...extra} />
       {fieldErrors[key] && <span id={errorId} className="field-error">{fieldErrors[key]}</span>}
     </label>
   }
@@ -380,6 +599,61 @@ function RegisterPatientForm({ session, prefill, onSessionExpired, onCancel, onR
     {field('clinicPatientId', `Clinic patient ID (OP / registration no., up to ${PATIENT_ID_MAX} characters)`, { placeholder: 'e.g. OP-1048', autoComplete: 'off' })}
     {field('displayName', 'Patient name', { placeholder: 'Full name', autoComplete: 'off' })}
     {field('phone', 'Phone (optional)', { placeholder: 'Optional', type: 'tel', autoComplete: 'off' })}
+
+    <div>
+      <button
+        type="button"
+        className="demographics-toggle-btn"
+        onClick={() => setShowMore(!showMore)}
+      >
+        {showMore ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+        {showMore ? 'Hide additional demographics' : '+ Add DOB, Prakriti, Address, Allergies'}
+      </button>
+    </div>
+
+    {showMore && (
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        {field('dateOfBirth', 'Date of birth', { type: 'date' })}
+        <label>
+          Gender
+          <select
+            value={values.gender ?? ''}
+            onChange={(e) => setValues((v) => ({ ...v, gender: e.target.value }))}
+            disabled={submitting}
+          >
+            <option value="">Select gender…</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label>
+          Prakriti (Ayurvedic constitution)
+          <select
+            value={values.prakriti ?? ''}
+            onChange={(e) => setValues((v) => ({ ...v, prakriti: e.target.value }))}
+            disabled={submitting}
+          >
+            <option value="">Select prakriti…</option>
+            <option value="Vata">Vata</option>
+            <option value="Pitta">Pitta</option>
+            <option value="Kapha">Kapha</option>
+            <option value="Tridosha">Tridosha</option>
+            <option value="Vata-Pitta">Vata-Pitta</option>
+            <option value="Pitta-Kapha">Pitta-Kapha</option>
+            <option value="Vata-Kapha">Vata-Kapha</option>
+          </select>
+        </label>
+        {field('allergies', 'Known allergies', { placeholder: 'e.g. Dust, Penicillin' })}
+        <div style={{ gridColumn: '1 / -1' }}>
+          {field('addressLine', 'Address line', { placeholder: 'House / Street name' })}
+        </div>
+        {field('city', 'City', { placeholder: 'City' })}
+        {field('state', 'State', { placeholder: 'State' })}
+        {field('pincode', 'Pincode (6 digits)', { placeholder: '682001' })}
+      </div>
+    )}
+
     {error && <div className="inline-error" role="alert">{error}</div>}
     <div className="edit-actions">
       <button type="button" className="button button-outline" onClick={onCancel} disabled={submitting}>Cancel</button>

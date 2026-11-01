@@ -327,6 +327,7 @@ input[aria-invalid='true'] { border-color: var(--danger); }
 @media (max-width: 560px) { .ask-panel { padding: 14px; } .ask-actions .button { flex: 1 1 0; } }
 
 /* AI-3 Consultation Brief: strictly uses existing tokens and typography */
+.brief-panel { padding: 18px 20px; border: 1.5px solid var(--primary); border-radius: 4px; background: var(--surface); box-shadow: 0 2px 8px rgba(49, 92, 74, 0.05); margin-top: 20px; }
 .brief-panel .brief-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
 .brief-panel .brief-controls { display: flex; align-items: center; gap: 8px; }
 .brief-panel .arm-toggle { display: inline-flex; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; background: var(--surface); }
@@ -348,3 +349,167 @@ input[aria-invalid='true'] { border-color: var(--danger); }
 .brief-panel .brief-cite-pill { display: inline-flex; align-items: center; padding: 1px 6px; border: 1px solid var(--border); border-radius: 3px; background: var(--surface); color: var(--primary); font-size: var(--fs-meta); }
 .brief-panel .brief-score-pill { display: inline-flex; align-items: center; padding: 1px 6px; border-radius: 3px; background: var(--sage); color: var(--primary); font-size: var(--fs-meta); }
 .brief-panel .brief-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid var(--border); color: var(--muted); font-size: var(--fs-meta); }
+
+/* Prescription lifecycle badges & actions (Dispense, Payment, Invoice) */
+.rx-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; }
+.rx-pill { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: 4px; font-size: var(--fs-caption); font-weight: 600; line-height: 1.4; border: 1px solid transparent; }
+.rx-pill i { width: 6px; height: 6px; border-radius: 50%; }
+.rx-pill-dispensed { background: var(--sage); color: var(--primary); border-color: #b7cebf; }
+.rx-pill-dispensed i { background: var(--primary); }
+.rx-pill-pending-dispense { background: #f3ede2; color: #8a6a3b; border-color: #e5dac9; }
+.rx-pill-pending-dispense i { background: #b77932; }
+.rx-pill-paid { background: #e8f3ec; color: #24583d; border-color: #b8dcbf; }
+.rx-pill-paid i { background: #2f7a55; }
+.rx-pill-partial { background: #fdf5e6; color: #9c631a; border-color: #f0deb8; }
+.rx-pill-partial i { background: #d9822b; }
+.rx-pill-unpaid { background: #f0f2f1; color: var(--muted); border-color: var(--border); }
+.rx-pill-unpaid i { background: #9da8a1; }
+
+.rx-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+.rx-actions .button { min-height: 32px; padding: 0 12px; font-size: var(--fs-caption); }
+.rx-actions-right { margin-left: auto; display: flex; gap: 8px; }
+
+/* Modal overlay & container */
+.modal-overlay { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 20px; background: rgba(26, 36, 31, 0.45); backdrop-filter: blur(2px); animation: fadeIn 0.15s ease-out; overflow-y: auto; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-card { width: 100%; max-width: 520px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); box-shadow: 0 12px 36px rgba(0,0,0,0.12); display: flex; flex-direction: column; overflow: hidden; animation: slideUp 0.15s ease-out; }
+@keyframes slideUp { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.modal-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 20px 24px; border-bottom: 1px solid var(--border); }
+.modal-header h3 { color: var(--primary); font: 500 var(--fs-section)/1.15 Georgia, serif; letter-spacing: -.03em; margin-top: 4px; }
+.modal-close { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 4px; background: transparent; color: var(--muted); }
+.modal-close:hover { background: var(--sage); color: var(--primary); }
+.modal-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
+.modal-footer { display: flex; justify-content: flex-end; align-items: center; gap: 10px; padding: 16px 24px; border-top: 1px solid var(--border); background: #fbf9f4; }
+
+/* Invoice Sheet (Receipt display & printing) */
+.invoice-sheet { border: 1px solid var(--border); border-radius: 6px; background: #fffdf9; padding: 24px; font-size: var(--fs-small); color: var(--foreground); display: flex; flex-direction: column; gap: 18px; }
+.invoice-header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 14px; border-bottom: 2px solid var(--primary); }
+.invoice-title { font: 600 20px Georgia, serif; color: var(--primary); letter-spacing: -.03em; }
+.invoice-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: var(--fs-caption); }
+.invoice-meta-grid dt { color: var(--muted); }
+.invoice-meta-grid dd { margin: 0; font-weight: 600; color: var(--foreground); }
+.invoice-table { width: 100%; border-collapse: collapse; margin: 4px 0; }
+.invoice-table th, .invoice-table td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); }
+.invoice-table th { color: var(--muted); font-size: var(--fs-caption); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+.invoice-table td.qty { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; color: var(--primary); }
+.invoice-summary-box { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-radius: 4px; background: var(--sage); color: var(--primary); }
+.invoice-total-amount { font: 600 22px Georgia, serif; }
+
+.rx-pill-open { background: #e8f3ec; color: #1e5939; border-color: #2f7a55; }
+.rx-pill-closed { background: #f0f2f1; color: var(--muted); border-color: var(--border); }
+.status-dot-pulse { width: 7px; height: 7px; border-radius: 50%; background: #2f7a55; display: inline-block; animation: pulse 2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(47, 122, 85, 0.6); } 70% { box-shadow: 0 0 0 6px rgba(47, 122, 85, 0); } 100% { box-shadow: 0 0 0 0 rgba(47, 122, 85, 0); } }
+
+/* Encounter Lifecycle (Section, Active card, Vitals, History) */
+.encounter-section { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
+.encounter-heading { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+.encounter-active-card { padding: 18px 20px; border: 1.5px solid var(--primary); border-radius: 4px; background: var(--surface); display: flex; flex-direction: column; gap: 8px; box-shadow: 0 2px 8px rgba(49, 92, 74, 0.05); }
+.encounter-active-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.encounter-meta-grid { display: flex; flex-wrap: wrap; gap: 20px; font-size: var(--fs-caption); color: var(--muted); padding-top: 6px; }
+.encounter-meta-grid div { display: flex; flex-direction: column; gap: 2px; }
+.encounter-meta-grid strong { color: var(--foreground); }
+.encounter-complaint { font-size: var(--fs-small); color: var(--foreground); margin-top: 4px; }
+.encounter-complaint span { display: block; font-size: var(--fs-caption); color: var(--muted); margin-bottom: 2px; }
+.encounter-complaint p { margin: 0; line-height: 1.5; }
+.vitals-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 6px; }
+.vitals-label { display: inline-flex; align-items: center; gap: 4px; font-size: var(--fs-caption); color: var(--muted); font-weight: 500; }
+.vitals-pill { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 4px; background: var(--sage); color: var(--primary); font-size: var(--fs-caption); font-weight: 600; font-variant-numeric: tabular-nums; }
+.encounter-empty-box { display: flex; flex-direction: column; gap: 6px; padding: 16px 18px; border: 1px dashed var(--border); background: var(--surface); color: var(--muted); font-size: var(--fs-small); }
+.encounter-empty-box p { margin: 0; color: var(--foreground); font-weight: 500; }
+.encounter-empty-box small { font-size: var(--fs-caption); line-height: 1.5; }
+.encounter-history-wrap { margin-top: 14px; }
+.encounter-history-toggle { display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 38px; padding: 0 14px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); color: var(--muted); font-size: var(--fs-caption); font-weight: 600; cursor: pointer; text-align: left; }
+.encounter-history-toggle:hover { background: var(--sage); color: var(--primary); }
+.encounter-history-list { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.encounter-history-item { padding: 12px 14px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); display: flex; flex-direction: column; gap: 6px; }
+.encounter-history-item-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.encounter-history-complaint { margin: 0; font-size: var(--fs-caption); color: var(--foreground); line-height: 1.5; }
+
+/* Patient Enriched Demographics Banner */
+.patient-demographics-banner {
+  margin-top: 14px;
+  padding: 14px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: var(--fs-small);
+}
+.demographics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px 18px;
+}
+.demographics-label {
+  display: block;
+  font-size: var(--fs-caption);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+.demographics-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+  margin-top: 6px;
+}
+.demographics-toggle-btn:hover {
+  text-decoration: underline;
+}
+
+/* Audit Hash Chain Inspector */
+.hash-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: #f4f5f4;
+  color: #333;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+}
+.hash-pill.genesis {
+  background: #e9ecef;
+  color: #6c757d;
+  font-style: italic;
+}
+.audit-status-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 4px;
+  background: #e8f3ec;
+  border: 1px solid #2f7a55;
+  color: #1e5939;
+  margin-bottom: 20px;
+}
+.audit-status-banner strong {
+  display: block;
+  font-size: var(--fs-base);
+  color: #1e5939;
+}
+.audit-status-banner span {
+  font-size: var(--fs-caption);
+  color: #276742;
+}
+
+/* Print styling */
+@media print {
+  body { background: white !important; color: black !important; }
+  .sidebar, .app-topbar, .modal-close, .modal-footer, .patients-search, .patients-back, .panel-heading, .brief-panel, .ask-panel, .rx-actions, .history-more, .topbar-user, .landing-nav { display: none !important; }
+  .modal-overlay { position: static !important; background: transparent !important; padding: 0 !important; }
+  .modal-card { max-width: 100% !important; box-shadow: none !important; border: 0 !important; }
+  .invoice-sheet { border: 1px solid #000 !important; padding: 20px !important; }
+  .invoice-header { border-bottom: 2px solid #000 !important; }
+  .invoice-summary-box { background: #f0f0f0 !important; color: #000 !important; border: 1px solid #ccc !important; }
+}
+

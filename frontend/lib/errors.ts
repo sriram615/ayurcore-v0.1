@@ -108,6 +108,13 @@ export type ApiOperation =
   | 'patient_search'
   | 'patient_history'
   | 'patient_register'
+  | 'prescription_dispense'
+  | 'prescription_payment'
+  | 'prescription_invoice'
+  | 'encounter_open'
+  | 'encounter_list'
+  | 'encounter_close'
+  | 'patient_demographics'
 
 /**
  * Pure translator: ApiError -> (category, message).
@@ -164,8 +171,20 @@ export function translateApiError(
   if (operation === 'patient_search' && status === 422) {
     return { category: ErrorCategory.VALIDATION, message: MSG_PATIENT_SEARCH_INVALID }
   }
-  if (operation === 'patient_history' && status === 404) {
+  if ((operation === 'patient_history' || operation === 'patient_demographics') && status === 404) {
     return { category: ErrorCategory.PATIENT_NOT_FOUND, message: MSG_PATIENT_NOT_FOUND }
+  }
+  if (operation === 'encounter_open' && status === 409) {
+    return { category: ErrorCategory.ALREADY_CONFIRMED, message: 'This patient already has an open encounter. Close it before opening a new one.' }
+  }
+  if (operation === 'encounter_close' && status === 409) {
+    return { category: ErrorCategory.ALREADY_CONFIRMED, message: 'This encounter is already closed.' }
+  }
+  if ((operation === 'encounter_open' || operation === 'encounter_list') && status === 404) {
+    return { category: ErrorCategory.PATIENT_NOT_FOUND, message: MSG_PATIENT_NOT_FOUND }
+  }
+  if (operation === 'encounter_close' && status === 404) {
+    return { category: ErrorCategory.UNKNOWN, message: 'Encounter not found.' }
   }
 
   if (status === 403) {
