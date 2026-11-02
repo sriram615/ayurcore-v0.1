@@ -1,7 +1,7 @@
-# AyurCore v0.1 --- AI-First Portfolio Master Plan
+# AyurCore v0.1 --- Clinic Demonstration Master Plan
 
 **Status:** Master project contract\
-**Purpose:** Resume-ready AI/ML portfolio project\
+**Purpose:** Reproducible AI/ML engineering demonstration for Ayurvedic clinic workflows\
 **Data:** Synthetic only\
 **Primary objective:** Build and rigorously evaluate an AI/ML system,
 not merely an SDE application with an LLM API.\
@@ -11,22 +11,20 @@ frozen (see §4A); the Gemini pilot path was abandoned.
 under Block 7 (§18).
 
 **Remaining-work roadmap:** `docs/PORTFOLIO_READINESS_ROADMAP.md` is the
-authoritative record of what remains until v0.1 is portfolio-ready, its
+authoritative record of what remains until v0.1 is demonstration-ready, its
 order, and how each item is verified. This plan stays the project
 contract; where they disagree, the roadmap's §F.4 lists the discrepancy.
 
 ## 1. Non-negotiable framing
 
-`<repo>` is a **resume/portfolio project**,
-developed separately from the actual clinic work on the other branch.
+`<repo>` is a **standalone clinic-workflow demonstration build** prepared for review in the context of Athma Ayurveda Clinics, Kerala. It is developed separately from the private clinic-facing implementation on the other branch; it is not the live clinic system, has not been integrated with clinic operations, and uses synthetic data only.
 
 It is not a clinic production system and must not use real patient data.
 
 All benchmark results are **synthetic technical results, not clinical
 validation**.
 
-The SDE foundation remains important, but the primary portfolio story is
-AI/ML.
+The engineering foundation remains important; the demonstration should make the AI/ML capabilities, deterministic safeguards and operational boundaries clear to clinic stakeholders and technical reviewers.
 
 Target positioning:
 
@@ -483,7 +481,7 @@ injection.
 
 Target for cross-patient leakage and injection success: **0**.
 
-## 17. Portfolio/resume evidence standard
+## 17. Demonstration evidence standard
 
 Never claim: - clinical validation; - clinical efficacy; - clinical
 safety validation; - real patient deployment.
@@ -654,14 +652,14 @@ Freeze model, prompt, code and configuration; run final test once.
 For AI-1, the extractor is frozen and `s1_test.json` has not been used
 with it; the single final S1 test run remains available.
 
-### Block 11 --- portfolio packaging
+### Block 11 --- clinic demonstration packaging
 
 Final evaluation report, architecture diagram, dataset/model cards,
 README, demo, limitations, reproducibility instructions, resume bullets.
 
 ## 19. Definition of done
 
-v0.1 is portfolio-ready when: 1. AI problems are clearly defined. 2.
+v0.1 is demonstration-ready when: 1. AI problems are clearly defined. 2.
 Deterministic baselines exist. 3. AI systems are compared against them.
 4. Agentic behavior is justified by measured value. 5. Memory is
 grounded and evaluated. 6. Brief is compared with a deterministic
@@ -708,7 +706,7 @@ doing meaningful work? 3. Could deterministic software do the same
 thing? 4. Is the evaluation valid? 5. Is there leakage? 6. Is the
 benchmark biased? 7. Are metrics correctly defined? 8. Is it
 reproducible? 9. Are claims stronger than evidence? 10. Does it
-strengthen the AI portfolio story? 11. Is complexity justified? 12. Did
+strengthen the project's AI/ML engineering rationale? 11. Is complexity justified? 12. Did
 it remain inside v0.1? 13. Did anything touch the clinic branch? 14. Is
 the next block still the highest-value AI work?
 
