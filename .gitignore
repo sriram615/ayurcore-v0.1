@@ -96,3 +96,8 @@ db/.isolated_test_sandbox
 
 # --- Private business documents (kept locally, not shared) -----------------------
 AyurCore_SharkTank_Review_Script.md
+
+# Next.js auto-generated assistant files
+frontend/AGENTS.md
+frontend/CLAUDE.md
+
