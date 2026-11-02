@@ -14,12 +14,19 @@ import { defineConfig, devices } from '@playwright/test'
  * API_ORIGIN is lib/api.ts's default base URL (no NEXT_PUBLIC_API_BASE_URL is
  * set for this build), so the tested build is the real one, not a test variant.
  *
- * Uses the locally installed Google Chrome (channel: 'chrome') so no Playwright
- * browser download is needed.
- *
  *   pnpm build && pnpm exec playwright test
  */
-export const API_ORIGIN = 'http://127.0.0.1:8000'
+import fs from 'node:fs'
+import path from 'node:path'
+
+let envApiBase = ''
+try {
+  const envLocal = fs.readFileSync(path.join(__dirname, '.env.local'), 'utf-8')
+  const match = envLocal.match(/NEXT_PUBLIC_API_BASE_URL=(.+)/)
+  if (match) envApiBase = match[1].trim()
+} catch {}
+
+export const API_ORIGIN = process.env.NEXT_PUBLIC_API_BASE_URL || envApiBase || 'http://127.0.0.1:8000'
 const PORT = 3100
 
 export default defineConfig({

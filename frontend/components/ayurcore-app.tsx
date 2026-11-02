@@ -42,6 +42,7 @@ import {
   prescribeManualPreview,
   prescribePreview,
   prescribePreviewLocal,
+  searchPatients,
   ApiCallError,
 } from '@/lib/api'
 import {
@@ -59,6 +60,7 @@ import type {
   AuditRecord,
   InventoryItem,
   LoginResponse,
+  PatientSummary,
   PrescribedHerb,
   PrescriptionResponse,
   Role,
@@ -425,10 +427,57 @@ function Consultation({ session, onSessionExpired }: { session: LoginResponse; o
     }
   }
 
+  const [patientSuggestions, setPatientSuggestions] = useState<PatientSummary[]>([])
+  const [patientSearchLoading, setPatientSearchLoading] = useState(false)
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const autocompleteRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (autocompleteRef.current && !autocompleteRef.current.contains(e.target as Node)) {
+        setShowSuggestions(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  useEffect(() => {
+    const q = patient.trim()
+    if (q.length < 2) {
+      setPatientSuggestions([])
+      setPatientSearchLoading(false)
+      return
+    }
+    const controller = new AbortController()
+    setPatientSearchLoading(true)
+    const timer = setTimeout(() => {
+      searchPatients(q, session.token, controller.signal)
+        .then((resp) => {
+          if (controller.signal.aborted) return
+          setPatientSuggestions(resp.results || [])
+        })
+        .catch(() => {
+          if (controller.signal.aborted) return
+          setPatientSuggestions([])
+        })
+        .finally(() => {
+          if (!controller.signal.aborted) setPatientSearchLoading(false)
+        })
+    }, 200)
+
+    return () => {
+      clearTimeout(timer)
+      controller.abort()
+    }
+  }, [patient, session.token])
+
   const resetDraft = () => {
     setStage('input')
     setPatient('')
     setPatientId('')
+    setPatientSuggestions([])
+    setShowSuggestions(false)
     setNotes('')
     setItems([])
     setDosha('')
@@ -709,7 +758,7 @@ function Consultation({ session, onSessionExpired }: { session: LoginResponse; o
 
   return <div className="consultation-view"><PageHeader eyebrow="DOCTOR · CONSULTATION" title={stage === 'input' ? 'New consultation' : mode === 'ai' ? 'Review clinical draft' : 'Write prescription'} description={stage === 'input' ? 'Prepare a clinical proposal for review. The final decision always remains with you.' : mode === 'ai' ? 'Review the proposed prescription before confirming.' : 'Select medicines and quantities for this patient.'} />
     <div className="stage-line"><span className={stage === 'input' ? 'current' : 'done'}>01 <b>INPUT</b></span><i /><span className={stage === 'review' ? 'current' : stage === 'confirmed' ? 'done' : ''}>02 <b>{mode === 'ai' ? 'AI / MANUAL' : 'MANUAL'}</b></span><i /><span>03 <b>REVIEW</b></span><i /><span>04 <b>CONFIRM</b></span></div>
-    {stage === 'input' ? <div className="consultation-form"><div className="clinical-form"><label>Patient name<input value={patient} onChange={(e) => setPatient(e.target.value)} placeholder="Search or enter patient name" /></label><label>Patient phone / ID<input value={patientId} onChange={(e) => setPatientId(e.target.value)} placeholder="e.g. AC-1048" /></label><label>Clinical notes<textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Describe the patient's concerns, observations, and relevant history..." rows={8} /></label><div className="form-footer"><span><ShieldCheck size={15} /> Your notes stay within the clinic workspace.</span></div></div><div className="draft-choice"><div className="choice-kicker">HOW WOULD YOU LIKE TO PROCEED?</div><button className="choice-button" onClick={startAiLocal} disabled={starting || !patient || !notes}><span className="choice-icon"><Cpu size={18} /></span><span><strong>{starting ? 'Drafting…' : 'Draft with Local AI (Offline)'}</strong><small>AI-1 local extractor: T1 tagger + verifier. Offline, deterministic, zero cloud transfer.</small></span><ArrowRight size={17} /></button><button className="choice-button" onClick={startAiGemini} disabled={starting || !patient || !notes}><span className="choice-icon"><Sparkles size={18} /></span><span><strong>{starting ? 'Drafting…' : 'Draft with Cloud AI (Gemini)'}</strong><small>Cloud LLM extraction with client-side PII air-gap safeguard.</small></span><ArrowRight size={17} /></button><button className="choice-button" onClick={startManual} disabled={starting || !patient}><span className="choice-icon manual"><Stethoscope size={18} /></span><span><strong>Write it myself</strong><small>Enter medicines and dosha directly without AI assistance.</small></span><ArrowRight size={17} /></button>{error && <div className="inline-error">{error}</div>}</div></div> : <div className="review-view"><div className="review-header"><div><div className="section-kicker">{mode === 'ai' ? 'AI DRAFT' : 'MANUAL ENTRY'} <span className="generated-status"><span /> {proposalSource === 'local_extractor' ? 'Local Extractor (Offline)' : mode === 'ai' ? 'AI generated' : 'Doctor entered'}</span></div><h2>{mode === 'ai' ? 'Review proposed prescription' : 'Review prescription'}</h2></div><PatientContext patientName={patient} patientId={patientId} manual={mode === 'manual'} /></div><div className="review-grid"><section className="prescription-panel"><div className="panel-heading"><div><span className="panel-label">PRESCRIPTION</span><h3>{editing ? 'Edit medicines and quantities' : 'Proposed medicines'}</h3></div>{!editing && <Button variant="outline" onClick={() => setEditing(true)}>Edit prescription</Button>}</div><div className="dosha-line"><span>Dosha imbalance</span>{editing ? <select value={dosha} onChange={(e) => setDosha(e.target.value)}><option value="">Select…</option><option>Vata</option><option>Pitta</option><option>Kapha</option><option>Other</option></select> : <strong>{dosha}</strong>}</div><div className="medicine-list">{items.map((item, index) => <MedicineRow key={item.name} item={item} editing={editing} update={(qty: number) => setItems(items.map((x, i) => i === index ? { ...x, qty } : x))} remove={() => setItems(items.filter((_, i) => i !== index))} />)}{items.length === 0 && <p style={{ color: 'var(--muted)', fontSize: 12 }}>No medicines added yet.</p>}</div>{editing && <><div className="medicine-row"><div className="medicine-name"><span className="medicine-icon"><Plus size={14} /></span><input aria-label="New medicine name" placeholder="Medicine name" value={newHerbName} onChange={(e) => setNewHerbName(e.target.value)} style={{ border: '1px solid var(--border)', borderRadius: 4, padding: '6px 8px', fontSize: 12 }} /></div><div className="quantity-control"><input aria-label="New medicine grams" type="number" min="1" value={newHerbGrams} onChange={(e) => setNewHerbGrams(e.target.value)} /><span>g</span></div><button className="remove-button" onClick={addMedicine}>Add</button></div>{error && <div className="inline-error">{error}</div>}<div className="edit-actions"><Button variant="outline" onClick={() => setEditing(false)}>Cancel</Button><Button onClick={() => setEditing(false)} disabled={!dosha || items.length === 0}>Save changes <Check size={15} /></Button></div></>}{!editing && error && <div className="inline-error" role="alert">{error}</div>}</section><aside className="confirm-panel"><div className="confirm-panel-top"><span className="panel-label">FINAL REVIEW</span><ShieldCheck size={20} /></div><h3>Ready to confirm?</h3><p>Confirmation will validate stock and record this prescription against the clinic inventory.</p><div className="confirm-rule"><span>Doctor review required</span><Check size={14} /></div><SlideToConfirm disabled={editing || !dosha || items.length === 0} busy={confirming} onConfirm={handleConfirm} /></aside></div></div>}
+    {stage === 'input' ? <div className="consultation-form"><div className="clinical-form"><div ref={autocompleteRef} style={{ position: 'relative' }}><label>Patient name<div style={{ position: 'relative' }}><input value={patient} onChange={(e) => { setPatient(e.target.value); setShowSuggestions(true) }} onFocus={() => { if (patient.trim().length >= 2) setShowSuggestions(true) }} placeholder="Search or enter patient name (e.g. Aarav, DE-0157)" autoComplete="off" />{patientSearchLoading && <span style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', fontSize: 12, color: 'var(--muted)' }}>Searching…</span>}</div></label>{showSuggestions && patient.trim().length >= 2 && <div className="patient-autocomplete-dropdown" style={{ position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 50, background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 8, boxShadow: '0 8px 24px rgba(0,0,0,0.12)', maxHeight: 260, overflowY: 'auto', marginTop: 4 }}>{patientSearchLoading ? <div style={{ padding: '12px 14px', fontSize: 13, color: 'var(--muted)' }}>Searching patients…</div> : patientSuggestions.length > 0 ? <ul className="patient-results" style={{ borderTop: 'none', margin: 0, padding: 0 }}>{patientSuggestions.map((p) => <li key={p.patient_pk} style={{ borderBottom: '1px solid #e9ede9' }}><button type="button" className="patient-result" style={{ cursor: 'pointer', width: '100%', padding: '10px 14px' }} onClick={() => { setPatient(p.display_name); setPatientId(p.clinic_patient_id); setShowSuggestions(false) }}><div><strong style={{ display: 'block', color: 'var(--primary)', fontSize: 13 }}>{p.display_name}</strong><span style={{ fontSize: 11, color: 'var(--muted)' }}>Select to auto-fill</span></div><span className="mono" style={{ background: '#f0f3f0', padding: '3px 8px', borderRadius: 4, fontWeight: 600, fontSize: 12 }}>{p.clinic_patient_id}</span></button></li>)}</ul> : <div style={{ padding: '12px 14px', fontSize: 13, color: 'var(--muted)' }}>No registered patient matches “{patient.trim()}”. (You can continue typing a custom name)</div>}</div>}</div><label>Patient phone / ID<input value={patientId} onChange={(e) => setPatientId(e.target.value)} placeholder="e.g. AC-1048 or DE-0157" /></label><label>Clinical notes<textarea value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Describe the patient's concerns, observations, and relevant history..." rows={8} /></label><div className="form-footer"><span><ShieldCheck size={15} /> Your notes stay within the clinic workspace.</span></div></div><div className="draft-choice"><div className="choice-kicker">HOW WOULD YOU LIKE TO PROCEED?</div><button className="choice-button" onClick={startAiLocal} disabled={starting || !patient || !notes}><span className="choice-icon"><Cpu size={18} /></span><span><strong>{starting ? 'Drafting…' : 'Draft with Local AI (Offline)'}</strong><small>AI-1 local extractor: T1 tagger + verifier. Offline, deterministic, zero cloud transfer.</small></span><ArrowRight size={17} /></button><button className="choice-button" onClick={startAiGemini} disabled={starting || !patient || !notes}><span className="choice-icon"><Sparkles size={18} /></span><span><strong>{starting ? 'Drafting…' : 'Draft with Cloud AI (Gemini)'}</strong><small>Cloud LLM extraction with client-side PII air-gap safeguard.</small></span><ArrowRight size={17} /></button><button className="choice-button" onClick={startManual} disabled={starting || !patient}><span className="choice-icon manual"><Stethoscope size={18} /></span><span><strong>Write it myself</strong><small>Enter medicines and dosha directly without AI assistance.</small></span><ArrowRight size={17} /></button>{error && <div className="inline-error">{error}</div>}</div></div> : <div className="review-view"><div className="review-header"><div><div className="section-kicker">{mode === 'ai' ? 'AI DRAFT' : 'MANUAL ENTRY'} <span className="generated-status"><span /> {proposalSource === 'local_extractor' ? 'Local Extractor (Offline)' : mode === 'ai' ? 'AI generated' : 'Doctor entered'}</span></div><h2>{mode === 'ai' ? 'Review proposed prescription' : 'Review prescription'}</h2></div><PatientContext patientName={patient} patientId={patientId} manual={mode === 'manual'} /></div><div className="review-grid"><section className="prescription-panel"><div className="panel-heading"><div><span className="panel-label">PRESCRIPTION</span><h3>{editing ? 'Edit medicines and quantities' : 'Proposed medicines'}</h3></div>{!editing && <Button variant="outline" onClick={() => setEditing(true)}>Edit prescription</Button>}</div><div className="dosha-line"><span>Dosha imbalance</span>{editing ? <select value={dosha} onChange={(e) => setDosha(e.target.value)}><option value="">Select…</option><option>Vata</option><option>Pitta</option><option>Kapha</option><option>Other</option></select> : <strong>{dosha}</strong>}</div><div className="medicine-list">{items.map((item, index) => <MedicineRow key={item.name} item={item} editing={editing} update={(qty: number) => setItems(items.map((x, i) => i === index ? { ...x, qty } : x))} remove={() => setItems(items.filter((_, i) => i !== index))} />)}{items.length === 0 && <p style={{ color: 'var(--muted)', fontSize: 12 }}>No medicines added yet.</p>}</div>{editing && <><div className="medicine-row"><div className="medicine-name"><span className="medicine-icon"><Plus size={14} /></span><input aria-label="New medicine name" placeholder="Medicine name" value={newHerbName} onChange={(e) => setNewHerbName(e.target.value)} style={{ border: '1px solid var(--border)', borderRadius: 4, padding: '6px 8px', fontSize: 12 }} /></div><div className="quantity-control"><input aria-label="New medicine grams" type="number" min="1" value={newHerbGrams} onChange={(e) => setNewHerbGrams(e.target.value)} /><span>g</span></div><button className="remove-button" onClick={addMedicine}>Add</button></div>{error && <div className="inline-error">{error}</div>}<div className="edit-actions"><Button variant="outline" onClick={() => setEditing(false)}>Cancel</Button><Button onClick={() => setEditing(false)} disabled={!dosha || items.length === 0}>Save changes <Check size={15} /></Button></div></>}{!editing && error && <div className="inline-error" role="alert">{error}</div>}</section><aside className="confirm-panel"><div className="confirm-panel-top"><span className="panel-label">FINAL REVIEW</span><ShieldCheck size={20} /></div><h3>Ready to confirm?</h3><p>Confirmation will validate stock and record this prescription against the clinic inventory.</p><div className="confirm-rule"><span>Doctor review required</span><Check size={14} /></div><SlideToConfirm disabled={editing || !dosha || items.length === 0} busy={confirming} onConfirm={handleConfirm} /></aside></div></div>}
   </div>
 }
 
