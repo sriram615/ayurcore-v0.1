@@ -1,99 +1,114 @@
-# AyurCore OS — v0.1 portfolio build
+# AyurCore OS — clinic workflow demonstration
 
-AI-assisted record-keeping for an Ayurvedic clinic: a FastAPI + SQLite backend, a Next.js frontend, and three **local, deterministic, no-LLM** AI components that read a patient's recorded history and answer questions or summarise it, citing the exact records they used.
+**Demonstration context:** Athma Ayurveda Clinics, Kerala  
+**Build:** v0.1 · **Data:** synthetic demonstration records only
 
-> **Status (2026-10-11).** A demonstrable, reproducible engineering build on **synthetic data only**. It is **not clinically validated, not production-ready, and has never been run on a real clinic's data.** Read [What is and is not verified](#what-is-and-is-not-verified) before relying on any number in this repository.
+AyurCore OS is an AI-assisted clinic operations system designed around the day-to-day workflows of an Ayurvedic clinic. This public repository presents a reproducible demonstration build for reviewing those workflows in the context of Athma Ayurveda Clinics, Kerala.
 
-![AyurCore v0.1 demo: Dashboard stock summary, Inventory, a synthetic patient's prescription history, and a cited answer from the "Ask about this patient" panel](docs/assets/ayurcore-v0.1-demo.gif)
+> **Important:** This is a software demonstration, not a live clinic deployment or a clinically validated product. It has not been connected to Athma Ayurveda Clinics' systems and has not been used with real patient records. All patient and inventory data shown in the demo are synthetic. The reference to Athma Ayurveda Clinics identifies the intended demonstration context; it does not imply clinic endorsement, approval or production use.
 
-*Screen recording of the running app (about 30 s) on **synthetic demo data only**: Dashboard, Inventory, a synthetic patient's history, and one record-grounded answer. A demonstration of the engineering build, not clinical validation or a production system.*
+![AyurCore demonstration: dashboard stock summary, inventory, synthetic patient history and a cited answer from the patient Q&A panel](docs/assets/ayurcore-v0.1-demo.gif)
 
-## About this repository
+*Short recording of the running demonstration using synthetic data: Dashboard, Inventory, a synthetic patient's history and a record-grounded answer.*
 
-This is a **standalone portfolio snapshot** of AyurCore v0.1, taken from the development branch of a separate, private clinic-facing backend project. It has a single initial commit; the development history is not included. Differences from the development branch, so you know what you are reading:
+## What the demonstration covers
 
-- **Left out:** the reserved AI-1 final holdout (`eval/benchmarks/s1/s1_test.json`), the registered longitudinal evaluation protocol, its run log, the longitudinal and PARA v2 benchmarks, the related evaluation scripts and tests, and local evidence files (for example the AI-2 dev-run reports). Documents under `docs/` that mention them describe files that are **not in this repository**.
-- **Changed:** three local-path mentions (in two files) were replaced with placeholders. Nothing else was edited.
-- **No licence has been chosen yet,** so no licence file is included.
+The current build brings together prescription, patient-record and inventory workflows behind a FastAPI backend and a Next.js interface.
 
-## What it does
-
-| Component | What it does | AI? |
+| Area | Demonstrated capability | Current boundary |
 |---|---|---|
-| Prescribing core | Draft → doctor review → deterministic confirm (the only clinical write, idempotent, stock-checked, audit-chained) | The draft step can use Gemini (`/prescribe/preview`); the confirm step never does |
-| **AI-2 — Ask about this patient** | `POST /patients/{pk}/ask`: closed-vocabulary questions (English, Manglish, Malayalam) answered from the patient's confirmed prescriptions and visits, every answer cited and re-verified; unclear questions ask for clarification; advice, cross-patient and unknown-data requests are refused | Local rules + a small pinned planner; **no LLM, no network** |
-| **AI-3 — Consultation Brief** | A short cited summary of the patient's history, facts chosen and ordered by a small learned ranker (logistic regression, ~110 weights) | Local model; **no LLM, no network**; wording is a fixed template |
-| AI-1 — notes → structured prescription | Local extractor (tagger/assembly/verifier); evaluated on a synthetic benchmark | Evaluated component only — **not wired into the product path** |
+| Prescription workflow | Draft → doctor review → deterministic confirmation; stock checks, idempotency and audit logging | The AI-assisted draft path can use Gemini. Confirmation is deterministic and makes no AI call. |
+| Patient records | Patient search, recorded prescription history and visit information | The demo uses invented patient records. |
+| AI-2 — Ask about this patient | Answers supported questions from one patient's recorded prescriptions and visits, with record citations and verification; supports English, Manglish and Malayalam question forms | Read-only; closed-vocabulary scope. It does not provide diagnosis, treatment or dosage advice. |
+| AI-3 — Consultation Brief | Produces a concise, cited summary from verified patient-history facts using a learned salience ranker | Synthetic evaluation only; not a clinical assessment. |
+| Inventory | Clinic-scoped stock view and stock checks during prescription confirmation | Demonstration inventory only. |
+| Access and audit | Role-based access, clinic isolation and an append-only, hash-chained audit trail | Not a substitute for a production security, hosting or compliance review. |
 
-Safety principle: **AI proposes or retrieves → the doctor reviews → deterministic backend validates and commits.** The AI components here never write.
+**Core design boundary:** AI may prepare a draft or retrieve recorded information. A doctor remains responsible for clinical decisions; deterministic backend validation governs confirmation and writes. The read-only AI-2 and AI-3 components do not write to patient records.
 
-## Quick start (about 10 minutes)
+AI-1, a local notes-to-structured-prescription extractor, is an evaluated research component and is **not wired into the product workflow**.
 
-Clone, then follow the steps below. Requires Python 3.14 (SQLite ≥ 3.38; tested 3.14.3) and Node with pnpm (tested Node 24.3, pnpm 12.5). No API keys, no network after dependencies are installed.
+## Demonstration walkthrough
 
-```bash
-git clone https://github.com/sriram615/ayurcore-v0.1.git && cd ayurcore-v0.1
-python3.14 -m venv venv
-./venv/bin/pip install -r requirements-dev.txt
-./venv/bin/python scripts/setup_v01_demo.py            # disposable demo DB + three demo logins (inside this checkout)
-./venv/bin/python scripts/seed_v01_demo_histories.py   # five invented patients with dated histories
-./venv/bin/python scripts/demo_v01_ai.py               # AI-2 answers and AI-3 briefs in the terminal (no server)
-```
+The included browser demo is intended to let a reviewer explore a typical clinic workflow without using real patient information.
 
-The full API journey and the browser demo are in [`docs/V01_DEMO_GUIDE.md`](docs/V01_DEMO_GUIDE.md). In short:
+1. **Dashboard and inventory** — review the synthetic stock summary and inventory list.
+2. **Patient record** — open synthetic patient DEMO-0101 and inspect the dated prescription and visit history.
+3. **Record-grounded questions** — ask what was prescribed first or what changed between prescriptions. Answers cite the underlying records.
+4. **Unknown information** — open DEMO-0103 and ask which herbs were prescribed. The system reports that the information is not recorded rather than inventing an answer.
+5. **Safety boundaries** — try a dosage-advice question or a request to view another patient's records. These are refused.
+6. **Role boundaries** — sign in with the demo roles to see which functions are available to each role.
 
-```bash
-./venv/bin/python scripts/run_v01_demo_server.py       # API on http://127.0.0.1:8000 (demo DB only)
-cd frontend && pnpm install && pnpm build && pnpm start -p 3000
-```
+See the [step-by-step demo guide](docs/V01_DEMO_GUIDE.md) for the complete walkthrough and API journey.
 
-Demo logins are in `demo/credentials.v01-demo.json` (git-ignored; never printed).
+## Run the demonstration locally
 
-*Checked on 2026-10-11 from a fresh clone of this repository: `setup_v01_demo.py`, `seed_v01_demo_histories.py` and `demo_v01_ai.py` ran with exit code 0 and listed the five demo patients. That check used an existing virtual environment; a fresh `pip install` and `pnpm install` were not re-run, and the browser demo was not re-run on this snapshot.*
+The demo uses a disposable SQLite database inside this checkout. The setup scripts seed invented records and refuse to use the development database. No external API key or network call is required for the local AI-2 and AI-3 demonstration paths after dependencies are installed.
 
-## What is and is not verified
+**Requirements:** Python 3.14, Node.js and pnpm. The recorded environment used Python 3.14.3, Node 24.3 and pnpm 12.5.
 
-Numbers below come from runs on the **development branch** this snapshot was taken from (the files are identical except for the items listed under [About this repository](#about-this-repository)). They were **not re-run on this snapshot**; where a run was not made at all, it says so. Details and the claim-by-claim table: [`docs/V01_EVALUATION_REPORT.md`](docs/V01_EVALUATION_REPORT.md).
+    git clone https://github.com/sriram615/ayurcore-v0.1.git
+    cd ayurcore-v0.1
 
-| Claim | Evidence | Limit |
+    python3.14 -m venv venv
+    ./venv/bin/pip install -r requirements-dev.txt
+
+    ./venv/bin/python scripts/setup_v01_demo.py
+    ./venv/bin/python scripts/seed_v01_demo_histories.py
+
+Start the API:
+
+    ./venv/bin/python scripts/run_v01_demo_server.py
+
+In a second terminal, start the frontend:
+
+    cd frontend
+    pnpm install
+    pnpm build
+    pnpm start -p 3000 -H 127.0.0.1
+
+Open http://127.0.0.1:3000. Demo credentials are generated in demo/credentials.v01-demo.json; the file is git-ignored. Open it locally when signing in and never include it in a recording or commit.
+
+For a terminal-only demonstration of AI-2 and AI-3:
+
+    ./venv/bin/python scripts/demo_v01_ai.py
+
+For setup details, example questions, API walkthroughs and safe test commands, see [V01_DEMO_GUIDE.md](docs/V01_DEMO_GUIDE.md).
+
+## Current implementation and evidence
+
+This repository is a standalone demonstration snapshot. Its README and supporting documents distinguish implemented behaviour from evaluation-only components and work that remains planned.
+
+| Area | Evidence currently documented | Limitation |
 |---|---|---|
-| Backend and AI test suite | 862 tests pass in an isolated scratch sandbox on the committed tree; 8 fail only because `numpy` is not installed there (AI-1 extractor/OOD tests) | the legacy Streamlit UI tests and the 2 test files that read the reserved `s1_test.json` holdout are excluded on purpose |
-| Frontend | 530/530 mocked-API Playwright tests pass (16 spec files, Chrome, scratch export of development-branch commit `dd5c34b`, with a clean production build and strict `tsc`); 12/12 real-backend end-to-end tests of the Ask flow passed against the demo database earlier (before the Inventory page was added) | The API was mocked in the 530; `e2e-real/` was not part of that run. Real-backend integration of the Inventory page and any accessibility audit are **not verified**; Chrome only |
-| AI-2 on the development set | Registered protocol v1.1 gates A1–A5, A7, B1–B8, C1–C3 pass (dev-run-09, 176 cases) | **The development set is what the system was tuned on — this is not generalisation evidence.** Validation sets were never written; the one-shot acceptance set has **not** been run; gate A6 (who may ask) is unscored on the registered protocol |
-| AI-3 | Learned ranker vs fixed template on 988 held-out synthetic patients, one-shot: critical facts missed 0.0% vs 56.5% (k=5); 0 unsupported facts shown | Labels come from a written policy by the same author — it measures reproducing that policy, **not clinical usefulness** |
-| Who may ask (A6) | Evaluator built; the shipping route passes under the proposed v1.2 control and fails the registered v1.1 ADMIN control (`/ask` is DOCTOR-only) | Needs an owner decision (D-02); synthetic stand-in cases only |
+| Backend and AI tests | 862 passed in an isolated scratch sandbox on the source development tree | 8 additional AI-1 tests were not runnable in that environment because NumPy was absent. This result was not rerun on this public snapshot. |
+| Frontend | 530/530 mocked-API Playwright tests passed on a scratch export of the development tree; 12/12 real-backend Ask-flow tests passed in an earlier run | The mocked suite does not establish live-backend integration for every screen. Inventory integration and accessibility have not been fully verified. |
+| AI-2 | Registered development-set checks passed for the recorded 176-case development run | The development set was used during tuning. This is not independent generalisation evidence; validation and acceptance work remains outstanding. |
+| AI-3 | On 988 held-out synthetic patients, the learned ranker missed 0.0% of policy-labelled critical facts at k=5 versus 56.5% for the fixed-order baseline; no unsupported facts were shown | Labels reflect a written selection policy by the same author. This measures policy reproduction, not clinical usefulness. |
 
-Not done and **not claimed**: clinical validation, native-speaker review of validation wordings, an acceptance run, production deployment, enforcement guardrails (Phase 3B), a live-clinic pilot.
+These figures are historical evidence from the development tree, not claims that every test has been rerun against this public snapshot. See the [evaluation report](docs/V01_EVALUATION_REPORT.md) for the claim-by-claim qualifications.
 
-## Repository layout
+## What is not yet claimed
 
-| Path | Contents |
-|---|---|
-| `backend/` | FastAPI app (`main.py`), auth/RBAC, patients, encounters, prescriptions, inventory, audit chain |
-| `ai2/` | Question answering: parse → plan → execute → verify; read-only snapshot adapter |
-| `ai3/` | Consultation Brief: facts, verification, salience ranker, evaluation harness, synthetic generator |
-| `memory/`, `extractor/` | AI-2 research modules and the AI-1 extractor |
-| `frontend/` | Next.js UI (the demo surface): patient search, history, Ask panel, Dashboard; `e2e/` mocked specs, `e2e-real/` real-backend spec |
-| `scripts/` | demo (`setup_v01_demo.py`, `seed_v01_demo_histories.py`, `demo_v01_ai.py`, `run_v01_demo_server.py`), test procedure (`run_scratch_sandbox_tests.py`), evaluation (`ai3_train_eval.py`, `eval_actor_aware.py`, …) |
-| `eval/`, `artifacts/` | synthetic benchmarks and the AI-1 and AI-3 evidence that are included (the AI-2 longitudinal protocol and its dev-run evidence are **not** in this repository; see the evaluation report) |
-| `docs/` | [architecture](docs/V01_ARCHITECTURE.md), [demo guide](docs/V01_DEMO_GUIDE.md), [evaluation report](docs/V01_EVALUATION_REPORT.md), [readiness roadmap](docs/PORTFOLIO_READINESS_ROADMAP.md), risk register |
-| `AyurCore_API_Contract.md` | API contract (v1.7), including `/patients/{pk}/ask` and `/inventory` |
-| `apps/web/`, `ui/` | legacy / placeholder; not part of the v0.1 demo |
+- No clinical validation or clinician-approved clinical rules.
+- No live deployment, production hosting or integration with Athma Ayurveda Clinics.
+- No use of real patient data in this demonstration.
+- No production security, privacy, regulatory or compliance certification.
+- No automated clinical decision-making or dosage recommendation.
+- AI-1 is not part of the live prescription workflow.
+- Phase 3B guardrail enforcement has not been implemented.
+- The planned CRM application for interaction history, lead/patient follow-ups and permission-controlled communications is a future extension, not part of this v0.1 demonstration.
 
-## Running the tests safely
+A clinic pilot would require clinician-led validation, approved clinical rules, operational security and backup controls, deployment hardening, and explicit clinic approval before any real records are used.
 
-**Never run bare `pytest` against a database you care about.** `tests/conftest.py` refuses to run outside a sandbox. Use the scratch-sandbox procedure, which copies only git-tracked files (the restricted acceptance material it guards against is not part of this repository). Its 862-passed result is from the development branch and has not been re-run here:
+## Architecture and project documentation
 
-```bash
-python scripts/run_scratch_sandbox_tests.py --dest <NEW dir outside this checkout> --python ./venv/bin/python
-```
+- [Architecture overview](docs/V01_ARCHITECTURE.md)
+- [Demo guide](docs/V01_DEMO_GUIDE.md)
+- [Evaluation report](docs/V01_EVALUATION_REPORT.md)
+- [Technical risk register](docs/TECHNICAL_RISK_REGISTER.md)
+- [Phase 3 plan](docs/PHASE_3_PLAN.md)
+- [API contract](AyurCore_API_Contract.md)
+- [Engineering instructions](CLAUDE.md)
 
-Installing `numpy==2.5.3` (pinned in `constraints.txt`) into the venv makes the 8 AI-1 tests runnable. See [`docs/V01_DEMO_GUIDE.md`](docs/V01_DEMO_GUIDE.md#verifying-the-build) for the frontend suites.
-
-## Configuration notes
-
-`GEMINI_API_KEY` is needed only for the original `/prescribe/preview` draft step; the AI-2, AI-3 and demo paths make no external call. CORS allows `http://localhost:3000` and `http://127.0.0.1:3000` only. Migrations 001–016 are checksum-locked: never edit one, add a new migration. The real database is `db/ayurcore.db` — treat it as clinic data and do not seed or restore it casually ([backup runbook](docs/BACKUP_RESTORE_RUNBOOK.md)).
-
-## Other documents
-
-[`CLAUDE.md`](CLAUDE.md) engineering rules · [`docs/TECHNICAL_RISK_REGISTER.md`](docs/TECHNICAL_RISK_REGISTER.md) · [`docs/PHASE_3_PLAN.md`](docs/PHASE_3_PLAN.md) (3A evaluation-only; 3B not started) · [`docs/ARCHITECTURE_BASELINE.md`](docs/ARCHITECTURE_BASELINE.md) (original backend design) · [`AyurCore AI Portfolio Master Plan.md`](AyurCore%20AI%20Portfolio%20Master%20Plan.md).
+The existing roadmap and master-plan filenames are retained to avoid breaking document links; their descriptions are being reframed around demonstration readiness rather than personal-portfolio presentation.
