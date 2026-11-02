@@ -2,7 +2,7 @@
 
 **Status:** AUTHORITATIVE for *remaining work, ordering and completion criteria* until v0.1 is demonstration-ready. It is the execution contract for QA and implementation sessions.
 **Written:** 2026-10-10, from a read-only inspection of the repository at `v0.1` / `89d4af3` plus an uncommitted working tree.
-**Relationship to other documents:** `AyurCore AI Portfolio Master Plan.md` remains the project contract (framing, AI capabilities, evaluation rules, the definition of done in its §19). This roadmap does **not** replace it and does not duplicate it; it records what is left, in what order, and how each item is verified. Where the two disagree, §F.4 lists the discrepancy instead of resolving it silently.
+**Relationship to other documents:** `AyurCore AI Demonstration Master Plan.md` remains the project contract (framing, AI capabilities, evaluation rules, the definition of done in its §19). This roadmap does **not** replace it and does not duplicate it; it records what is left, in what order, and how each item is verified. Where the two disagree, §F.4 lists the discrepancy instead of resolving it silently.
 **Synthetic data only. Nothing here is clinical validation.**
 
 ## 0. How to use this document
@@ -466,7 +466,7 @@ Blocked until AR-1: all commits (Block 2). Blocked until AR-2: Block 3 (item 1�
 
 ## G. Evidence index
 
-- Plan and protocol: `AyurCore AI Portfolio Master Plan.md` (§§2, 4A, 6, 14, 18, 19); `docs/AI2_LONGITUDINAL_EVALUATION_PROTOCOL_v1_1.md`; `eval/protocols/longitudinal_v1/` (`protocol_v1_1.json`, `REGISTRY_v1_1.json`, `validation_spec_v1.json`, `actor_aware_evaluator_spec_v1.json`, `run_log.jsonl`).
+- Plan and protocol: `AyurCore AI Demonstration Master Plan.md` (§§2, 4A, 6, 14, 18, 19); `docs/AI2_LONGITUDINAL_EVALUATION_PROTOCOL_v1_1.md`; `eval/protocols/longitudinal_v1/` (`protocol_v1_1.json`, `REGISTRY_v1_1.json`, `validation_spec_v1.json`, `actor_aware_evaluator_spec_v1.json`, `run_log.jsonl`).
 - Backend history: `docs/HANDOFF.md`, `docs/PHASE_3_PLAN.md`, `docs/TECHNICAL_RISK_REGISTER.md`, `CLAUDE.md`, `README.md`, `CONTRIBUTING.md`.
 - AI-2 code: `ai2/`, `backend/main.py` (`ask_patient_history`), `backend/rbac.py`, `backend/schemas.py`, `backend/patient_store.py`, `ai2/adapters/clinic_stores.py`.
 - Frontend: `frontend/lib/ask-*.ts`, `frontend/components/patient-ask.tsx`, `ask-result.tsx`, `dashboard.tsx`, `frontend/e2e/`.
@@ -692,7 +692,7 @@ frontend/lib/format.ts
 ### C6 — project documents (2)
 
 ```
-AyurCore AI Portfolio Master Plan.md
+AyurCore AI Demonstration Master Plan.md
 docs/PORTFOLIO_READINESS_ROADMAP.md
 ```
 
