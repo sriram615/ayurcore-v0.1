@@ -1,6 +1,6 @@
-# AyurCore v0.1 — Portfolio Readiness Roadmap
+# AyurCore v0.1 — Clinic Demonstration Readiness Roadmap
 
-**Status:** AUTHORITATIVE for *remaining work, ordering and completion criteria* until v0.1 is portfolio-ready. It is the execution contract for QA and implementation sessions.
+**Status:** AUTHORITATIVE for *remaining work, ordering and completion criteria* until v0.1 is demonstration-ready. It is the execution contract for QA and implementation sessions.
 **Written:** 2026-10-10, from a read-only inspection of the repository at `v0.1` / `89d4af3` plus an uncommitted working tree.
 **Relationship to other documents:** `AyurCore AI Portfolio Master Plan.md` remains the project contract (framing, AI capabilities, evaluation rules, the definition of done in its §19). This roadmap does **not** replace it and does not duplicate it; it records what is left, in what order, and how each item is verified. Where the two disagree, §F.4 lists the discrepancy instead of resolving it silently.
 **Synthetic data only. Nothing here is clinical validation.**
@@ -25,9 +25,9 @@
 
 ---
 
-## A. Target definition — what "portfolio-ready" means
+## A. Target definition — what "demonstration-ready" means
 
-AyurCore v0.1 is an **AI-first portfolio project**, not a clinic deployment. It is portfolio-ready when a technical reviewer can, from a clean clone and without the author present:
+AyurCore v0.1 is an **AI-assisted clinic-workflow demonstration for Athma Ayurveda Clinics, Kerala**, not a live clinic deployment. It is demonstration-ready when a clinic stakeholder or technical reviewer can, from a clean clone and without the developer present:
 
 1. understand the problem, the two AI capabilities that were built (AI-1 notes → structured prescription; AI-2 grounded longitudinal patient questions) and the deterministic/AI boundary;
 2. run a demonstration end to end on synthetic data;
@@ -184,7 +184,7 @@ Consequence: the PARA v2 cluster (9 files) is held out of the preservation commi
 
 ## C. Remaining work register
 
-Priorities: **P0** blocks portfolio readiness; **P1** needed for a credible portfolio; **P2** worthwhile; **Opt** optional. Effort ranges assume one reviewed session of focused work ≈ 2–4 hours and are rough; "UNK" means a small inspection must precede an estimate.
+Priorities: **P0** blocks demonstration readiness; **P1** needed for a credible clinic-facing demonstration; **P2** worthwhile; **Opt** optional. Effort ranges assume one reviewed session of focused work ≈ 2–4 hours and are rough; "UNK" means a small inspection must precede an estimate.
 
 ### C.1 Preservation, hygiene and decisions
 **W-01 — Preserve the uncommitted work** · P0 · Status: NS · *Blocked on D-01 (on hold: see F.0)*
@@ -263,7 +263,7 @@ Priorities: **P0** blocks portfolio readiness; **P1** needed for a credible port
 **W-22 — Robustness evidence (master plan Block 9)** · P1 · IVI · consolidate existing adversarial/injection/cross-patient tests (`test_ai2_api.py`, safety-parity and guardrail tests) into a documented matrix and fill gaps. Effort: 1–2 sessions.
 **W-23 — AI-1 single final S1 test run** · P1 · NS · owner-gated one-shot (master plan Block 10). Approval: **yes**. Effort: 0.5 session.
 
-### C.6 Portfolio packaging
+### C.6 Demonstration packaging
 **W-24 — README rewrite** · P0 · NS. Current status, AI-first framing, setup, test procedure, demo, limitations; remove the stale "no remote"/phase-only status. Effort: 1 session.
 **W-25 — Architecture and decisions document** · P0 · NS. Deterministic/AI boundary, AI-1 and AI-2 pipelines, why local models, abstention/verification design, snapshot-consistency design, key trade-offs. Effort: 1–2 sessions.
 **W-26 — Reproducible setup from a clean clone** · P0 · NS · deps W-01, W-08. Fresh clone → install pinned deps → seed demo → run documented checks; artifact regeneration or provenance stated. Evidence: a transcript from a clean clone (not the author's tree). Effort: 1–2 sessions.
@@ -349,9 +349,9 @@ An independent QA pass against §E using only recorded evidence; any unverified 
 
 ---
 
-## E. Final portfolio acceptance checklist
+## E. Final demonstration acceptance checklist
 
-The project is declared portfolio-ready only when **every** line is met with recorded evidence or is moved, with the owner's written agreement, to "Known limitations". All tests passing is **not** sufficient.
+The demonstration is declared ready for review only when **every** line is met with recorded evidence or is moved, with the owner's written agreement, to "Known limitations". All tests passing is **not** sufficient.
 
 **Code and repository**
 - [ ] All intended work committed; remote backup exists; `git status` clean except owner-approved exclusions; no unexplained scripts.
@@ -397,7 +397,7 @@ The project is declared portfolio-ready only when **every** line is met with rec
 6. `/ask` stays DOCTOR-only (provisional). Before the fix freeze, prepare the proposed new protocol version and seek approval for the A6 ADMIN-control change; no RBAC change or protocol freeze without authorization.
 7. No invented validation authorship or native-speaker review; independent work continues and one consolidated request names the human reviewers required and the blocked validation work.
 
-**Execution rule:** work through the remaining authorized blocks in dependency order without per-block approval; stop only at genuine gates (the one-shot acceptance run, any push, Phase 3B). Synthetic data only. Portfolio finish line: a verified, reproducible demo, accurate evaluation evidence and limitations, setup instructions, architecture and API documentation, and the final readiness report; no readiness claim for anything unverified or blocked.
+**Execution rule:** work through the remaining authorized blocks in dependency order without per-block approval; stop only at genuine gates (the one-shot acceptance run, any push, Phase 3B). Synthetic data only. Demonstration finish line: a verified, reproducible demo, accurate evaluation evidence and limitations, setup instructions, architecture and API documentation, and the final readiness report; no readiness claim for anything unverified or blocked.
 
 ### F.0 Owner decisions recorded (2026-10-10)
 
@@ -407,7 +407,7 @@ Recorded only to the extent confirmed in the conversation. A decision here does 
 |---|---|---|
 | D-01 | **Commits and pushes remain on hold until the file manifest, staging strategy, and remote safety are reviewed.** | Authorizes no commit, no push, no staging. Whether the remote is safe, how the accept file and large goldens are handled, and the staging strategy remain **open** pending that review. W-01/W-02 stay blocked. · **decision recorded in F.0; partly open** |
 | D-02 | **`/ask` remains DOCTOR-only provisionally. No RBAC changes are authorized.** | Does not decide whether ADMIN may ever use `/ask`; that question, W-09 and the protocol's A6 ADMIN control stay **open**. · **decision recorded in F.0; partly open** |
-| D-03 | **`frontend/` is the selected portfolio demo surface. No frontend migration is authorized.** | Authorizes no migration to `apps/web/`. Correcting README/CONTRIBUTING wording about `frontend/` being legacy is **not** authorized by this decision. · **decision recorded in F.0; partly open** |
+| D-03 | **`frontend/` is the selected clinic demo surface. No frontend migration is authorized.** | Authorizes no migration to `apps/web/`. Correcting README/CONTRIBUTING wording about `frontend/` being legacy is **not** authorized by this decision. · **decision recorded in F.0; partly open** |
 | D-04 | **Inspect the existing allowlisted scratch test procedure read-only before deciding whether to adopt it. No tests or runner modifications are authorized.** | Does not adopt the procedure and does not authorize running tests, building a sandbox, or changing `run_isolated_tests.py`. The inspection was performed 2026-10-10 (§B.7a); the adoption decision remains with the owner. · **decision recorded in F.0; partly open** |
 
 D-05, D-06 and D-07 have no recorded decision.
@@ -432,9 +432,9 @@ Blocked until AR-1: all commits (Block 2). Blocked until AR-2: Block 3 (item 1�
 |---|---|---|---|
 | D-01 | May the uncommitted work be committed on `v0.1`? How are the restricted accept file (hash-on-add) and large goldens (`ai2_dev_run_09_golden.json`, 579 KB) handled? Is `origin` a safe place to push `v0.1` (it is the clinic project's repository: `v0.1` is a worktree of it)? | W-01, W-02, W-26 | Owner · **decision recorded in F.0; partly open** |
 | D-02 | Should ADMIN be allowed to use `/ask`? (Provisionally DOCTOR-only.) If DOCTOR-only: register a new protocol version changing the A6 ADMIN control. | W-09, W-18, W-15 | Owner (product + RBAC) · **decision recorded in F.0; partly open** |
-| D-03 | Which frontend is the portfolio's demo surface: `frontend/` (where AI-2 UI exists; README calls it legacy) or `apps/web/` (empty)? | W-06, W-27, W-29 | Owner · **decision recorded in F.0; partly open** |
+| D-03 | Which frontend is the clinic demo surface: `frontend/` (where AI-2 UI exists; README calls it legacy) or `apps/web/` (empty)? | W-06, W-27, W-29 | Owner · **decision recorded in F.0; partly open** |
 | D-04 | How to run the full backend suite without touching the accept file: adopt the allowlisted scratch procedure, amend the runner, or amend the hashing test? | W-04, W-05 | Owner · **decision recorded in F.0; partly open** |
-| D-05 | Is the Consultation Brief (AI-3) in scope for "portfolio-ready", or formally descoped (changing master plan §19(6))? | W-21 | Owner |
+| D-05 | Is the Consultation Brief (AI-3) in scope for "demonstration-ready", or formally descoped (changing master plan §19(6))? | W-21 | Owner |
 | D-06 | How should the length mismatch be resolved (limit to 300 in UI/API, or a specific message)? | W-10 | Owner |
 | D-07 | Who authors the validation set so that it stays independent of the fix author (contamination rules), and who is the native reviewer (D2/W-17)? | W-16, W-17 | Owner |
 
