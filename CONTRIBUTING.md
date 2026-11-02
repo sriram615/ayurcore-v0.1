@@ -9,7 +9,7 @@ Two developers share this repository.
 | Area | Owner | Paths |
 |---|---|---|
 | Backend, database, migrations, AI, architecture, backend tests | **Sriram** | `backend/`, `agents/`, `db/`, `migrations/`, `scripts/`, `tests/`, `eval/`, `requirements*.txt`, `constraints.txt` |
-| Frontend / UI (the v0.1 portfolio demo surface, decision D-03) | **Member 2** | `frontend/` (`apps/web/` is a README-only placeholder; no migration to it is authorized) |
+| Frontend / UI (the v0.1 clinic demonstration surface, decision D-03) | **Member 2** | `frontend/` (`apps/web/` is a README-only placeholder; no migration to it is authorized) |
 | API contract, integration testing | **both** | `AyurCore_API_Contract.md`, `docs/FRONTEND_HANDOFF.md` |
 | Legacy Streamlit UI: frozen, to be retired by a separate agreed change | Member 2 (with Sriram's approval) | `ui/`, `.streamlit/`, `tests/test_ui_*.py`, `tests/test_streamlit_config.py` |
 
