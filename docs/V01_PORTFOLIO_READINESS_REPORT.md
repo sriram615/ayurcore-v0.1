@@ -1,10 +1,10 @@
-# AyurCore v0.1 — portfolio readiness report
+# AyurCore v0.1 — demonstration readiness report
 
 Date: 2026-10-10 · Branch `v0.1` at the commit that contains this file · Reviewer: the independent QA session (Claude Sonnet 5.5). All data synthetic. Nothing was pushed, merged, tagged, reset or cleaned.
 
 ## Verdict
 
-**Ready to demonstrate and to present as an engineering portfolio piece, with its limits stated. Not ready to be described as clinically validated, accepted, or deployed — and that is stated in the README.**
+**Ready to demonstrate as a clinic-workflow engineering build, with its limits stated. Not ready to be described as clinically validated, accepted, or deployed — and that is stated in the README.**
 
 - **Ready (verified):** a reproducible local demo (clean clone: setup → seed → AI demo script ran with exit 0); a working DOCTOR-only "Ask about this patient" flow end to end in the browser; AI-3 brief; API contract v1.7; setup, architecture, demo and evaluation documents; test procedures that cannot open the application database or the restricted acceptance set.
 - **Not ready / not claimed:** any unseen-data result for AI-2 (validation sets and the one-shot acceptance run do not exist/were not run); registered gate A6; any clinical claim; AI-1 end-to-end verification in this build; a push/remote backup.
@@ -48,4 +48,4 @@ Date: 2026-10-10 · Branch `v0.1` at the commit that contains this file · Revie
 
 ## What I recommend you do next
 
-Stop adding scope. Record the walkthrough using `docs/V01_DEMO_GUIDE.md` §3 and keep the limits slide from the README table. Then answer requests 1 and 6 first (they protect your work); the rest can wait until after the portfolio is live.
+Stop adding scope. Record the walkthrough using `docs/V01_DEMO_GUIDE.md` §3 and keep the limits slide from the README table. Then answer requests 1 and 6 first (they protect your work); the rest can wait until after the demonstration is ready for review.
