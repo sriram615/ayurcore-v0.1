@@ -299,7 +299,7 @@ export interface PaymentResponse {
 export interface InvoiceResponse {
   prescription_id: number
   clinic_id: string
-  patient_clinic_patient_id: string
+  patient_clinic_patient_id?: string | null
   patient_display_name: string
   dosha_imbalance: string | null
   prescribed_herbs: PrescribedHerb[]

@@ -222,7 +222,7 @@ class InvoiceResponse(BaseModel):
     PII minimization rules."""
     prescription_id: int
     clinic_id: str
-    patient_clinic_patient_id: str
+    patient_clinic_patient_id: Optional[str] = None
     patient_display_name: str
     dosha_imbalance: Optional[str]
     prescribed_herbs: List[PrescribedHerb]

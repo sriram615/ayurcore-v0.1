@@ -133,6 +133,7 @@ HERB_ALIASES = {
 
     # Manjistha
     'manjistha': 'Manjistha',
+    'manjisthi': 'Manjistha',
     'rubia cordifolia': 'Manjistha',
     'മഞ്ചട്ടി': 'Manjistha',
 

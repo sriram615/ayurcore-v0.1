@@ -455,7 +455,7 @@ export function InvoiceModal({
                 </div>
                 <div>
                   <dt>Clinic Patient ID</dt>
-                  <dd className="mono">{invoice.patient_clinic_patient_id}</dd>
+                  <dd className="mono">{invoice.patient_clinic_patient_id || 'Not registered'}</dd>
                 </div>
                 <div>
                   <dt>Dosha Imbalance</dt>

@@ -186,6 +186,9 @@ export function translateApiError(
   if (operation === 'encounter_close' && status === 404) {
     return { category: ErrorCategory.UNKNOWN, message: 'Encounter not found.' }
   }
+  if (operation === 'prescription_invoice' && status === 404) {
+    return { category: ErrorCategory.UNKNOWN, message: 'Invoice not found for this prescription.' }
+  }
 
   if (status === 403) {
     if (text.includes(MARK_CROSS_CLINIC)) {

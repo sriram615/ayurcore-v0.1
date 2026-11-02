@@ -448,6 +448,10 @@ def get_inventory(auth: AuthenticatedSession = Depends(require_role(ROLE_DOCTOR,
     return InventoryResponse(items=[InventoryItem(**item) for item in stock])
 
 
+def _now() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+
+
 # --- Prescription dispensing / payment / invoice (clinic workflow) -----------
 
 @app.post(
@@ -543,7 +547,7 @@ def record_payment(
             if row is None:
                 raise HTTPException(status_code=404, detail="Prescription not found.")
 
-            if row["status"] != "CONFIRMED":
+            if row["status"] not in ("CONFIRMED", "Active"):
                 raise HTTPException(
                     status_code=409,
                     detail="Payment can only be recorded against a confirmed prescription.",
@@ -623,7 +627,7 @@ def get_invoice(
                    p.payment_reference, p.invoice_number, p.dispensed_at,
                    p.created_at, pt.clinic_patient_id
             FROM prescriptions p
-            JOIN patients pt ON pt.patient_pk = p.patient_pk AND pt.clinic_id = p.clinic_id
+            LEFT JOIN patients pt ON pt.patient_pk = p.patient_pk AND pt.clinic_id = p.clinic_id
             WHERE p.id = ? AND p.clinic_id = ?
             """,
             (prescription_pk, auth.clinic_id),
