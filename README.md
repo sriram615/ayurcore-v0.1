@@ -68,7 +68,7 @@ Open `http://localhost:3000` in your browser. Demo credentials are automatically
 ## Golden Path Clinical Journey
 
 When exploring the running system as `dr_sharma`:
-1. **Search Patient**: Look up `P001` (Aarav Patel) or `P003` (Meera Nair) to inspect age, DOB, Prakriti (`Vata-Pitta`), allergies (`Dust, Pollen`), and full address.
+1. **Search Patient**: Look up `DE-0157` (or type `Aarav`) or `PT-8834` (or type `Meera`) to inspect age, DOB, Prakriti (`Vata-Pitta`), allergies (`Dust`), and full address.
 2. **Open Consultation Encounter**: Start a new visit with chief complaint and clinical notes.
 3. **Review AI-3 Consultation Brief**: Read the cited past history summary ranked by salience.
 4. **Draft & Edit Prescription**: Enter clinical notes, extract via local AI-1, review structured herbs, and **edit dosages or dosha directly in UI** before confirmation.
