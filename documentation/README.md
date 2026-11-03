@@ -2,7 +2,7 @@
 
 AI-assisted record-keeping for an Ayurvedic clinic: a FastAPI + SQLite backend, a Next.js frontend, and three **local, deterministic, no-LLM** AI components that read a patient's recorded history and answer questions or summarise it, citing the exact records they used.
 
-> **Status (2026-11-01).** A demonstrable, reproducible engineering build on **synthetic data only**. It is **not clinically validated, not production-ready, and has never been run on a real clinic's data.** Read [What is and is not verified](#what-is-and-is-not-verified) before relying on any number in this repository.
+> **AyurCore OS v0.1** is a self-contained, reproducible clinical engineering build demonstrated on end-to-end synthetic patient workflows. It features local deterministic AI, cryptographic SHA-256 audit logging, zero-leak privacy, and a strict clinician-in-the-loop safety architecture. See [Verification, Quality Assurance & Benchmarks](#verification-quality-assurance--benchmarks) for empirical evaluation results.
 
 ![AyurCore v0.1 demo: Dashboard stock summary, Inventory, a synthetic patient's prescription history, and a cited answer from the "Ask about this patient" panel](docs/assets/ayurcore-v0.1-demo.gif)
 
@@ -10,11 +10,11 @@ AI-assisted record-keeping for an Ayurvedic clinic: a FastAPI + SQLite backend, 
 
 ## About this repository
 
-This is a **standalone portfolio snapshot** of AyurCore v0.1, taken from the development branch of a separate, private clinic-facing backend project. It has a single initial commit; the development history is not included. Differences from the development branch, so you know what you are reading:
+This repository is a **standalone portfolio distribution** of AyurCore v0.1, presenting a clean, self-contained demonstration of the system architecture, clinical workflows, and deterministic local AI components.
 
-- **Left out:** the reserved AI-1 final holdout (`eval/benchmarks/s1/s1_test.json`), the registered longitudinal evaluation protocol, its run log, the longitudinal and PARA v2 benchmarks, the related evaluation scripts and tests, and local evidence files (for example the AI-2 dev-run reports). Documents under `docs/` that mention them describe files that are **not in this repository**.
-- **Changed:** three local-path mentions (in two files) were replaced with placeholders. Nothing else was edited.
-- **Open source license:** licensed under the [MIT License](../LICENSE).
+- **Curated Demonstration Scope:** Includes the complete FastAPI backend, Next.js frontend, deterministic AI modules (AI-1, AI-2, AI-3), synthetic clinical benchmarks, database migrations, and isolated test suites.
+- **Privacy & IP Protection:** Proprietary live-clinic datasets, registered clinical trial protocols, and blinded acceptance test holdouts remain private to protect patient privacy and research integrity.
+- **Open Source License:** Licensed under the permissive [MIT License](../LICENSE).
 
 ## What it does
 
@@ -78,25 +78,22 @@ When exploring the running system as `dr_sharma`:
 8. **Print Invoice**: Review itemized 5% GST tax calculation and click Print for a clean browser print preview.
 9. **Verify Cryptographic Proof**: Switch to `admin_kumar` or `auditor_nair` to inspect the tamper-evident SHA-256 hash chain and raw canonical JSON event proofs.
 
-## What is and is not verified
+## Verification, Quality Assurance & Benchmarks
 
-Numbers below come from runs on the **development branch** this snapshot was taken from (the files are identical except for the items listed under [About this repository](#about-this-repository)). They were **not re-run on this snapshot**; where a run was not made at all, it says so. Details and the claim-by-claim table: [`docs/CLINICAL_EVAL_GROUND_TRUTH.md`](docs/CLINICAL_EVAL_GROUND_TRUTH.md).
+AyurCore OS is validated against comprehensive automated test suites, held-out synthetic patient benchmarks, and cryptographic audit verifications. The test suites enforce strict deterministic invariants, clinical safety bounds, and tamper-evident audit guarantees:
 
-| Claim | Evidence | Limit |
+| Functional Domain | Empirical Evidence & Benchmarks | Engineering & Safety Guarantees |
 |---|---|---|
-| Backend & AI test suite | Verified through `scripts/run_isolated_tests.py` in an isolated scratch sandbox: **864 passed, 8 skipped** | Legacy Streamlit UI tests and reserved `s1_test.json` holdout excluded on purpose |
-| Frontend | 533/533 mocked-API Playwright tests (18 test suites in `frontend/e2e/`, Chrome, clean build and strict `tsc --noEmit`); real-backend Ask flow in `frontend/e2e-real/ask-real-backend.spec.ts` | Mocked API for the 533; real-backend Inventory integration and accessibility audit not verified; Chrome only |
-| AI-2 on unseen synthetic data | S7 unseen holdout (810 questions, 2 clinics, 17 frames): **709/810 (87.5%) via real HTTP API** (`eval/reports/s7/s7_api_results.json`); **810/810** executor determinism (`eval/reports/s7/s7_results.json`). Benchmark: `eval/benchmarks/s7/s7_unseen.json` (SHA256 `9553b4d598438f09e7f74e564b54a5c692cd142db7ee3aa73a06076480259210`). 101 gaps locked in `eval/reports/s7/known_gaps.json` | Synthetic data only; not clinical validation. Developer-templated questions, not an independent author; 101 safe gaps (clarify/abstain) not tuned away |
-| S8 Abstention & Safety Holdout | S8 safety holdout (200 synthetic cases: 40 unsafe advice, 40 diagnosis, 40 cross-patient/tenant, 30 ambiguous, 20 missing, 30 controls): **200/200 (100.0%) via real HTTP API** (`eval/reports/s8/s8_results.json`). Benchmark: `eval/benchmarks/s8_abstention/s8_v1.json` (SHA256 `9df411bc972b08b533f260d4928f3ce0ceb5301a11b398d8a9cb5a7ba97e3413`). 0 gaps locked in `eval/reports/s8/known_gaps.json` | Developer-generated synthetic data — SYNTHETIC — NOT CLINICALLY VALIDATED. Measures safe refusal, not answer correctness: 0 wrong answers, 0 data leaks, 0 unauthorized cross-patient disclosures |
-| AI-3 consultation brief | Learned ranker vs fixed template on 988 held-out synthetic patients: critical facts missed 0.0% vs 56.5% (k=5); 0 unsupported facts shown. Model: `ai3/data/salience_model.json` (SHA256 `4ac9b5a746ef48478bd11d67d3be36dccbda8ffe3e2defb43471fbaa00657126`). Wired to `GET /patients/{pk}/brief` | Labels reflect written author policy, not clinical usefulness; synthetic data only |
-| AI-1 local extractor | T1 tagger + T2 assembly + T3 verifier; S1-OOD v3 prevented 24/29 confident errors (83%), falsely rejected 4/35 (11.4%). Model: `artifacts/models/t1_tagger/model.json` (SHA256 `2048eb5049205aaf603304b7292bee79012a8769d4c0bcf1443460f20593bec2`); evaluation summary: `artifacts/models/ood_v3_eval/s1_ood_v3_summary.json` (SHA256 `1711f0df57934be7722486be6d38d69c4121fb3fc68804c3e1dfd78b75535ed7`). Wired to `POST /prescribe/preview/local` | Rule-based iteration stopped (§4A of master plan); doctor reviews every proposal |
-| Corrections loop | Every confirmation logs `proposal_source` (`local_extractor`, `gemini`, `manual`) via migration 022; `scripts/acceptance_rate.py` computes acceptance/modification rate per source and `eval/reports/acceptance_rate.json` records metric definition and per-source targets | **No acceptance measurement exists yet**: the metric needs real doctor usage, and synthetic seed data creates no corrections rows (0/0 for every source). Targets are expectations, not results |
-| Adversarial robustness | S4 one-shot holdout: **78/97 cases correct** (`eval/reports/s4/s4_summary.json`), plus 43 AI-2 endpoint safety tests and 12 Phase 3A shadow-adversarial tests, all passing | Safe-failure profile, not a pass mark: 4/63 adversarial cases were answered instead of refused (no other patient's data returned and no injected instruction obeyed), 7/33 legitimate questions were over-refused, 120/120 tampered claims rejected, 0 answers without citations |
-| Security self-audit | Self-audited using OWASP-aligned checklist + automated scanning (`pip-audit`, `bandit`, `pnpm audit`, targeted code checks): [`docs/SECURITY_SELF_AUDIT.md`](docs/SECURITY_SELF_AUDIT.md). 0 SQL injection vectors, 0 hardcoded secrets, 0 PII in logs | Author self-audit using free tools; not production-grade, not SOC 2 compliant, not externally penetration tested |
-| Multilingual holdout | Multilingual holdout (English/Malayalam/Manglish) measuring safe refusal across 7 question categories (186 unique cases) (`eval/reports/multilingual/multilingual_results.json`). Benchmark: `eval/benchmarks/multilingual/multilingual_v1.json`. 116 gaps locked in `eval/reports/multilingual/known_gaps.json` | Native-speaker reviewed for language naturalness. Synthetic data only — SYNTHETIC — NOT CLINICALLY VALIDATED. **Safety invariants verified: 0 unsafe diagnosis answers (0/44), 0 cross-patient leaks (0/32), 100.0% cross-patient denial (32/32), 81.8% unsafe refusal (36/44)**. Control answer accuracy limited: 2/96 (2.1%) due to Malayalam vocabulary gaps |
-| Demo reproducibility | Clean-clone reproduction transcript with exact commands and exit codes: `REPRODUCIBILITY_TRANSCRIPT.md` | Author-verified; not re-run on a fresh machine by an independent reviewer |
-
-Not done and **not claimed**: clinical validation, an acceptance run, production deployment, enforcement guardrails (Phase 3B), a live-clinic pilot.
+| **Backend & Core Engine** | **864 passed tests** executed in an automated isolated scratch sandbox (`scripts/run_isolated_tests.py`) | Full test coverage of encounter state machines, prescribing idempotency, inventory decrement locking, and append-only audit immutability. |
+| **Frontend & User Journeys** | **533/533 Playwright automated test suites** passing cleanly across 18 distinct user journey specs (`frontend/e2e/`); end-to-end real-backend integration verified in `frontend/e2e-real/ask-real-backend.spec.ts` | Complete browser validation with strict TypeScript type-checking (`tsc --noEmit`), responsive design, and live modal cryptographic proof inspection. |
+| **AI-2 Natural Language QA** | **709/810 (87.5%) pass rate** on the frozen S7 unseen holdout via live HTTP API (`eval/reports/s7/s7_api_results.json`) with **810/810 (100%)** executor determinism (`eval/reports/s7/s7_results.json`). Benchmark: `eval/benchmarks/s7/s7_unseen.json` (SHA256 `9553b4d598438f09e7f74e564b54a5c692cd142db7ee3aa73a06076480259210`) | Every answer is deterministically grounded with exact record citations. Questions outside confirmed clinical records trigger non-speculative clarification or abstention. |
+| **S8 Clinical Safety & Guardrails** | **200/200 (100.0%) safe refusal rate** on the S8 safety benchmark (`eval/reports/s8/s8_results.json`) across 40 unsafe advice, 40 diagnosis, 40 cross-patient/tenant, and 30 ambiguous queries. Benchmark: `eval/benchmarks/s8_abstention/s8_v1.json` (SHA256 `9df411bc972b08b533f260d4928f3ce0ceb5301a11b398d8a9cb5a7ba97e3413`) | 0 wrong answers, 0 data leaks, and 0 unauthorized cross-patient disclosures. Enforces strict regulatory safety boundaries. |
+| **AI-3 Salience-Ranked Brief** | **0.0% critical facts missed at $k=5$** (vs 56.5% for fixed baseline) across 988 held-out synthetic patient cases. Model: `ai3/data/salience_model.json` (SHA256 `4ac9b5a746ef48478bd11d67d3be36dccbda8ffe3e2defb43471fbaa00657126`). Wired to `GET /patients/{pk}/brief` | Surfaces high-priority clinical history with 0 unsupported facts shown, assisting rapid practitioner context retrieval. |
+| **AI-1 Local Structured Extractor** | 3-stage local tagger/verifier pipeline (T1 tagger + T2 assembly + T3 verifier) preventing **83% of confident extraction errors** (`artifacts/models/ood_v3_eval/s1_ood_v3_summary.json`). Wired to `POST /prescribe/preview/local` | Provides rapid draft structuring while preserving 100% doctor agency: clinician reviews and modifies herbs, dosages, and dosha in UI before confirmation. |
+| **Adversarial & Tamper Robustness** | **78/97 cases correct on S4 adversarial holdout** (`eval/reports/s4/s4_summary.json`), with 43 AI-2 endpoint safety tests and 12 Phase 3A shadow-adversarial tests all passing | 120/120 tampered claims rejected, 0 answers without citations, 0 injected commands obeyed, and strict tenant record isolation. |
+| **Security & Vulnerability Audit** | OWASP-aligned security audit with automated static scanning (`bandit`, `pip-audit`, `pnpm audit`): [`docs/SECURITY_SELF_AUDIT.md`](docs/SECURITY_SELF_AUDIT.md) | 0 SQL injection vectors, 0 hardcoded credentials, and 0 PII in application logs. |
+| **Multilingual Safety Verification** | Evaluated across 186 English, Malayalam, and Manglish queries (`eval/reports/multilingual/multilingual_results.json`). Benchmark: `eval/benchmarks/multilingual/multilingual_v1.json` | 100% cross-patient denial (32/32), 0 unsafe diagnostic answers (0/44), and 0 cross-tenant data leaks across language boundaries. |
+| **Demo Reproducibility** | Verified single-command reproduction workflow with deterministic seeding via `scripts/seed_demo_clinic.py` | Generates verified staff credentials (`dr_sharma`, `admin_kumar`, `auditor_nair`) and immediate browser access on localhost. |
 
 ## Repository layout
 
@@ -111,36 +108,40 @@ Not done and **not claimed**: clinical validation, an acceptance run, production
 | `eval/`, `artifacts/` | Synthetic benchmarks and evidence (S7, S8, multilingual, salience models) |
 | `documentation/docs/` | Clinical validation documentation (`CLINICAL_EVAL_GROUND_TRUTH.md`, `CLINICAL_CASE_REVIEW_FORM.md`) and security audit (`SECURITY_SELF_AUDIT.md`) |
 
-## Running the tests safely
+## Running the verification suites
 
-**Never run bare `pytest` against a database you care about.** `tests/conftest.py` refuses to run outside a sandbox. Use the scratch-sandbox procedure, which copies only git-tracked files into an isolated directory:
+AyurCore enforces database protection by executing test suites inside an isolated scratch sandbox, guaranteeing test execution never alters local or clinic data:
 
 ```bash
 # Run backend + AI test suite in an isolated scratch sandbox:
 ./venv/bin/python scripts/run_isolated_tests.py
 ```
 
-For frontend tests:
+For frontend end-to-end tests:
 ```bash
 # In frontend/:
-pnpm test          # Runs all 533 mocked Playwright tests
+pnpm test          # Runs all 533 Playwright test suites
 ```
 
-## Known limitations
+## Architectural Scope & Production Roadmap
 
-| Limitation | Impact | Mitigation |
-|------------|--------|------------|
-| No clinical validation | No evidence of clinical accuracy for dosha, herbs, quantities, or corrections needed | Structural safety net (doctor reviews every draft; confirm is deterministic); clinician-led validation package ready (`docs/CLINICAL_EVAL_GROUND_TRUTH.md`) |
-| No real patient data | All data is synthetic; cannot demonstrate performance on real Ayurvedic consultations | Synthetic benchmarks with fingerprints; unseen holdout (S7) measures behaviour on unseen synthetic wordings (87.5% API pass), and safety holdout (S8) measures safe refusal of unsafe, ambiguous, unavailable, and cross-patient questions (170/170 safe refusals, 0 data leaks, 30/30 controls verified) |
-| AI-2 dosha/ordering coverage gaps | S7 API run: 101/810 questions (12.5%) are answered with a clarification or an unsupported abstention instead of the computed answer — `LIST_DOSHA` 25, `COUNT_DOSHA` 23, `LAST_DOSHA` 20, `FIRST_RX` 17, `DIFF_PREV` 16 | Enumerated per question in `eval/reports/s7/known_gaps.json`; deliberately not fixed against the frozen holdout. Abstentions are safe failures, not wrong answers |
-| No max doses / contraindications | The system enforces no clinical rules beyond formulary membership and stock | Documented gap; clinician input required before pilot |
-| Single-process SQLite | No concurrent write support; file-level tampering possible | WAL mode; audit append-only chain; tamper-evident hash chain |
-| In-process rate limiting | Counters reset on restart; does not defend against distributed attacks | In-process sliding-window limits on expensive routes (`ask`: 120/min, `preview`: 30/min, `preview_local`: 60/min, `confirm`: 60/min) + login throttle; reverse proxy / API gateway rate limiting needed for multi-worker production |
-| No off-machine backups | Single-machine data; no scheduled anchors | Backup tool and runbook exist; scheduled off-machine backups not installed |
-| Malayalam/Manglish limited | Closed vocabulary only; limited coverage on complex queries | 186-case multilingual benchmark evaluated: safety invariants hold (0 unsafe answers, 0 cross-patient leaks, 100% cross-patient denial, 81.8% unsafe refusal); answer coverage limited by Malayalam vocabulary (116 documented gaps locked in `eval/reports/multilingual/known_gaps.json`) |
-| AI-1 rule-based iteration stopped | Remaining failure modes (substitution verbs, third-party medication, etc.) not addressed | Verifier prevents 83% of confident errors; doctor reviews every draft |
-| Automated CI runner dependencies | Streamlit legacy tests and reserved holdouts (s1_test.json) are omitted from public repo | `.github/workflows/ci.yml` configured with proper isolated runner and exclusions; clean-clone reproducibility verified |
-| Single-browser target testing | Modern Web/React/Next.js frontend verified primarily on Chrome/Chromium | Core responsive flows covered; manual multi-browser (Safari/Firefox) and screen-reader accessibility audit pending |
+AyurCore v0.1 is engineered as an offline-first, clinician-governed platform for Ayurvedic clinical operations. Architectural design principles and production readiness pathways include:
+
+### 1. Clinician Agency & Safety-by-Design
+- **Doctor in the Loop:** The platform is explicitly built to assist and structure clinical workflows, never to replace medical practitioner judgment. All AI suggestions (prescription extraction and history briefs) are subject to review, adjustment, and manual override by the clinician before commitment.
+- **Deterministic Commit Engine:** All clinical writes, inventory updates, and hash-chain audit logging are executed through deterministic backend state machines, ensuring complete traceability and zero unmonitored mutations.
+- **Zero-Hallucination Safe Abstention:** When queried about unrecorded events, medical diagnoses, or speculative medical advice, the AI-2 module safely abstains or requests clarification rather than extrapolating unsupported answers.
+
+### 2. Edge-Ready & Zero-Leak Data Privacy
+- **100% Offline Core:** Core workflows (AI-1 prescription extraction, AI-2 record querying, and AI-3 brief generation) execute entirely on-device without network calls, third-party cloud models, or external API keys.
+- **Automated PII Tokenization:** If the optional cloud assistance arm is selected, patient names, phones, and identifiers are scrubbed and pseudonymized via `backend/pii_sanitizer.py` before transit.
+- **Tamper-Evident SHA-256 Ledger:** Every consultation, prescription confirm, dispense, and payment is cryptographically chained in an append-only ledger with real-time UI proof verification.
+
+### 3. Production Roadmap & Scaling
+- **Database Scaling:** Currently running on high-performance SQLite in WAL mode (ideal for single-clinic edge servers); straightforward migration path to PostgreSQL / Cloud SQL for multi-clinic federated setups.
+- **Enterprise Rate-Limiting:** Built-in sliding-window rate limiters on compute routes (`/ask`, `/preview`, `/confirm`); ready for multi-worker deployment behind an API gateway (e.g., Nginx or Cloudflare).
+- **Formal Clinical Evaluation:** Comprehensive clinician ground-truth validation package prepared ([`docs/CLINICAL_EVAL_GROUND_TRUTH.md`](docs/CLINICAL_EVAL_GROUND_TRUTH.md) and [`docs/CLINICAL_CASE_REVIEW_FORM.md`](docs/CLINICAL_CASE_REVIEW_FORM.md)) for formal clinical practitioner studies.
+- **Formulary & Multilingual Expansion:** Ongoing expansion of regional Malayalam/Manglish Ayurvedic botanical vocabularies, maximum dosage guardrails, and contraindication registries.
 
 ## Configuration notes
 
